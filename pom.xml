@@ -8,5 +8,14 @@
     <artifactId>music-composer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>jMusic</groupId>
+            <artifactId>jm.music</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jMusic1.6.4.jar</systemPath>
+        </dependency>
+    </dependencies>
 
 </project>
