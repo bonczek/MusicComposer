@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by adam on 02.01.16.
  */
-interface GeneticMutator<T extends Object> {
+interface GeneticMutation<T extends Object> {
 
     /**
      * Mutate chromosomes.

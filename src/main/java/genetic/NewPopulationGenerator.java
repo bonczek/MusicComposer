@@ -11,13 +11,13 @@ import java.util.List;
 public class NewPopulationGenerator<T extends Object> {
 
     private final GeneticSelector<T> geneticSelector;
-    private final GeneticMutator<T> geneticMutator;
+    private final GeneticMutation<T> geneticMutation;
     private final GeneticCrossover<T> geneticCrossover;
     private List<Chromosome<T>> newPopulation;
 
-    public NewPopulationGenerator(GeneticSelector<T> geneticSelector, GeneticMutator<T> geneticMutator, GeneticCrossover<T> geneticCrossover) {
+    public NewPopulationGenerator(GeneticSelector<T> geneticSelector, GeneticMutation<T> geneticMutation, GeneticCrossover<T> geneticCrossover) {
         this.geneticSelector = geneticSelector;
-        this.geneticMutator = geneticMutator;
+        this.geneticMutation = geneticMutation;
         this.geneticCrossover = geneticCrossover;
         this.newPopulation = new ArrayList<>();
     }
@@ -28,7 +28,7 @@ public class NewPopulationGenerator<T extends Object> {
         while (newPopulation.size() < populationSize) {
             List<Chromosome<T>> selectedChromosomes = geneticSelector.selectChromosomes(population, fitnessValues);
             geneticCrossover.crossOverChromosomes(selectedChromosomes);
-            geneticMutator.mutate(selectedChromosomes);
+            geneticMutation.mutate(selectedChromosomes);
 
             selectedChromosomes.forEach(newPopulation::add);
         }
