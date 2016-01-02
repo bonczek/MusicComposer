@@ -1,8 +1,9 @@
 package genetic;
 
+import genetic.selection.GeneticSelector;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by adam on 02.01.16.
@@ -21,11 +22,11 @@ public class NewPopulationGenerator<T extends Object> {
         this.newPopulation = new ArrayList<>();
     }
 
-    List<Chromosome<T>> generateNewPopulation(Map<Chromosome<T>, Integer> populationWithFitness) {
-        int populationSize = populationWithFitness.size();
+    List<Chromosome<T>> generateNewPopulation(List<Chromosome<T>> population, List<Integer> fitnessValues) {
+        int populationSize = population.size();
 
         while (newPopulation.size() < populationSize) {
-            List<Chromosome<T>> selectedChromosomes = geneticSelector.selectChromosomes(populationWithFitness);
+            List<Chromosome<T>> selectedChromosomes = geneticSelector.selectChromosomes(population, fitnessValues);
             geneticCrossover.crossOverChromosomes(selectedChromosomes);
             geneticMutator.mutate(selectedChromosomes);
 

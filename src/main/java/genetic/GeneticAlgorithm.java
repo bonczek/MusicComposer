@@ -1,7 +1,6 @@
 package genetic;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by adam on 02.01.16.
@@ -26,8 +25,8 @@ public class GeneticAlgorithm {
 
         int iteration = 0;
         while (nextPopulation(iteration)) {
-            Map<Chromosome<T>, Integer> fitnessValues = fitnessFunction.calculateFitness(population);
-            population = populationGenerator.generateNewPopulation(fitnessValues);
+            List<Integer> fitnessValues = fitnessFunction.calculateFitness(population);
+            population = populationGenerator.generateNewPopulation(population, fitnessValues);
             iteration++;
         }
     }

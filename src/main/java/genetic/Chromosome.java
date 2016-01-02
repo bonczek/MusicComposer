@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by adam on 02.01.16.
  */
-public abstract class Chromosome<T extends Object> {
+public class Chromosome<T extends Object> {
 
     protected final List<T> genes;
     private final int size;
