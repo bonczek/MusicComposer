@@ -7,11 +7,11 @@ import java.util.List;
  */
 public class GeneticAlgorithm {
 
-    private final InitialPopulationGenerator initialGenerator;
+    private InitialPopulationGenerator initialGenerator;
 
-    private final NewPopulationGenerator populationGenerator;
+    private NewPopulationGenerator populationGenerator;
 
-    private final FitnessFunction fitnessFunction;
+    private FitnessFunction fitnessFunction;
 
     public GeneticAlgorithm(InitialPopulationGenerator initialGenerator, NewPopulationGenerator populationGenerator, FitnessFunction fitnessFunction) {
         this.initialGenerator = initialGenerator;

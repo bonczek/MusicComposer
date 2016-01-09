@@ -1,5 +1,7 @@
 package genetic;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,6 +15,14 @@ public class Chromosome<T extends Object> {
     public Chromosome(List<T> genes) {
         this.genes = genes;
         this.size = genes.size();
+    }
+
+    public List<T> getGenes() {
+        return Collections.unmodifiableList(genes);
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public T getGene(int index) throws IndexOutOfBoundsException {
@@ -30,4 +40,25 @@ public class Chromosome<T extends Object> {
             throw new IndexOutOfBoundsException(String.format("Cannot find in chromosome gen with index: %d.", index));
         }
     }
+
+    public List<T> getPart(int fromIndex, int toIndex) {
+        //@todo toIndex > fromIndex ...
+        if (toIndex < size + 1 && fromIndex >= 0) {
+            return new ArrayList<>(genes.subList(fromIndex, toIndex));
+        } else {
+            throw new IndexOutOfBoundsException(String.format("Cannot find in chromosome gen with index: %d.", toIndex));
+        }
+    }
+
+    public void setPart(List<T> part, int fromIndex, int toIndex) {
+        //part.size < toIndex - fromIndex
+        if (toIndex < size + 1 && fromIndex >= 0) {
+            int i = fromIndex;
+            for (T gene : part) {
+                genes.set(i, gene);
+                i++;
+            }
+        }
+    }
+
 }

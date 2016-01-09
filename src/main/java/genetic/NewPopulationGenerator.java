@@ -1,5 +1,7 @@
 package genetic;
 
+import genetic.crossover.GeneticCrossover;
+import genetic.mutation.GeneticMutation;
 import genetic.selection.GeneticSelector;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class NewPopulationGenerator<T extends Object> {
 
         while (newPopulation.size() < populationSize) {
             List<Chromosome<T>> selectedChromosomes = geneticSelector.selectChromosomes(population, fitnessValues);
-            geneticCrossover.crossOverChromosomes(selectedChromosomes);
+            geneticCrossover.crossOver(selectedChromosomes);
             geneticMutation.mutate(selectedChromosomes);
 
             selectedChromosomes.forEach(newPopulation::add);
