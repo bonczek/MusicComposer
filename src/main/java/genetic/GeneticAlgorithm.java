@@ -1,5 +1,8 @@
 package genetic;
 
+import genetic.initial.InitialPopulationGenerator;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +22,9 @@ public class GeneticAlgorithm {
         this.fitnessFunction = fitnessFunction;
     }
 
-    public <T extends Object> void run() {
+    public void run() {
         //initial population
-        List<Chromosome<T>> population = initialGenerator.generatePopulation(16);
+        List<Chromosome> population = initialGenerator.generatePopulation(16, 32, new ArrayList<>());
 
         int iteration = 0;
         while (nextPopulation(iteration)) {

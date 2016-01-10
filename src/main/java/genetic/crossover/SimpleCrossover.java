@@ -1,20 +1,21 @@
 package genetic.crossover;
 
 import genetic.Chromosome;
+import genetic.Gene;
 
 import java.util.List;
 
 /**
  * Created by adam on 09.01.16.
  */
-public class SimpleCrossover<T extends Object> extends GeneticCrossover<T> {
+public class SimpleCrossover extends GeneticCrossover {
 
     public SimpleCrossover(double crossoverRate) {
         super(crossoverRate);
     }
 
     @Override
-    public void crossOverChromosomes(List<Chromosome<T>> chromosomes) {
+    public void crossOverChromosomes(List<Chromosome> chromosomes) {
         if (!chromosomes.isEmpty() && chromosomes.size() == 2) {
             replaceHalfChromosomes(chromosomes.get(0), chromosomes.get(1));
         } else {
@@ -22,12 +23,12 @@ public class SimpleCrossover<T extends Object> extends GeneticCrossover<T> {
         }
     }
 
-    private void replaceHalfChromosomes(Chromosome<T> first, Chromosome<T> second) {
+    private void replaceHalfChromosomes(Chromosome first, Chromosome second) {
         int chromosomeLength = first.getSize();
         int half = chromosomeLength / 2;
 
-        List<T> firstRightHalf = first.getPart(half, chromosomeLength);
-        List<T> secondRightHalf = second.getPart(half, chromosomeLength);
+        List<Gene> firstRightHalf = first.getPart(half, chromosomeLength);
+        List<Gene> secondRightHalf = second.getPart(half, chromosomeLength);
 
         first.setPart(secondRightHalf, half, chromosomeLength);
         second.setPart(firstRightHalf, half, chromosomeLength);

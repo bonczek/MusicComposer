@@ -10,25 +10,25 @@ import java.util.List;
 /**
  * Created by adam on 02.01.16.
  */
-public class NewPopulationGenerator<T extends Object> {
+public class NewPopulationGenerator {
 
-    private final GeneticSelector<T> geneticSelector;
-    private final GeneticMutation<T> geneticMutation;
-    private final GeneticCrossover<T> geneticCrossover;
-    private List<Chromosome<T>> newPopulation;
+    private final GeneticSelector geneticSelector;
+    private final GeneticMutation geneticMutation;
+    private final GeneticCrossover geneticCrossover;
+    private List<Chromosome> newPopulation;
 
-    public NewPopulationGenerator(GeneticSelector<T> geneticSelector, GeneticMutation<T> geneticMutation, GeneticCrossover<T> geneticCrossover) {
+    public NewPopulationGenerator(GeneticSelector geneticSelector, GeneticMutation geneticMutation, GeneticCrossover geneticCrossover) {
         this.geneticSelector = geneticSelector;
         this.geneticMutation = geneticMutation;
         this.geneticCrossover = geneticCrossover;
         this.newPopulation = new ArrayList<>();
     }
 
-    List<Chromosome<T>> generateNewPopulation(List<Chromosome<T>> population, List<Integer> fitnessValues) {
+    List<Chromosome> generateNewPopulation(List<Chromosome> population, List<Integer> fitnessValues) {
         int populationSize = population.size();
 
         while (newPopulation.size() < populationSize) {
-            List<Chromosome<T>> selectedChromosomes = geneticSelector.selectChromosomes(population, fitnessValues);
+            List<Chromosome> selectedChromosomes = geneticSelector.selectChromosomes(population, fitnessValues);
             geneticCrossover.crossOver(selectedChromosomes);
             geneticMutation.mutate(selectedChromosomes);
 

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by adam on 02.01.16.
  */
-public interface GeneticSelector<T extends Object> {
+public interface GeneticSelector {
 
-    List<Chromosome<T>> selectChromosomes(List<Chromosome<T>> population, List<Integer> fitnessValues);
+    List<Chromosome> selectChromosomes(List<Chromosome> population, List<Integer> fitnessValues);
 }

@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Created by adam on 02.01.16.
  */
-public class BinaryTournamentSelection<T extends Object> implements GeneticSelector<T> {
+public class BinaryTournamentSelection implements GeneticSelector {
 
     private final Random numberGenerator;
 
@@ -18,18 +18,18 @@ public class BinaryTournamentSelection<T extends Object> implements GeneticSelec
     }
 
     @Override
-    public List<Chromosome<T>> selectChromosomes(List<Chromosome<T>> population, List<Integer> fitnessValues) {
-        List<Chromosome<T>> selectedChromosomes = new ArrayList<>();
+    public List<Chromosome> selectChromosomes(List<Chromosome> population, List<Integer> fitnessValues) {
+        List<Chromosome> selectedChromosomes = new ArrayList<>();
         selectedChromosomes.add(binaryTournamentSelection(population, fitnessValues));
         selectedChromosomes.add(binaryTournamentSelection(population, fitnessValues));
         return selectedChromosomes;
     }
 
-    private Chromosome<T> binaryTournamentSelection(List<Chromosome<T>> population, List<Integer> fitnessValues) {
+    private Chromosome binaryTournamentSelection(List<Chromosome> population, List<Integer> fitnessValues) {
         int firstParentIndex = numberGenerator.nextInt(population.size());
-        Chromosome<T> firstParent = population.get(firstParentIndex);
+        Chromosome firstParent = population.get(firstParentIndex);
         int secondParentIndex = numberGenerator.nextInt(population.size());
-        Chromosome<T> secondParent = population.get(secondParentIndex);
+        Chromosome secondParent = population.get(secondParentIndex);
 
         if (fitnessValues.get(firstParentIndex) > fitnessValues.get(secondParentIndex)) {
             return firstParent;

@@ -14,5 +14,5 @@ interface FitnessFunction {
      * @param <T>        type of gen representation
      * @return list of fitness values corresponding to chromosome population
      */
-    public <T extends Object> List<Integer> calculateFitness(List<Chromosome<T>> population);
+    public <T extends Object> List<Integer> calculateFitness(List<Chromosome> population);
 }

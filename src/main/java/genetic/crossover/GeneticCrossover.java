@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by adam on 02.01.16.
  */
-public abstract class GeneticCrossover<T extends Object> {
+public abstract class GeneticCrossover {
 
     private final GeneticGuard guard;
 
@@ -21,7 +21,7 @@ public abstract class GeneticCrossover<T extends Object> {
      *
      * @param chromosomes cross over candidates
      */
-    public void crossOver(List<Chromosome<T>> chromosomes) {
+    public void crossOver(List<Chromosome> chromosomes) {
         if (guard.permitOperation()) {
             crossOverChromosomes(chromosomes);
         }
@@ -32,5 +32,5 @@ public abstract class GeneticCrossover<T extends Object> {
      *
      * @param chromosomes pair of chromosomes to cross over
      */
-    protected abstract void crossOverChromosomes(List<Chromosome<T>> chromosomes);
+    protected abstract void crossOverChromosomes(List<Chromosome> chromosomes);
 }

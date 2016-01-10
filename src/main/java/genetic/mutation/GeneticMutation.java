@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by adam on 02.01.16.
  */
-public abstract class GeneticMutation<T extends Object> {
+public abstract class GeneticMutation {
 
     private final GeneticGuard guard;
 
@@ -21,8 +21,8 @@ public abstract class GeneticMutation<T extends Object> {
      *
      * @param chromosomes mutation candidates
      */
-    public void mutate(List<Chromosome<T>> chromosomes) {
-        for (Chromosome<T> chromosome : chromosomes) {
+    public void mutate(List<Chromosome> chromosomes) {
+        for (Chromosome chromosome : chromosomes) {
             if (guard.permitOperation()) {
                 mutateChromosome(chromosome);
             }
@@ -34,6 +34,6 @@ public abstract class GeneticMutation<T extends Object> {
      *
      * @param chromosome single chromosome to mutate
      */
-    protected abstract void mutateChromosome(Chromosome<T> chromosome);
+    protected abstract void mutateChromosome(Chromosome chromosome);
 
 }

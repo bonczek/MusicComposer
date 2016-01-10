@@ -1,4 +1,6 @@
-package genetic;
+package genetic.initial;
+
+import genetic.Chromosome;
 
 import java.util.List;
 
@@ -12,5 +14,5 @@ public interface InitialPopulationGenerator {
      *
      * @return initial population of chromosomes
      */
-    <T extends Object> List<Chromosome<T>> generatePopulation(int size);
+    List<Chromosome> generatePopulation(int size, int chromosomeLength, List<Integer> availableValues);
 }

@@ -1,31 +1,36 @@
 package genetic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by adam on 02.01.16.
  */
-public class Chromosome<T extends Object> {
+public class Chromosome {
 
-    protected final List<T> genes;
+    protected final List<Gene> genes;
     private final int size;
 
-    public Chromosome(List<T> genes) {
+    public Chromosome(List<Gene> genes) {
         this.genes = genes;
         this.size = genes.size();
     }
 
-    public List<T> getGenes() {
-        return Collections.unmodifiableList(genes);
+    public static Chromosome createWithIntegerValues(List<Integer> values) {
+        List<Gene> genes = values.stream().map(value -> new Gene(value.shortValue())).collect(Collectors.toList());
+        return new Chromosome(genes);
+    }
+
+    public List<Integer> getGenesValues() {
+        return genes.stream().map(gene -> gene.getValue().intValue()).collect(Collectors.toList());
     }
 
     public int getSize() {
         return size;
     }
 
-    public T getGene(int index) throws IndexOutOfBoundsException {
+    public Gene getGene(int index) throws IndexOutOfBoundsException {
         if (index < size) {
             return genes.get(index);
         } else {
@@ -33,7 +38,7 @@ public class Chromosome<T extends Object> {
         }
     }
 
-    public void setGene(int index, T value) throws IndexOutOfBoundsException {
+    public void setGene(int index, Gene value) throws IndexOutOfBoundsException {
         if (index < size) {
             genes.set(index, value);
         } else {
@@ -41,7 +46,7 @@ public class Chromosome<T extends Object> {
         }
     }
 
-    public List<T> getPart(int fromIndex, int toIndex) {
+    public List<Gene> getPart(int fromIndex, int toIndex) {
         //@todo toIndex > fromIndex ...
         if (toIndex < size + 1 && fromIndex >= 0) {
             return new ArrayList<>(genes.subList(fromIndex, toIndex));
@@ -50,11 +55,11 @@ public class Chromosome<T extends Object> {
         }
     }
 
-    public void setPart(List<T> part, int fromIndex, int toIndex) {
+    public void setPart(List<Gene> part, int fromIndex, int toIndex) {
         //part.size < toIndex - fromIndex
         if (toIndex < size + 1 && fromIndex >= 0) {
             int i = fromIndex;
-            for (T gene : part) {
+            for (Gene gene : part) {
                 genes.set(i, gene);
                 i++;
             }
