@@ -2,6 +2,7 @@ package genetic;
 
 import genetic.crossover.GeneticCrossover;
 import genetic.mutation.GeneticMutation;
+import genetic.representation.Chromosome;
 import genetic.selection.GeneticSelector;
 
 import java.util.ArrayList;

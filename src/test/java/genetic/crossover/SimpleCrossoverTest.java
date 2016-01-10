@@ -1,6 +1,6 @@
 package genetic.crossover;
 
-import genetic.Chromosome;
+import genetic.representation.Chromosome;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;

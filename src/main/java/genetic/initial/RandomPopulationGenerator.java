@@ -1,7 +1,7 @@
 package genetic.initial;
 
-import genetic.Chromosome;
-import genetic.Gene;
+import genetic.representation.Chromosome;
+import genetic.representation.Gene;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,8 @@
 package genetic;
 
+import genetic.fitness.FitnessFunction;
 import genetic.initial.InitialPopulationGenerator;
+import genetic.representation.Chromosome;
 
 import java.util.ArrayList;
 import java.util.List;

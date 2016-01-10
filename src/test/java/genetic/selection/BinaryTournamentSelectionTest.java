@@ -1,6 +1,6 @@
 package genetic.selection;
 
-import genetic.Chromosome;
+import genetic.representation.Chromosome;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 

@@ -1,6 +1,6 @@
 package genetic.selection;
 
-import genetic.Chromosome;
+import genetic.representation.Chromosome;
 
 import java.util.ArrayList;
 import java.util.List;

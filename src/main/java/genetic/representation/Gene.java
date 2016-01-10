@@ -1,4 +1,4 @@
-package genetic;
+package genetic.representation;
 
 /**
  * Created by adam on 10.01.16.

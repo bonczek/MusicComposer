@@ -1,6 +1,6 @@
 package genetic.initial;
 
-import genetic.Chromosome;
+import genetic.representation.Chromosome;
 
 import java.util.List;
 

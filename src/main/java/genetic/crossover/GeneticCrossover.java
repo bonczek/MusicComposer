@@ -1,7 +1,7 @@
 package genetic.crossover;
 
-import genetic.Chromosome;
 import genetic.GeneticGuard;
+import genetic.representation.Chromosome;
 
 import java.util.List;
 
