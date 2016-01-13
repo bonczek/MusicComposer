@@ -17,7 +17,7 @@ public class RandomPopulationGeneratorTest {
 
     private final List<Integer> AVAILABLE_VALUES = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     private Random randomMock = Mockito.mock(Random.class);
-    private RandomPopulationGenerator populationGenerator = new RandomPopulationGenerator(randomMock);
+    private RandomPopulationGenerator populationGenerator = new RandomPopulationGenerator(randomMock, AVAILABLE_VALUES);
 
     @Test
     public void testGeneratePopulation() throws Exception {
@@ -25,7 +25,7 @@ public class RandomPopulationGeneratorTest {
         int chromosomeLength = 4;
 
         when(randomMock.nextInt(AVAILABLE_VALUES.size())).thenReturn(1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5);
-        List<Chromosome> population = populationGenerator.generatePopulation(populationSize, chromosomeLength, AVAILABLE_VALUES);
+        List<Chromosome> population = populationGenerator.generatePopulation(populationSize, chromosomeLength);
 
         assertThat(population.size(), is(populationSize));
         assertThat(population.get(0).getSize(), is(chromosomeLength));

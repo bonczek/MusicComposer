@@ -1,7 +1,6 @@
 package genetic.mutation;
 
 import genetic.representation.Chromosome;
-import genetic.representation.Gene;
 
 import java.util.List;
 import java.util.Random;
@@ -24,6 +23,6 @@ public class SimpleMutation extends GeneticMutation {
     protected void mutateChromosome(Chromosome chromosome) {
         int geneIndex = randomIndex.nextInt(chromosome.getSize());
         int valueIndex = randomIndex.nextInt(availableValues.size());
-        chromosome.setGene(geneIndex, new Gene(availableValues.get(valueIndex)));
+        chromosome.getGene(geneIndex).setValue(availableValues.get(valueIndex));
     }
 }

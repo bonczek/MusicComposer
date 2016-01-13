@@ -66,4 +66,9 @@ public class Chromosome {
         }
     }
 
+    @Override
+    public String toString() {
+        return genes.stream().map(Gene::getValue).map(Object::toString).collect(Collectors.joining("|"));
+    }
+
 }

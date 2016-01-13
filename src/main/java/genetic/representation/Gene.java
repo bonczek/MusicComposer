@@ -19,7 +19,7 @@ public class Gene {
         return value;
     }
 
-    public void setValue(Short value) {
-        this.value = value;
+    public void setValue(Integer value) {
+        this.value = value.shortValue();
     }
 }

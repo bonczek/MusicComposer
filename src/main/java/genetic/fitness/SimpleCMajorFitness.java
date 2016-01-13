@@ -15,7 +15,7 @@ public class SimpleCMajorFitness implements FitnessFunction {
         return population.stream().map(this::rateChromosome).collect(Collectors.toList());
     }
 
-    private Integer rateChromosome(Chromosome chromosome) {
+    public Integer rateChromosome(Chromosome chromosome) {
         return chromosome.getGenesValues().stream().mapToInt(this::rateNote).sum();
     }
 

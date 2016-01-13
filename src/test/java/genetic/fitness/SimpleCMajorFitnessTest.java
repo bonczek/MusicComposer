@@ -27,9 +27,9 @@ public class SimpleCMajorFitnessTest {
 
     private List<Chromosome> preparePopulation() {
         List<Chromosome> chromosomes = new ArrayList<>();
-        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Note.C_0.value(), Note.E_0.value(), Note.G_1.value())));
-        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Note.D_0.value(), Note.F_0.value(), Note.A_1.value())));
-        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Note.C_SHARP_0.value(), Note.REST.value(), Note.A_SHARP_1.value())));
+        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Note.C_1.value(), Note.E_1.value(), Note.G_2.value())));
+        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Note.D_1.value(), Note.F_1.value(), Note.A_2.value())));
+        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Note.C_SHARP_1.value(), Note.REST.value(), Note.A_SHARP_2.value())));
         return chromosomes;
     }
 }

@@ -14,5 +14,5 @@ public interface InitialPopulationGenerator {
      *
      * @return initial population of chromosomes
      */
-    List<Chromosome> generatePopulation(int size, int chromosomeLength, List<Integer> availableValues);
+    List<Chromosome> generatePopulation(int size, int chromosomeLength);
 }

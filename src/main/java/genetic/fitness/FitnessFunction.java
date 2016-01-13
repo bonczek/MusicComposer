@@ -16,4 +16,6 @@ public interface FitnessFunction {
      * @return list of fitness values corresponding to chromosome population
      */
     public List<Integer> calculateFitness(List<Chromosome> population);
+
+    public Integer rateChromosome(Chromosome chromosome);
 }
