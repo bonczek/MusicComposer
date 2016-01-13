@@ -22,7 +22,7 @@ public class GeneticAlgorithmTest {
     private InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(new Random(), AVAILABLE_VALUES);
 
     private NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-            new SimpleMutation(0.1, new Random(), AVAILABLE_VALUES), new SimpleCrossover(0.9));
+            new SimpleMutation(0.1, new Random(), AVAILABLE_VALUES), new SimpleCrossover(0.9, new Random()));
 
     private FitnessFunction fitnessFunction = new SimpleCMajorFitness();
 

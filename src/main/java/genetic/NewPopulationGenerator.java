@@ -23,12 +23,12 @@ public class NewPopulationGenerator {
         this.geneticCrossover = geneticCrossover;
     }
 
-    List<Chromosome> generateNewPopulation(List<Chromosome> population, List<Integer> fitnessValues) {
+    List<Chromosome> generateNewPopulation(List<Chromosome> population) {
         List<Chromosome> newPopulation = new ArrayList<>();
         int populationSize = population.size();
 
         while (newPopulation.size() < populationSize) {
-            List<Chromosome> selectedChromosomes = geneticSelector.selectChromosomes(population, fitnessValues);
+            List<Chromosome> selectedChromosomes = geneticSelector.selectChromosomes(population);
             geneticCrossover.crossOver(selectedChromosomes);
             geneticMutation.mutate(selectedChromosomes);
 

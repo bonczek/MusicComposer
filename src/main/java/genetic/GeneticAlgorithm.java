@@ -33,8 +33,8 @@ public class GeneticAlgorithm {
 
         int iteration = 0;
         while (nextPopulation(iteration)) {
-            List<Integer> fitnessValues = fitnessFunction.calculateFitness(population);
-            population = populationGenerator.generateNewPopulation(population, fitnessValues);
+            fitnessFunction.calculateFitness(population);
+            population = populationGenerator.generateNewPopulation(population);
             iteration++;
         }
 
