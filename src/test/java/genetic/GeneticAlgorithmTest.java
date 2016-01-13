@@ -2,6 +2,7 @@ package genetic;
 
 import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
+import genetic.fitness.PentatonicMinorFitness;
 import genetic.fitness.SimpleCMajorFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
@@ -26,10 +27,12 @@ public class GeneticAlgorithmTest {
 
     private FitnessFunction fitnessFunction = new SimpleCMajorFitness();
 
+    private FitnessFunction pentatonicFitness = new PentatonicMinorFitness(Note.A_1);
+
     @Test
     public void testRun() throws Exception {
 
-        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
+        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, pentatonicFitness);
 
         algorithm.run();
 

@@ -29,7 +29,7 @@ public class GeneticAlgorithm {
 
     public void run() {
         //initial population
-        List<Chromosome> population = initialGenerator.generatePopulation(32, 320);
+        List<Chromosome> population = initialGenerator.generatePopulation(256, 16);
 
         int iteration = 0;
         while (nextPopulation(iteration)) {
@@ -44,7 +44,7 @@ public class GeneticAlgorithm {
     }
 
     private boolean nextPopulation(int iteration) {
-        return iteration <= 3;
+        return iteration <= 10;
     }
 
     private void humanReadable(List<Chromosome> population) {
