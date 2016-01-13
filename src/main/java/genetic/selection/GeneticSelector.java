@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface GeneticSelector {
 
-    List<Chromosome> selectChromosomes(List<Chromosome> population, List<Integer> fitnessValues);
+    List<Chromosome> selectChromosomes(List<Chromosome> population);
 }

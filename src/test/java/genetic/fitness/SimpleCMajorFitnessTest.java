@@ -17,12 +17,12 @@ public class SimpleCMajorFitnessTest {
 
     @Test
     public void testCalculateFitness() throws Exception {
-        List<Integer> results = fitness.calculateFitness(preparePopulation());
+        List<Chromosome> population = preparePopulation();
+        fitness.calculateFitness(population);
 
-        assertThat(results.size(), is(3));
-        assertThat(results.get(0), is(30));
-        assertThat(results.get(1), is(15));
-        assertThat(results.get(2), is(-18));
+        assertThat(population.get(0).getFitness(), is(60));
+        assertThat(population.get(1).getFitness(), is(30));
+        assertThat(population.get(2).getFitness(), is(5));
     }
 
     private List<Chromosome> preparePopulation() {

@@ -4,33 +4,39 @@ import genetic.representation.Chromosome;
 import genetic.representation.Gene;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by adam on 09.01.16.
  */
 public class SimpleCrossover extends GeneticCrossover {
 
-    public SimpleCrossover(double crossoverRate) {
+    private final Random numberGenerator;
+
+    public SimpleCrossover(double crossoverRate, Random numberGenerator) {
         super(crossoverRate);
+        this.numberGenerator = numberGenerator;
     }
 
     @Override
     public void crossOverChromosomes(List<Chromosome> chromosomes) {
-        if (!chromosomes.isEmpty() && chromosomes.size() == 2) {
-            replaceHalfChromosomes(chromosomes.get(0), chromosomes.get(1));
+        if (!chromosomes.isEmpty() && chromosomes.size() % 2 == 0) {
+            for (int i = 0; i < chromosomes.size() / 2; i++) {
+                replaceChromosomesParts(chromosomes.get(2 * i), chromosomes.get(2 * i + 1));
+            }
         } else {
             System.out.println("Wrong size or empty");
         }
     }
 
-    private void replaceHalfChromosomes(Chromosome first, Chromosome second) {
+    private void replaceChromosomesParts(Chromosome first, Chromosome second) {
         int chromosomeLength = first.getSize();
-        int half = chromosomeLength / 2;
+        int crossoverIndex = numberGenerator.nextInt(chromosomeLength - 2) + 1;
 
-        List<Gene> firstRightHalf = first.getPart(half, chromosomeLength);
-        List<Gene> secondRightHalf = second.getPart(half, chromosomeLength);
+        List<Gene> firstRightPart = first.getPart(crossoverIndex, chromosomeLength);
+        List<Gene> secondRightPart = second.getPart(crossoverIndex, chromosomeLength);
 
-        first.setPart(secondRightHalf, half, chromosomeLength);
-        second.setPart(firstRightHalf, half, chromosomeLength);
+        first.setPart(secondRightPart, crossoverIndex, chromosomeLength);
+        second.setPart(firstRightPart, crossoverIndex, chromosomeLength);
     }
 }

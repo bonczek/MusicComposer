@@ -11,6 +11,7 @@ public class Chromosome {
 
     protected final List<Gene> genes;
     private final int size;
+    private Integer fitness = 0;
 
     public Chromosome(List<Gene> genes) {
         this.genes = genes;
@@ -20,6 +21,14 @@ public class Chromosome {
     public static Chromosome createWithIntegerValues(List<Integer> values) {
         List<Gene> genes = values.stream().map(value -> new Gene(value.shortValue())).collect(Collectors.toList());
         return new Chromosome(genes);
+    }
+
+    public Integer getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(Integer fitness) {
+        this.fitness = fitness;
     }
 
     public List<Integer> getGenesValues() {
@@ -71,4 +80,29 @@ public class Chromosome {
         return genes.stream().map(Gene::getValue).map(Object::toString).collect(Collectors.joining("|"));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        //@todo
+        Chromosome that = (Chromosome) o;
+
+        if (size != that.size) return false;
+        for (int i = 0; i < size; i++) {
+            if (!genes.get(i).getValue().equals(that.genes.get(i).getValue())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        //@todo
+        int result = genes.hashCode();
+        result = 31 * result + size;
+        return result;
+    }
 }

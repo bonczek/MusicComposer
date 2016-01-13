@@ -1,23 +1,29 @@
 package genetic.crossover;
 
 import genetic.representation.Chromosome;
+import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+import static org.mockito.Mockito.when;
 
 public class SimpleCrossoverTest {
 
-    private SimpleCrossover mixCrossover = new SimpleCrossover(1.0);
+    private Random randomMock = Mockito.mock(Random.class);
+
+    private SimpleCrossover mixCrossover = new SimpleCrossover(1.0, randomMock);
 
     @Test
     public void testCrossOverChromosomes() throws Exception {
         List<Chromosome> chromosomes = prepareData();
+        when(randomMock.nextInt(chromosomes.get(0).getSize() - 2)).thenReturn(3);
         mixCrossover.crossOverChromosomes(chromosomes);
 
         assertThat(chromosomes.size(), is(2));

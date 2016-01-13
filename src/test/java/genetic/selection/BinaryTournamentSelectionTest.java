@@ -22,10 +22,9 @@ public class BinaryTournamentSelectionTest {
     @Test
     public void testSelectChromosomes() throws Exception {
         List<Chromosome> population = prepareChromosomes();
-        List<Integer> fitnessValues = Arrays.asList(30, 20, 50);
 
         when(numberGenerator.nextInt(population.size())).thenReturn(0, 1, 2, 0);
-        List<Chromosome> selected = selection.selectChromosomes(population, fitnessValues);
+        List<Chromosome> selected = selection.selectChromosomes(population);
 
         assertThat(selected.size(), is(2));
         assertThat(selected.get(0), is(population.get(0)));
@@ -35,10 +34,13 @@ public class BinaryTournamentSelectionTest {
     private List<Chromosome> prepareChromosomes() {
         List<Chromosome> population = new ArrayList<>();
         Chromosome first = Chromosome.createWithIntegerValues(Arrays.asList(1, 2, 3));
+        first.setFitness(30);
         population.add(first);
         Chromosome second = Chromosome.createWithIntegerValues(Arrays.asList(4, 5, 6));
+        second.setFitness(20);
         population.add(second);
         Chromosome third = Chromosome.createWithIntegerValues(Arrays.asList(7, 8, 9));
+        third.setFitness(50);
         population.add(third);
 
         return population;
