@@ -36,13 +36,13 @@ public class PentatonicMinorFitness implements FitnessFunction {
         //MINOR_SCALE = {0, 2, 3, 5, 7, 8, 10}
         //PENTATONIC_SCALE = {0, 3, 5, 7, 10}
         if (noteValue == -1 || noteValue == -2) {
-            return 5;
+            return 5 * 100;
         }
         int scaleValue = noteValue % 12;
         if (pentatonicScale.contains(scaleValue)) {
-            return 20;
+            return 20 * 100;
         } else if (minorRestOfScale.contains(scaleValue)) {
-            return 10;
+            return 10 * 100;
         } else {
             return 0;
         }
