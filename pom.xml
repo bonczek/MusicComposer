@@ -10,6 +10,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx</artifactId>
+            <version>2.2</version>
+            <scope>system</scope>
+            <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>jMusic</groupId>
             <artifactId>jm.music</artifactId>
             <version>1.0</version>
@@ -54,7 +61,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>main.Main</mainClass>
+                                <mainClass>App</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
