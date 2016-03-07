@@ -8,6 +8,13 @@
     <artifactId>music-composer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>Internal company repository</id>
+            <url>file://${project.basedir}/libs</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.oracle</groupId>
@@ -17,11 +24,9 @@
             <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>jMusic</groupId>
-            <artifactId>jm.music</artifactId>
+            <groupId>jmusic</groupId>
+            <artifactId>jmusic-fork</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/jMusic1.6.4.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -73,6 +78,21 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <mainClass>App</mainClass>
                     </configuration>
                 </plugin>
             </plugins>
