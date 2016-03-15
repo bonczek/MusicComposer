@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/8" fx:controller="gui.MainController">
     <children>
-        <Button layoutX="258.0" layoutY="188.0" mnemonicParsing="false" prefWidth="85.0" text="Uruchom"
-                onAction="#runAlgorithm"/>
+        <Button layoutX="258.0" layoutY="188.0" mnemonicParsing="false" onAction="#runAlgorithm" prefWidth="85.0"
+                text="Uruchom"/>
+        <Label layoutX="14.0" layoutY="75.0" text="Rodzaj mutacji"/>
+        <ChoiceBox fx:id="mutations" layoutX="14.0" layoutY="91.0" prefWidth="150.0"/>
+        <Label layoutX="415.0" layoutY="14.0" text="Prawdopodobienstwo mutacji"/>
+        <TextField fx:id="mutationRateTextField" layoutX="415.0" layoutY="30.0"/>
     </children>
 </AnchorPane>
