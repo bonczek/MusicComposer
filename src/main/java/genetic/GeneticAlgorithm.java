@@ -38,7 +38,7 @@ public class GeneticAlgorithm {
 
     public void run() {
         //initial population
-        List<Chromosome> population = initialGenerator.generatePopulation(128, 16);
+        List<Chromosome> population = initialGenerator.generatePopulation(128, 1);
 
         int iteration = 0;
         while (nextPopulation(iteration)) {

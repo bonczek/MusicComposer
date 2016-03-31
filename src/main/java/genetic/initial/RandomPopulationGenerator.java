@@ -22,10 +22,10 @@ public class RandomPopulationGenerator implements InitialPopulationGenerator {
     }
 
     @Override
-    public List<Chromosome> generatePopulation(int size, int chromosomeLength) {
+    public List<Chromosome> generatePopulation(int populationSize, int numbersOfMeasures) {
         List<Chromosome> population = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            population.add(generateChromosome(chromosomeLength));
+        for (int i = 0; i < populationSize; i++) {
+            population.add(generateChromosome(numbersOfMeasures * InitialPopulationGenerator.NOTES_IN_MEASURE));
         }
         return population;
     }

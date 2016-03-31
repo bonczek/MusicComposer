@@ -4,10 +4,9 @@ import genetic.representation.Chromosome;
 
 import java.util.List;
 
-/**
- * Created by adam on 02.01.16.
- */
 public interface InitialPopulationGenerator {
+
+    int NOTES_IN_MEASURE = 16;
 
     /**
      * Create initial population to start genetic algorithm.

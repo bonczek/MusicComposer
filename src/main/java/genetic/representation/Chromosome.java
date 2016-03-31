@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by adam on 02.01.16.
+ * Chromosome is main component of composition, it is a container for genes {@link Gene}.
+ * GA applying crossover, mutation and selection operators on chromosomes and every chromosome can be measured by his
+ * fitness.
+ * There is no size limit for chromosome. It can be single measure of music or whole composition, but it should be
+ * multiplication of NOTES_IN_MEASURE.
  */
 public class Chromosome {
 
@@ -18,6 +22,7 @@ public class Chromosome {
         this.size = genes.size();
     }
 
+    //@todo can be moved to other place - it is used only in tests
     public static Chromosome createWithIntegerValues(List<Integer> values) {
         List<Gene> genes = values.stream().map(value -> new Gene(value.shortValue())).collect(Collectors.toList());
         return new Chromosome(genes);

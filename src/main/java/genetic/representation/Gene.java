@@ -1,7 +1,9 @@
 package genetic.representation;
 
 /**
- * Created by adam on 10.01.16.
+ * Gene is representation of single note/rest/tenuto coded as number.
+ * There is no information about type of note inside.
+ * It should be parsed to {@link Note} after GA ends.
  */
 public class Gene {
 
