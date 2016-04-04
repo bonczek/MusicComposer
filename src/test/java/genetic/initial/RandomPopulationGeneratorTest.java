@@ -15,24 +15,26 @@ import static org.mockito.Mockito.when;
 
 public class RandomPopulationGeneratorTest {
 
+    private static final int POPULATION_SIZE = 5;
+    private static final int NUMBERS_OF_MEASURES = 1;
+
     private final List<Integer> AVAILABLE_VALUES = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     private Random randomMock = Mockito.mock(Random.class);
-    private RandomPopulationGenerator populationGenerator = new RandomPopulationGenerator(randomMock, AVAILABLE_VALUES);
+    private RandomPopulationGenerator populationGenerator = new RandomPopulationGenerator(POPULATION_SIZE, NUMBERS_OF_MEASURES,
+            randomMock, AVAILABLE_VALUES);
 
     @Test
     public void testGeneratePopulation() throws Exception {
-        int populationSize = 5;
-        int chromosomeLength = 4;
 
-        when(randomMock.nextInt(AVAILABLE_VALUES.size())).thenReturn(1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5);
-        List<Chromosome> population = populationGenerator.generatePopulation(populationSize, chromosomeLength);
+        when(randomMock.nextInt(AVAILABLE_VALUES.size())).thenReturn(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 0);
+        List<Chromosome> population = populationGenerator.generatePopulation();
 
-        assertThat(population.size(), is(populationSize));
-        assertThat(population.get(0).getSize(), is(chromosomeLength));
-        assertThat(population.get(0).getGenesValues(), contains(2, 2, 2, 2));
-        assertThat(population.get(1).getGenesValues(), contains(3, 3, 3, 3));
-        assertThat(population.get(2).getGenesValues(), contains(4, 4, 4, 4));
-        assertThat(population.get(3).getGenesValues(), contains(5, 5, 5, 5));
-        assertThat(population.get(4).getGenesValues(), contains(6, 6, 6, 6));
+        assertThat(population.size(), is(POPULATION_SIZE));
+        assertThat(population.get(0).getSize(), is(NUMBERS_OF_MEASURES * InitialPopulationGenerator.NOTES_IN_MEASURE));
+        assertThat(population.get(0).getGenesValues(), contains(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 1));
+        assertThat(population.get(1).getGenesValues(), contains(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
+        assertThat(population.get(2).getGenesValues(), contains(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
+        assertThat(population.get(3).getGenesValues(), contains(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
+        assertThat(population.get(4).getGenesValues(), contains(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
     }
 }

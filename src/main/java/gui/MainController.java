@@ -31,6 +31,12 @@ public class MainController implements Initializable {
     @FXML
     private TextField mutationRateTextField;
 
+    @FXML
+    private TextField populationSizeTextField;
+
+    @FXML
+    private TextField numbersOfMeasuresTextField;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mutations.setItems(FXCollections.observableArrayList("Random mutation"));
@@ -38,10 +44,15 @@ public class MainController implements Initializable {
 
     @FXML
     private void runAlgorithm(ActionEvent event) {
+        //@todo error handling
         double mutationRate = Double.parseDouble(mutationRateTextField.getText());
+        int populationSize = Integer.parseInt(populationSizeTextField.getText());
+        int numbersOfMeasures = Integer.parseInt(numbersOfMeasuresTextField.getText());
 
         List<Integer> AVAILABLE_VALUES = Arrays.asList(genetic.representation.Note.values()).stream().map(genetic.representation.Note::value).collect(Collectors.toList());
-        InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(new Random(), AVAILABLE_VALUES);
+        InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
+                Random(),
+                AVAILABLE_VALUES);
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 new SimpleMutation(mutationRate, new Random(), AVAILABLE_VALUES), new SimpleCrossover(0.9, new Random()));
         FitnessFunction pentatonicFitness = new PentatonicMinorFitness(genetic.representation.Note.A_1);

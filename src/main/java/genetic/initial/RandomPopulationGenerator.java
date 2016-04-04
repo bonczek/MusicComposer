@@ -7,22 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by adam on 10.01.16.
- */
-public class RandomPopulationGenerator implements InitialPopulationGenerator {
+public class RandomPopulationGenerator extends InitialPopulationGenerator {
 
     private final Random numberGenerator;
 
+    //@todo do I need them?
     private final List<Integer> availableValues;
 
-    public RandomPopulationGenerator(Random numberGenerator, List<Integer> availableValues) {
+    //@todo too many parameters
+    public RandomPopulationGenerator(int populationSize, int numbersOfMeasures, Random numberGenerator, List<Integer>
+            availableValues) {
+        super(populationSize, numbersOfMeasures);
         this.numberGenerator = numberGenerator;
         this.availableValues = availableValues;
     }
 
     @Override
-    public List<Chromosome> generatePopulation(int populationSize, int numbersOfMeasures) {
+    public List<Chromosome> generatePopulation() {
         List<Chromosome> population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
             population.add(generateChromosome(numbersOfMeasures * InitialPopulationGenerator.NOTES_IN_MEASURE));

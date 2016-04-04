@@ -17,9 +17,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Created by adam on 02.01.16.
- */
 public class GeneticAlgorithm {
 
     private InitialPopulationGenerator initialGenerator;
@@ -38,7 +35,7 @@ public class GeneticAlgorithm {
 
     public void run() {
         //initial population
-        List<Chromosome> population = initialGenerator.generatePopulation(128, 1);
+        List<Chromosome> population = initialGenerator.generatePopulation();
 
         int iteration = 0;
         while (nextPopulation(iteration)) {

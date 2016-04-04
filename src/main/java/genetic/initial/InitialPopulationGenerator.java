@@ -4,14 +4,23 @@ import genetic.representation.Chromosome;
 
 import java.util.List;
 
-public interface InitialPopulationGenerator {
+public abstract class InitialPopulationGenerator {
 
-    int NOTES_IN_MEASURE = 16;
+    public static final int NOTES_IN_MEASURE = 16;
+
+    protected int populationSize;
+
+    protected int numbersOfMeasures;
+
+    public InitialPopulationGenerator(int populationSize, int numbersOfMeasures) {
+        this.populationSize = populationSize;
+        this.numbersOfMeasures = numbersOfMeasures;
+    }
 
     /**
      * Create initial population to start genetic algorithm.
      *
      * @return initial population of chromosomes
      */
-    List<Chromosome> generatePopulation(int size, int chromosomeLength);
+    public abstract List<Chromosome> generatePopulation();
 }
