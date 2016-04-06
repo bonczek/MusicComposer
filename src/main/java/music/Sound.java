@@ -21,7 +21,7 @@ public class Sound extends Note {
 
         int pitchValue = midiValue % 11;
         //loss of fractional part
-        int octaveNumber = midiValue / 11;
+        int octaveNumber = midiValue / 12;
         this.pitch = Pitch.values()[pitchValue];
         this.octave = Octave.values()[octaveNumber];
         //@todo index out of bounds

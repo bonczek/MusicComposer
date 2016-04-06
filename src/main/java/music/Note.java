@@ -15,4 +15,8 @@ public abstract class Note {
     public void setRhythmValue(double rhythmValue) {
         this.rhythmValue = rhythmValue;
     }
+
+    public void addRhytmValue(double rhythmValue) {
+        this.rhythmValue += rhythmValue;
+    }
 }
