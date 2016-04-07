@@ -6,7 +6,10 @@ public abstract class TowseyStatistic {
 
     protected int numerator = 0;
 
-    protected int denominator;
+    protected int denominator = 0;
+
+    public TowseyStatistic() {
+    }
 
     public TowseyStatistic(int denominator) {
         this.denominator = denominator;

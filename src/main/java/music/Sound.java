@@ -71,4 +71,8 @@ public class Sound extends Note {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
+
+    public int interval(Sound nextNote) {
+        return nextNote.midiValue - midiValue;
+    }
 }
