@@ -16,14 +16,14 @@ public class PitchVarietyStatisticTest {
 
     @Test
     public void testStatisticComputation() throws Exception {
-        PitchVarietyStatistic statistic = new PitchVarietyStatistic(4);
+        PitchVarietyStatistic statistic = new PitchVarietyStatistic();
 
         Note[] notes = {new Sound(127, Durations.SIXTEENTH_NOTE), new Sound(12, Durations.QUARTER_NOTE), new Sound
-                (127, Durations.WHOLE_NOTE), new Rest(Durations.EIGHTH_NOTE)};
+                (127, Durations.WHOLE_NOTE), new Rest(Durations.EIGHTH_NOTE), new Sound(52, Durations.SIXTEENTH_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
         noteList.forEach(statistic::processNote);
-        assertThat(statistic.getResult(), is(0.5));
+        assertThat(statistic.getResult(), is(0.75));
     }
 
 

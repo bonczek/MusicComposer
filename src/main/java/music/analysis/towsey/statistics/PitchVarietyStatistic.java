@@ -10,10 +10,6 @@ public class PitchVarietyStatistic extends TowseyStatistic {
 
     private Set<Integer> midiValuesSet = new HashSet<>();
 
-    public PitchVarietyStatistic(int denominator) {
-        super(denominator);
-    }
-
     @Override
     public void processNote(Note note) {
         if (note instanceof Sound) {
@@ -22,6 +18,7 @@ public class PitchVarietyStatistic extends TowseyStatistic {
                 numerator++;
                 midiValuesSet.add(midiValue);
             }
+            denominator++;
         }
     }
 }
