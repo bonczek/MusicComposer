@@ -18,6 +18,10 @@
                 <TextField fx:id="populationSizeTextField" text="128"/>
                 <Label text="Liczba taktów"/>
                 <TextField fx:id="numbersOfMeasuresTextField" text="1"/>
+                <Label text="Wybierz typ skali"/>
+                <ChoiceBox fx:id="scaleType" prefWidth="150.0"/>
+                <Label text="Wybierz dźwięk bazowy skali"/>
+                <ChoiceBox fx:id="baseScaleNote" prefWidth="150.0"/>
             </children>
         </VBox>
         <VBox layoutX="400.0" prefHeight="200.0" prefWidth="200.0">

@@ -29,6 +29,12 @@ public class MainController implements Initializable {
     private ChoiceBox<String> mutations;
 
     @FXML
+    private ChoiceBox<Scale> scaleType;
+
+    @FXML
+    private ChoiceBox<Pitch> baseScaleNote;
+
+    @FXML
     private TextField mutationRateTextField;
 
     @FXML
@@ -40,6 +46,11 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mutations.setItems(FXCollections.observableArrayList("Random mutation"));
+        mutations.getSelectionModel().selectFirst();
+        scaleType.setItems(FXCollections.observableArrayList(Scale.values()));
+        scaleType.getSelectionModel().selectFirst();
+        baseScaleNote.setItems(FXCollections.observableArrayList(Pitch.values()));
+        baseScaleNote.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -49,11 +60,13 @@ public class MainController implements Initializable {
         int populationSize = Integer.parseInt(populationSizeTextField.getText());
         int numbersOfMeasures = Integer.parseInt(numbersOfMeasuresTextField.getText());
 
+
         InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
                 Random());
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 new SimpleMutation(mutationRate, new Random()), new SimpleCrossover(0.9, new Random()));
-        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(Scale.MINOR_PENTATONIC_SCALE, Pitch.A), 10);
+        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
+                baseScaleNote.getValue()), 100);
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, pentatonicFitness);
         algorithm.run();

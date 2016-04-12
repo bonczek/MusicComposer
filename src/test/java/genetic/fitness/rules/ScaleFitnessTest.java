@@ -19,7 +19,7 @@ public class ScaleFitnessTest {
     @Test
     public void testRateMelody_givenCMajorFitness() throws Exception {
         List<Chromosome> population = preparePopulation();
-        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE, Pitch.C);
+        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), Pitch.C);
         MusicalFitnessFunction fitnessFunction = new ScaleFitness(cMajorScale, 10);
 
         fitnessFunction.calculateFitness(population);
@@ -31,7 +31,7 @@ public class ScaleFitnessTest {
     @Test
     public void testRateMelody_givenEMinorPentatonicFitness() throws Exception {
         List<Chromosome> population = preparePopulation();
-        Harmony eMinorPentatonicScale = new Harmony(Scale.MINOR_PENTATONIC_SCALE, Pitch.E);
+        Harmony eMinorPentatonicScale = new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), Pitch.E);
         MusicalFitnessFunction fitnessFunction = new ScaleFitness(eMinorPentatonicScale, 10);
 
         fitnessFunction.calculateFitness(population);
