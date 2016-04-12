@@ -22,6 +22,8 @@
                 <ChoiceBox fx:id="scaleType" prefWidth="150.0"/>
                 <Label text="Wybierz dźwięk bazowy skali"/>
                 <ChoiceBox fx:id="baseScaleNote" prefWidth="150.0"/>
+                <Label text="Nagroda za dźwięk ze skali"/>
+                <TextField fx:id="scaleRewardTextField" text="100"/>
             </children>
         </VBox>
         <VBox layoutX="400.0" prefHeight="200.0" prefWidth="200.0">

@@ -43,6 +43,9 @@ public class MainController implements Initializable {
     @FXML
     private TextField numbersOfMeasuresTextField;
 
+    @FXML
+    private TextField scaleRewardTextField;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mutations.setItems(FXCollections.observableArrayList("Random mutation"));
@@ -59,6 +62,7 @@ public class MainController implements Initializable {
         double mutationRate = Double.parseDouble(mutationRateTextField.getText());
         int populationSize = Integer.parseInt(populationSizeTextField.getText());
         int numbersOfMeasures = Integer.parseInt(numbersOfMeasuresTextField.getText());
+        int scaleReward = Integer.parseInt(scaleRewardTextField.getText());
 
 
         InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
@@ -66,7 +70,7 @@ public class MainController implements Initializable {
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 new SimpleMutation(mutationRate, new Random()), new SimpleCrossover(0.9, new Random()));
         FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
-                baseScaleNote.getValue()), 100);
+                baseScaleNote.getValue()), scaleReward);
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, pentatonicFitness);
         algorithm.run();
