@@ -1,6 +1,8 @@
 package music.analysis.towsey.statistics;
 
+import music.Interval;
 import music.Note;
+import music.PitchInterval;
 import music.Sound;
 
 public class DissonanceStatistic extends TowseyStatistic {
@@ -21,8 +23,9 @@ public class DissonanceStatistic extends TowseyStatistic {
     }
 
     private void countDissonantInterval(Sound sound) {
-        Integer interval = previousNote.interval(sound);
-        if (interval.equals(6) || interval.equals(11) || Math.abs(interval) > 13) {
+        Interval interval = previousNote.interval(sound);
+        if (interval.moreThanOctave() || interval.getPitchInterval().equals(PitchInterval.TRITONE) ||
+                interval.getPitchInterval().equals(PitchInterval.MAJOR_SEVENTH)) {
             numerator++;
         }
         denominator++;

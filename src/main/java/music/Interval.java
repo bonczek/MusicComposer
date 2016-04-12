@@ -1,17 +1,45 @@
 package music;
 
-public enum Interval {
-    PERFECT_UNISON(0), MINOR_SECOND(1), MAJOR_SECOND(2), MINOR_THIRD(3), MAJOR_THIRD(4), PERFECT_FOURTH(5),
-    TRITONE(6), PERFECT_FIFTH(7), MINOR_SIXTH(8), MAJOR_SIXTH(9), MINOR_SEVENTH(10), MAJOR_SEVENTH(11),
-    PERFECT_OCTAVE(12);
+public class Interval {
 
-    private int semitones;
+    private PitchInterval pitchInterval;
 
-    Interval(int semitones) {
-        this.semitones = semitones;
+    private int octaveDifference;
+
+    public Interval(int semitonesDifference) {
+        int interval = semitonesDifference % 12;
+        this.octaveDifference = semitonesDifference / 12;
+        for (PitchInterval pitchInterval : PitchInterval.values()) {
+            if (pitchInterval.semitones() == Math.abs(interval)) {
+                this.pitchInterval = pitchInterval;
+                break;
+            }
+        }
     }
 
-    public int semitones() {
-        return semitones;
+    public PitchInterval getPitchInterval() {
+        return pitchInterval;
+    }
+
+    public void setPitchInterval(PitchInterval pitchInterval) {
+        this.pitchInterval = pitchInterval;
+    }
+
+    public int getOctaveDifference() {
+        return octaveDifference;
+    }
+
+    public void setOctaveDifference(int octaveDifference) {
+        this.octaveDifference = octaveDifference;
+    }
+
+    public boolean moreThanOctave() {
+        if (octaveDifference == 0) {
+            return false;
+        } else if ((octaveDifference == 1 || octaveDifference == -1) && pitchInterval.equals(PitchInterval.PERFECT_UNISON)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

@@ -12,20 +12,25 @@ public class Sound extends Note {
         super(rhythmValue);
         this.pitch = pitch;
         this.octave = octave;
-        this.midiValue = pitch.value() * octave.number();
+        this.midiValue = pitch.value() + (12 * octave.number());
     }
 
     public Sound(int midiValue, double rhythmValue) {
         super(rhythmValue);
         this.midiValue = midiValue;
 
-        int pitchValue = midiValue % 11;
+        int pitchValue = midiValue % 12;
         //loss of fractional part
         int octaveNumber = midiValue / 12;
         this.pitch = Pitch.values()[pitchValue];
         this.octave = Octave.values()[octaveNumber];
         //@todo index out of bounds
 
+    }
+
+    public static Sound createSoundWithInterval(Sound baseSound, PitchInterval interval) {
+        int semitonesToAdd = interval.semitones();
+        return new Sound(baseSound.midiValue + semitonesToAdd, baseSound.rhythmValue);
     }
 
     public int getMidiValue() {
@@ -72,7 +77,7 @@ public class Sound extends Note {
         return result;
     }
 
-    public int interval(Sound nextNote) {
-        return nextNote.midiValue - midiValue;
+    public Interval interval(Sound nextNote) {
+        return new Interval(nextNote.midiValue - midiValue);
     }
 }
