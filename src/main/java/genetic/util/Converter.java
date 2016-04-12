@@ -2,6 +2,9 @@ package genetic.util;
 
 import genetic.representation.Chromosome;
 import jm.constants.Durations;
+import jm.music.data.Part;
+import jm.music.data.Phrase;
+import jm.music.data.Score;
 import music.Note;
 import music.Rest;
 import music.Sound;
@@ -58,6 +61,25 @@ public class Converter {
             builder.append("|");
         }
         return builder.toString();
+    }
+
+    public static Score convertToJMusicScore(Chromosome chromosome) {
+        List<Note> noteList = fromChromosome(chromosome);
+        Phrase phrase = new Phrase();
+        for (Note note : noteList) {
+            if (note instanceof Rest) {
+                jm.music.data.Note jMusicNote = new jm.music.data.Note(jm.music.data.Note.REST, note.getRhythmValue());
+                phrase.add(jMusicNote);
+            } else if (note instanceof Sound) {
+                jm.music.data.Note jMusicNote = new jm.music.data.Note(((Sound) note).getMidiValue(),
+                        note.getRhythmValue());
+                phrase.add(jMusicNote);
+            } else {
+                break;
+            }
+        }
+        Part part = new Part(phrase);
+        return new Score(part);
     }
 
 }
