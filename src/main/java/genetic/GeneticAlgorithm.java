@@ -3,7 +3,7 @@ package genetic;
 import genetic.fitness.FitnessFunction;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.representation.Chromosome;
-import genetic.representation.Note;
+import genetic.util.Converter;
 import jm.constants.RhythmValues;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
@@ -11,11 +11,8 @@ import jm.music.data.Score;
 import jm.util.Play;
 import jm.util.View;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class GeneticAlgorithm {
 
@@ -46,8 +43,7 @@ public class GeneticAlgorithm {
         }
 
         fitnessFunction.calculateFitness(population);
-        population.forEach(c -> System.out.println(String.format("%s: %d",
-                c.toString(), fitnessFunction.rateChromosome(c))));
+        population.forEach(c -> System.out.println(String.format("%s: %d", c.toString(), c.getFitness())));
         humanReadable(population);
         Optional<Chromosome> theBestChromosome = population.stream().max((a, b) -> a.getFitness().compareTo(b.getFitness()));
         if (theBestChromosome.isPresent()) {
@@ -64,14 +60,9 @@ public class GeneticAlgorithm {
     }
 
     private void humanReadable(List<Chromosome> population) {
-        Map<Integer, Note> notesMap = new HashMap<>();
-        for (Note n : Note.values()) {
-            notesMap.put(n.value(), n);
-        }
-
         for (Chromosome chromosome : population) {
-            String formatted = chromosome.getGenesValues().stream().map(val -> notesMap.get(val).name()).collect(Collectors.joining("|"));
-            System.out.println(String.format("%s: %d", formatted, fitnessFunction.rateChromosome(chromosome)));
+            String formatted = Converter.humanReadable(chromosome);
+            System.out.println(String.format("%s: %d", formatted, chromosome.getFitness()));
         }
     }
 

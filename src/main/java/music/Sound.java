@@ -1,5 +1,7 @@
 package music;
 
+import genetic.representation.Constants;
+
 public class Sound extends Note {
 
     private Pitch pitch;
@@ -18,6 +20,10 @@ public class Sound extends Note {
     public Sound(int midiValue, double rhythmValue) {
         super(rhythmValue);
         this.midiValue = midiValue;
+        if (midiValue < 0 || midiValue > Constants.MAX_MIDI_VALUE.value()) {
+            throw new IllegalArgumentException(String.format("Failed to create sound with given midi value: %s. Midi " +
+                    "value should be in range <0,127>.", midiValue));
+        }
 
         int pitchValue = midiValue % 12;
         //loss of fractional part

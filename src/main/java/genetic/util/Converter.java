@@ -41,4 +41,23 @@ public class Converter {
         return noteList;
     }
 
+    public static String humanReadable(Chromosome chromosome) {
+        StringBuilder builder = new StringBuilder();
+        for (Integer value : chromosome.getGenesValues()) {
+            if (MIDI_VALUE.test(value)) {
+                Sound sound = new Sound(value, DEFAULT_RHYTHMIC_VALUE);
+                builder.append(String.format("%s%d", sound.getPitch().name(), sound.getOctave().number()));
+            } else if (REST_VALUE.test(value)) {
+                builder.append("-");
+            } else if (TENUTO_VALUE.test(value)) {
+                builder.append("%");
+            } else {
+                throw new IllegalArgumentException(
+                        String.format("Failed to parse gene value. Value: %d is not supported by this parser.", value));
+            }
+            builder.append("|");
+        }
+        return builder.toString();
+    }
+
 }

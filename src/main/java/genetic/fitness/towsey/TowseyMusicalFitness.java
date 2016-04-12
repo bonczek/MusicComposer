@@ -1,8 +1,6 @@
 package genetic.fitness.towsey;
 
-import genetic.fitness.FitnessFunction;
-import genetic.representation.Chromosome;
-import genetic.util.Converter;
+import genetic.fitness.MusicalFitnessFunction;
 import music.Note;
 import music.analysis.towsey.statistics.DissonanceStatistic;
 import music.analysis.towsey.statistics.PitchVarietyStatistic;
@@ -13,7 +11,7 @@ import music.analysis.towsey.statistics.TowseyStatistic;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TowseyMusicalFitness implements FitnessFunction {
+public class TowseyMusicalFitness extends MusicalFitnessFunction {
 
     private List<TowseyStatistic> statistics = new ArrayList<>();
 
@@ -25,13 +23,7 @@ public class TowseyMusicalFitness implements FitnessFunction {
     }
 
     @Override
-    public void calculateFitness(List<Chromosome> population) {
-        population.stream().forEach(c -> c.setFitness(rateChromosome(c)));
-    }
-
-    @Override
-    public Integer rateChromosome(Chromosome chromosome) {
-        List<Note> noteList = Converter.fromChromosome(chromosome);
+    protected Integer rateMelody(List<Note> noteList) {
         for (Note note : noteList) {
             statistics.stream().forEach(statistic -> statistic.processNote(note));
         }

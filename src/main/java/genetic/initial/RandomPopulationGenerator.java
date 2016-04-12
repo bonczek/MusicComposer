@@ -1,6 +1,7 @@
 package genetic.initial;
 
 import genetic.representation.Chromosome;
+import genetic.representation.Constants;
 import genetic.representation.Gene;
 
 import java.util.ArrayList;
@@ -11,15 +12,10 @@ public class RandomPopulationGenerator extends InitialPopulationGenerator {
 
     private final Random numberGenerator;
 
-    //@todo do I need them?
-    private final List<Integer> availableValues;
-
     //@todo too many parameters
-    public RandomPopulationGenerator(int populationSize, int numbersOfMeasures, Random numberGenerator, List<Integer>
-            availableValues) {
+    public RandomPopulationGenerator(int populationSize, int numbersOfMeasures, Random numberGenerator) {
         super(populationSize, numbersOfMeasures);
         this.numberGenerator = numberGenerator;
-        this.availableValues = availableValues;
     }
 
     @Override
@@ -34,8 +30,8 @@ public class RandomPopulationGenerator extends InitialPopulationGenerator {
     private Chromosome generateChromosome(int chromosomeLength) {
         List<Gene> genes = new ArrayList<>();
         for (int j = 0; j < chromosomeLength; j++) {
-            int randomIndex = numberGenerator.nextInt(availableValues.size());
-            genes.add(new Gene(availableValues.get(randomIndex).shortValue()));
+            int randomGeneValue = numberGenerator.nextInt(Constants.MAX_MIDI_VALUE.value() + 3) - 2;
+            genes.add(new Gene(randomGeneValue));
         }
         return new Chromosome(genes);
     }

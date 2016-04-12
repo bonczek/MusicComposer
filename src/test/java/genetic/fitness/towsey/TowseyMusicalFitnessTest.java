@@ -13,8 +13,8 @@ public class TowseyMusicalFitnessTest {
         Chromosome testChromosome = Chromosome.createWithIntegerValues(Arrays.asList(geneValues));
         TowseyMusicalFitness calculator = new TowseyMusicalFitness();
 
-        int a = calculator.rateChromosome(testChromosome);
-        int b = a;
+        //int a = calculator.rateChromosome(testChromosome);
+        //int b = a;
 
     }
 }

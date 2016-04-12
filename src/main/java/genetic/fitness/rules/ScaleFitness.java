@@ -19,7 +19,7 @@ public class ScaleFitness extends MusicalFitnessFunction {
     }
 
     @Override
-    public Integer rateMelody(List<Note> noteList) {
+    protected Integer rateMelody(List<Note> noteList) {
         int rate = 0;
         for (Note note : noteList) {
             if (note instanceof Sound) {
