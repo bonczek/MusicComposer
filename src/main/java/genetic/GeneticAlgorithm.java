@@ -3,19 +3,13 @@ package genetic;
 import genetic.fitness.FitnessFunction;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.representation.Chromosome;
-import genetic.representation.Note;
-import jm.constants.RhythmValues;
-import jm.music.data.Part;
-import jm.music.data.Phrase;
+import genetic.util.Converter;
 import jm.music.data.Score;
 import jm.util.Play;
 import jm.util.View;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class GeneticAlgorithm {
 
@@ -46,13 +40,12 @@ public class GeneticAlgorithm {
         }
 
         fitnessFunction.calculateFitness(population);
-        population.forEach(c -> System.out.println(String.format("%s: %d",
-                c.toString(), fitnessFunction.rateChromosome(c))));
+        population.forEach(c -> System.out.println(String.format("%s: %d", c.toString(), c.getFitness())));
         humanReadable(population);
         Optional<Chromosome> theBestChromosome = population.stream().max((a, b) -> a.getFitness().compareTo(b.getFitness()));
         if (theBestChromosome.isPresent()) {
             System.out.println("*****THE BEST CHROMOSOME*****");
-            Score score = convert(theBestChromosome.get());
+            Score score = Converter.convertToJMusicScore(theBestChromosome.get());
             View.notate(score);
             Play.midi(score);
 
@@ -64,29 +57,9 @@ public class GeneticAlgorithm {
     }
 
     private void humanReadable(List<Chromosome> population) {
-        Map<Integer, Note> notesMap = new HashMap<>();
-        for (Note n : Note.values()) {
-            notesMap.put(n.value(), n);
-        }
-
         for (Chromosome chromosome : population) {
-            String formatted = chromosome.getGenesValues().stream().map(val -> notesMap.get(val).name()).collect(Collectors.joining("|"));
-            System.out.println(String.format("%s: %d", formatted, fitnessFunction.rateChromosome(chromosome)));
+            String formatted = Converter.humanReadable(chromosome);
+            System.out.println(String.format("%s: %d", formatted, chromosome.getFitness()));
         }
-    }
-
-    private Score convert(Chromosome theBest) {
-        Phrase phrase = new Phrase();
-        for (Integer genValue : theBest.getGenesValues()) {
-            jm.music.data.Note note;
-            if (genValue == -1) {
-                note = new jm.music.data.Note(jm.music.data.Note.REST, RhythmValues.SIXTEENTH_NOTE);
-            } else {
-                note = new jm.music.data.Note(genValue, RhythmValues.SIXTEENTH_NOTE);
-            }
-            phrase.add(note);
-        }
-        Part part = new Part(phrase);
-        return new Score(part);
     }
 }

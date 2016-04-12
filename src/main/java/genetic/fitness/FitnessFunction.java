@@ -4,17 +4,16 @@ import genetic.representation.Chromosome;
 
 import java.util.List;
 
-/**
- * Created by adam on 02.01.16.
- */
-public interface FitnessFunction {
+public abstract class FitnessFunction {
 
     /**
      * Calculate fitness value for each chromosome.
      *
      * @param population given chromosomes
      */
-    public void calculateFitness(List<Chromosome> population);
+    public void calculateFitness(List<Chromosome> population) {
+        population.stream().forEach(c -> c.setFitness(rateChromosome(c)));
+    }
 
-    public Integer rateChromosome(Chromosome chromosome);
+    protected abstract Integer rateChromosome(Chromosome chromosome);
 }
