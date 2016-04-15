@@ -1,6 +1,8 @@
 package genetic.util;
 
 import genetic.representation.Chromosome;
+import genetic.representation.Constants;
+import genetic.representation.Gene;
 import jm.constants.Durations;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
@@ -42,6 +44,32 @@ public class Converter {
             }
         }
         return noteList;
+    }
+
+    public static Chromosome fromNotes(List<Note> noteList, int chromosomeLength) throws IllegalArgumentException {
+        List<Gene> genes = new ArrayList<>();
+        for (Note note : noteList) {
+            if (Double.compare(note.getRhythmValue(), 0.0) <= 0) {
+                throw new IllegalArgumentException(String.format("Failed to convert given note. It has invalid rhythmic " +
+                        "value: %f", note.getRhythmValue()));
+            }
+            if (note instanceof Sound) {
+                Sound sound = (Sound) note;
+                genes.add(new Gene(sound.getMidiValue()));
+            } else if (note instanceof Rest) {
+                genes.add(new Gene(Constants.REST.value()));
+            }
+            double tenutoRhytm = note.getRhythmValue() - DEFAULT_RHYTHMIC_VALUE;
+            while (Double.compare(tenutoRhytm, 0.0) > 0) {
+                genes.add(new Gene(Constants.TENUTO.value()));
+                tenutoRhytm = tenutoRhytm - DEFAULT_RHYTHMIC_VALUE;
+            }
+        }
+        if (genes.size() != chromosomeLength) {
+            throw new IllegalArgumentException(String.format("Failed to convert given notes to chromosome values. " +
+                    "Notes have invalid rhythmic values and size of chromosome is %d", genes.size()));
+        }
+        return new Chromosome(genes);
     }
 
     public static String humanReadable(Chromosome chromosome) {
