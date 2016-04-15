@@ -26,16 +26,16 @@ public class GeneticAlgorithmTest {
     private FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), Pitch.A),
             100);
 
-    @Test
+    @Test(enabled = false)
     public void testRun() throws Exception {
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, pentatonicFitness);
 
-        //algorithm.run();
+        algorithm.run();
 
     }
 
-    @Test
+    @Test(enabled = false)
     public void testTowseyFitness() throws Exception {
         FitnessFunction fitnessFunction = new TowseyMusicalFitness();
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator,
@@ -43,7 +43,7 @@ public class GeneticAlgorithmTest {
         geneticAlgorithm.run();
     }
 
-    @Test
+    @Test(enabled = false)
     public void testMutation() throws Exception {
         FitnessFunction fitnessFunction = new TowseyMusicalFitness();
         InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, 4, new
