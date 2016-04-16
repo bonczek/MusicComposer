@@ -9,7 +9,6 @@ import java.util.Set;
 public class Harmony {
 
     private final Sound base;
-
     private final Set<Pitch> components;
 
     public Harmony(PitchInterval[] intervals, Pitch base) {
@@ -19,6 +18,10 @@ public class Harmony {
             Pitch pitchComponent = Sound.createSoundWithInterval(this.base, interval).getPitch();
             components.add(pitchComponent);
         }
+    }
+
+    public Set<Pitch> getComponents() {
+        return components;
     }
 
     public boolean fit(Sound sound) {

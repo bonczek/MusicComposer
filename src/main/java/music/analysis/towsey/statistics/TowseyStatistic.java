@@ -17,6 +17,10 @@ public abstract class TowseyStatistic {
 
     public abstract void processNote(Note note);
 
+    public void clear() {
+        numerator = 0;
+    }
+
     public double getResult() {
         return (double) numerator / (double) denominator;
     }

@@ -4,10 +4,11 @@ import genetic.GeneticAlgorithm;
 import genetic.NewPopulationGenerator;
 import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
-import genetic.fitness.rules.ScaleFitness;
+import genetic.fitness.towsey.TowseyMusicalFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
-import genetic.mutation.SimpleMutation;
+import genetic.mutation.GeneticMutation;
+import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -67,12 +68,15 @@ public class MainController implements Initializable {
 
         InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
                 Random());
+        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
+        GeneticMutation mutation = new TowseyMutation(mutationRate, new Random(), scale);
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-                new SimpleMutation(mutationRate, new Random()), new SimpleCrossover(0.9, new Random()));
-        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
-                baseScaleNote.getValue()), scaleReward);
+                mutation, new SimpleCrossover(0.9, new Random()));
+//        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
+//                baseScaleNote.getValue()), scaleReward);
+        FitnessFunction statisticalFitness = new TowseyMusicalFitness(scale, numbersOfMeasures);
 
-        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, pentatonicFitness);
+        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, statisticalFitness);
         algorithm.run();
     }
 

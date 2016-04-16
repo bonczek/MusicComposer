@@ -47,16 +47,26 @@ public class Sound extends Note {
         return pitch;
     }
 
-    public void setPitch(Pitch pitch) {
+    public void setPitch(Pitch pitch) throws IllegalArgumentException {
         this.pitch = pitch;
+        this.midiValue = pitch.value() + (12 * octave.number());
+        if (midiValue < 0 || midiValue > Constants.MAX_MIDI_VALUE.value()) {
+            throw new IllegalArgumentException(String.format("Failed set pitch value: %s. Midi " +
+                    "value should be in range <0,127> but was %d.", pitch, midiValue));
+        }
     }
 
     public Octave getOctave() {
         return octave;
     }
 
-    public void setOctave(Octave octave) {
+    public void setOctave(Octave octave) throws IllegalArgumentException {
         this.octave = octave;
+        this.midiValue = pitch.value() + (12 * octave.number());
+        if (midiValue < 0 || midiValue > Constants.MAX_MIDI_VALUE.value()) {
+            throw new IllegalArgumentException(String.format("Failed set octave value: %s. Midi " +
+                    "value should be in range <0,127> but was %d.", octave, midiValue));
+        }
     }
 
     @Override

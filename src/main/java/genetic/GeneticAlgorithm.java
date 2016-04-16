@@ -34,7 +34,7 @@ public class GeneticAlgorithm {
         int iteration = 0;
         while (nextPopulation(iteration)) {
             fitnessFunction.calculateFitness(population);
-            //niche.decreaseFitnessValueForSimilar(population);
+            niche.decreaseFitnessValueForSimilar(population);
             population = populationGenerator.generateNewPopulation(population);
             iteration++;
         }

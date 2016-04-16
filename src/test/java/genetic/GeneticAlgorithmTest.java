@@ -35,21 +35,16 @@ public class GeneticAlgorithmTest {
 
     }
 
-    @Test(enabled = false)
-    public void testTowseyFitness() throws Exception {
-        FitnessFunction fitnessFunction = new TowseyMusicalFitness();
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator,
-                fitnessFunction);
-        geneticAlgorithm.run();
-    }
 
     @Test(enabled = false)
     public void testMutation() throws Exception {
-        FitnessFunction fitnessFunction = new TowseyMusicalFitness();
-        InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, 4, new
+        int numbersOfMeasures = 4;
+        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), Pitch.C);
+        FitnessFunction fitnessFunction = new TowseyMusicalFitness(cMajorScale, numbersOfMeasures);
+        InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, numbersOfMeasures, new
                 Random());
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-                new TowseyMutation(0.5, new Random()), new SimpleCrossover(0.9, new Random()));
+                new TowseyMutation(0.3, new Random(), cMajorScale), new SimpleCrossover(0.9, new Random()));
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(initGenerator, populationGenerator,
                 fitnessFunction);
         geneticAlgorithm.run();
