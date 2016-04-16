@@ -18,6 +18,6 @@ public class TowseyMusicalFitnessTest {
         FitnessFunction calculator = new TowseyMusicalFitness();
 
         calculator.calculateFitness(Arrays.asList(testChromosome));
-        assertThat(testChromosome[0].getFitness(), is(70));
+        assertThat(testChromosome[0].getFitness(), is(706));
     }
 }

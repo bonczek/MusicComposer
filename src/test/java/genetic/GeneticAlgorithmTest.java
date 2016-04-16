@@ -6,8 +6,8 @@ import genetic.fitness.rules.ScaleFitness;
 import genetic.fitness.towsey.TowseyMusicalFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
-import genetic.mutation.IntervalMutation;
 import genetic.mutation.SimpleMutation;
+import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import music.Harmony;
 import music.Pitch;
@@ -49,7 +49,7 @@ public class GeneticAlgorithmTest {
         InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, 4, new
                 Random());
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-                new IntervalMutation(0.5, new Random()), new SimpleCrossover(0.9, new Random()));
+                new TowseyMutation(0.5, new Random()), new SimpleCrossover(0.9, new Random()));
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(initGenerator, populationGenerator,
                 fitnessFunction);
         geneticAlgorithm.run();

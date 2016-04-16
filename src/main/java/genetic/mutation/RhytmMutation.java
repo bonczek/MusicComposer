@@ -7,21 +7,18 @@ import java.util.Random;
 
 public class RhytmMutation extends GeneticMutation {
 
-    private final Random numberGenerator;
-
-    public RhytmMutation(double mutationRate, Random numberGenerator) {
-        super(mutationRate);
-        this.numberGenerator = numberGenerator;
+    public RhytmMutation(double mutationRate, Random randomGenerator) {
+        super(mutationRate, randomGenerator);
     }
 
     @Override
     protected void mutateChromosome(Chromosome chromosome) {
-        int geneIndex = numberGenerator.nextInt(chromosome.getSize());
+        int geneIndex = randomGenerator.nextInt(chromosome.getSize());
 
         for (; geneIndex < chromosome.getSize(); geneIndex++) {
-            if (numberGenerator.nextBoolean()) {
+            if (randomGenerator.nextBoolean()) {
                 if (chromosome.getGene(geneIndex).getValue() > 0) {
-                    if (numberGenerator.nextBoolean()) {
+                    if (randomGenerator.nextBoolean()) {
                         chromosome.getGene(geneIndex).setValue(Constants.REST.value());
                     } else {
                         chromosome.getGene(geneIndex).setValue(Constants.TENUTO.value());
@@ -30,7 +27,7 @@ public class RhytmMutation extends GeneticMutation {
                 }
             } else {
                 if (chromosome.getGene(geneIndex).getValue() < 0) {
-                    int usedPitchIndex = numberGenerator.nextInt(chromosome.getSize());
+                    int usedPitchIndex = randomGenerator.nextInt(chromosome.getSize());
                     for (; usedPitchIndex < chromosome.getSize(); usedPitchIndex++) {
                         if (chromosome.getGene(usedPitchIndex).getValue() > 0) {
                             chromosome.getGene(geneIndex).setValue(chromosome.getGene(usedPitchIndex).getValue().intValue());

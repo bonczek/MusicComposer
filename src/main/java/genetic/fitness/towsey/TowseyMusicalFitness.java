@@ -22,6 +22,7 @@ public class TowseyMusicalFitness extends MusicalFitnessFunction {
         statisticsExpectedMap.put(new DissonanceStatistic(), 0.01);
         statisticsExpectedMap.put(new RhythmVarietyStatistic(16), 0.24);
         statisticsExpectedMap.put(new RhythmicRangeStatistic(16), 0.32);
+//        statisticsExpectedMap.put(new PitchRangeStatistic(24), 0.5);
     }
 
     @Override
@@ -32,7 +33,8 @@ public class TowseyMusicalFitness extends MusicalFitnessFunction {
 
         List<Double> statisticDifferences = statisticsExpectedMap.entrySet().stream().map(entry -> Math.abs(entry
                 .getKey().getResult() - entry.getValue())).collect(Collectors.toList());
-        List<Double> rewards = statisticDifferences.stream().map(value -> 100 * Math.cos(Math.PI * value)).collect(Collectors.toList());
+        List<Double> rewards = statisticDifferences.stream().map(value -> 1000 * Math.cos(Math.PI * value)).collect
+                (Collectors.toList());
         Double rewardSum = rewards.stream().mapToDouble(d -> d).sum();
         return rewardSum.intValue();
     }

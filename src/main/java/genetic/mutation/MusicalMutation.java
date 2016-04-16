@@ -9,11 +9,8 @@ import java.util.Random;
 
 public abstract class MusicalMutation extends GeneticMutation {
 
-    protected Random randomGenerator;
-
     public MusicalMutation(double mutationRate, Random randomGenerator) {
-        super(mutationRate);
-        this.randomGenerator = randomGenerator;
+        super(mutationRate, randomGenerator);
     }
 
     @Override
