@@ -77,7 +77,7 @@ public class Converter {
         for (Integer value : chromosome.getGenesValues()) {
             if (MIDI_VALUE.test(value)) {
                 Sound sound = new Sound(value, DEFAULT_RHYTHMIC_VALUE);
-                builder.append(String.format("%s%d", sound.getPitch().name(), sound.getOctave().number()));
+                builder.append(String.format("%s%d", sound.getNoteName().name(), sound.getOctave().number()));
             } else if (REST_VALUE.test(value)) {
                 builder.append("-");
             } else if (TENUTO_VALUE.test(value)) {

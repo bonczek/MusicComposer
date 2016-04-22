@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PitchRangeStatisticTest {
+public class NoteNameRangeStatisticTest {
 
     @Test
     public void testProcessNote() throws Exception {

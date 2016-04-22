@@ -16,7 +16,7 @@ public class TowseyMutation extends GeneticMutation {
         mutationList.add(new IntervalMutation(mutationRate, randomGenerator));
         mutationList.add(new RhytmMutation(mutationRate, randomGenerator));
         mutationList.add(new ScaleMutation(mutationRate, randomGenerator, scale));
-//        mutationList.add(new PitchRangeMutation(mutationRate, randomGenerator));
+        //mutationList.add(new PitchRangeMutation(mutationRate, randomGenerator));
     }
 
     @Override

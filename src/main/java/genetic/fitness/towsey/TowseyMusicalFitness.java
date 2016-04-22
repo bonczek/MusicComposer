@@ -5,6 +5,7 @@ import music.Harmony;
 import music.Note;
 import music.analysis.towsey.statistics.DissonanceStatistic;
 import music.analysis.towsey.statistics.NonScaleStatistic;
+import music.analysis.towsey.statistics.PitchRangeStatistic;
 import music.analysis.towsey.statistics.PitchVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmicRangeStatistic;
@@ -25,7 +26,7 @@ public class TowseyMusicalFitness extends MusicalFitnessFunction {
         statisticsExpectedMap.put(new RhythmVarietyStatistic(16), 0.24);
         statisticsExpectedMap.put(new RhythmicRangeStatistic(16), 0.32);
         statisticsExpectedMap.put(new NonScaleStatistic(numbersOfMeasures, scale), 0.1);
-        //statisticsExpectedMap.put(new PitchRangeStatistic(24), 0.5);
+        statisticsExpectedMap.put(new PitchRangeStatistic(24), 0.5);
     }
 
     @Override

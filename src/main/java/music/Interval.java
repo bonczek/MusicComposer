@@ -2,19 +2,24 @@ package music;
 
 public class Interval {
 
+    private static final int PITCHES_IN_OCTAVE = 12;
+    private final Sound firstNote;
+    private final Sound nextNote;
     private PitchInterval pitchInterval;
-
     private int octaveDifference;
 
-    public Interval(int semitonesDifference) {
-        int interval = semitonesDifference % 12;
-        this.octaveDifference = semitonesDifference / 12;
-        for (PitchInterval pitchInterval : PitchInterval.values()) {
-            if (pitchInterval.semitones() == Math.abs(interval)) {
-                this.pitchInterval = pitchInterval;
-                break;
-            }
-        }
+    public Interval(Sound firstNote, Sound nextNote) {
+        this.firstNote = firstNote;
+        this.nextNote = nextNote;
+        calculateIntervalValues();
+    }
+
+    public Sound getFirstNote() {
+        return firstNote;
+    }
+
+    public Sound getNextNote() {
+        return nextNote;
     }
 
     public PitchInterval getPitchInterval() {
@@ -40,6 +45,18 @@ public class Interval {
             return false;
         } else {
             return true;
+        }
+    }
+
+    private void calculateIntervalValues() {
+        int semitonesDifference = nextNote.getMidiValue() - firstNote.getMidiValue();
+        int pitchSemitonesInterval = semitonesDifference % PITCHES_IN_OCTAVE;
+        this.octaveDifference = semitonesDifference / PITCHES_IN_OCTAVE;
+        for (PitchInterval pitchInterval : PitchInterval.values()) {
+            if (pitchInterval.semitones() == Math.abs(pitchSemitonesInterval)) {
+                this.pitchInterval = pitchInterval;
+                break;
+            }
         }
     }
 }

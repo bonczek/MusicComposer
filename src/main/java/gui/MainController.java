@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import music.Harmony;
-import music.Pitch;
+import music.NoteName;
 import music.Scale;
 
 import java.net.URL;
@@ -33,7 +33,7 @@ public class MainController implements Initializable {
     private ChoiceBox<Scale> scaleType;
 
     @FXML
-    private ChoiceBox<Pitch> baseScaleNote;
+    private ChoiceBox<NoteName> baseScaleNote;
 
     @FXML
     private TextField mutationRateTextField;
@@ -53,7 +53,7 @@ public class MainController implements Initializable {
         mutations.getSelectionModel().selectFirst();
         scaleType.setItems(FXCollections.observableArrayList(Scale.values()));
         scaleType.getSelectionModel().selectFirst();
-        baseScaleNote.setItems(FXCollections.observableArrayList(Pitch.values()));
+        baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();
     }
 

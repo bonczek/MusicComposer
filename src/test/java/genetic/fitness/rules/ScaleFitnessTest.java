@@ -3,7 +3,7 @@ package genetic.fitness.rules;
 import genetic.fitness.MusicalFitnessFunction;
 import genetic.representation.Chromosome;
 import music.Harmony;
-import music.Pitch;
+import music.NoteName;
 import music.Scale;
 import org.testng.annotations.Test;
 
@@ -19,7 +19,7 @@ public class ScaleFitnessTest {
     @Test
     public void testRateMelody_givenCMajorFitness() throws Exception {
         List<Chromosome> population = preparePopulation();
-        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), Pitch.C);
+        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
         MusicalFitnessFunction fitnessFunction = new ScaleFitness(cMajorScale, 10);
 
         fitnessFunction.calculateFitness(population);
@@ -31,7 +31,7 @@ public class ScaleFitnessTest {
     @Test
     public void testRateMelody_givenEMinorPentatonicFitness() throws Exception {
         List<Chromosome> population = preparePopulation();
-        Harmony eMinorPentatonicScale = new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), Pitch.E);
+        Harmony eMinorPentatonicScale = new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), NoteName.E);
         MusicalFitnessFunction fitnessFunction = new ScaleFitness(eMinorPentatonicScale, 10);
 
         fitnessFunction.calculateFitness(population);
@@ -43,10 +43,10 @@ public class ScaleFitnessTest {
 
     private List<Chromosome> preparePopulation() {
         List<Chromosome> chromosomes = new ArrayList<>();
-        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Pitch.C.value(), Pitch.E.value(), Pitch.G
+        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(NoteName.C.value(), NoteName.E.value(), NoteName.G
                 .value())));
-        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Pitch.D.value(), Pitch.F.value(), Pitch.A.value())));
-        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(Pitch.C_SHARP.value(), -1, Pitch.A_SHARP
+        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(NoteName.D.value(), NoteName.F.value(), NoteName.A.value())));
+        chromosomes.add(Chromosome.createWithIntegerValues(Arrays.asList(NoteName.C_SHARP.value(), -1, NoteName.A_SHARP
                 .value())));
         return chromosomes;
     }

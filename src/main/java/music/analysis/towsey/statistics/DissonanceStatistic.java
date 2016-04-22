@@ -23,7 +23,7 @@ public class DissonanceStatistic extends TowseyStatistic {
     }
 
     private void countDissonantInterval(Sound sound) {
-        Interval interval = previousNote.interval(sound);
+        Interval interval = new Interval(previousNote, sound);
         if (interval.moreThanOctave() || interval.getPitchInterval().equals(PitchInterval.TRITONE) ||
                 interval.getPitchInterval().equals(PitchInterval.MAJOR_SEVENTH)) {
             numerator++;

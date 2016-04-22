@@ -9,23 +9,23 @@ import java.util.Set;
 public class Harmony {
 
     private final Sound base;
-    private final Set<Pitch> components;
+    private final Set<NoteName> components;
 
-    public Harmony(PitchInterval[] intervals, Pitch base) {
+    public Harmony(PitchInterval[] intervals, NoteName base) {
         this.base = new Sound(base, Octave.SUBSUBCONTRA, Durations.WHOLE_NOTE);
         this.components = new HashSet<>();
         for (PitchInterval interval : Arrays.asList(intervals)) {
-            Pitch pitchComponent = Sound.createSoundWithInterval(this.base, interval).getPitch();
-            components.add(pitchComponent);
+            NoteName noteNameComponent = Sound.createSoundWithInterval(this.base, interval).getNoteName();
+            components.add(noteNameComponent);
         }
     }
 
-    public Set<Pitch> getComponents() {
+    public Set<NoteName> getComponents() {
         return components;
     }
 
     public boolean fit(Sound sound) {
-        if (components.contains(sound.getPitch())) {
+        if (components.contains(sound.getNoteName())) {
             return true;
         } else {
             return false;

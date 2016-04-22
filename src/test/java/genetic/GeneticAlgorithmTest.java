@@ -10,7 +10,7 @@ import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import music.Harmony;
-import music.Pitch;
+import music.NoteName;
 import music.Scale;
 import org.testng.annotations.Test;
 
@@ -23,7 +23,7 @@ public class GeneticAlgorithmTest {
     private NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
             new SimpleMutation(0.5, new Random()), new SimpleCrossover(0.9, new Random()));
 
-    private FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), Pitch.A),
+    private FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), NoteName.A),
             100);
 
     @Test(enabled = false)
@@ -39,7 +39,7 @@ public class GeneticAlgorithmTest {
     @Test(enabled = false)
     public void testMutation() throws Exception {
         int numbersOfMeasures = 4;
-        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), Pitch.C);
+        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
         FitnessFunction fitnessFunction = new TowseyMusicalFitness(cMajorScale, numbersOfMeasures);
         InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, numbersOfMeasures, new
                 Random());
