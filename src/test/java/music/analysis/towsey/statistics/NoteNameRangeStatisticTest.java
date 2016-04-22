@@ -2,6 +2,7 @@ package music.analysis.towsey.statistics;
 
 import jm.constants.Durations;
 import music.Note;
+import music.Pitch;
 import music.Rest;
 import music.Sound;
 import org.testng.annotations.Test;
@@ -14,8 +15,8 @@ public class NoteNameRangeStatisticTest {
     @Test
     public void testProcessNote() throws Exception {
         TowseyStatistic statistic = new PitchRangeStatistic(24);
-        Note[] notes = {new Sound(31, Durations.QUARTER_NOTE), new Rest(Durations.SIXTEENTH_NOTE), new Sound(19,
-                Durations.WHOLE_NOTE)};
+        Note[] notes = {new Sound(Pitch.createWithMidi(31), Durations.QUARTER_NOTE), new Rest(Durations
+                .SIXTEENTH_NOTE), new Sound(Pitch.createWithMidi(19), Durations.WHOLE_NOTE)};
         for (Note note : notes) {
             statistic.processNote(note);
         }
@@ -25,7 +26,8 @@ public class NoteNameRangeStatisticTest {
     @Test
     public void testProcessNote_givenRangeGreaterThanTwoOctaves() throws Exception {
         TowseyStatistic statistic = new PitchRangeStatistic(24);
-        Note[] notes = {new Sound(127, Durations.QUARTER_NOTE), new Sound(19, Durations.WHOLE_NOTE)};
+        Note[] notes = {new Sound(Pitch.createWithMidi(127), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithMidi(19), Durations.WHOLE_NOTE)};
         for (Note note : notes) {
             statistic.processNote(note);
         }

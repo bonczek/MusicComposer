@@ -24,7 +24,7 @@ public class ScaleFitness extends MusicalFitnessFunction {
         for (Note note : noteList) {
             if (note instanceof Sound) {
                 Sound sound = (Sound) note;
-                if (scale.fit(sound)) {
+                if (scale.fit(sound.getPitch())) {
                     rate += reward;
                 }
             }

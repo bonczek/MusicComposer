@@ -2,6 +2,7 @@ package music.analysis.towsey.statistics;
 
 import jm.constants.Durations;
 import music.Note;
+import music.Pitch;
 import music.Rest;
 import music.Sound;
 import org.testng.annotations.Test;
@@ -18,9 +19,10 @@ public class DissonanceStatisticTest {
     public void testStatisticComputation() throws Exception {
         DissonanceStatistic statistic = new DissonanceStatistic();
 
-        Note[] notes = {new Sound(127, Durations.SIXTEENTH_NOTE), new Sound(12, Durations.QUARTER_NOTE), new Sound
-                (13, Durations.WHOLE_NOTE), new Sound(19, Durations.WHOLE_NOTE), new Sound(30, Durations.WHOLE_NOTE),
-                new Rest(Durations.QUARTER_NOTE)};
+        Note[] notes = {new Sound(Pitch.createWithMidi(127), Durations.SIXTEENTH_NOTE), new Sound(Pitch
+                .createWithMidi(12), Durations.QUARTER_NOTE), new Sound(Pitch.createWithMidi(13),
+                Durations.WHOLE_NOTE), new Sound(Pitch.createWithMidi(19), Durations.WHOLE_NOTE),
+                new Sound(Pitch.createWithMidi(30), Durations.WHOLE_NOTE), new Rest(Durations.QUARTER_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
         noteList.forEach(statistic::processNote);

@@ -7,6 +7,7 @@ import jm.constants.Durations;
 import music.Note;
 import music.NoteName;
 import music.Octave;
+import music.Pitch;
 import music.Rest;
 import music.Sound;
 import org.testng.annotations.Test;
@@ -32,8 +33,8 @@ public class ConverterTest {
 
         Sound longNote = (Sound) noteList.get(2);
         assertThat(longNote.getRhythmValue(), is(Durations.QUARTER_NOTE));
-        assertThat(longNote.getOctave(), is(Octave.SUBSUBCONTRA));
-        assertThat(longNote.getNoteName(), is(NoteName.D));
+        assertThat(longNote.getPitch().getOctave(), is(Octave.SUBSUBCONTRA));
+        assertThat(longNote.getPitch().getNoteName(), is(NoteName.D));
         assertThat(noteList.get(3), instanceOf(Rest.class));
         assertThat(noteList.get(3).getRhythmValue(), is(Durations.EIGHTH_NOTE));
         assertThat(noteList.get(6), instanceOf(Rest.class));
@@ -42,8 +43,9 @@ public class ConverterTest {
 
     @Test
     public void testNotesToChromosomeConversion() throws Exception {
-        Note[] notes = {new Sound(NoteName.A, Octave.CONTRA, Durations.SIXTEENTH_NOTE), new Rest(Durations.HALF_NOTE),
-                new Sound(NoteName.D, Octave.FOUR_LINED, Durations.QUARTER_NOTE), new Rest(Durations.DOTTED_EIGHTH_NOTE)};
+        Note[] notes = {new Sound(Pitch.createWithNames(NoteName.A, Octave.CONTRA), Durations.SIXTEENTH_NOTE),
+                new Rest(Durations.HALF_NOTE), new Sound(Pitch.createWithNames(NoteName.D, Octave.FOUR_LINED),
+                Durations.QUARTER_NOTE), new Rest(Durations.DOTTED_EIGHTH_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
         Chromosome chromosome = Converter.fromNotes(noteList, 16);
@@ -61,7 +63,8 @@ public class ConverterTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testInvalidNotesConversion() throws Exception {
-        Note[] notes = {new Sound(NoteName.A, Octave.CONTRA, Durations.QUARTER_NOTE), new Rest(-2.0)};
+        Note[] notes = {new Sound(Pitch.createWithNames(NoteName.A, Octave.CONTRA), Durations.QUARTER_NOTE), new Rest
+                (-2.0)};
         List<Note> noteList = Arrays.asList(notes);
 
         Converter.fromNotes(noteList, 12);
@@ -69,7 +72,8 @@ public class ConverterTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testTooManyNotesConversion() throws Exception {
-        Note[] notes = {new Sound(NoteName.A, Octave.CONTRA, Durations.WHOLE_NOTE), new Rest(Durations.QUARTER_NOTE)};
+        Note[] notes = {new Sound(Pitch.createWithNames(NoteName.A, Octave.CONTRA), Durations.WHOLE_NOTE), new Rest
+                (Durations.QUARTER_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
         Converter.fromNotes(noteList, 16);

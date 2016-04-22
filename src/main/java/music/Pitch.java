@@ -12,12 +12,15 @@ public class Pitch implements Comparable<Pitch> {
     private static final int MIN_MIDI_VALUE = 0;
 
     private static final int MAX_MIDI_VALUE = 127;
+
     private static final PitchRange MIDI_RANGE = new PitchRange(MIN_MIDI_VALUE, MAX_MIDI_VALUE);
-    private static IntFunction<String> ERROR_FORMAT = (midiValue) -> String.format("Failed to create pitch with " +
+
+    private static final IntFunction<String> ERROR_FORMAT = (midiValue) -> String.format("Failed to create pitch with " +
             "value: %d. Midi value should be in range <0,127>.", midiValue);
-    private NoteName noteName = NoteName.A;
-    private Octave octave = Octave.CONTRA;
-    private Integer midiValue = 1;
+
+    private NoteName noteName;
+    private Octave octave;
+    private Integer midiValue;
 
     private Pitch() {
     }
@@ -54,6 +57,27 @@ public class Pitch implements Comparable<Pitch> {
 
     public static int midiFromNotes(NoteName noteName, Octave octave) {
         return noteName.value() + (NOTES_IN_OCTAVE * octave.number());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pitch pitch = (Pitch) o;
+
+        if (noteName != pitch.noteName) return false;
+        if (octave != pitch.octave) return false;
+        return midiValue != null ? midiValue.equals(pitch.midiValue) : pitch.midiValue == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = noteName != null ? noteName.hashCode() : 0;
+        result = 31 * result + (octave != null ? octave.hashCode() : 0);
+        result = 31 * result + (midiValue != null ? midiValue.hashCode() : 0);
+        return result;
     }
 
     public Integer getMidiValue() {

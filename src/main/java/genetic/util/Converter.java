@@ -8,6 +8,7 @@ import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
 import music.Note;
+import music.Pitch;
 import music.Rest;
 import music.Sound;
 
@@ -29,7 +30,7 @@ public class Converter {
         List<Note> noteList = new ArrayList<>();
         for (Integer value : chromosome.getGenesValues()) {
             if (MIDI_VALUE.test(value)) {
-                noteList.add(new Sound(value, DEFAULT_RHYTHMIC_VALUE));
+                noteList.add(new Sound(Pitch.createWithMidi(value), DEFAULT_RHYTHMIC_VALUE));
             } else if (REST_VALUE.test(value)) {
                 noteList.add(new Rest(DEFAULT_RHYTHMIC_VALUE));
             } else if (TENUTO_VALUE.test(value)) {
@@ -55,7 +56,7 @@ public class Converter {
             }
             if (note instanceof Sound) {
                 Sound sound = (Sound) note;
-                genes.add(new Gene(sound.getMidiValue()));
+                genes.add(new Gene(sound.getPitch().getMidiValue()));
             } else if (note instanceof Rest) {
                 genes.add(new Gene(Constants.REST.value()));
             }
@@ -76,8 +77,9 @@ public class Converter {
         StringBuilder builder = new StringBuilder();
         for (Integer value : chromosome.getGenesValues()) {
             if (MIDI_VALUE.test(value)) {
-                Sound sound = new Sound(value, DEFAULT_RHYTHMIC_VALUE);
-                builder.append(String.format("%s%d", sound.getNoteName().name(), sound.getOctave().number()));
+                Sound sound = new Sound(Pitch.createWithMidi(value), DEFAULT_RHYTHMIC_VALUE);
+                builder.append(String.format("%s%d", sound.getPitch().getNoteName().name(), sound.getPitch().getOctave().number
+                        ()));
             } else if (REST_VALUE.test(value)) {
                 builder.append("-");
             } else if (TENUTO_VALUE.test(value)) {
@@ -99,7 +101,7 @@ public class Converter {
                 jm.music.data.Note jMusicNote = new jm.music.data.Note(jm.music.data.Note.REST, note.getRhythmValue());
                 phrase.add(jMusicNote);
             } else if (note instanceof Sound) {
-                jm.music.data.Note jMusicNote = new jm.music.data.Note(((Sound) note).getMidiValue(),
+                jm.music.data.Note jMusicNote = new jm.music.data.Note(((Sound) note).getPitch().getMidiValue(),
                         note.getRhythmValue());
                 phrase.add(jMusicNote);
             } else {

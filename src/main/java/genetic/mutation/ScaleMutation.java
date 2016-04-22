@@ -25,15 +25,15 @@ public class ScaleMutation extends MusicalMutation {
         for (Note note : noteList) {
             if (note instanceof Sound) {
                 Sound sound = (Sound) note;
-                if (!scale.fit(sound)) {
+                if (!scale.fit(sound.getPitch())) {
                     List<NoteName> scaleNotes = new ArrayList<>(scale.getComponents());
                     int noteIndex = randomGenerator.nextInt(scaleNotes.size());
                     NoteName newNoteName = scaleNotes.get(noteIndex);
                     try {
-                        sound.setNoteName(newNoteName);
+                        sound.getPitch().changeNoteName(newNoteName);
                     } catch (IllegalArgumentException e) {
-                        if (sound.getMidiValue() > Constants.MAX_MIDI_VALUE.value()) {
-                            sound.setOctave(Octave.FIFE_LINED);
+                        if (sound.getPitch().getMidiValue() > Constants.MAX_MIDI_VALUE.value()) {
+                            sound.getPitch().changeOctave(Octave.FIFE_LINED);
                         }
                     }
                     break;

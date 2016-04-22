@@ -13,7 +13,7 @@ public class PitchVarietyStatistic extends TowseyStatistic {
     @Override
     public void processNote(Note note) {
         if (note instanceof Sound) {
-            int midiValue = ((Sound) note).getMidiValue();
+            int midiValue = ((Sound) note).getPitch().getMidiValue();
             if (!midiValuesSet.contains(midiValue)) {
                 numerator++;
                 midiValuesSet.add(midiValue);

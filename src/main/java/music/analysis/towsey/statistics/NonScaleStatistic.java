@@ -18,7 +18,7 @@ public class NonScaleStatistic extends TowseyStatistic {
     @Override
     public void processNote(Note note) {
         if (note instanceof Sound) {
-            if (!scale.fit((Sound) note)) {
+            if (!scale.fit(((Sound) note).getPitch())) {
                 double rhythmValue = note.getRhythmValue();
                 while (rhythmValue > 0) {
                     numerator++;

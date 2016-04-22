@@ -5,6 +5,7 @@ import music.Harmony;
 import music.Note;
 import music.NoteName;
 import music.Octave;
+import music.Pitch;
 import music.Rest;
 import music.Scale;
 import music.Sound;
@@ -18,9 +19,10 @@ public class NonScaleStatisticTest {
     @Test
     public void testProcessNote() throws Exception {
 
-        Note[] notes = {new Sound(NoteName.C, Octave.GREAT, Durations.HALF_NOTE), new Sound(NoteName.A_SHARP, Octave
-                .CONTRA, Durations.QUARTER_NOTE), new Rest(Durations.QUARTER_NOTE), new Sound(NoteName.F_SHARP, Octave
-                .ONE_LINED, Durations.WHOLE_NOTE)};
+        Note[] notes = {new Sound(Pitch.createWithNames(NoteName.C, Octave.GREAT), Durations.HALF_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.A_SHARP, Octave.CONTRA), Durations.QUARTER_NOTE), new Rest
+                (Durations.QUARTER_NOTE), new Sound(Pitch.createWithNames(NoteName.F_SHARP, Octave.ONE_LINED),
+                Durations.WHOLE_NOTE)};
 
         Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
         TowseyStatistic statistic = new NonScaleStatistic(2, cMajorScale);

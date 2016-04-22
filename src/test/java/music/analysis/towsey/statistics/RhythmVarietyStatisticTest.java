@@ -3,6 +3,7 @@ package music.analysis.towsey.statistics;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import jm.constants.Durations;
 import music.Note;
+import music.Pitch;
 import music.Rest;
 import music.Sound;
 import org.testng.annotations.Test;
@@ -18,8 +19,9 @@ public class RhythmVarietyStatisticTest {
     public void testStatistic() throws Exception {
         RhythmVarietyStatistic statistic = new RhythmVarietyStatistic(16);
 
-        Note[] notes = {new Sound(127, Durations.SIXTEENTH_NOTE), new Sound(12, Durations.QUARTER_NOTE), new Sound
-                (127, Durations.WHOLE_NOTE), new Rest(Durations.EIGHTH_NOTE), new Rest(Durations.SIXTEENTH_NOTE)};
+        Note[] notes = {new Sound(Pitch.createWithMidi(127), Durations.SIXTEENTH_NOTE), new Sound(Pitch
+                .createWithMidi(12), Durations.QUARTER_NOTE), new Sound(Pitch.createWithMidi(127), Durations
+                .WHOLE_NOTE), new Rest(Durations.EIGHTH_NOTE), new Rest(Durations.SIXTEENTH_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
         noteList.forEach(statistic::processNote);

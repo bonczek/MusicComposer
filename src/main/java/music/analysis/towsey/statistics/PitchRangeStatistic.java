@@ -17,11 +17,11 @@ public class PitchRangeStatistic extends TowseyStatistic {
     public void processNote(Note note) {
         if (note instanceof Sound) {
             Sound sound = (Sound) note;
-            if (sound.getMidiValue() < lowestPitch) {
-                lowestPitch = sound.getMidiValue();
+            if (sound.getPitch().getMidiValue() < lowestPitch) {
+                lowestPitch = sound.getPitch().getMidiValue();
             }
-            if (sound.getMidiValue() > highestPitch) {
-                highestPitch = sound.getMidiValue();
+            if (sound.getPitch().getMidiValue() > highestPitch) {
+                highestPitch = sound.getPitch().getMidiValue();
             }
             numerator = highestPitch - lowestPitch;
             if (numerator > denominator) {
