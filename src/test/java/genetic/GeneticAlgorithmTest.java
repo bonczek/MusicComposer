@@ -6,6 +6,8 @@ import genetic.fitness.rules.ScaleFitness;
 import genetic.fitness.towsey.TowseyMusicalFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
+import genetic.mutation.GeneticMutation;
+import genetic.mutation.MutationCoordinator;
 import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
@@ -21,7 +23,8 @@ public class GeneticAlgorithmTest {
     private InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(8, 1, new Random());
 
     private NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-            new SimpleMutation(0.5, new Random()), new SimpleCrossover(0.9, new Random()));
+            new MutationCoordinator(new GeneticGuard(0.5), new SimpleMutation(new Random())),
+            new SimpleCrossover(0.9, new Random()));
 
     private FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), NoteName.A),
             100);
@@ -43,8 +46,10 @@ public class GeneticAlgorithmTest {
         FitnessFunction fitnessFunction = new TowseyMusicalFitness(cMajorScale, numbersOfMeasures);
         InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, numbersOfMeasures, new
                 Random());
+        GeneticMutation mutation = new TowseyMutation(new Random(), cMajorScale);
+        MutationCoordinator mutationCoordinator = new MutationCoordinator(new GeneticGuard(0.3), mutation);
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-                new TowseyMutation(0.3, new Random(), cMajorScale), new SimpleCrossover(0.9, new Random()));
+                mutationCoordinator, new SimpleCrossover(0.9, new Random()));
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(initGenerator, populationGenerator,
                 fitnessFunction);
         geneticAlgorithm.run();

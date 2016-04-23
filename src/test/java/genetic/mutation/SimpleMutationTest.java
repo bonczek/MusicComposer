@@ -17,14 +17,14 @@ import static org.mockito.Mockito.when;
 public class SimpleMutationTest {
 
     private Random randomMock = Mockito.mock(Random.class);
-    private SimpleMutation mutation = new SimpleMutation(1.0, randomMock);
+    private SimpleMutation mutation = new SimpleMutation(randomMock);
 
     @Test
     public void testMutateChromosome() throws Exception {
         List<Chromosome> chromosomes = prepareData();
         when(randomMock.nextInt(chromosomes.get(0).getSize())).thenReturn(2, 3);
         when(randomMock.nextInt(Constants.MAX_MIDI_VALUE.value() + 3)).thenReturn(9, 0);
-        mutation.mutate(chromosomes);
+        chromosomes.forEach(mutation::mutate);
 
         assertThat(chromosomes.get(0).getGenesValues(), contains(4, 4, 7, 2, 6, 1, 3, 5));
         assertThat(chromosomes.get(1).getGenesValues(), contains(9, 8, 8, -2, 6, 7, 8, 6));

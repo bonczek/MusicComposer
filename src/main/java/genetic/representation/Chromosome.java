@@ -1,5 +1,7 @@
 package genetic.representation;
 
+import genetic.mutation.Mutation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -109,5 +111,9 @@ public class Chromosome {
         int result = genes.hashCode();
         result = 31 * result + size;
         return result;
+    }
+
+    public Chromosome mutate(Mutation mutation) {
+        return mutation.mutate(this);
     }
 }

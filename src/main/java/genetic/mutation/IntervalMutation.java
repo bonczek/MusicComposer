@@ -14,17 +14,18 @@ public class IntervalMutation extends GeneticMutation {
 
     private final List<PitchInterval> intervals = new ArrayList<>(Arrays.asList(PitchInterval.values()));
 
-    public IntervalMutation(double mutationRate, Random indexChooser) {
-        super(mutationRate, indexChooser);
+    public IntervalMutation(Random randomGenerator) {
+        super(randomGenerator);
     }
 
     @Override
-    protected void mutateChromosome(Chromosome chromosome) {
+    public Chromosome mutate(Chromosome chromosome) {
+        Chromosome mutatingChromosome = new Chromosome(chromosome.getPart(0, chromosome.getSize()));
         int geneIndex = randomGenerator.nextInt(chromosome.getSize());
         int nextGenIndex = geneIndex + 1;
-        while (geneIndex < chromosome.getSize() - 1 && nextGenIndex < chromosome.getSize()) {
-            int firstGeneValue = chromosome.getGene(geneIndex).getValue();
-            int secondGeneValue = chromosome.getGene(geneIndex + 1).getValue();
+        while (geneIndex < mutatingChromosome.getSize() - 1 && nextGenIndex < mutatingChromosome.getSize()) {
+            int firstGeneValue = mutatingChromosome.getGene(geneIndex).getValue();
+            int secondGeneValue = mutatingChromosome.getGene(geneIndex + 1).getValue();
             if (firstGeneValue >= 0 && secondGeneValue >= 0) {
                 int newValue;
                 int intervalIndex = randomGenerator.nextInt(intervals.size());
@@ -40,7 +41,7 @@ public class IntervalMutation extends GeneticMutation {
                 } else if (newValue < 0) {
                     newValue = firstGeneValue + newInterval.semitones();
                 }
-                chromosome.getGene(geneIndex + 1).setValue(newValue);
+                mutatingChromosome.getGene(geneIndex + 1).setValue(newValue);
                 break;
             } else if (firstGeneValue < 0) {
                 geneIndex++;
@@ -49,6 +50,7 @@ public class IntervalMutation extends GeneticMutation {
                 nextGenIndex++;
             }
         }
+        return mutatingChromosome;
     }
 }
 

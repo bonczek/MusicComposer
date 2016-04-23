@@ -9,16 +9,15 @@ import java.util.Random;
 
 public abstract class MusicalMutation extends GeneticMutation {
 
-    public MusicalMutation(double mutationRate, Random randomGenerator) {
-        super(mutationRate, randomGenerator);
+    public MusicalMutation(Random randomGenerator) {
+        super(randomGenerator);
     }
 
     @Override
-    protected void mutateChromosome(Chromosome chromosome) {
+    public Chromosome mutate(Chromosome chromosome) {
         List<Note> noteList = Converter.fromChromosome(chromosome);
         mutateNotes(noteList);
-        Chromosome mutatedChromosome = Converter.fromNotes(noteList, chromosome.getSize());
-        chromosome.setPart(mutatedChromosome.getPart(0, mutatedChromosome.getSize()), 0, chromosome.getSize());
+        return Converter.fromNotes(noteList, chromosome.getSize());
     }
 
     protected abstract void mutateNotes(List<Note> noteList);

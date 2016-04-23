@@ -1,25 +1,23 @@
 package genetic;
 
 import genetic.crossover.GeneticCrossover;
-import genetic.mutation.GeneticMutation;
+import genetic.mutation.MutationCoordinator;
 import genetic.representation.Chromosome;
 import genetic.selection.GeneticSelector;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by adam on 02.01.16.
- */
 public class NewPopulationGenerator {
 
     private final GeneticSelector geneticSelector;
-    private final GeneticMutation geneticMutation;
+    private final MutationCoordinator mutationCoordinator;
     private final GeneticCrossover geneticCrossover;
 
-    public NewPopulationGenerator(GeneticSelector geneticSelector, GeneticMutation geneticMutation, GeneticCrossover geneticCrossover) {
+    public NewPopulationGenerator(GeneticSelector geneticSelector, MutationCoordinator mutationCoordinator, GeneticCrossover
+            geneticCrossover) {
         this.geneticSelector = geneticSelector;
-        this.geneticMutation = geneticMutation;
+        this.mutationCoordinator = mutationCoordinator;
         this.geneticCrossover = geneticCrossover;
     }
 
@@ -30,9 +28,7 @@ public class NewPopulationGenerator {
         while (newPopulation.size() < populationSize) {
             List<Chromosome> selectedChromosomes = geneticSelector.selectChromosomes(population);
             geneticCrossover.crossOver(selectedChromosomes);
-            geneticMutation.mutate(selectedChromosomes);
-
-            selectedChromosomes.forEach(newPopulation::add);
+            selectedChromosomes.stream().map(mutationCoordinator::mutateWithProbability).forEach(newPopulation::add);
         }
         return newPopulation;
     }

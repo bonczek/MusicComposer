@@ -7,14 +7,17 @@ import java.util.Random;
 
 public class SimpleMutation extends GeneticMutation {
 
-    public SimpleMutation(double mutationRate, Random random) {
-        super(mutationRate, random);
+
+    public SimpleMutation(Random randomGenerator) {
+        super(randomGenerator);
     }
 
     @Override
-    protected void mutateChromosome(Chromosome chromosome) {
-        int geneIndex = randomGenerator.nextInt(chromosome.getSize());
+    public Chromosome mutate(Chromosome chromosome) {
+        Chromosome mutatingChromosome = new Chromosome(chromosome.getPart(0, chromosome.getSize()));
+        int geneIndex = randomGenerator.nextInt(mutatingChromosome.getSize());
         int geneValue = randomGenerator.nextInt(Constants.MAX_MIDI_VALUE.value() + 3) - 2;
-        chromosome.getGene(geneIndex).setValue(geneValue);
+        mutatingChromosome.getGene(geneIndex).setValue(geneValue);
+        return mutatingChromosome;
     }
 }

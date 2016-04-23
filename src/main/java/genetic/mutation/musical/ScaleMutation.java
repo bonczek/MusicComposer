@@ -1,5 +1,6 @@
-package genetic.mutation;
+package genetic.mutation.musical;
 
+import genetic.mutation.MusicalMutation;
 import genetic.representation.Constants;
 import music.Harmony;
 import music.notes.Note;
@@ -15,8 +16,8 @@ public class ScaleMutation extends MusicalMutation {
 
     private Harmony scale;
 
-    public ScaleMutation(double mutationRate, Random randomGenerator, Harmony scale) {
-        super(mutationRate, randomGenerator);
+    public ScaleMutation(Random randomGenerator, Harmony scale) {
+        super(randomGenerator);
         this.scale = scale;
     }
 
