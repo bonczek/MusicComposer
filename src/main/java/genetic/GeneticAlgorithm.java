@@ -28,27 +28,28 @@ public class GeneticAlgorithm {
     }
 
     public void run() {
-        //initial population
         List<Chromosome> population = initialGenerator.generatePopulation();
 
         int iteration = 0;
         while (nextPopulation(iteration)) {
             fitnessFunction.calculateFitness(population);
-            niche.decreaseFitnessValueForSimilar(population);
+            //niche.decreaseFitnessValueForSimilar(population);
             population = populationGenerator.generateNewPopulation(population);
             iteration++;
         }
 
         fitnessFunction.calculateFitness(population);
-        population.forEach(c -> System.out.println(String.format("%s: %d", c.toString(), c.getFitness())));
+        population.forEach(c -> System.out.println(String.format("%s: %d", c.toString(), c.getFitness().getFitnessValue())));
         humanReadable(population);
-        Optional<Chromosome> theBestChromosome = population.stream().max((a, b) -> a.getFitness().compareTo(b.getFitness()));
+        Optional<Chromosome> theBestChromosome = population.stream().max((a, b) -> a.getFitness().getFitnessValue().compareTo(b
+                .getFitness().getFitnessValue()));
         if (theBestChromosome.isPresent()) {
-            System.out.println("*****THE BEST CHROMOSOME*****");
-            Score score = Converter.convertToJMusicScore(theBestChromosome.get());
+            Chromosome bestChromosome = theBestChromosome.get();
+            System.out.println(String.format("*****THE BEST CHROMOSOME*****\n%s", bestChromosome.getFitness()
+                    .getReport()));
+            Score score = Converter.convertToJMusicScore(bestChromosome);
             View.notate(score);
             Play.midi(score);
-
         }
     }
 
@@ -59,7 +60,7 @@ public class GeneticAlgorithm {
     private void humanReadable(List<Chromosome> population) {
         for (Chromosome chromosome : population) {
             String formatted = Converter.humanReadable(chromosome);
-            System.out.println(String.format("%s: %d", formatted, chromosome.getFitness()));
+            System.out.println(String.format("%s: %d", formatted, chromosome.getFitness().getFitnessValue()));
         }
     }
 }

@@ -23,9 +23,9 @@ public class ScaleFitnessTest {
         MusicalFitnessFunction fitnessFunction = new ScaleFitness(cMajorScale, 10);
 
         fitnessFunction.calculateFitness(population);
-        assertThat(population.get(0).getFitness(), is(30));
-        assertThat(population.get(1).getFitness(), is(30));
-        assertThat(population.get(2).getFitness(), is(0));
+        assertThat(population.get(0).getFitness().getFitnessValue(), is(30));
+        assertThat(population.get(1).getFitness().getFitnessValue(), is(30));
+        assertThat(population.get(2).getFitness().getFitnessValue(), is(0));
     }
 
     @Test
@@ -35,9 +35,9 @@ public class ScaleFitnessTest {
         MusicalFitnessFunction fitnessFunction = new ScaleFitness(eMinorPentatonicScale, 10);
 
         fitnessFunction.calculateFitness(population);
-        assertThat(population.get(0).getFitness(), is(20));
-        assertThat(population.get(1).getFitness(), is(20));
-        assertThat(population.get(2).getFitness(), is(0));
+        assertThat(population.get(0).getFitness().getFitnessValue(), is(20));
+        assertThat(population.get(1).getFitness().getFitnessValue(), is(20));
+        assertThat(population.get(2).getFitness().getFitnessValue(), is(0));
     }
 
 

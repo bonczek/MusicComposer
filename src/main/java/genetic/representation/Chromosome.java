@@ -1,5 +1,6 @@
 package genetic.representation;
 
+import genetic.fitness.Fitness;
 import genetic.mutation.Mutation;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Chromosome {
 
     protected final List<Gene> genes;
     private final int size;
-    private Integer fitness = 0;
+    private Fitness fitness;
 
     public Chromosome(List<Gene> genes) {
         this.genes = genes;
@@ -34,11 +35,11 @@ public class Chromosome {
         return new Chromosome(chromosome.getPart(0, chromosome.getSize()));
     }
 
-    public Integer getFitness() {
+    public Fitness getFitness() {
         return fitness;
     }
 
-    public void setFitness(Integer fitness) {
+    public void setFitness(Fitness fitness) {
         this.fitness = fitness;
     }
 

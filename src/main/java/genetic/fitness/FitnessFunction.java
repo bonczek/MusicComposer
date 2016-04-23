@@ -15,5 +15,5 @@ public abstract class FitnessFunction {
         population.stream().forEach(c -> c.setFitness(rateChromosome(c)));
     }
 
-    protected abstract Integer rateChromosome(Chromosome chromosome);
+    protected abstract Fitness rateChromosome(Chromosome chromosome);
 }

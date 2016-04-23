@@ -16,16 +16,8 @@ public class ChromosomePair {
         return first;
     }
 
-    public void setFirst(Chromosome first) {
-        this.first = first;
-    }
-
     public Chromosome getSecond() {
         return second;
-    }
-
-    public void setSecond(Chromosome second) {
-        this.second = second;
     }
 
     public ChromosomePair crossover(Crossover crossoverFunction) {

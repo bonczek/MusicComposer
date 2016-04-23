@@ -1,5 +1,6 @@
 package genetic.selection;
 
+import genetic.fitness.SimpleReward;
 import genetic.representation.Chromosome;
 import genetic.representation.ChromosomePair;
 import org.mockito.Mockito;
@@ -34,13 +35,19 @@ public class BinaryTournamentSelectionTest {
     private List<Chromosome> prepareChromosomes() {
         List<Chromosome> population = new ArrayList<>();
         Chromosome first = Chromosome.createWithIntegerValues(Arrays.asList(1, 2, 3));
-        first.setFitness(30);
+        SimpleReward firstFitness = new SimpleReward();
+        firstFitness.addReward(30);
+        first.setFitness(firstFitness);
         population.add(first);
         Chromosome second = Chromosome.createWithIntegerValues(Arrays.asList(4, 5, 6));
-        second.setFitness(20);
+        SimpleReward secondFitness = new SimpleReward();
+        secondFitness.addReward(20);
+        second.setFitness(secondFitness);
         population.add(second);
         Chromosome third = Chromosome.createWithIntegerValues(Arrays.asList(7, 8, 9));
-        third.setFitness(50);
+        SimpleReward thirdFitness = new SimpleReward();
+        thirdFitness.addReward(50);
+        third.setFitness(thirdFitness);
         population.add(third);
 
         return population;

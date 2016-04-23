@@ -6,7 +6,7 @@ import genetic.NewPopulationGenerator;
 import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
-import genetic.fitness.towsey.TowseyMusicalFitness;
+import genetic.fitness.statistic.MusicalStatisticsFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
 import genetic.mutation.GeneticMutation;
@@ -80,7 +80,7 @@ public class MainController implements Initializable {
                 mutationCoordinator, crossoverCoordinator);
 //        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
 //                baseScaleNote.getValue()), scaleReward);
-        FitnessFunction statisticalFitness = new TowseyMusicalFitness(scale, numbersOfMeasures);
+        FitnessFunction statisticalFitness = new MusicalStatisticsFitness(scale, numbersOfMeasures);
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, statisticalFitness);
         algorithm.run();

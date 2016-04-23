@@ -19,8 +19,9 @@ public class Niche {
                     }
                 }
             }
-            float newFitness = c.getFitness() / decreaseNumber;
-            c.setFitness(Math.round(newFitness));
+            //float newFitness = c.getFitness().getFitnessValue() / decreaseNumber;
+            //@todo decreasing values of Fitness class
+            //c.setFitness(Math.round(newFitness));
         }
     }
 }

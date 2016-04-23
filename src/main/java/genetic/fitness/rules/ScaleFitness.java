@@ -1,6 +1,8 @@
 package genetic.fitness.rules;
 
+import genetic.fitness.Fitness;
 import genetic.fitness.MusicalFitnessFunction;
+import genetic.fitness.SimpleReward;
 import music.Harmony;
 import music.notes.Note;
 import music.notes.Sound;
@@ -19,13 +21,13 @@ public class ScaleFitness extends MusicalFitnessFunction {
     }
 
     @Override
-    protected Integer rateMelody(List<Note> noteList) {
-        int rate = 0;
+    protected Fitness rateMelody(List<Note> noteList) {
+        SimpleReward rate = new SimpleReward();
         for (Note note : noteList) {
             if (note instanceof Sound) {
                 Sound sound = (Sound) note;
                 if (scale.fit(sound.getPitch())) {
-                    rate += reward;
+                    rate.addReward(reward);
                 }
             }
         }

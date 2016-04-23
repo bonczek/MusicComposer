@@ -4,7 +4,7 @@ import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
 import genetic.fitness.rules.ScaleFitness;
-import genetic.fitness.towsey.TowseyMusicalFitness;
+import genetic.fitness.statistic.MusicalStatisticsFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
 import genetic.mutation.GeneticMutation;
@@ -44,7 +44,7 @@ public class GeneticAlgorithmTest {
     public void testMutation() throws Exception {
         int numbersOfMeasures = 4;
         Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
-        FitnessFunction fitnessFunction = new TowseyMusicalFitness(cMajorScale, numbersOfMeasures);
+        FitnessFunction fitnessFunction = new MusicalStatisticsFitness(cMajorScale, numbersOfMeasures);
         InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, numbersOfMeasures, new
                 Random());
         GeneticMutation mutation = new TowseyMutation(new Random(), cMajorScale);

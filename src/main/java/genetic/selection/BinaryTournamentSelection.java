@@ -27,7 +27,7 @@ public class BinaryTournamentSelection implements GeneticSelector {
         int secondParentIndex = numberGenerator.nextInt(population.size());
         Chromosome secondParent = population.get(secondParentIndex);
 
-        if (firstParent.getFitness() > secondParent.getFitness()) {
+        if (firstParent.getFitness().getFitnessValue() > secondParent.getFitness().getFitnessValue()) {
             return firstParent;
         } else {
             return secondParent;
