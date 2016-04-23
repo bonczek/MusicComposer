@@ -3,8 +3,8 @@ package music.analysis.towsey.statistics;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.util.Converter;
 import music.Harmony;
-import music.Note;
-import music.Sound;
+import music.notes.Note;
+import music.notes.Sound;
 
 public class NonScaleStatistic extends TowseyStatistic {
 

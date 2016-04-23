@@ -4,12 +4,12 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.representation.Chromosome;
 import genetic.representation.Constants;
 import jm.constants.Durations;
-import music.Note;
-import music.NoteName;
-import music.Octave;
-import music.Pitch;
-import music.Rest;
-import music.Sound;
+import music.notes.Note;
+import music.notes.Rest;
+import music.notes.Sound;
+import music.notes.pitch.NoteName;
+import music.notes.pitch.Octave;
+import music.notes.pitch.Pitch;
 import org.testng.annotations.Test;
 
 import java.util.List;

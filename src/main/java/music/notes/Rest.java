@@ -1,4 +1,4 @@
-package music;
+package music.notes;
 
 public class Rest extends Note {
 

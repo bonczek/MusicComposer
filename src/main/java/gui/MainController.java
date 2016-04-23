@@ -17,8 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import music.Harmony;
-import music.NoteName;
 import music.Scale;
+import music.notes.pitch.NoteName;
 
 import java.net.URL;
 import java.util.Random;

@@ -1,10 +1,10 @@
 package music.analysis.towsey.statistics;
 
-import music.Interval;
-import music.Note;
-import music.Pitch;
-import music.PitchInterval;
-import music.Sound;
+import music.notes.Note;
+import music.notes.Sound;
+import music.notes.pitch.Interval;
+import music.notes.pitch.Pitch;
+import music.notes.pitch.PitchInterval;
 
 public class DissonanceStatistic extends TowseyStatistic {
 

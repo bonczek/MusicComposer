@@ -1,4 +1,4 @@
-package music;
+package music.notes.pitch;
 
 public enum Octave {
     SUBSUBCONTRA(0), SUB_CONTRA(1), CONTRA(2), GREAT(3), SMALL(4), ONE_LINED(5), TWO_LINED(6), THREE_LINED(7),

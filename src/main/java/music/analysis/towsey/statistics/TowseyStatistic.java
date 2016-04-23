@@ -1,6 +1,6 @@
 package music.analysis.towsey.statistics;
 
-import music.Note;
+import music.notes.Note;
 
 public abstract class TowseyStatistic {
 

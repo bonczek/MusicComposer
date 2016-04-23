@@ -10,15 +10,15 @@ import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import music.Harmony;
-import music.NoteName;
 import music.Scale;
+import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
 import java.util.Random;
 
 public class GeneticAlgorithmTest {
 
-    private InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(128, 1, new Random());
+    private InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(8, 1, new Random());
 
     private NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
             new SimpleMutation(0.5, new Random()), new SimpleCrossover(0.9, new Random()));

@@ -1,6 +1,7 @@
-package music;
+package music.notes;
 
 
+import music.notes.pitch.Pitch;
 
 public class Sound extends Note {
 

@@ -4,8 +4,8 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.fitness.FitnessFunction;
 import genetic.representation.Chromosome;
 import music.Harmony;
-import music.NoteName;
 import music.Scale;
+import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.is;

@@ -2,7 +2,7 @@ package genetic.mutation;
 
 import genetic.representation.Chromosome;
 import genetic.representation.Constants;
-import music.PitchInterval;
+import music.notes.pitch.PitchInterval;
 
 import java.util.ArrayList;
 import java.util.Arrays;

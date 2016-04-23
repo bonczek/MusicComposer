@@ -2,7 +2,6 @@ package genetic.fitness.towsey;
 
 import genetic.fitness.MusicalFitnessFunction;
 import music.Harmony;
-import music.Note;
 import music.analysis.towsey.statistics.DissonanceStatistic;
 import music.analysis.towsey.statistics.NonScaleStatistic;
 import music.analysis.towsey.statistics.PitchRangeStatistic;
@@ -10,6 +9,7 @@ import music.analysis.towsey.statistics.PitchVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmicRangeStatistic;
 import music.analysis.towsey.statistics.TowseyStatistic;
+import music.notes.Note;
 
 import java.util.HashMap;
 import java.util.List;

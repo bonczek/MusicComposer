@@ -1,4 +1,4 @@
-package music;
+package music.notes.pitch;
 
 public enum PitchInterval {
     PERFECT_UNISON(0), MINOR_SECOND(1), MAJOR_SECOND(2), MINOR_THIRD(3), MAJOR_THIRD(4), PERFECT_FOURTH(5),

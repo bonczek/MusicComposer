@@ -7,10 +7,10 @@ import jm.constants.Durations;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
-import music.Note;
-import music.Pitch;
-import music.Rest;
-import music.Sound;
+import music.notes.Note;
+import music.notes.Rest;
+import music.notes.Sound;
+import music.notes.pitch.Pitch;
 
 import java.util.ArrayList;
 import java.util.List;

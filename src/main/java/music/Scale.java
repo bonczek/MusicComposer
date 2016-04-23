@@ -1,5 +1,7 @@
 package music;
 
+import music.notes.pitch.PitchInterval;
+
 public enum Scale {
     MAJOR_SCALE(new PitchInterval[]{PitchInterval.PERFECT_UNISON, PitchInterval.MAJOR_SECOND,
             PitchInterval.MAJOR_THIRD, PitchInterval.PERFECT_FOURTH, PitchInterval.PERFECT_FIFTH,

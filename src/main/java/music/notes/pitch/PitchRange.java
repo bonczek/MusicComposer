@@ -1,4 +1,4 @@
-package music;
+package music.notes.pitch;
 
 public class PitchRange {
     private final int lowestMidiValue;

@@ -2,7 +2,7 @@ package genetic.mutation;
 
 import genetic.representation.Chromosome;
 import genetic.util.Converter;
-import music.Note;
+import music.notes.Note;
 
 import java.util.List;
 import java.util.Random;

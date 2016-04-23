@@ -2,10 +2,10 @@ package genetic.mutation;
 
 import genetic.representation.Constants;
 import music.Harmony;
-import music.Note;
-import music.NoteName;
-import music.Octave;
-import music.Sound;
+import music.notes.Note;
+import music.notes.Sound;
+import music.notes.pitch.NoteName;
+import music.notes.pitch.Octave;
 
 import java.util.ArrayList;
 import java.util.List;

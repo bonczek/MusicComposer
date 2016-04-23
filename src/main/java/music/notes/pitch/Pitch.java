@@ -1,4 +1,4 @@
-package music;
+package music.notes.pitch;
 
 import java.util.function.IntFunction;
 

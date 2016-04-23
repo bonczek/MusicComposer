@@ -3,8 +3,8 @@ package genetic.fitness.rules;
 import genetic.fitness.MusicalFitnessFunction;
 import genetic.representation.Chromosome;
 import music.Harmony;
-import music.NoteName;
 import music.Scale;
+import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;

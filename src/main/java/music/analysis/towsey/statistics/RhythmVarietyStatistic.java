@@ -1,6 +1,6 @@
 package music.analysis.towsey.statistics;
 
-import music.Note;
+import music.notes.Note;
 
 import java.util.HashSet;
 import java.util.Set;

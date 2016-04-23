@@ -1,5 +1,10 @@
 package music;
 
+import music.notes.pitch.NoteName;
+import music.notes.pitch.Octave;
+import music.notes.pitch.Pitch;
+import music.notes.pitch.PitchInterval;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

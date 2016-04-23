@@ -1,4 +1,4 @@
-package music;
+package music.notes;
 
 public abstract class Note {
 

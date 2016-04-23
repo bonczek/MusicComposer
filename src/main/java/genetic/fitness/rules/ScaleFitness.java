@@ -2,8 +2,8 @@ package genetic.fitness.rules;
 
 import genetic.fitness.MusicalFitnessFunction;
 import music.Harmony;
-import music.Note;
-import music.Sound;
+import music.notes.Note;
+import music.notes.Sound;
 
 import java.util.List;
 

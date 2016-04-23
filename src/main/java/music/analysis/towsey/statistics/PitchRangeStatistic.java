@@ -1,7 +1,7 @@
 package music.analysis.towsey.statistics;
 
-import music.Note;
-import music.Sound;
+import music.notes.Note;
+import music.notes.Sound;
 
 public class PitchRangeStatistic extends TowseyStatistic {
 
