@@ -1,5 +1,6 @@
 package genetic;
 
+import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
 import genetic.fitness.rules.ScaleFitness;
@@ -24,7 +25,7 @@ public class GeneticAlgorithmTest {
 
     private NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
             new MutationCoordinator(new GeneticGuard(0.5), new SimpleMutation(new Random())),
-            new SimpleCrossover(0.9, new Random()));
+            new CrossoverCoordinator(new GeneticGuard(0.9), new SimpleCrossover(new Random())));
 
     private FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), NoteName.A),
             100);
@@ -49,7 +50,8 @@ public class GeneticAlgorithmTest {
         GeneticMutation mutation = new TowseyMutation(new Random(), cMajorScale);
         MutationCoordinator mutationCoordinator = new MutationCoordinator(new GeneticGuard(0.3), mutation);
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-                mutationCoordinator, new SimpleCrossover(0.9, new Random()));
+                mutationCoordinator, new CrossoverCoordinator(new GeneticGuard(0.9), new SimpleCrossover(new Random()
+        )));
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(initGenerator, populationGenerator,
                 fitnessFunction);
         geneticAlgorithm.run();

@@ -3,6 +3,7 @@ package gui;
 import genetic.GeneticAlgorithm;
 import genetic.GeneticGuard;
 import genetic.NewPopulationGenerator;
+import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
 import genetic.fitness.towsey.TowseyMusicalFitness;
@@ -73,8 +74,10 @@ public class MainController implements Initializable {
         Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
         GeneticMutation mutation = new TowseyMutation(new Random(), scale);
         MutationCoordinator mutationCoordinator = new MutationCoordinator(new GeneticGuard(mutationRate), mutation);
+        CrossoverCoordinator crossoverCoordinator = new CrossoverCoordinator(new GeneticGuard(0.8), new
+                SimpleCrossover(new Random()));
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
-                mutationCoordinator, new SimpleCrossover(0.9, new Random()));
+                mutationCoordinator, crossoverCoordinator);
 //        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
 //                baseScaleNote.getValue()), scaleReward);
         FitnessFunction statisticalFitness = new TowseyMusicalFitness(scale, numbersOfMeasures);

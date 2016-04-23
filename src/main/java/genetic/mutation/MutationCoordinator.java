@@ -16,7 +16,7 @@ public class MutationCoordinator {
 
     public Chromosome mutateWithProbability(Chromosome chromosome) {
         if (guard.permitOperation()) {
-            return mutation.mutate(chromosome);
+            return chromosome.mutate(mutation);
         } else {
             return chromosome;
         }

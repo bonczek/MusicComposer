@@ -30,6 +30,10 @@ public class Chromosome {
         return new Chromosome(genes);
     }
 
+    public static Chromosome createCopy(Chromosome chromosome) {
+        return new Chromosome(chromosome.getPart(0, chromosome.getSize()));
+    }
+
     public Integer getFitness() {
         return fitness;
     }

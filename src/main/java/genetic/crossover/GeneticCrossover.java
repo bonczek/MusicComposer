@@ -1,36 +1,12 @@
 package genetic.crossover;
 
-import genetic.GeneticGuard;
-import genetic.representation.Chromosome;
+import java.util.Random;
 
-import java.util.List;
+public abstract class GeneticCrossover implements Crossover {
 
-/**
- * Created by adam on 02.01.16.
- */
-public abstract class GeneticCrossover {
+    protected Random randomGenerator;
 
-    private final GeneticGuard guard;
-
-    public GeneticCrossover(double crossoverRate) {
-        guard = new GeneticGuard(crossoverRate);
+    public GeneticCrossover(Random randomGenerator) {
+        this.randomGenerator = randomGenerator;
     }
-
-    /**
-     * Apply cross over operation with probability specified in a constructor.
-     *
-     * @param chromosomes cross over candidates
-     */
-    public void crossOver(List<Chromosome> chromosomes) {
-        if (guard.permitOperation()) {
-            crossOverChromosomes(chromosomes);
-        }
-    }
-
-    /**
-     * Cross over given chromosomes.
-     *
-     * @param chromosomes pair of chromosomes to cross over
-     */
-    protected abstract void crossOverChromosomes(List<Chromosome> chromosomes);
 }

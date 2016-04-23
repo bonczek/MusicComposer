@@ -1,8 +1,9 @@
 package genetic;
 
-import genetic.crossover.GeneticCrossover;
+import genetic.crossover.CrossoverCoordinator;
 import genetic.mutation.MutationCoordinator;
 import genetic.representation.Chromosome;
+import genetic.representation.ChromosomePair;
 import genetic.selection.GeneticSelector;
 
 import java.util.ArrayList;
@@ -12,13 +13,13 @@ public class NewPopulationGenerator {
 
     private final GeneticSelector geneticSelector;
     private final MutationCoordinator mutationCoordinator;
-    private final GeneticCrossover geneticCrossover;
+    private final CrossoverCoordinator crossoverCoordinator;
 
-    public NewPopulationGenerator(GeneticSelector geneticSelector, MutationCoordinator mutationCoordinator, GeneticCrossover
-            geneticCrossover) {
+    public NewPopulationGenerator(GeneticSelector geneticSelector, MutationCoordinator mutationCoordinator, CrossoverCoordinator
+            crossoverCoordinator) {
         this.geneticSelector = geneticSelector;
         this.mutationCoordinator = mutationCoordinator;
-        this.geneticCrossover = geneticCrossover;
+        this.crossoverCoordinator = crossoverCoordinator;
     }
 
     List<Chromosome> generateNewPopulation(List<Chromosome> population) {
@@ -27,8 +28,16 @@ public class NewPopulationGenerator {
 
         while (newPopulation.size() < populationSize) {
             List<Chromosome> selectedChromosomes = geneticSelector.selectChromosomes(population);
-            geneticCrossover.crossOver(selectedChromosomes);
-            selectedChromosomes.stream().map(mutationCoordinator::mutateWithProbability).forEach(newPopulation::add);
+            if (selectedChromosomes.size() == 2) {
+                ChromosomePair crossoverCandidates = new ChromosomePair(selectedChromosomes.get(0),
+                        selectedChromosomes.get(1));
+                ChromosomePair crossedPair = crossoverCoordinator.crossoverWithProbability(crossoverCandidates);
+                Chromosome firstAfterMutation = mutationCoordinator.mutateWithProbability(crossedPair.getFirst());
+                Chromosome secondAfterMutation = mutationCoordinator.mutateWithProbability(crossedPair.getSecond());
+
+                newPopulation.add(firstAfterMutation);
+                newPopulation.add(secondAfterMutation);
+            }
         }
         return newPopulation;
     }
