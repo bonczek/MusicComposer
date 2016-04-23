@@ -15,8 +15,7 @@ public class SimpleCrossover extends GeneticCrossover {
 
     @Override
     public ChromosomePair crossover(ChromosomePair chromosomePair) {
-        return replaceChromosomesParts(Chromosome.createCopy(chromosomePair.getFirst()),
-                Chromosome.createCopy(chromosomePair.getSecond()));
+        return replaceChromosomesParts(chromosomePair.getFirst(), chromosomePair.getSecond());
     }
 
     private ChromosomePair replaceChromosomesParts(Chromosome first, Chromosome second) {

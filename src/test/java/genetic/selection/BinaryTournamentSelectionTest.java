@@ -1,6 +1,7 @@
 package genetic.selection;
 
 import genetic.representation.Chromosome;
+import genetic.representation.ChromosomePair;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
@@ -24,11 +25,10 @@ public class BinaryTournamentSelectionTest {
         List<Chromosome> population = prepareChromosomes();
 
         when(numberGenerator.nextInt(population.size())).thenReturn(0, 1, 2, 0);
-        List<Chromosome> selected = selection.selectChromosomes(population);
+        ChromosomePair selected = selection.selectChromosomes(population);
 
-        assertThat(selected.size(), is(2));
-        assertThat(selected.get(0), is(population.get(0)));
-        assertThat(selected.get(1), is(population.get(2)));
+        assertThat(selected.getFirst(), is(population.get(0)));
+        assertThat(selected.getSecond(), is(population.get(2)));
     }
 
     private List<Chromosome> prepareChromosomes() {

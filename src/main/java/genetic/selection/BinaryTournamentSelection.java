@@ -1,14 +1,11 @@
 package genetic.selection;
 
 import genetic.representation.Chromosome;
+import genetic.representation.ChromosomePair;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by adam on 02.01.16.
- */
 public class BinaryTournamentSelection implements GeneticSelector {
 
     private final Random numberGenerator;
@@ -18,11 +15,10 @@ public class BinaryTournamentSelection implements GeneticSelector {
     }
 
     @Override
-    public List<Chromosome> selectChromosomes(List<Chromosome> population) {
-        List<Chromosome> selectedChromosomes = new ArrayList<>();
-        selectedChromosomes.add(binaryTournamentSelection(population));
-        selectedChromosomes.add(binaryTournamentSelection(population));
-        return selectedChromosomes;
+    public ChromosomePair selectChromosomes(List<Chromosome> population) {
+        Chromosome first = Chromosome.createCopy(binaryTournamentSelection(population));
+        Chromosome second = Chromosome.createCopy(binaryTournamentSelection(population));
+        return new ChromosomePair(first, second);
     }
 
     private Chromosome binaryTournamentSelection(List<Chromosome> population) {

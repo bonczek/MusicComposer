@@ -27,17 +27,13 @@ public class NewPopulationGenerator {
         int populationSize = population.size();
 
         while (newPopulation.size() < populationSize) {
-            List<Chromosome> selectedChromosomes = geneticSelector.selectChromosomes(population);
-            if (selectedChromosomes.size() == 2) {
-                ChromosomePair crossoverCandidates = new ChromosomePair(selectedChromosomes.get(0),
-                        selectedChromosomes.get(1));
-                ChromosomePair crossedPair = crossoverCoordinator.crossoverWithProbability(crossoverCandidates);
-                Chromosome firstAfterMutation = mutationCoordinator.mutateWithProbability(crossedPair.getFirst());
-                Chromosome secondAfterMutation = mutationCoordinator.mutateWithProbability(crossedPair.getSecond());
+            ChromosomePair selectedChromosomes = geneticSelector.selectChromosomes(population);
+            ChromosomePair crossedPair = crossoverCoordinator.crossoverWithProbability(selectedChromosomes);
+            Chromosome firstAfterMutation = mutationCoordinator.mutateWithProbability(crossedPair.getFirst());
+            Chromosome secondAfterMutation = mutationCoordinator.mutateWithProbability(crossedPair.getSecond());
 
-                newPopulation.add(firstAfterMutation);
-                newPopulation.add(secondAfterMutation);
-            }
+            newPopulation.add(firstAfterMutation);
+            newPopulation.add(secondAfterMutation);
         }
         return newPopulation;
     }

@@ -20,12 +20,11 @@ public class IntervalMutation extends GeneticMutation {
 
     @Override
     public Chromosome mutate(Chromosome chromosome) {
-        Chromosome mutatingChromosome = new Chromosome(chromosome.getPart(0, chromosome.getSize()));
         int geneIndex = randomGenerator.nextInt(chromosome.getSize());
         int nextGenIndex = geneIndex + 1;
-        while (geneIndex < mutatingChromosome.getSize() - 1 && nextGenIndex < mutatingChromosome.getSize()) {
-            int firstGeneValue = mutatingChromosome.getGene(geneIndex).getValue();
-            int secondGeneValue = mutatingChromosome.getGene(geneIndex + 1).getValue();
+        while (geneIndex < chromosome.getSize() - 1 && nextGenIndex < chromosome.getSize()) {
+            int firstGeneValue = chromosome.getGene(geneIndex).getValue();
+            int secondGeneValue = chromosome.getGene(geneIndex + 1).getValue();
             if (firstGeneValue >= 0 && secondGeneValue >= 0) {
                 int newValue;
                 int intervalIndex = randomGenerator.nextInt(intervals.size());
@@ -41,7 +40,7 @@ public class IntervalMutation extends GeneticMutation {
                 } else if (newValue < 0) {
                     newValue = firstGeneValue + newInterval.semitones();
                 }
-                mutatingChromosome.getGene(geneIndex + 1).setValue(newValue);
+                chromosome.getGene(geneIndex + 1).setValue(newValue);
                 break;
             } else if (firstGeneValue < 0) {
                 geneIndex++;
@@ -50,7 +49,7 @@ public class IntervalMutation extends GeneticMutation {
                 nextGenIndex++;
             }
         }
-        return mutatingChromosome;
+        return chromosome;
     }
 }
 

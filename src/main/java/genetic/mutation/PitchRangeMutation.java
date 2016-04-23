@@ -14,32 +14,31 @@ public class PitchRangeMutation extends GeneticMutation {
 
     @Override
     public Chromosome mutate(Chromosome chromosome) {
-        Chromosome mutatingChromosome = new Chromosome(chromosome.getPart(0, chromosome.getSize()));
         int lowestPitch = Integer.MAX_VALUE;
         int highestPitch = Integer.MIN_VALUE;
         int lowestPitchIndex = Integer.MIN_VALUE;
         int highestPitchIndex = Integer.MAX_VALUE;
-        for (int i = 0; i < mutatingChromosome.getSize(); i++) {
-            if (mutatingChromosome.getGene(i).getValue() < lowestPitch) {
-                lowestPitch = mutatingChromosome.getGene(i).getValue();
+        for (int i = 0; i < chromosome.getSize(); i++) {
+            if (chromosome.getGene(i).getValue() < lowestPitch) {
+                lowestPitch = chromosome.getGene(i).getValue();
                 lowestPitchIndex = i;
             }
-            if (mutatingChromosome.getGene(i).getValue() > highestPitch) {
-                highestPitch = mutatingChromosome.getGene(i).getValue();
+            if (chromosome.getGene(i).getValue() > highestPitch) {
+                highestPitch = chromosome.getGene(i).getValue();
                 highestPitchIndex = i;
             }
         }
-        if (lowestPitchIndex >= 0 && highestPitchIndex < mutatingChromosome.getSize()) {
+        if (lowestPitchIndex >= 0 && highestPitchIndex < chromosome.getSize()) {
             if (randomGenerator.nextBoolean()) {
                 if (highestPitch > 12) {
-                    mutatingChromosome.getGene(highestPitchIndex).setValue(highestPitch - 12);
+                    chromosome.getGene(highestPitchIndex).setValue(highestPitch - 12);
                 }
             } else {
                 if (lowestPitch < Constants.MAX_MIDI_VALUE.value() - 12) {
-                    mutatingChromosome.getGene(lowestPitchIndex).setValue(lowestPitch + 12);
+                    chromosome.getGene(lowestPitchIndex).setValue(lowestPitch + 12);
                 }
             }
         }
-        return mutatingChromosome;
+        return chromosome;
     }
 }

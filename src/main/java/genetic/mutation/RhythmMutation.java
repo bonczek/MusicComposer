@@ -13,31 +13,30 @@ public class RhythmMutation extends GeneticMutation {
 
     @Override
     public Chromosome mutate(Chromosome chromosome) {
-        Chromosome mutatingChromosome = new Chromosome(chromosome.getPart(0, chromosome.getSize()));
         int geneIndex = randomGenerator.nextInt(chromosome.getSize());
 
-        for (; geneIndex < mutatingChromosome.getSize(); geneIndex++) {
+        for (; geneIndex < chromosome.getSize(); geneIndex++) {
             if (randomGenerator.nextBoolean()) {
-                if (mutatingChromosome.getGene(geneIndex).getValue() > 0) {
+                if (chromosome.getGene(geneIndex).getValue() > 0) {
                     if (randomGenerator.nextBoolean()) {
-                        mutatingChromosome.getGene(geneIndex).setValue(Constants.REST.value());
+                        chromosome.getGene(geneIndex).setValue(Constants.REST.value());
                     } else {
-                        mutatingChromosome.getGene(geneIndex).setValue(Constants.TENUTO.value());
+                        chromosome.getGene(geneIndex).setValue(Constants.TENUTO.value());
                     }
                     break;
                 }
             } else {
-                if (mutatingChromosome.getGene(geneIndex).getValue() < 0) {
-                    int usedPitchIndex = randomGenerator.nextInt(mutatingChromosome.getSize());
-                    for (; usedPitchIndex < mutatingChromosome.getSize(); usedPitchIndex++) {
-                        if (mutatingChromosome.getGene(usedPitchIndex).getValue() > 0) {
-                            mutatingChromosome.getGene(geneIndex).setValue(mutatingChromosome.getGene(usedPitchIndex).getValue().intValue());
+                if (chromosome.getGene(geneIndex).getValue() < 0) {
+                    int usedPitchIndex = randomGenerator.nextInt(chromosome.getSize());
+                    for (; usedPitchIndex < chromosome.getSize(); usedPitchIndex++) {
+                        if (chromosome.getGene(usedPitchIndex).getValue() > 0) {
+                            chromosome.getGene(geneIndex).setValue(chromosome.getGene(usedPitchIndex).getValue().intValue());
                             break;
                         }
                     }
                 }
             }
         }
-        return mutatingChromosome;
+        return chromosome;
     }
 }

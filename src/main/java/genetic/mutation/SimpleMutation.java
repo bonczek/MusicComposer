@@ -14,10 +14,9 @@ public class SimpleMutation extends GeneticMutation {
 
     @Override
     public Chromosome mutate(Chromosome chromosome) {
-        Chromosome mutatingChromosome = new Chromosome(chromosome.getPart(0, chromosome.getSize()));
-        int geneIndex = randomGenerator.nextInt(mutatingChromosome.getSize());
+        int geneIndex = randomGenerator.nextInt(chromosome.getSize());
         int geneValue = randomGenerator.nextInt(Constants.MAX_MIDI_VALUE.value() + 3) - 2;
-        mutatingChromosome.getGene(geneIndex).setValue(geneValue);
-        return mutatingChromosome;
+        chromosome.getGene(geneIndex).setValue(geneValue);
+        return chromosome;
     }
 }
