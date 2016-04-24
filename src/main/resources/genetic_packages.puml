@@ -1,0 +1,82 @@
+@startuml
+
+package genetic <<Folder>> {
+class GeneticAlgorithm {
+    run()
+}
+class NewPopulationGenerator {
+    generateNewPopulation(List<Chromosome>)
+}
+
+class NewPopulationGenerator <--- GeneticAlgorithm
+
+NewPopulationGenerator ---> crossover
+NewPopulationGenerator ---> mutation
+NewPopulationGenerator ---> selection
+GeneticAlgorithm ---> fitness
+GeneticAlgorithm ---> initial
+
+    package crossover <<Folder>> {
+        interface Crossover {
+            + crossover(ChromosomePair)
+        }
+        class CrossoverCoordinator {
+            + crossoverWithProbability(ChromosomePair)
+        }
+        interface Crossover <--- CrossoverCoordinator
+    }
+
+    package mutation <<Folder>> {
+        interface Mutation {
+            + mutate(Chromosome)
+        }
+
+        class MutationCoordinator {
+            + mutateWithProbability(Chromosome)
+        }
+
+        interface Mutation <--- MutationCoordinator
+    }
+
+    package representation {
+        class Chromosome {
+            List<Gene> genes
+        }
+        class Gene {
+            Short value
+        }
+        class ChromosomePair {
+            Chromosome first
+            Chromosome second
+        }
+        class ChromosomePair o-- class Chromosome
+        class Chromosome *-- Gene
+    }
+
+    package selection {
+        interface GeneticSelector {
+            + selectChromosomes(List<Chromosome>)
+        }
+    }
+
+    package fitness {
+        abstract class FitnessFunction {
+            + calculateFitness(List<Chromosome>)
+            # abstract rateChromosome(Chromosome)
+        }
+        abstract class Fitness {
+            Integer fitnessValue
+        }
+        FitnessFunction ---> Fitness
+    }
+
+    package initial {
+        abstract class InitialPopulationGenerator {
+            + abstract generatePopulation();
+        }
+    }
+
+}
+
+
+@enduml

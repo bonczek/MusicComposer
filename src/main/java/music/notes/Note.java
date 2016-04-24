@@ -16,7 +16,7 @@ public abstract class Note {
         this.rhythmValue = rhythmValue;
     }
 
-    public void addRhytmValue(double rhythmValue) {
+    public void addRhythmValue(double rhythmValue) {
         this.rhythmValue += rhythmValue;
     }
 }

@@ -11,6 +11,7 @@ import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
 import genetic.mutation.GeneticMutation;
 import genetic.mutation.MutationCoordinator;
+import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import javafx.collections.FXCollections;
@@ -29,30 +30,26 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    private static final String RANDOM_MUTATION = "Random mutation";
+    private static final String MUSICAL_MUTATION = "Musical mutation";
     @FXML
     private ChoiceBox<String> mutations;
-
     @FXML
     private ChoiceBox<Scale> scaleType;
-
     @FXML
     private ChoiceBox<NoteName> baseScaleNote;
-
     @FXML
     private TextField mutationRateTextField;
-
+    @FXML
+    private TextField crossoverRateTextField;
     @FXML
     private TextField populationSizeTextField;
-
     @FXML
     private TextField numbersOfMeasuresTextField;
 
-    @FXML
-    private TextField scaleRewardTextField;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mutations.setItems(FXCollections.observableArrayList("Random mutation"));
+        mutations.setItems(FXCollections.observableArrayList(MUSICAL_MUTATION, RANDOM_MUTATION));
         mutations.getSelectionModel().selectFirst();
         scaleType.setItems(FXCollections.observableArrayList(Scale.values()));
         scaleType.getSelectionModel().selectFirst();
@@ -66,15 +63,20 @@ public class MainController implements Initializable {
         double mutationRate = Double.parseDouble(mutationRateTextField.getText());
         int populationSize = Integer.parseInt(populationSizeTextField.getText());
         int numbersOfMeasures = Integer.parseInt(numbersOfMeasuresTextField.getText());
-        int scaleReward = Integer.parseInt(scaleRewardTextField.getText());
+        double crossoverRate = Double.parseDouble(crossoverRateTextField.getText());
 
 
         InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
                 Random());
         Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
-        GeneticMutation mutation = new TowseyMutation(new Random(), scale);
+        GeneticMutation mutation;
+        if (mutations.getValue().equals(MUSICAL_MUTATION)) {
+            mutation = new TowseyMutation(new Random(), scale);
+        } else {
+            mutation = new SimpleMutation(new Random());
+        }
         MutationCoordinator mutationCoordinator = new MutationCoordinator(new GeneticGuard(mutationRate), mutation);
-        CrossoverCoordinator crossoverCoordinator = new CrossoverCoordinator(new GeneticGuard(0.8), new
+        CrossoverCoordinator crossoverCoordinator = new CrossoverCoordinator(new GeneticGuard(crossoverRate), new
                 SimpleCrossover(new Random()));
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 mutationCoordinator, crossoverCoordinator);

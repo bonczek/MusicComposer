@@ -1,0 +1,70 @@
+@startuml
+abstract class Note {
+    double rhythmValue
+}
+
+Note <|-- Rest
+Note <|-- Sound
+
+class Sound {
+    Pitch pitch
+}
+
+Sound o-- Pitch
+
+class Pitch {
+    NoteName noteName;
+    Octave octave;
+    Integer midiValue;
+}
+
+
+Pitch o-- NoteName
+Pitch o-- Octave
+
+class Interval {
+    Pitch firstNote
+    Pitch nextNote
+    PitchInterval pitchInterval
+    int octaveDifference
+}
+
+Interval o-- Pitch
+Interval o-- PitchInterval
+
+class Harmony {
+    Set<NoteName> components
+    + boolean fit(Pitch)
+}
+
+Harmony o-- NoteName
+
+enum NoteName {
+    C
+    C_SHARP
+    D
+    ...
+    + int value()
+}
+
+enum Octave {
+    SUB_CONTRA
+    CONTRA
+    ...
+    + int number()
+}
+
+enum PitchInterval {
+    PERFECT_UNISON
+    MINOR_SECOND
+    ...
+    + int semitones()
+}
+
+enum Scale {
+    MAJOR_SCALE
+    MINOR_PENTATONIC_SCALE
+    + PitchInterval[] intervals()
+}
+
+@enduml

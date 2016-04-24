@@ -35,7 +35,7 @@ public class Converter {
                 noteList.add(new Rest(DEFAULT_RHYTHMIC_VALUE));
             } else if (TENUTO_VALUE.test(value)) {
                 if (!noteList.isEmpty()) {
-                    noteList.get(noteList.size() - 1).addRhytmValue(DEFAULT_RHYTHMIC_VALUE);
+                    noteList.get(noteList.size() - 1).addRhythmValue(DEFAULT_RHYTHMIC_VALUE);
                 } else {
                     noteList.add(new Rest(DEFAULT_RHYTHMIC_VALUE));
                 }

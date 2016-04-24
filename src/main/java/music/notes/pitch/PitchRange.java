@@ -9,14 +9,6 @@ public class PitchRange {
         this.highestMidiValue = highestMidiValue;
     }
 
-    public int getHighestMidiValue() {
-        return highestMidiValue;
-    }
-
-    public int getLowestMidiValue() {
-        return lowestMidiValue;
-    }
-
     public boolean outOfRange(int midiValue) {
         return midiValue > highestMidiValue || midiValue < lowestMidiValue;
     }
