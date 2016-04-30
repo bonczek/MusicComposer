@@ -52,49 +52,6 @@ public class PitchTest {
     }
 
     @Test
-    public void testChangeNoteName() throws Exception {
-        NoteName note = NoteName.D;
-        Octave octave = Octave.GREAT;
-        Pitch pitch = Pitch.createWithNames(note, octave);
-        NoteName newNoteName = NoteName.B;
-
-        pitch.changeNoteName(newNoteName);
-        assertThat(pitch.getNoteName(), is(newNoteName));
-        assertThat(pitch.getMidiValue(), is(47));
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testChangeNoteName_givenOutOfRangeValue() throws Exception {
-        NoteName note = NoteName.D;
-        Octave octave = Octave.SIX_LINED;
-        Pitch pitch = Pitch.createWithNames(note, octave);
-
-        pitch.changeNoteName(NoteName.B);
-    }
-
-    @Test
-    public void testChangeOctave() throws Exception {
-        NoteName note = NoteName.D;
-        Octave octave = Octave.GREAT;
-        Pitch pitch = Pitch.createWithNames(note, octave);
-        Octave newOctave = Octave.ONE_LINED;
-
-        pitch.changeOctave(newOctave);
-        assertThat(pitch.getOctave(), is(newOctave));
-        assertThat(pitch.getMidiValue(), is(62));
-    }
-
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testChangeOctave_givenOutOfRangeValue() throws Exception {
-        NoteName note = NoteName.B;
-        Octave octave = Octave.GREAT;
-        Pitch pitch = Pitch.createWithNames(note, octave);
-        Octave newOctave = Octave.SIX_LINED;
-
-        pitch.changeOctave(newOctave);
-    }
-
-    @Test
     public void testMidiFromNotes() throws Exception {
         NoteName noteName = NoteName.F_SHARP;
         Octave octave = Octave.SIX_LINED;

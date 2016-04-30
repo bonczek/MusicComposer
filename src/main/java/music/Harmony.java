@@ -5,25 +5,25 @@ import music.notes.pitch.Octave;
 import music.notes.pitch.Pitch;
 import music.notes.pitch.PitchInterval;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class Harmony {
 
 
-    private final Set<NoteName> components;
+    private final List<NoteName> components;
 
     public Harmony(PitchInterval[] intervals, NoteName baseNoteName) {
         Pitch base = Pitch.createWithNames(baseNoteName, Octave.SUBSUBCONTRA);
-        this.components = new HashSet<>();
+        this.components = new ArrayList<>();
         for (PitchInterval interval : Arrays.asList(intervals)) {
             NoteName noteNameComponent = Pitch.createWithInterval(base, interval).getNoteName();
             components.add(noteNameComponent);
         }
     }
 
-    public Set<NoteName> getComponents() {
+    public List<NoteName> getComponents() {
         return components;
     }
 

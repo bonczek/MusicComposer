@@ -1,16 +1,16 @@
 package genetic.mutation.musical;
 
 import genetic.mutation.MusicalMutation;
-import genetic.representation.Constants;
 import music.Harmony;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.NoteName;
 import music.notes.pitch.Octave;
+import music.notes.pitch.Pitch;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ScaleMutation extends MusicalMutation {
 
@@ -23,23 +23,27 @@ public class ScaleMutation extends MusicalMutation {
 
     @Override
     protected void mutateNotes(List<Note> noteList) {
-        for (Note note : noteList) {
-            if (note instanceof Sound) {
-                Sound sound = (Sound) note;
-                if (!scale.fit(sound.getPitch())) {
-                    List<NoteName> scaleNotes = new ArrayList<>(scale.getComponents());
-                    int noteIndex = randomGenerator.nextInt(scaleNotes.size());
-                    NoteName newNoteName = scaleNotes.get(noteIndex);
-                    try {
-                        sound.getPitch().changeNoteName(newNoteName);
-                    } catch (IllegalArgumentException e) {
-                        if (sound.getPitch().getMidiValue() > Constants.MAX_MIDI_VALUE.value()) {
-                            sound.getPitch().changeOctave(Octave.FIFE_LINED);
-                        }
-                    }
-                    break;
-                }
-            }
+        List<Sound> soundList = noteList.stream().filter(n -> n instanceof Sound).map(n -> (Sound) n)
+                .collect(Collectors.toList());
+        int soundIndex = randomGenerator.nextInt(soundList.size());
+        Sound sound = soundList.get(soundIndex);
+
+        sound.setPitch(getMutatedScalePitch(sound.getPitch().getOctave()));
+    }
+
+    private Pitch getMutatedScalePitch(Octave actualOctave) {
+        NoteName newScaleNote = getRandomScaleNoteName();
+        Octave mutatedNoteOctave;
+        if (actualOctave.equals(Octave.SIX_LINED) && newScaleNote.value() > NoteName.G.value()) {
+            mutatedNoteOctave = Octave.FIFE_LINED;
+        } else {
+            mutatedNoteOctave = actualOctave;
         }
+        return Pitch.createWithNames(newScaleNote, mutatedNoteOctave);
+    }
+
+    private NoteName getRandomScaleNoteName() {
+        int noteIndex = randomGenerator.nextInt(scale.getComponents().size());
+        return scale.getComponents().get(noteIndex);
     }
 }

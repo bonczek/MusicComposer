@@ -18,36 +18,33 @@ public class Pitch implements Comparable<Pitch> {
     private static final IntFunction<String> ERROR_FORMAT = (midiValue) -> String.format("Failed to create pitch with " +
             "value: %d. Midi value should be in range <0,127>.", midiValue);
 
-    private NoteName noteName;
-    private Octave octave;
-    private Integer midiValue;
+    private final NoteName noteName;
+    private final Octave octave;
+    private final Integer midiValue;
 
-    private Pitch() {
+    private Pitch(NoteName noteName, Octave octave, Integer midiValue) {
+        this.noteName = noteName;
+        this.octave = octave;
+        this.midiValue = midiValue;
     }
 
     public static Pitch createWithNames(NoteName noteName, Octave octave) throws IllegalArgumentException {
-        Pitch pitch = new Pitch();
-        pitch.noteName = noteName;
-        pitch.octave = octave;
-        pitch.midiValue = midiFromNotes(noteName, octave);
-        if (MIDI_RANGE.outOfRange(pitch.midiValue)) {
-            throw new IllegalArgumentException(ERROR_FORMAT.apply(pitch.midiValue));
+        int midiValue = midiFromNotes(noteName, octave);
+        if (MIDI_RANGE.outOfRange(midiValue)) {
+            throw new IllegalArgumentException(ERROR_FORMAT.apply(midiValue));
+        } else {
+            return new Pitch(noteName, octave, midiValue);
         }
-        return pitch;
     }
 
     public static Pitch createWithMidi(int midiValue) throws IllegalArgumentException {
-        Pitch pitch = new Pitch();
-        pitch.midiValue = midiValue;
         if (MIDI_RANGE.outOfRange(midiValue)) {
             throw new IllegalArgumentException(ERROR_FORMAT.apply(midiValue));
         }
         int pitchValue = midiValue % NOTES_IN_OCTAVE;
         //loss of fractional part
         int octaveNumber = midiValue / NOTES_IN_OCTAVE;
-        pitch.noteName = NoteName.values()[pitchValue];
-        pitch.octave = Octave.values()[octaveNumber];
-        return pitch;
+        return new Pitch(NoteName.values()[pitchValue], Octave.values()[octaveNumber], midiValue);
     }
 
     public static Pitch createWithInterval(Pitch base, PitchInterval interval) throws IllegalArgumentException {
@@ -88,26 +85,8 @@ public class Pitch implements Comparable<Pitch> {
         return noteName;
     }
 
-    public void changeNoteName(NoteName noteName) throws IllegalArgumentException {
-        int midiValue = midiFromNotes(noteName, octave);
-        if (MIDI_RANGE.outOfRange(midiValue)) {
-            throw new IllegalArgumentException(ERROR_FORMAT.apply(midiValue));
-        }
-        this.noteName = noteName;
-        this.midiValue = midiValue;
-    }
-
     public Octave getOctave() {
         return octave;
-    }
-
-    public void changeOctave(Octave octave) throws IllegalArgumentException {
-        int midiValue = midiFromNotes(noteName, octave);
-        if (MIDI_RANGE.outOfRange(midiValue)) {
-            throw new IllegalArgumentException(ERROR_FORMAT.apply(midiValue));
-        }
-        this.octave = octave;
-        this.midiValue = midiValue;
     }
 
     @Override
