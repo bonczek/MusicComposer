@@ -45,7 +45,7 @@ public class PitchTest {
         Pitch base = Pitch.createWithNames(note, octave);
         PitchInterval interval = PitchInterval.PERFECT_FIFTH;
 
-        Pitch newPitch = Pitch.createWithInterval(base, interval);
+        Pitch newPitch = Pitch.createWithUpInterval(base, interval);
         assertThat(newPitch.getOctave(), is(Octave.GREAT));
         assertThat(newPitch.getNoteName(), is(NoteName.A));
         assertThat(newPitch.getMidiValue(), is(45));

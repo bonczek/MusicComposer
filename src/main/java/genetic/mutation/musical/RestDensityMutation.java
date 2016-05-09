@@ -1,6 +1,5 @@
 package genetic.mutation.musical;
 
-import genetic.mutation.MusicalMutation;
 import music.notes.Note;
 import music.notes.Rest;
 import music.notes.Sound;
@@ -10,12 +9,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+/**
+ * Mutation to change rest/note density.
+ */
 public class RestDensityMutation extends MusicalMutation {
 
     public RestDensityMutation(Random randomGenerator) {
         super(randomGenerator);
     }
 
+    /**
+     * Change random note in melodic line to rest or if note is a rest then change it to note with pitch already used
+     * in composition.
+     *
+     * @param noteList melodic line
+     */
     @Override
     protected void mutateNotes(List<Note> noteList) {
         int randomIndex = randomGenerator.nextInt(noteList.size());

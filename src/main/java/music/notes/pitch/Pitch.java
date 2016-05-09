@@ -9,11 +9,11 @@ public class Pitch implements Comparable<Pitch> {
 
     public static final int NOTES_IN_OCTAVE = 12;
 
-    private static final int MIN_MIDI_VALUE = 0;
+    public static final int MIN_MIDI_VALUE = 0;
 
-    private static final int MAX_MIDI_VALUE = 127;
+    public static final int MAX_MIDI_VALUE = 127;
 
-    private static final PitchRange MIDI_RANGE = new PitchRange(MIN_MIDI_VALUE, MAX_MIDI_VALUE);
+    public static final PitchRange MIDI_RANGE = new PitchRange(MIN_MIDI_VALUE, MAX_MIDI_VALUE);
 
     private static final IntFunction<String> ERROR_FORMAT = (midiValue) -> String.format("Failed to create pitch with " +
             "value: %d. Midi value should be in range <0,127>.", midiValue);
@@ -47,9 +47,14 @@ public class Pitch implements Comparable<Pitch> {
         return new Pitch(NoteName.values()[pitchValue], Octave.values()[octaveNumber], midiValue);
     }
 
-    public static Pitch createWithInterval(Pitch base, PitchInterval interval) throws IllegalArgumentException {
+    public static Pitch createWithUpInterval(Pitch base, PitchInterval interval) throws IllegalArgumentException {
         int semitonesToAdd = interval.semitones();
         return Pitch.createWithMidi(base.midiValue + semitonesToAdd);
+    }
+
+    public static Pitch createWithDownInterval(Pitch base, PitchInterval interval) throws IllegalArgumentException {
+        int semitonesToAdd = interval.semitones();
+        return Pitch.createWithMidi(base.midiValue - semitonesToAdd);
     }
 
     public static int midiFromNotes(NoteName noteName, Octave octave) {

@@ -1,5 +1,6 @@
 package genetic.mutation;
 
+import genetic.mutation.musical.DissonantIntervalsMutation;
 import genetic.mutation.musical.NoteLengthMutation;
 import genetic.mutation.musical.RestDensityMutation;
 import genetic.mutation.musical.ScaleMutation;
@@ -16,11 +17,10 @@ public class TowseyMutation extends GeneticMutation {
 
     public TowseyMutation(Random randomGenerator, Harmony scale) {
         super(randomGenerator);
-        mutationList.add(new IntervalMutation(randomGenerator));
+        mutationList.add(new DissonantIntervalsMutation(randomGenerator));
         mutationList.add(new NoteLengthMutation(randomGenerator));
         mutationList.add(new RestDensityMutation(randomGenerator));
         mutationList.add(new ScaleMutation(randomGenerator, scale));
-        //mutationList.add(new PitchRangeMutation(mutationRate, randomGenerator));
     }
 
     @Override

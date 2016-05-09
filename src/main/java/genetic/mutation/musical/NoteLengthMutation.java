@@ -1,6 +1,5 @@
 package genetic.mutation.musical;
 
-import genetic.mutation.MusicalMutation;
 import jm.constants.Durations;
 import music.notes.Note;
 

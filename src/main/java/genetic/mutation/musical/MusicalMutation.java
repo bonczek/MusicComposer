@@ -1,5 +1,6 @@
-package genetic.mutation;
+package genetic.mutation.musical;
 
+import genetic.mutation.GeneticMutation;
 import genetic.representation.Chromosome;
 import genetic.util.Converter;
 import music.notes.Note;

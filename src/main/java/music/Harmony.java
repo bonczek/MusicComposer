@@ -18,7 +18,7 @@ public class Harmony {
         Pitch base = Pitch.createWithNames(baseNoteName, Octave.SUBSUBCONTRA);
         this.components = new ArrayList<>();
         for (PitchInterval interval : Arrays.asList(intervals)) {
-            NoteName noteNameComponent = Pitch.createWithInterval(base, interval).getNoteName();
+            NoteName noteNameComponent = Pitch.createWithUpInterval(base, interval).getNoteName();
             components.add(noteNameComponent);
         }
     }
