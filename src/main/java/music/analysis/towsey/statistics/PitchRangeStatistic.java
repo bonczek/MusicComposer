@@ -2,6 +2,7 @@ package music.analysis.towsey.statistics;
 
 import music.notes.Note;
 import music.notes.Sound;
+import music.notes.pitch.Pitch;
 
 public class PitchRangeStatistic extends StatisticCounter<Integer> {
 
@@ -9,8 +10,8 @@ public class PitchRangeStatistic extends StatisticCounter<Integer> {
 
     private int highestPitch = Integer.MIN_VALUE;
 
-    public PitchRangeStatistic(int denominator) {
-        super(0, denominator);
+    public PitchRangeStatistic() {
+        super(0, Pitch.MAX_MIDI_VALUE);
     }
 
     @Override

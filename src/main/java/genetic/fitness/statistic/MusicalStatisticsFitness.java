@@ -34,8 +34,8 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
                 RhythmicRangeStatistic(16));
         statistics.put(new Metric(new MetricUnit(Statistic.NON_SCALE_RATING, 0.1, rewardWeight)), new
                 NonScaleStatistic(scale));
-        statistics.put(new Metric(new MetricUnit(Statistic.PITCH_RANGE, 0.5, rewardWeight)), new
-                PitchRangeStatistic(24));
+        statistics.put(new Metric(new MetricUnit(Statistic.PITCH_RANGE, 0.2, rewardWeight)), new
+                PitchRangeStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.DIATONIC_RATING, 0.62, rewardWeight)), new
                 DiatonicStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.CONTOUR_DIRECTION, 0.5, rewardWeight)), new
