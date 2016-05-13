@@ -25,7 +25,7 @@ public class NonScaleStatisticTest {
                 Durations.WHOLE_NOTE)};
 
         Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
-        TowseyStatistic statistic = new NonScaleStatistic(2, cMajorScale);
+        MusicalStatistic statistic = new NonScaleStatistic(cMajorScale);
         for (Note note : notes) {
             statistic.processNote(note);
         }

@@ -82,7 +82,7 @@ public class MainController implements Initializable {
                 mutationCoordinator, crossoverCoordinator);
 //        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
 //                baseScaleNote.getValue()), scaleReward);
-        FitnessFunction statisticalFitness = new MusicalStatisticsFitness(scale, numbersOfMeasures);
+        FitnessFunction statisticalFitness = new MusicalStatisticsFitness(scale);
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, statisticalFitness);
         algorithm.run();

@@ -2,14 +2,14 @@ package music.analysis.towsey.statistics;
 
 import music.notes.Note;
 
-public class RhythmicRangeStatistic extends TowseyStatistic {
+public class RhythmicRangeStatistic extends StatisticCounter<Integer> {
 
     private double minRhythmValue = Double.MAX_VALUE;
 
     private double maxRhythmValue = Double.MIN_VALUE;
 
     public RhythmicRangeStatistic(int denominator) {
-        super(denominator);
+        super(0, denominator);
     }
 
     @Override
@@ -22,5 +22,10 @@ public class RhythmicRangeStatistic extends TowseyStatistic {
         }
         double range = maxRhythmValue / minRhythmValue;
         numerator = (int) range;
+    }
+
+    @Override
+    public void clear() {
+        numerator = 0;
     }
 }

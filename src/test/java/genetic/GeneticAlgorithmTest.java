@@ -40,11 +40,11 @@ public class GeneticAlgorithmTest {
     }
 
 
-    @Test//(enabled = false)
+    @Test(enabled = false)
     public void testMutation() throws Exception {
         int numbersOfMeasures = 4;
         Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
-        FitnessFunction fitnessFunction = new MusicalStatisticsFitness(cMajorScale, numbersOfMeasures);
+        FitnessFunction fitnessFunction = new MusicalStatisticsFitness(cMajorScale);
         InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, numbersOfMeasures, new
                 Random());
         GeneticMutation mutation = new TowseyMutation(new Random(), cMajorScale);

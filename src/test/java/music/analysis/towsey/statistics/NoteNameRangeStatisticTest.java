@@ -14,7 +14,7 @@ public class NoteNameRangeStatisticTest {
 
     @Test
     public void testProcessNote() throws Exception {
-        TowseyStatistic statistic = new PitchRangeStatistic(24);
+        MusicalStatistic statistic = new PitchRangeStatistic(24);
         Note[] notes = {new Sound(Pitch.createWithMidi(31), Durations.QUARTER_NOTE), new Rest(Durations
                 .SIXTEENTH_NOTE), new Sound(Pitch.createWithMidi(19), Durations.WHOLE_NOTE)};
         for (Note note : notes) {
@@ -25,7 +25,7 @@ public class NoteNameRangeStatisticTest {
 
     @Test
     public void testProcessNote_givenRangeGreaterThanTwoOctaves() throws Exception {
-        TowseyStatistic statistic = new PitchRangeStatistic(24);
+        MusicalStatistic statistic = new PitchRangeStatistic(24);
         Note[] notes = {new Sound(Pitch.createWithMidi(127), Durations.QUARTER_NOTE),
                 new Sound(Pitch.createWithMidi(19), Durations.WHOLE_NOTE)};
         for (Note note : notes) {

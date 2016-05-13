@@ -6,9 +6,13 @@ import music.notes.Sound;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PitchVarietyStatistic extends TowseyStatistic {
+public class PitchVarietyStatistic extends StatisticCounter<Integer> {
 
     private Set<Integer> midiValuesSet = new HashSet<>();
+
+    public PitchVarietyStatistic() {
+        super(0, 0);
+    }
 
     @Override
     public void processNote(Note note) {
@@ -20,5 +24,11 @@ public class PitchVarietyStatistic extends TowseyStatistic {
             }
             denominator++;
         }
+    }
+
+    @Override
+    public void clear() {
+        numerator = 0;
+        denominator = 0;
     }
 }

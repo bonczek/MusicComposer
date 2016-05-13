@@ -5,14 +5,13 @@ import music.notes.Note;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RhythmVarietyStatistic extends TowseyStatistic {
+public class RhythmVarietyStatistic extends StatisticCounter<Integer> {
 
     private Set<Double> rhythmValuesSet = new HashSet<>();
 
     public RhythmVarietyStatistic(int denominator) {
-        super(denominator);
+        super(0, denominator);
     }
-
 
     @Override
     public void processNote(Note note) {
@@ -20,5 +19,10 @@ public class RhythmVarietyStatistic extends TowseyStatistic {
             numerator++;
             rhythmValuesSet.add(note.getRhythmValue());
         }
+    }
+
+    @Override
+    public void clear() {
+        numerator = 0;
     }
 }

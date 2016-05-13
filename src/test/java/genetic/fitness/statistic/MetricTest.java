@@ -13,7 +13,7 @@ public class MetricTest {
         Metric testMetric = new Metric(new MetricUnit(Statistic.PITCH_RANGE, 0.5, weightReward));
         testMetric.calculateReward(0.7);
         assertThat(testMetric.getReward(), is(80));
-        assertThat(testMetric.report(), is("PITCH_RANGE - Diff: 0,200000; Reward: 80\n"));
+        assertThat(testMetric.report(), is("PITCH_RANGE - Result: 0,700000; Diff: 0,200000; Reward: 80\n"));
     }
 
     @Test
