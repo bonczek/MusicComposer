@@ -1,4 +1,4 @@
-package music.analysis.towsey.statistics.intervals;
+package music.analysis.statistics.intervals;
 
 import music.notes.pitch.Interval;
 

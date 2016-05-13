@@ -1,4 +1,4 @@
-package music.analysis.towsey.statistics;
+package music.analysis.statistics;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import jm.constants.Durations;

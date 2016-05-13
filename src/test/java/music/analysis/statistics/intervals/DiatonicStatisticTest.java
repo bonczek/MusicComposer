@@ -1,4 +1,4 @@
-package music.analysis.towsey.statistics.intervals;
+package music.analysis.statistics.intervals;
 
 import jm.constants.Durations;
 import music.notes.Note;
@@ -13,17 +13,16 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContourDirectionStatisticTest {
+public class DiatonicStatisticTest {
 
     @Test
-    public void testProcessInterval() throws Exception {
-        ContourDirectionStatistic statistic = new ContourDirectionStatistic();
-
+    public void testProcessNote() throws Exception {
+        DiatonicStatistic statistic = new DiatonicStatistic();
         Note[] notes = {new Sound(Pitch.createWithMidi(127), Durations.SIXTEENTH_NOTE),
                 new Sound(Pitch.createWithMidi(12), Durations.QUARTER_NOTE),
                 new Sound(Pitch.createWithMidi(13), Durations.WHOLE_NOTE),
                 new Sound(Pitch.createWithMidi(15), Durations.WHOLE_NOTE),
-                new Sound(Pitch.createWithMidi(15), Durations.WHOLE_NOTE),
+                new Sound(Pitch.createWithMidi(30), Durations.WHOLE_NOTE),
                 new Rest(Durations.QUARTER_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 

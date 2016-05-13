@@ -1,4 +1,4 @@
-package music.analysis.towsey.statistics;
+package music.analysis.statistics;
 
 import music.notes.Note;
 

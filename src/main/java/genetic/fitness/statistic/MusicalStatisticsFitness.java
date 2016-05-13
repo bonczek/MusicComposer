@@ -3,16 +3,17 @@ package genetic.fitness.statistic;
 import genetic.fitness.Fitness;
 import genetic.fitness.MusicalFitnessFunction;
 import music.Harmony;
-import music.analysis.towsey.statistics.MusicalStatistic;
-import music.analysis.towsey.statistics.NonScaleStatistic;
-import music.analysis.towsey.statistics.PitchRangeStatistic;
-import music.analysis.towsey.statistics.PitchVarietyStatistic;
-import music.analysis.towsey.statistics.RhythmVarietyStatistic;
-import music.analysis.towsey.statistics.RhythmicRangeStatistic;
-import music.analysis.towsey.statistics.intervals.ContourDirectionStatistic;
-import music.analysis.towsey.statistics.intervals.ContourStabilityStatistic;
-import music.analysis.towsey.statistics.intervals.DiatonicStatistic;
-import music.analysis.towsey.statistics.intervals.DissonanceStatistic;
+import music.analysis.statistics.MusicalStatistic;
+import music.analysis.statistics.PitchRangeStatistic;
+import music.analysis.statistics.PitchVarietyStatistic;
+import music.analysis.statistics.RhythmVarietyStatistic;
+import music.analysis.statistics.RhythmicRangeStatistic;
+import music.analysis.statistics.density.NonScaleDensityStatistic;
+import music.analysis.statistics.density.RestDensityStatistic;
+import music.analysis.statistics.intervals.ContourDirectionStatistic;
+import music.analysis.statistics.intervals.ContourStabilityStatistic;
+import music.analysis.statistics.intervals.DiatonicStatistic;
+import music.analysis.statistics.intervals.DissonanceStatistic;
 import music.notes.Note;
 
 import java.util.HashMap;
@@ -33,8 +34,8 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
         statistics.put(new Metric(new MetricUnit(Statistic.RHYTHM_RANGE, 0.32, rewardWeight)), new
                 RhythmicRangeStatistic(16));
         statistics.put(new Metric(new MetricUnit(Statistic.NON_SCALE_RATING, 0.1, rewardWeight)), new
-                NonScaleStatistic(scale));
-        statistics.put(new Metric(new MetricUnit(Statistic.PITCH_RANGE, 0.2, rewardWeight)), new
+                NonScaleDensityStatistic(scale));
+        statistics.put(new Metric(new MetricUnit(Statistic.PITCH_RANGE, 0.1, rewardWeight)), new
                 PitchRangeStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.DIATONIC_RATING, 0.62, rewardWeight)), new
                 DiatonicStatistic());
@@ -42,6 +43,8 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
                 ContourDirectionStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.CONTOUR_STABILITY, 0.4, rewardWeight)), new
                 ContourStabilityStatistic());
+        statistics.put(new Metric(new MetricUnit(Statistic.REST_DENSITY, 0.4, rewardWeight)), new
+                RestDensityStatistic());
     }
 
     @Override

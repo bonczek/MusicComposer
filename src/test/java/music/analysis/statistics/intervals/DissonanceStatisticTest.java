@@ -1,17 +1,17 @@
-package music.analysis.towsey.statistics.intervals;
+package music.analysis.statistics.intervals;
 
 import jm.constants.Durations;
 import music.notes.Note;
 import music.notes.Rest;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
+import org.hamcrest.MatcherAssert;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DissonanceStatisticTest {
 
@@ -26,7 +26,7 @@ public class DissonanceStatisticTest {
         List<Note> noteList = Arrays.asList(notes);
 
         noteList.forEach(statistic::processNote);
-        assertThat(statistic.getResult(), is(0.75));
+        MatcherAssert.assertThat(statistic.getResult(), is(0.75));
     }
 
 }

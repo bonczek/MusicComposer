@@ -39,7 +39,6 @@ public class Metric {
 
     public String report() {
         return String.format("%s - Result: %f; Diff: %f; Reward: %d\n", metricUnit.getStatisticName(), result,
-                difference,
-                reward);
+                difference, reward);
     }
 }

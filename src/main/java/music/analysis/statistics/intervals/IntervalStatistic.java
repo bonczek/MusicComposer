@@ -1,6 +1,6 @@
-package music.analysis.towsey.statistics.intervals;
+package music.analysis.statistics.intervals;
 
-import music.analysis.towsey.statistics.StatisticCounter;
+import music.analysis.statistics.StatisticCounter;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Interval;

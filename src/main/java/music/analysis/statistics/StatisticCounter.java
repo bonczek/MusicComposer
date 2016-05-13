@@ -1,4 +1,4 @@
-package music.analysis.towsey.statistics;
+package music.analysis.statistics;
 
 public abstract class StatisticCounter<T extends Number> implements MusicalStatistic {
 
