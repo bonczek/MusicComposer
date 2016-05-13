@@ -3,13 +3,14 @@ package genetic.fitness.statistic;
 import genetic.fitness.Fitness;
 import genetic.fitness.MusicalFitnessFunction;
 import music.Harmony;
-import music.analysis.towsey.statistics.DissonanceStatistic;
 import music.analysis.towsey.statistics.NonScaleStatistic;
 import music.analysis.towsey.statistics.PitchRangeStatistic;
 import music.analysis.towsey.statistics.PitchVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmicRangeStatistic;
 import music.analysis.towsey.statistics.TowseyStatistic;
+import music.analysis.towsey.statistics.intervals.DiatonicStatistic;
+import music.analysis.towsey.statistics.intervals.DissonanceStatistic;
 import music.notes.Note;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
     private Map<Metric, TowseyStatistic> statistics = new HashMap<>();
 
     public MusicalStatisticsFitness(Harmony scale, int numbersOfMeasures) {
-        double rewardWeight = 1000.0;
+        double rewardWeight = 100.0;
         statistics.put(new Metric(new MetricUnit(Statistic.PITCH_VARIETY, 0.27, rewardWeight)), new PitchVarietyStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.DISSONANCE_RATING, 0.01, rewardWeight)), new
                 DissonanceStatistic());
@@ -33,6 +34,8 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
                 NonScaleStatistic(numbersOfMeasures, scale));
         statistics.put(new Metric(new MetricUnit(Statistic.PITCH_RANGE, 0.5, rewardWeight)), new
                 PitchRangeStatistic(24));
+        statistics.put(new Metric(new MetricUnit(Statistic.DIATONIC_RATING, 0.62, rewardWeight)), new
+                DiatonicStatistic());
     }
 
     @Override

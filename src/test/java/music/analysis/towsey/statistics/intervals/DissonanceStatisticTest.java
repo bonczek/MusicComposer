@@ -1,4 +1,4 @@
-package music.analysis.towsey.statistics;
+package music.analysis.towsey.statistics.intervals;
 
 import jm.constants.Durations;
 import music.notes.Note;
