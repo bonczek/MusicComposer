@@ -4,6 +4,7 @@ public class Metric {
 
     private final MetricUnit metricUnit;
     private double difference;
+    private double result;
     private int reward;
 
     public Metric(MetricUnit metricUnit) {
@@ -31,11 +32,14 @@ public class Metric {
     }
 
     public void calculateReward(double statisticResult) {
+        result = statisticResult;
         difference = Math.abs(statisticResult - metricUnit.getExpectedValue());
         reward = (int) (metricUnit.getRewardWeight() * Math.cos(Math.PI * difference));
     }
 
     public String report() {
-        return String.format("%s - Diff: %f; Reward: %d\n", metricUnit.getStatisticName(), difference, reward);
+        return String.format("%s - Result: %f; Diff: %f; Reward: %d\n", metricUnit.getStatisticName(), result,
+                difference,
+                reward);
     }
 }

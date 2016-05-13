@@ -16,6 +16,7 @@ public class IntervalTest {
         assertThat(interval.getPitchInterval(), is(PitchInterval.PERFECT_FIFTH));
         assertThat(interval.getOctaveDifference(), is(-10));
         assertThat(interval.moreThanOctave(), is(true));
+        assertThat(interval.getDirection(), is(IntervalDirection.DOWN));
     }
 
     @Test
@@ -27,6 +28,7 @@ public class IntervalTest {
         assertThat(interval.getPitchInterval(), is(PitchInterval.MAJOR_SIXTH));
         assertThat(interval.getOctaveDifference(), is(0));
         assertThat(interval.moreThanOctave(), is(false));
+        assertThat(interval.getDirection(), is(IntervalDirection.UP));
     }
 
     @Test
@@ -38,5 +40,6 @@ public class IntervalTest {
         assertThat(interval.getPitchInterval(), is(PitchInterval.PERFECT_UNISON));
         assertThat(interval.getOctaveDifference(), is(1));
         assertThat(interval.moreThanOctave(), is(false));
+        assertThat(interval.getDirection(), is(IntervalDirection.UP));
     }
 }

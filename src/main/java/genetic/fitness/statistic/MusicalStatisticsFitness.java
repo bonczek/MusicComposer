@@ -9,6 +9,8 @@ import music.analysis.towsey.statistics.PitchVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmVarietyStatistic;
 import music.analysis.towsey.statistics.RhythmicRangeStatistic;
 import music.analysis.towsey.statistics.TowseyStatistic;
+import music.analysis.towsey.statistics.intervals.ContourDirectionStatistic;
+import music.analysis.towsey.statistics.intervals.ContourStabilityStatistic;
 import music.analysis.towsey.statistics.intervals.DiatonicStatistic;
 import music.analysis.towsey.statistics.intervals.DissonanceStatistic;
 import music.notes.Note;
@@ -36,6 +38,10 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
                 PitchRangeStatistic(24));
         statistics.put(new Metric(new MetricUnit(Statistic.DIATONIC_RATING, 0.62, rewardWeight)), new
                 DiatonicStatistic());
+        statistics.put(new Metric(new MetricUnit(Statistic.CONTOUR_DIRECTION, 0.5, rewardWeight)), new
+                ContourDirectionStatistic());
+        statistics.put(new Metric(new MetricUnit(Statistic.CONTOUR_STABILITY, 0.4, rewardWeight)), new
+                ContourStabilityStatistic());
     }
 
     @Override

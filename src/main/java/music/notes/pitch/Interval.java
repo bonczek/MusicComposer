@@ -6,11 +6,16 @@ public class Interval {
     private final Pitch nextNote;
     private PitchInterval pitchInterval;
     private int octaveDifference;
+    private IntervalDirection direction;
 
     public Interval(Pitch firstNote, Pitch nextNote) {
         this.firstNote = firstNote;
         this.nextNote = nextNote;
         calculateIntervalValues();
+    }
+
+    public IntervalDirection getDirection() {
+        return direction;
     }
 
     public PitchInterval getPitchInterval() {
@@ -40,6 +45,13 @@ public class Interval {
                 this.pitchInterval = pitchInterval;
                 break;
             }
+        }
+        if (semitonesDifference > 0) {
+            this.direction = IntervalDirection.UP;
+        } else if (semitonesDifference == 0) {
+            this.direction = IntervalDirection.STEADY;
+        } else {
+            this.direction = IntervalDirection.DOWN;
         }
     }
 }

@@ -24,5 +24,11 @@ public abstract class IntervalStatistic extends TowseyStatistic {
         }
     }
 
+    @Override
+    public void clear() {
+        numerator = 0;
+        denominator = 0;
+    }
+
     protected abstract void processInterval(Interval interval);
 }
