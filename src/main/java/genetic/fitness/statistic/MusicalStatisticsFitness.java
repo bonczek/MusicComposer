@@ -6,6 +6,7 @@ import music.Harmony;
 import music.analysis.statistics.MusicalStatistic;
 import music.analysis.statistics.PitchRangeStatistic;
 import music.analysis.statistics.PitchVarietyStatistic;
+import music.analysis.statistics.RepeatedSoundRhythmPairStatistic;
 import music.analysis.statistics.RhythmVarietyStatistic;
 import music.analysis.statistics.RhythmicRangeStatistic;
 import music.analysis.statistics.density.NonScaleDensityStatistic;
@@ -48,6 +49,8 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
                 RestDensityStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.REPEATED_INTERVALS, 0.3, rewardWeight)), new
                 RepeatedIntervalStatistic());
+        statistics.put(new Metric(new MetricUnit(Statistic.REPEATED_RHYTHM_INTERVALS, 0.3, rewardWeight)), new
+                RepeatedSoundRhythmPairStatistic());
     }
 
     @Override

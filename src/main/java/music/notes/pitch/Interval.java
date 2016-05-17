@@ -7,11 +7,18 @@ public class Interval {
     private PitchInterval pitchInterval;
     private int octaveDifference;
     private IntervalDirection direction;
-
     public Interval(Pitch firstNote, Pitch nextNote) {
         this.firstNote = firstNote;
         this.nextNote = nextNote;
         calculateIntervalValues();
+    }
+
+    public Pitch getFirstNote() {
+        return firstNote;
+    }
+
+    public Pitch getNextNote() {
+        return nextNote;
     }
 
     public IntervalDirection getDirection() {
