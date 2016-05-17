@@ -34,5 +34,7 @@ public class PitchRangeStatistic extends StatisticCounter<Integer> {
     @Override
     public void clear() {
         numerator = 0;
+        lowestPitch = Integer.MAX_VALUE;
+        highestPitch = Integer.MIN_VALUE;
     }
 }
