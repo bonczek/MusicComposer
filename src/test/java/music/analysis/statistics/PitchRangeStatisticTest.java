@@ -2,7 +2,6 @@ package music.analysis.statistics;
 
 import jm.constants.Durations;
 import music.notes.Note;
-import music.notes.Rest;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
 import org.testng.annotations.Test;
@@ -10,17 +9,24 @@ import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PitchRangeStatisticTest {
+public class PitchRangeStatisticTest extends StatisticCounterTest<PitchRangeStatistic> {
 
-    @Test
-    public void testProcessNote() throws Exception {
-        MusicalStatistic statistic = new PitchRangeStatistic();
-        Note[] notes = {new Sound(Pitch.createWithMidi(31), Durations.QUARTER_NOTE), new Rest(Durations
-                .SIXTEENTH_NOTE), new Sound(Pitch.createWithMidi(19), Durations.WHOLE_NOTE)};
-        for (Note note : notes) {
-            statistic.processNote(note);
-        }
-        assertThat(statistic.getResult(), is(0.09448818897637795));
+    @Override
+    protected PitchRangeStatistic initStatistic() {
+        return new PitchRangeStatistic();
+    }
+
+    @Override
+    protected double getExpectedResult() {
+        return 0.7165354330708;
+    }
+
+    @Override
+    protected void afterClearAsserts() throws Exception {
+        assertThat(statistic.getNumerator(), is(0));
+        assertThat(statistic.getDenominator(), is(Pitch.MAX_MIDI_VALUE));
+        assertThat(statistic.getHighestPitch(), is(Integer.MIN_VALUE));
+        assertThat(statistic.getLowestPitch(), is(Integer.MAX_VALUE));
     }
 
     @Test

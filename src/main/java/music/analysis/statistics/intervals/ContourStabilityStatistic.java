@@ -6,6 +6,10 @@ public class ContourStabilityStatistic extends IntervalStatistic {
 
     private Interval previousInterval = null;
 
+    public Interval getPreviousInterval() {
+        return previousInterval;
+    }
+
     @Override
     protected void processInterval(Interval interval) {
         if (previousInterval == null) {

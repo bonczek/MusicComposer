@@ -32,4 +32,8 @@ public class PitchVarietyStatistic extends StatisticCounter<Integer> {
         denominator = 0;
         midiValuesSet.clear();
     }
+
+    public int getPitchSetSize() {
+        return midiValuesSet.size();
+    }
 }

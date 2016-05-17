@@ -24,4 +24,8 @@ public class RepeatedIntervalStatistic extends IntervalStatistic {
         super.clear();
         intervalSet.clear();
     }
+
+    public int getIntervalSetSize() {
+        return intervalSet.size();
+    }
 }

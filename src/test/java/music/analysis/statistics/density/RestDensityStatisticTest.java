@@ -1,32 +1,25 @@
 package music.analysis.statistics.density;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-import jm.constants.Durations;
-import music.notes.Note;
-import music.notes.Rest;
-import music.notes.Sound;
-import music.notes.pitch.Pitch;
-import org.hamcrest.MatcherAssert;
-import org.testng.annotations.Test;
-
-import java.util.List;
+import music.analysis.statistics.StatisticCounterTest;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class RestDensityStatisticTest {
+public class RestDensityStatisticTest extends StatisticCounterTest<RestDensityStatistic> {
 
-    @Test
-    public void testProcessNote() throws Exception {
-        RestDensityStatistic statistic = new RestDensityStatistic();
+    @Override
+    protected RestDensityStatistic initStatistic() {
+        return new RestDensityStatistic();
+    }
 
-        Note[] notes = {new Rest(Durations.SIXTEENTH_NOTE),
-                new Sound(Pitch.createWithMidi(12), Durations.QUARTER_NOTE),
-                new Sound(Pitch.createWithMidi(127), Durations.WHOLE_NOTE),
-                new Rest(Durations.EIGHTH_NOTE),
-                new Rest(Durations.SIXTEENTH_NOTE)};
-        List<Note> noteList = Arrays.asList(notes);
+    @Override
+    protected double getExpectedResult() {
+        return 0.1875;
+    }
 
-        noteList.forEach(statistic::processNote);
-        MatcherAssert.assertThat(statistic.getResult(), is(1.0 / 6.0));
+    @Override
+    protected void afterClearAsserts() throws Exception {
+        assertThat(statistic.getDenominator(), is(0.0));
+        assertThat(statistic.getNumerator(), is(0.0));
     }
 }

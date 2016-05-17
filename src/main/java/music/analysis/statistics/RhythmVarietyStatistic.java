@@ -26,4 +26,8 @@ public class RhythmVarietyStatistic extends StatisticCounter<Integer> {
         numerator = 0;
         rhythmValuesSet.clear();
     }
+
+    public int getRhythmSetSize() {
+        return rhythmValuesSet.size();
+    }
 }

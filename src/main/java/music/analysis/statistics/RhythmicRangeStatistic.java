@@ -5,11 +5,18 @@ import music.notes.Note;
 public class RhythmicRangeStatistic extends StatisticCounter<Integer> {
 
     private double minRhythmValue = Double.MAX_VALUE;
-
     private double maxRhythmValue = Double.MIN_VALUE;
 
     public RhythmicRangeStatistic(int denominator) {
         super(0, denominator);
+    }
+
+    public double getMinRhythmValue() {
+        return minRhythmValue;
+    }
+
+    public double getMaxRhythmValue() {
+        return maxRhythmValue;
     }
 
     @Override
@@ -27,5 +34,7 @@ public class RhythmicRangeStatistic extends StatisticCounter<Integer> {
     @Override
     public void clear() {
         numerator = 0;
+        minRhythmValue = Double.MAX_VALUE;
+        maxRhythmValue = Double.MIN_VALUE;
     }
 }

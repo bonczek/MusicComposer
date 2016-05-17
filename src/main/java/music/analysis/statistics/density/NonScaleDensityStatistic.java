@@ -6,7 +6,7 @@ import music.notes.Sound;
 
 public class NonScaleDensityStatistic extends RhythmDensityStatistic {
 
-    private Harmony scale;
+    private final Harmony scale;
 
     public NonScaleDensityStatistic(Harmony scale) {
         super();

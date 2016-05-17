@@ -1,30 +1,27 @@
 package music.analysis.statistics;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-import jm.constants.Durations;
-import music.notes.Note;
-import music.notes.Rest;
-import music.notes.Sound;
-import music.notes.pitch.Pitch;
-import org.testng.annotations.Test;
-
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class RhythmicRangeStatisticTest {
+public class RhythmicRangeStatisticTest extends StatisticCounterTest<RhythmicRangeStatistic> {
 
-    @Test
-    public void testStatistic() throws Exception {
-        RhythmicRangeStatistic statistic = new RhythmicRangeStatistic(16);
+    private static final int RHYTHM_DENOMINATOR = 16;
 
-        Note[] notes = {new Sound(Pitch.createWithMidi(127), Durations.SIXTEENTH_NOTE), new Sound(Pitch
-                .createWithMidi(12), Durations.QUARTER_NOTE), new Sound(Pitch.createWithMidi(127),
-                Durations.WHOLE_NOTE), new Rest(Durations.EIGHTH_NOTE), new Rest(Durations.SIXTEENTH_NOTE)};
-        List<Note> noteList = Arrays.asList(notes);
+    @Override
+    protected RhythmicRangeStatistic initStatistic() {
+        return new RhythmicRangeStatistic(RHYTHM_DENOMINATOR);
+    }
 
-        noteList.forEach(statistic::processNote);
-        assertThat(statistic.getResult(), is(1.0));
+    @Override
+    protected double getExpectedResult() {
+        return 1.0;
+    }
+
+    @Override
+    protected void afterClearAsserts() throws Exception {
+        assertThat(statistic.getNumerator(), is(0));
+        assertThat(statistic.getDenominator(), is(RHYTHM_DENOMINATOR));
+        assertThat(statistic.getMaxRhythmValue(), is(Double.MIN_VALUE));
+        assertThat(statistic.getMinRhythmValue(), is(Double.MAX_VALUE));
     }
 }

@@ -12,6 +12,10 @@ public class RepeatedSoundRhythmPairStatistic extends StatisticCounter<Integer> 
         super(0, 0);
     }
 
+    public Sound getPreviousSound() {
+        return previousSound;
+    }
+
     @Override
     public void processNote(Note note) {
         if (note instanceof Sound) {

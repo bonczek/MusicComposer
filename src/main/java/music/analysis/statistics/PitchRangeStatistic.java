@@ -7,11 +7,18 @@ import music.notes.pitch.Pitch;
 public class PitchRangeStatistic extends StatisticCounter<Integer> {
 
     private int lowestPitch = Integer.MAX_VALUE;
-
     private int highestPitch = Integer.MIN_VALUE;
 
     public PitchRangeStatistic() {
         super(0, Pitch.MAX_MIDI_VALUE);
+    }
+
+    public int getLowestPitch() {
+        return lowestPitch;
+    }
+
+    public int getHighestPitch() {
+        return highestPitch;
     }
 
     @Override
@@ -25,9 +32,6 @@ public class PitchRangeStatistic extends StatisticCounter<Integer> {
                 highestPitch = sound.getPitch().getMidiValue();
             }
             numerator = highestPitch - lowestPitch;
-            if (numerator > denominator) {
-                numerator = denominator;
-            }
         }
     }
 
