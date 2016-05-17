@@ -30,5 +30,6 @@ public class PitchVarietyStatistic extends StatisticCounter<Integer> {
     public void clear() {
         numerator = 0;
         denominator = 0;
+        midiValuesSet.clear();
     }
 }

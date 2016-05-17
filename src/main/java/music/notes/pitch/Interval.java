@@ -54,4 +54,29 @@ public class Interval {
             this.direction = IntervalDirection.DOWN;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Interval interval = (Interval) o;
+
+        if (octaveDifference != interval.octaveDifference) return false;
+        if (!firstNote.equals(interval.firstNote)) return false;
+        if (!nextNote.equals(interval.nextNote)) return false;
+        if (pitchInterval != interval.pitchInterval) return false;
+        return direction == interval.direction;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstNote.hashCode();
+        result = 31 * result + nextNote.hashCode();
+        result = 31 * result + pitchInterval.hashCode();
+        result = 31 * result + octaveDifference;
+        result = 31 * result + direction.hashCode();
+        return result;
+    }
 }

@@ -14,6 +14,7 @@ import music.analysis.statistics.intervals.ContourDirectionStatistic;
 import music.analysis.statistics.intervals.ContourStabilityStatistic;
 import music.analysis.statistics.intervals.DiatonicStatistic;
 import music.analysis.statistics.intervals.DissonanceStatistic;
+import music.analysis.statistics.intervals.RepeatedIntervalStatistic;
 import music.notes.Note;
 
 import java.util.HashMap;
@@ -45,6 +46,8 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
                 ContourStabilityStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.REST_DENSITY, 0.4, rewardWeight)), new
                 RestDensityStatistic());
+        statistics.put(new Metric(new MetricUnit(Statistic.REPEATED_INTERVALS, 0.3, rewardWeight)), new
+                RepeatedIntervalStatistic());
     }
 
     @Override

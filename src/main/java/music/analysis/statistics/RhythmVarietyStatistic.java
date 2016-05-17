@@ -24,5 +24,6 @@ public class RhythmVarietyStatistic extends StatisticCounter<Integer> {
     @Override
     public void clear() {
         numerator = 0;
+        rhythmValuesSet.clear();
     }
 }

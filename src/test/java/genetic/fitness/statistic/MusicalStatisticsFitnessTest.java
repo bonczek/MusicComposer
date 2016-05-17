@@ -21,7 +21,7 @@ public class MusicalStatisticsFitnessTest {
         FitnessFunction calculator = new MusicalStatisticsFitness(new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C));
 
         calculator.calculateFitness(Arrays.asList(testChromosome));
-        assertThat(testChromosome[0].getFitness().getFitnessValue(), is(431));
+        assertThat(testChromosome[0].getFitness().getFitnessValue(), is(463));
         StatisticFitness fitness = (StatisticFitness) testChromosome[0].getFitness();
         System.out.println(fitness.getReport());
     }
