@@ -43,6 +43,24 @@ public class Interval {
         }
     }
 
+    public boolean perfectConsonance() {
+        return pitchInterval.equals(PitchInterval.PERFECT_UNISON) || pitchInterval.equals
+                (PitchInterval.PERFECT_FIFTH) || pitchInterval.equals(PitchInterval.PERFECT_FOURTH);
+    }
+
+    public boolean imperfectConsonance() {
+        return pitchInterval.equals(PitchInterval.MAJOR_THIRD) || pitchInterval.equals
+                (PitchInterval.MINOR_THIRD) || pitchInterval.equals(PitchInterval.MAJOR_SIXTH) || pitchInterval
+                .equals(PitchInterval.MINOR_SIXTH);
+
+    }
+
+    public boolean dissonance() {
+        return pitchInterval.equals(PitchInterval.MAJOR_SECOND) || pitchInterval.equals
+                (PitchInterval.MINOR_SECOND) || pitchInterval.equals(PitchInterval.MINOR_SEVENTH) || pitchInterval
+                .equals(PitchInterval.MAJOR_SEVENTH) || pitchInterval.equals(PitchInterval.TRITONE);
+    }
+
     private void calculateIntervalValues() {
         int semitonesDifference = nextNote.getMidiValue() - firstNote.getMidiValue();
         int pitchSemitonesInterval = semitonesDifference % Pitch.NOTES_IN_OCTAVE;

@@ -47,7 +47,7 @@ public abstract class StatisticCounterTest<T extends MusicalStatistic> {
     public void testStatisticComputation() throws Exception {
         List<Note> melody = preparedNoteList();
         melody.forEach(statistic::processNote);
-        assertEquals(statistic.getResult(), getExpectedResult(), 0.0001);
+        assertEquals(statistic.getResult(), getExpectedResult(), PRECISION);
         statistic.clear();
         afterClearAsserts();
     }
