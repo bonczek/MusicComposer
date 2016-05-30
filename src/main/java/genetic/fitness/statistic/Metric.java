@@ -1,6 +1,14 @@
 package genetic.fitness.statistic;
 
+import org.apache.commons.math3.distribution.NormalDistribution;
+
 public class Metric {
+
+    private static final double DISTRIBUTION_MEAN = 1.0;
+
+    private static final int ACCURACY_MULTIPLIER = 2;
+
+    private static final NormalDistribution REWARD_DISTRIBUTION = new NormalDistribution(DISTRIBUTION_MEAN, 0.5);
 
     private final MetricUnit metricUnit;
     private double difference;
@@ -19,7 +27,6 @@ public class Metric {
         Metric metric = (Metric) o;
 
         return metricUnit.equals(metric.metricUnit);
-
     }
 
     @Override
@@ -34,7 +41,8 @@ public class Metric {
     public void calculateReward(double statisticResult) {
         result = statisticResult;
         difference = Math.abs(statisticResult - metricUnit.getExpectedValue());
-        reward = (int) (metricUnit.getRewardWeight() * Math.cos(Math.PI * difference));
+        double accuracyFactor = ACCURACY_MULTIPLIER * REWARD_DISTRIBUTION.cumulativeProbability(DISTRIBUTION_MEAN - difference);
+        reward = (int) (accuracyFactor * metricUnit.getRewardWeight());
     }
 
     public String report() {

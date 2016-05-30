@@ -60,7 +60,8 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
             statistics.values().stream().forEach(statistic -> statistic.processNote(note));
         }
 
-        statistics.entrySet().forEach(entry -> entry.getKey().calculateReward(entry.getValue().getResult()));
+        statistics.entrySet().forEach(entry ->
+                entry.getKey().calculateReward(entry.getValue().getResult()));
         StatisticFitness fitness = new StatisticFitness();
         statistics.keySet().forEach(fitness::addMetricValues);
         return fitness;
