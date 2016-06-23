@@ -21,7 +21,7 @@ public class ScaleFitness extends MusicalFitnessFunction {
     }
 
     @Override
-    protected Fitness rateMelody(List<Note> noteList) {
+    public Fitness rateMelody(List<Note> noteList) {
         SimpleReward rate = new SimpleReward();
         for (Note note : noteList) {
             if (note instanceof Sound) {

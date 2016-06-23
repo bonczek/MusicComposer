@@ -22,7 +22,7 @@ public class RuleFitnessFunction extends MusicalFitnessFunction {
     }
 
     @Override
-    protected Fitness rateMelody(List<Note> noteList) {
+    public Fitness rateMelody(List<Note> noteList) {
         musicalRules.forEach(MusicalRule::clear);
         for (Note n : noteList) {
             musicalRules.stream().forEach(r -> r.processNote(n));

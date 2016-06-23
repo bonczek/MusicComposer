@@ -54,7 +54,7 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
     }
 
     @Override
-    protected Fitness rateMelody(List<Note> noteList) {
+    public Fitness rateMelody(List<Note> noteList) {
         statistics.values().stream().forEach(MusicalStatistic::clear);
         for (Note note : noteList) {
             statistics.values().stream().forEach(statistic -> statistic.processNote(note));

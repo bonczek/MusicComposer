@@ -4,6 +4,8 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.representation.Chromosome;
 import genetic.representation.Constants;
 import jm.constants.Durations;
+import jm.constants.Pitches;
+import jm.music.data.Phrase;
 import music.notes.Note;
 import music.notes.Rest;
 import music.notes.Sound;
@@ -12,6 +14,8 @@ import music.notes.pitch.Octave;
 import music.notes.pitch.Pitch;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -85,5 +89,43 @@ public class ConverterTest {
         Chromosome chromosome = Chromosome.createWithIntegerValues(Arrays.asList(testValues));
 
         Converter.fromChromosome(chromosome);
+    }
+
+    @Test
+    public void testReadMidi_givenSimpleMelody() throws Exception {
+        String midiTestFile = "simple_melody.mid";
+        URL filePath = getClass().getClassLoader().getResource(midiTestFile);
+
+        Phrase phrase = Converter.readMidiMelodyLine(filePath.getPath());
+        assertThat(phrase.size(), is(17));
+        assertThat(phrase.getNote(0).getPitch(), is(Pitches.C5));
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testReadMidi_givenEmptyMelody() throws Exception {
+        String midiTestFile = "empty.mid";
+        URL filePath = getClass().getClassLoader().getResource(midiTestFile);
+
+        Converter.readMidiMelodyLine(filePath.getPath());
+    }
+
+    @Test(expectedExceptions = IOException.class)
+    public void testReadMidi_givenNotExistingFile() throws Exception {
+        String midiTestFile = "qwe.mid";
+
+        Converter.readMidiMelodyLine(midiTestFile);
+    }
+
+    @Test
+    public void testConvertToMelodyLine_givenSimpleMelody() throws Exception {
+        String midiTestFile = "simple_melody.mid";
+        URL filePath = getClass().getClassLoader().getResource(midiTestFile);
+
+        List<Note> melodyLine = Converter.convertMidiToMelodyLine(filePath.getPath());
+        assertThat(melodyLine.size(), is(17));
+        assertThat(melodyLine.get(0).getRhythmValue(), is(Durations.QUARTER_NOTE));
+        assertThat(((Sound) melodyLine.get(0)).getPitch(), is(Pitch.createWithNames(NoteName.C, Octave.TWO_LINED)));
+        assertThat(((Sound) melodyLine.get(8)).getPitch(), is(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED)));
+        assertThat(melodyLine.get(12), instanceOf(Rest.class));
     }
 }

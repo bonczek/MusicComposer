@@ -13,5 +13,5 @@ public abstract class MusicalFitnessFunction extends FitnessFunction {
         return rateMelody(Converter.fromChromosome(chromosome));
     }
 
-    protected abstract Fitness rateMelody(List<Note> noteList);
+    public abstract Fitness rateMelody(List<Note> noteList);
 }
