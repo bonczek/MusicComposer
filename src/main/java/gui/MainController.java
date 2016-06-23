@@ -17,13 +17,19 @@ import genetic.selection.BinaryTournamentSelection;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import music.Harmony;
 import music.Scale;
 import music.notes.pitch.NoteName;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -86,6 +92,21 @@ public class MainController implements Initializable {
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, statisticalFitness);
         algorithm.run();
+    }
+
+    @FXML
+    private void openStatisticalFitnessConfiguration() {
+        Stage newStage = new Stage();
+        newStage.setTitle("Statistical Fitness Function Configuration");
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../statisticalFitness.fxml"));
+            Scene scene = new Scene(root, 800, 400);
+            newStage.setScene(scene);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
