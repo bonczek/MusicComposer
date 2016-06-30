@@ -8,6 +8,7 @@ import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
 import genetic.fitness.rules.RuleFitnessFunction;
 import genetic.fitness.statistic.MusicalStatisticsFitness;
+import genetic.fitness.statistic.Statistic;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
 import genetic.mutation.GeneticMutation;
@@ -16,21 +17,23 @@ import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import music.Harmony;
 import music.Scale;
 import music.notes.pitch.NoteName;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -115,14 +118,29 @@ public class MainController implements Initializable {
         Stage newStage = new Stage();
         newStage.setTitle("Statistical Fitness Function Configuration");
         newStage.initModality(Modality.APPLICATION_MODAL);
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("../statisticalFitness.fxml"));
-            Scene scene = new Scene(root, 800, 400);
-            newStage.setScene(scene);
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+//        @todo does fxml file should be removed?
+        //Parent root = FXMLLoader.load(getClass().getResource("../statisticalFitness.fxml"));
+
+        ListView<HBox> listView = new ListView<>();
+        ObservableList<HBox> hBoxes = FXCollections.observableArrayList();
+
+        for (Statistic stat : Statistic.values()) {
+            HBox singleStatBox = new HBox();
+            Label statLabel = new Label(stat.name());
+            CheckBox checkBox = new CheckBox();
+            TextField expectedValueTextField = new TextField();
+            TextField statisticWeightTextField = new TextField();
+
+            singleStatBox.getChildren().addAll(statLabel, checkBox, expectedValueTextField, statisticWeightTextField);
+            hBoxes.add(singleStatBox);
         }
+
+        listView.setItems(hBoxes);
+        Scene scene = new Scene(listView, 800, 400);
+        newStage.setScene(scene);
+        newStage.show();
+
     }
 
 }
