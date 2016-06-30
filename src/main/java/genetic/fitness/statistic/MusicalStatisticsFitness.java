@@ -15,6 +15,7 @@ import music.analysis.statistics.intervals.ContourDirectionStatistic;
 import music.analysis.statistics.intervals.ContourStabilityStatistic;
 import music.analysis.statistics.intervals.DiatonicStatistic;
 import music.analysis.statistics.intervals.DissonanceStatistic;
+import music.analysis.statistics.intervals.OctaveDifferenceStatistic;
 import music.analysis.statistics.intervals.RepeatedIntervalStatistic;
 import music.notes.Note;
 
@@ -51,10 +52,12 @@ public class MusicalStatisticsFitness extends MusicalFitnessFunction {
                 RepeatedIntervalStatistic());
         statistics.put(new Metric(new MetricUnit(Statistic.REPEATED_RHYTHM_INTERVALS, 0.3, rewardWeight)), new
                 RepeatedSoundRhythmPairStatistic());
+        statistics.put(new Metric(new MetricUnit(Statistic.OCTAVE_DIFFERENCE, 0.01, rewardWeight)), new
+                OctaveDifferenceStatistic());
     }
 
     @Override
-    protected Fitness rateMelody(List<Note> noteList) {
+    public Fitness rateMelody(List<Note> noteList) {
         statistics.values().stream().forEach(MusicalStatistic::clear);
         for (Note note : noteList) {
             statistics.values().stream().forEach(statistic -> statistic.processNote(note));

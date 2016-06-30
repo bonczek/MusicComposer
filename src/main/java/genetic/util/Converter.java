@@ -7,11 +7,15 @@ import jm.constants.Durations;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
+import jm.util.Read;
 import music.notes.Note;
 import music.notes.Rest;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -110,6 +114,44 @@ public class Converter {
         }
         Part part = new Part(phrase);
         return new Score(part);
+    }
+
+    public static Phrase readMidiMelodyLine(String midiFilePath) throws IOException, IllegalArgumentException {
+        if (Files.notExists(Paths.get(midiFilePath))) {
+            throw new IOException(String.format("Failed to read %s midi file. File doesn't exist", midiFilePath));
+        }
+        Score score = new Score();
+        Read.midi(score, midiFilePath);
+
+        System.out.println(String.format("Score: %s has %d parts", midiFilePath, score.size()));
+        Part part = score.getPart(0);
+        if (part == null) {
+            throw new IllegalArgumentException("Failed to read part in midi file %s. There is no part in read score.");
+        }
+        System.out.println(String.format("First part has: %d phrases", part.size()));
+        Phrase phrase = part.getPhrase(0);
+        if (phrase == null) {
+            throw new IllegalArgumentException(String.format(
+                    "Failed to read phrase in midi file %s. There is no phrase in chosen part.", midiFilePath));
+        }
+        System.out.println(String.format("Chosen phrase has: %d notes", phrase.size()));
+
+        return phrase;
+    }
+
+    public static List<Note> convertMidiToMelodyLine(String filePath) throws IOException, IllegalArgumentException {
+        List<Note> noteList = new ArrayList<>();
+
+        Phrase phrase = readMidiMelodyLine(filePath);
+        for (jm.music.data.Note note : phrase.getNoteArray()) {
+            if (note.isRest()) {
+                noteList.add(new Rest(note.getRhythmValue()));
+            } else {
+                noteList.add(new Sound(Pitch.createWithMidi(note.getPitch()), note.getRhythmValue()));
+            }
+        }
+
+        return noteList;
     }
 
 }

@@ -33,7 +33,7 @@ public abstract class StatisticCounterTest<T extends MusicalStatistic> {
                 new Sound(Pitch.createWithNames(NoteName.C, Octave.SUB_CONTRA), Durations.QUARTER_NOTE),
                 new Rest(Durations.HALF_NOTE),
 
-                new Sound(Pitch.createWithNames(NoteName.G_SHARP, Octave.GREAT), Durations.WHOLE_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.F_SHARP, Octave.GREAT), Durations.WHOLE_NOTE),
 
                 new Sound(Pitch.createWithNames(NoteName.F, Octave.THREE_LINED), Durations.WHOLE_NOTE)
         };

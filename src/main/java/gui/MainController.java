@@ -6,6 +6,7 @@ import genetic.NewPopulationGenerator;
 import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
 import genetic.fitness.FitnessFunction;
+import genetic.fitness.rules.RuleFitnessFunction;
 import genetic.fitness.statistic.MusicalStatisticsFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
@@ -38,12 +39,20 @@ public class MainController implements Initializable {
 
     private static final String RANDOM_MUTATION = "Random mutation";
     private static final String MUSICAL_MUTATION = "Musical mutation";
+
+    private static final String STATISTICAL = "Statystyczna";
+    private static final String RULE_BASED = "Regułowa";
+
     @FXML
     private ChoiceBox<String> mutations;
     @FXML
     private ChoiceBox<Scale> scaleType;
     @FXML
     private ChoiceBox<NoteName> baseScaleNote;
+    @FXML
+    private ChoiceBox<String> fitnessFunctionType;
+
+
     @FXML
     private TextField mutationRateTextField;
     @FXML
@@ -57,6 +66,8 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         mutations.setItems(FXCollections.observableArrayList(MUSICAL_MUTATION, RANDOM_MUTATION));
         mutations.getSelectionModel().selectFirst();
+        fitnessFunctionType.setItems(FXCollections.observableArrayList(STATISTICAL, RULE_BASED));
+        fitnessFunctionType.getSelectionModel().selectFirst();
         scaleType.setItems(FXCollections.observableArrayList(Scale.values()));
         scaleType.getSelectionModel().selectFirst();
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
@@ -88,9 +99,14 @@ public class MainController implements Initializable {
                 mutationCoordinator, crossoverCoordinator);
 //        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
 //                baseScaleNote.getValue()), scaleReward);
-        FitnessFunction statisticalFitness = new MusicalStatisticsFitness(scale);
+        FitnessFunction fitnessFunction;
+        if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
+            fitnessFunction = new MusicalStatisticsFitness(scale);
+        } else {
+            fitnessFunction = new RuleFitnessFunction();
+        }
 
-        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, statisticalFitness);
+        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
         algorithm.run();
     }
 

@@ -7,8 +7,8 @@ public class DissonanceStatistic extends IntervalStatistic {
 
     @Override
     protected void processInterval(Interval interval) {
-        if (interval.moreThanOctave() || interval.getPitchInterval().equals(PitchInterval.TRITONE) ||
-                interval.getPitchInterval().equals(PitchInterval.MAJOR_SEVENTH)) {
+        if ((interval.getPitchInterval().equals(PitchInterval.TRITONE) ||
+                interval.getPitchInterval().equals(PitchInterval.MAJOR_SEVENTH))) {
             numerator++;
         }
         denominator++;

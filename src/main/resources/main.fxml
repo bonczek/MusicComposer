@@ -32,6 +32,8 @@
                 <TextField fx:id="mutationRateTextField" text="0.3"/>
                 <Label text="Prawdopodobieństwo krzyżowania"/>
                 <TextField fx:id="crossoverRateTextField" text="0.9"/>
+                <Label text="Rodzaj funkcji oceny"/>
+                <ChoiceBox fx:id="fitnessFunctionType" prefWidth="150.0"/>
             </children>
         </VBox>
         <Button layoutY="214.0" mnemonicParsing="false" text="Dobierz wagi funkcji oceny"
