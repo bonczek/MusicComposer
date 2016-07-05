@@ -32,4 +32,14 @@ public class MelodyData {
         };
         return Arrays.asList(notes);
     }
+
+    public static List<Note> prepareOneMeasureCMaj7Chord() {
+        Note[] notes = {
+                new Sound(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.E, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.G, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.B, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+        };
+        return Arrays.asList(notes);
+    }
 }

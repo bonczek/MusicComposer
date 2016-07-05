@@ -39,7 +39,7 @@ public class FeatureFitnessTest {
 
         int fitnessReward = FEATURE_WEIGHT * FEATURE_COUNT;
         assertThat(fitness.getFitnessValue(), is(fitnessReward));
-        assertThat(fitness.getReport(), is(String.format("%s; reward: %d\n", TEST_REPORT, fitnessReward)));
+        assertThat(fitness.getReport(), is(String.format("%s reward: %d\n", TEST_REPORT, fitnessReward)));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class FeatureFitnessTest {
         String[] reportLines = fitness.getReport().split("\n");
         assertThat(reportLines.length, is(numberOfRules));
         for (int i = 0; i < numberOfRules; i++) {
-            assertThat(reportLines[i], is(String.format("%s; reward: %d", TEST_REPORT, fitnessReward / 4)));
+            assertThat(reportLines[i], is(String.format("%s reward: %d", TEST_REPORT, fitnessReward / 4)));
         }
     }
 
@@ -84,6 +84,6 @@ public class FeatureFitnessTest {
         fitness.addFeatureReward(STATISTIC_MOCK);
 
         assertThat(fitness.getFitnessValue(), is(reward));
-        assertThat(fitness.getReport(), is(String.format("%s; reward: %d", TEST_REPORT, reward)));
+        assertThat(fitness.getReport(), is(String.format("%s reward: %d\n", TEST_REPORT, reward)));
     }
 }

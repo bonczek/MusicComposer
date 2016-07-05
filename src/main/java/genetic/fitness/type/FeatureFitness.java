@@ -21,7 +21,7 @@ public class FeatureFitness<T extends MelodicFeature> extends Fitness {
      */
     public void addFeatureReward(T feature) {
         int featureReward = fitnessCalculator.calculateReward(feature);
-        reportBuilder.append(String.format("%s; reward: %d\n", feature.getReport(), featureReward));
+        reportBuilder.append(String.format("%s reward: %d\n", feature.getReport(), featureReward));
         fitnessValue += featureReward;
     }
 

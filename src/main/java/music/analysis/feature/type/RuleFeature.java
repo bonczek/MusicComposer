@@ -13,6 +13,6 @@ public class RuleFeature extends MelodicFeature<Integer> {
 
     @Override
     public String getReport() {
-        return String.format("Rule %s - count: %d; weight: %d", name, getFeatureResult(), getFeatureWeight());
+        return String.format("%s - count: %d; weight: %d;", name, getFeatureResult(), getFeatureWeight());
     }
 }
