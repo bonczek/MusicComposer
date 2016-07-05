@@ -1,4 +1,4 @@
-package music.analysis.feature;
+package music.analysis.feature.processor;
 
 import music.notes.Note;
 
