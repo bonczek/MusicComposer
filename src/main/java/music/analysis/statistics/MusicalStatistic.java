@@ -1,13 +1,7 @@
 package music.analysis.statistics;
 
-import music.notes.Note;
+import music.analysis.feature.MelodicFeatureCounter;
 
-public interface MusicalStatistic {
-
-    void processNote(Note note);
-
-    void clear();
-
-    double getResult();
+public interface MusicalStatistic extends MelodicFeatureCounter<Double> {
 
 }

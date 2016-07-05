@@ -1,13 +1,9 @@
 package gui;
 
-import genetic.GeneticAlgorithm;
 import genetic.GeneticGuard;
 import genetic.NewPopulationGenerator;
 import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
-import genetic.fitness.FitnessFunction;
-import genetic.fitness.rules.RuleFitnessFunction;
-import genetic.fitness.statistic.MusicalStatisticsFitness;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
 import genetic.mutation.GeneticMutation;
@@ -93,15 +89,16 @@ public class MainController implements Initializable {
                 mutationCoordinator, crossoverCoordinator);
 //        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
 //                baseScaleNote.getValue()), scaleReward);
-        FitnessFunction fitnessFunction;
-        if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
-            fitnessFunction = new MusicalStatisticsFitness(scale);
-        } else {
-            fitnessFunction = new RuleFitnessFunction();
-        }
-
-        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
-        algorithm.run();
+//        @todo repair
+//        FitnessFunction fitnessFunction;
+//        if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
+//            fitnessFunction = new MusicalStatisticsFitness(scale);
+//        } else {
+//            fitnessFunction = new RuleFitnessFunction();
+//        }
+//
+//        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
+//        algorithm.run();
     }
 
 }

@@ -1,12 +1,7 @@
 package music.analysis.rules;
 
-import music.notes.Note;
+import music.analysis.feature.MelodicFeatureCounter;
 
-public interface MusicalRule {
+public interface MusicalRule extends MelodicFeatureCounter<Integer> {
 
-    void processNote(Note note);
-
-    void clear();
-
-    int ruleCount();
 }

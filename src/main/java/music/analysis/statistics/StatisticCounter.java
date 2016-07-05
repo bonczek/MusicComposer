@@ -18,7 +18,7 @@ public abstract class StatisticCounter<T extends Number> implements MusicalStati
         return denominator;
     }
 
-    public double getResult() {
+    public Double getResult() {
         return numerator.doubleValue() / denominator.doubleValue();
     }
 }

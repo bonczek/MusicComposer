@@ -5,7 +5,7 @@ public abstract class RuleCounter implements MusicalRule {
     protected Integer ruleCounter = 0;
 
     @Override
-    public int ruleCount() {
+    public Integer getResult() {
         return ruleCounter;
     }
 

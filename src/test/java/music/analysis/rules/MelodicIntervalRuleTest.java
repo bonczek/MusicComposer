@@ -16,7 +16,7 @@ public class MelodicIntervalRuleTest {
         List<Note> melody = StatisticCounterTest.preparedNoteList();
         MusicalRule rule = new MelodicIntervalRule(i -> !i.moreThanOctave() && i.perfectConsonance());
         melody.forEach(rule::processNote);
-        assertThat(rule.ruleCount(), is(1));
+        assertThat(rule.getResult(), is(1));
     }
 
     @Test
@@ -24,7 +24,7 @@ public class MelodicIntervalRuleTest {
         List<Note> melody = StatisticCounterTest.preparedNoteList();
         MusicalRule rule = new MelodicIntervalRule(i -> !i.moreThanOctave() && i.perfectConsonance());
         melody.forEach(rule::processNote);
-        assertThat(rule.ruleCount(), is(1));
+        assertThat(rule.getResult(), is(1));
     }
 
     @Test
@@ -32,6 +32,6 @@ public class MelodicIntervalRuleTest {
         List<Note> melody = StatisticCounterTest.preparedNoteList();
         MusicalRule rule = new MelodicIntervalRule(i -> i.moreThanOctave() || i.dissonance());
         melody.forEach(rule::processNote);
-        assertThat(rule.ruleCount(), is(6));
+        assertThat(rule.getResult(), is(6));
     }
 }
