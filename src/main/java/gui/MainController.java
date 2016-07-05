@@ -15,17 +15,17 @@ import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import music.Harmony;
@@ -135,25 +135,30 @@ public class MainController implements Initializable {
 
 //        @todo does fxml file should be removed?
         //Parent root = FXMLLoader.load(getClass().getResource("../statisticalFitness.fxml"));
+        ScrollPane mainView = new ScrollPane();
 
-        ListView<HBox> listView = new ListView<>();
-        ObservableList<HBox> hBoxes = FXCollections.observableArrayList();
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
 
-        for (Statistic stat : Statistic.values()) {
-            HBox singleStatBox = new HBox();
+        gridPane.addRow(0, new Label("Feature name"), new Label("Active"), new Label("Expected value"), new Label
+                ("Feature weight"));
+
+
+        for (StatisticName stat : StatisticName.values()) {
             Label statLabel = new Label(stat.name());
             CheckBox checkBox = new CheckBox();
             TextField expectedValueTextField = new TextField();
             TextField statisticWeightTextField = new TextField();
 
-            singleStatBox.getChildren().addAll(statLabel, checkBox, expectedValueTextField, statisticWeightTextField);
-            hBoxes.add(singleStatBox);
+            gridPane.addRow(stat.ordinal() + 1, statLabel, checkBox, expectedValueTextField, statisticWeightTextField);
         }
 
-        listView.setItems(hBoxes);
-        Scene scene = new Scene(listView, 800, 400);
+        mainView.contentProperty().setValue(gridPane);
+//        listView.setItems(hBoxes);
+        Scene scene = new Scene(mainView, 800, 400);
         newStage.setScene(scene);
         newStage.show();
+
 
     }
 
