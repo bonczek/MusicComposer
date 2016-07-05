@@ -1,32 +1,17 @@
 package music.analysis.feature.container;
 
-import genetic.fitness.type.Fitness;
-import genetic.fitness.type.RuleFitness;
+import genetic.fitness.calculator.FitnessCalculator;
+import genetic.fitness.calculator.RuleFitnessCalculator;
 import music.analysis.feature.type.RuleFeature;
-import music.notes.Note;
 
 import java.util.List;
 
-public class RuleContainer implements FeatureContainer {
+public class RuleContainer extends FeatureContainer<RuleFeature> {
 
-    private List<RuleFeature> rules;
+    private static final FitnessCalculator<RuleFeature> FITNESS_CALCULATOR = new RuleFitnessCalculator();
 
     public RuleContainer(List<RuleFeature> rulesList) {
-        this.rules = rulesList;
+        super(rulesList, FITNESS_CALCULATOR);
     }
 
-    @Override
-    public void applyFeatureProcessors(List<Note> melodyLine) {
-        rules.forEach(r -> r.getNoteProcessor().clear());
-        for (Note note : melodyLine) {
-            rules.stream().forEach(r -> r.getNoteProcessor().processNote(note));
-        }
-    }
-
-    @Override
-    public Fitness getRewardSum() {
-        RuleFitness ruleFitness = new RuleFitness();
-        rules.forEach(ruleFitness::addRuleReward);
-        return ruleFitness;
-    }
 }

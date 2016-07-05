@@ -1,6 +1,5 @@
-package genetic.fitness.statistic;
+package genetic.fitness.calculator;
 
-import genetic.fitness.calculator.NormalDistributionStatisticCalculator;
 import music.analysis.feature.type.StatisticalFeature;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;

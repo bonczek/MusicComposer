@@ -1,6 +1,6 @@
 package music.analysis.rules;
 
-import music.analysis.statistics.StatisticCounterTest;
+import music.analysis.util.MelodyData;
 import music.notes.Note;
 import org.testng.annotations.Test;
 
@@ -13,7 +13,7 @@ public class MelodicIntervalRuleTest {
 
     @Test
     public void testProcessInterval_givenPerfectConsonanceCondition() throws Exception {
-        List<Note> melody = StatisticCounterTest.preparedNoteList();
+        List<Note> melody = MelodyData.prepareFourMeasureSample();
         MusicalRule rule = new MelodicIntervalRule(i -> !i.moreThanOctave() && i.perfectConsonance());
         melody.forEach(rule::processNote);
         assertThat(rule.getResult(), is(1));
@@ -21,7 +21,7 @@ public class MelodicIntervalRuleTest {
 
     @Test
     public void testProcessInterval_givenImperfectConsonanceCondition() throws Exception {
-        List<Note> melody = StatisticCounterTest.preparedNoteList();
+        List<Note> melody = MelodyData.prepareFourMeasureSample();
         MusicalRule rule = new MelodicIntervalRule(i -> !i.moreThanOctave() && i.perfectConsonance());
         melody.forEach(rule::processNote);
         assertThat(rule.getResult(), is(1));
@@ -29,7 +29,7 @@ public class MelodicIntervalRuleTest {
 
     @Test
     public void testProcessInterval_givenDissonanceCondition() throws Exception {
-        List<Note> melody = StatisticCounterTest.preparedNoteList();
+        List<Note> melody = MelodyData.prepareFourMeasureSample();
         MusicalRule rule = new MelodicIntervalRule(i -> i.moreThanOctave() || i.dissonance());
         melody.forEach(rule::processNote);
         assertThat(rule.getResult(), is(6));

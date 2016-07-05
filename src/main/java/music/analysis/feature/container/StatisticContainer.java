@@ -1,35 +1,16 @@
 package music.analysis.feature.container;
 
 import genetic.fitness.calculator.FitnessCalculator;
-import genetic.fitness.type.Fitness;
-import genetic.fitness.type.StatisticFitness;
+import genetic.fitness.calculator.NormalDistributionStatisticCalculator;
 import music.analysis.feature.type.StatisticalFeature;
-import music.notes.Note;
 
 import java.util.List;
 
-public class StatisticContainer implements FeatureContainer {
+public class StatisticContainer extends FeatureContainer<StatisticalFeature> {
 
-    private final FitnessCalculator<StatisticalFeature> fitnessCalculator;
-    private List<StatisticalFeature> statistics;
+    private static final FitnessCalculator<StatisticalFeature> FITNESS_CALCULATOR = new NormalDistributionStatisticCalculator();
 
-    public StatisticContainer(List<StatisticalFeature> statistics, FitnessCalculator<StatisticalFeature> fitnessCalculator) {
-        this.statistics = statistics;
-        this.fitnessCalculator = fitnessCalculator;
-    }
-
-    @Override
-    public void applyFeatureProcessors(List<Note> melodyLine) {
-        statistics.forEach(r -> r.getNoteProcessor().clear());
-        for (Note note : melodyLine) {
-            statistics.stream().forEach(r -> r.getNoteProcessor().processNote(note));
-        }
-    }
-
-    @Override
-    public Fitness getRewardSum() {
-        StatisticFitness statFitness = new StatisticFitness(fitnessCalculator);
-        statistics.forEach(statFitness::addMetricValues);
-        return statFitness;
+    public StatisticContainer(List<StatisticalFeature> statistics) {
+        super(statistics, FITNESS_CALCULATOR);
     }
 }
