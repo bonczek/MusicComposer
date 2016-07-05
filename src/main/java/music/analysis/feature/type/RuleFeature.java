@@ -1,7 +1,7 @@
 package music.analysis.feature.type;
 
-import music.analysis.feature.factory.RuleProcessorFactory;
 import music.analysis.feature.name.RuleName;
+import music.analysis.feature.processor.factory.RuleProcessorFactory;
 
 public class RuleFeature extends MelodicFeature<Integer> {
 
