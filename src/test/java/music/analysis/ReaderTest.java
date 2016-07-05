@@ -1,6 +1,6 @@
 package music.analysis;
 
-import genetic.fitness.Fitness;
+import genetic.fitness.type.Fitness;
 import org.testng.annotations.Test;
 
 import java.net.URL;

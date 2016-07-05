@@ -2,9 +2,8 @@ package genetic;
 
 import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
-import genetic.fitness.FitnessFunction;
-import genetic.fitness.rules.ScaleFitness;
-import genetic.fitness.statistic.MusicalStatisticsFitness;
+import genetic.fitness.function.FitnessFunction;
+import genetic.fitness.function.MusicalFitnessFunction;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
 import genetic.mutation.GeneticMutation;
@@ -14,9 +13,14 @@ import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import music.Harmony;
 import music.Scale;
+import music.analysis.feature.container.StatisticContainer;
+import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.type.StatisticalFeature;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GeneticAlgorithmTest {
@@ -27,24 +31,16 @@ public class GeneticAlgorithmTest {
             new MutationCoordinator(new GeneticGuard(0.5), new SimpleMutation(new Random())),
             new CrossoverCoordinator(new GeneticGuard(0.9), new SimpleCrossover(new Random())));
 
-    private FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(Scale.MINOR_PENTATONIC_SCALE.intervals(), NoteName.A),
-            100);
-
-    @Test(enabled = false)
-    public void testRun() throws Exception {
-
-        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, pentatonicFitness);
-
-        algorithm.run();
-
-    }
-
-
     @Test(enabled = false)
     public void testMutation() throws Exception {
         int numbersOfMeasures = 4;
         Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
-        FitnessFunction fitnessFunction = new MusicalStatisticsFitness(cMajorScale);
+        List<StatisticalFeature> features = new ArrayList<>();
+        for (StatisticName stat : StatisticName.values()) {
+            features.add(new StatisticalFeature(stat, 0.5, 10.0, cMajorScale));
+        }
+        FitnessFunction fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
+
         InitialPopulationGenerator initGenerator = new RandomPopulationGenerator(128, numbersOfMeasures, new
                 Random());
         GeneticMutation mutation = new TowseyMutation(new Random(), cMajorScale);

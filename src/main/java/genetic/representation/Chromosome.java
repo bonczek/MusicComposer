@@ -1,6 +1,6 @@
 package genetic.representation;
 
-import genetic.fitness.Fitness;
+import genetic.fitness.type.Fitness;
 import genetic.mutation.Mutation;
 
 import java.util.ArrayList;

@@ -5,10 +5,8 @@ import genetic.GeneticGuard;
 import genetic.NewPopulationGenerator;
 import genetic.crossover.CrossoverCoordinator;
 import genetic.crossover.SimpleCrossover;
-import genetic.fitness.FitnessFunction;
-import genetic.fitness.rules.RuleFitnessFunction;
-import genetic.fitness.statistic.MusicalStatisticsFitness;
-import genetic.fitness.statistic.Statistic;
+import genetic.fitness.function.FitnessFunction;
+import genetic.fitness.function.MusicalFitnessFunction;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.initial.RandomPopulationGenerator;
 import genetic.mutation.GeneticMutation;
@@ -32,9 +30,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import music.Harmony;
 import music.Scale;
+import music.analysis.feature.container.RuleContainer;
+import music.analysis.feature.container.StatisticContainer;
+import music.analysis.feature.name.RuleName;
+import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.type.RuleFeature;
+import music.analysis.feature.type.StatisticalFeature;
 import music.notes.pitch.NoteName;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -100,13 +106,21 @@ public class MainController implements Initializable {
                 SimpleCrossover(new Random()));
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 mutationCoordinator, crossoverCoordinator);
-//        FitnessFunction pentatonicFitness = new ScaleFitness(new Harmony(scaleType.getValue().intervals(),
-//                baseScaleNote.getValue()), scaleReward);
+
+
         FitnessFunction fitnessFunction;
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
-            fitnessFunction = new MusicalStatisticsFitness(scale);
+            List<StatisticalFeature> features = new ArrayList<>();
+            for (StatisticName stat : StatisticName.values()) {
+                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale));
+            }
+            fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
         } else {
-            fitnessFunction = new RuleFitnessFunction();
+            List<RuleFeature> features = new ArrayList<>();
+            for (RuleName rule : RuleName.values()) {
+                features.add(new RuleFeature(rule, 10));
+            }
+            fitnessFunction = new MusicalFitnessFunction<>(new RuleContainer(features));
         }
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);

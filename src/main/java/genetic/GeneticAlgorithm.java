@@ -1,6 +1,6 @@
 package genetic;
 
-import genetic.fitness.FitnessFunction;
+import genetic.fitness.function.FitnessFunction;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.representation.Chromosome;
 import genetic.util.Converter;
