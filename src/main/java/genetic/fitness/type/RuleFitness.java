@@ -1,6 +1,5 @@
-package genetic.fitness.rules;
+package genetic.fitness.type;
 
-import genetic.fitness.Fitness;
 import music.analysis.feature.type.RuleFeature;
 
 public class RuleFitness extends Fitness {

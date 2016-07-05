@@ -1,6 +1,6 @@
 package music.analysis;
 
-import genetic.fitness.Fitness;
+import genetic.fitness.type.Fitness;
 
 public class Reader {
 

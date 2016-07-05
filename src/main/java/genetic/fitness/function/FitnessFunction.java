@@ -1,5 +1,6 @@
-package genetic.fitness;
+package genetic.fitness.function;
 
+import genetic.fitness.type.Fitness;
 import genetic.representation.Chromosome;
 
 import java.util.List;

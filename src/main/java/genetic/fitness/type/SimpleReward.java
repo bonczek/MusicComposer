@@ -1,4 +1,4 @@
-package genetic.fitness;
+package genetic.fitness.type;
 
 public class SimpleReward extends Fitness {
 

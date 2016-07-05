@@ -1,6 +1,6 @@
 package music.analysis.feature.container;
 
-import genetic.fitness.Fitness;
+import genetic.fitness.type.Fitness;
 import music.notes.Note;
 
 import java.util.List;

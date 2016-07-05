@@ -1,4 +1,4 @@
-package genetic.fitness;
+package genetic.fitness.type;
 
 public abstract class Fitness {
 

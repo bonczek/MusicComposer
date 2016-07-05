@@ -1,7 +1,7 @@
 package music.analysis.feature.container;
 
-import genetic.fitness.Fitness;
-import genetic.fitness.rules.RuleFitness;
+import genetic.fitness.type.Fitness;
+import genetic.fitness.type.RuleFitness;
 import music.analysis.feature.type.RuleFeature;
 import music.notes.Note;
 

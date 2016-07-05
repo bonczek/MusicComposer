@@ -1,6 +1,5 @@
-package genetic.fitness.statistic;
+package genetic.fitness.type;
 
-import genetic.fitness.Fitness;
 import genetic.fitness.calculator.FitnessCalculator;
 import music.analysis.feature.type.StatisticalFeature;
 

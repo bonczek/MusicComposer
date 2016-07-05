@@ -1,6 +1,6 @@
 package genetic.selection;
 
-import genetic.fitness.SimpleReward;
+import genetic.fitness.type.SimpleReward;
 import genetic.representation.Chromosome;
 import genetic.representation.ChromosomePair;
 import org.mockito.Mockito;
