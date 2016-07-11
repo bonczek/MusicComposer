@@ -21,7 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import music.Harmony;
-import music.Scale;
+import music.ScaleName;
 import music.analysis.feature.container.RuleContainer;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.RuleName;
@@ -47,7 +47,7 @@ public class MainController implements Initializable {
     @FXML
     private ChoiceBox<String> mutations;
     @FXML
-    private ChoiceBox<Scale> scaleType;
+    private ChoiceBox<ScaleName> scaleType;
     @FXML
     private ChoiceBox<NoteName> baseScaleNote;
     @FXML
@@ -69,7 +69,7 @@ public class MainController implements Initializable {
         mutations.getSelectionModel().selectFirst();
         fitnessFunctionType.setItems(FXCollections.observableArrayList(STATISTICAL, RULE_BASED));
         fitnessFunctionType.getSelectionModel().selectFirst();
-        scaleType.setItems(FXCollections.observableArrayList(Scale.values()));
+        scaleType.setItems(FXCollections.observableArrayList(ScaleName.values()));
         scaleType.getSelectionModel().selectFirst();
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();
@@ -86,7 +86,7 @@ public class MainController implements Initializable {
 
         InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
                 Random());
-        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
+        Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         GeneticMutation mutation;
         if (mutations.getValue().equals(MUSICAL_MUTATION)) {
             mutation = new TowseyMutation(new Random(), scale);

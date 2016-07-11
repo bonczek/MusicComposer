@@ -1,7 +1,7 @@
 package music.analysis.feature.processor.statistics.density;
 
 import music.Harmony;
-import music.Scale;
+import music.ScaleName;
 import music.analysis.feature.processor.statistics.StatisticCounterTest;
 import music.notes.pitch.NoteName;
 
@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class NonScaleDensityStatisticTest extends StatisticCounterTest<NonScaleDensityStatistic> {
 
-    private static final Harmony C_MAJOR_SCALE = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
+    private static final Harmony C_MAJOR_SCALE = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
 
     @Override
     protected NonScaleDensityStatistic initStatistic() {

@@ -12,7 +12,7 @@ import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import music.Harmony;
-import music.Scale;
+import music.ScaleName;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
@@ -34,7 +34,7 @@ public class GeneticAlgorithmTest {
     @Test(enabled = false)
     public void testMutation() throws Exception {
         int numbersOfMeasures = 4;
-        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
+        Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
             features.add(new StatisticalFeature(stat, 0.5, 10.0, cMajorScale));

@@ -4,7 +4,7 @@ import genetic.fitness.function.MusicalFitnessFunction;
 import genetic.fitness.type.Fitness;
 import genetic.util.Converter;
 import music.Harmony;
-import music.Scale;
+import music.ScaleName;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
@@ -19,7 +19,7 @@ public class Reader {
 
     public Fitness analyseMidiFile(String midiFilePath) {
 
-        Harmony scale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
+        Harmony scale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
             features.add(new StatisticalFeature(stat, 0.5, 10.0, scale));

@@ -4,7 +4,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.fitness.type.FeatureFitness;
 import genetic.fitness.type.Fitness;
 import music.Harmony;
-import music.Scale;
+import music.ScaleName;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.RuleFeature;
@@ -45,7 +45,7 @@ public class FeatureContainerTest {
     @Test
     public void testApplyFeatureProcessors_givenStatisticalFeatures() throws Exception {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
-        Harmony cMajorScale = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
+        Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
         double weight = 10.0;
         StatisticalFeature[] features = {
                 new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, cMajorScale),

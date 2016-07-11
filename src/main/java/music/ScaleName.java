@@ -2,7 +2,7 @@ package music;
 
 import music.notes.pitch.PitchInterval;
 
-public enum Scale {
+public enum ScaleName implements HarmonyRelation {
     MAJOR_SCALE(new PitchInterval[]{PitchInterval.PERFECT_UNISON, PitchInterval.MAJOR_SECOND,
             PitchInterval.MAJOR_THIRD, PitchInterval.PERFECT_FOURTH, PitchInterval.PERFECT_FIFTH,
             PitchInterval.MAJOR_SIXTH, PitchInterval.MAJOR_SEVENTH}),
@@ -12,11 +12,11 @@ public enum Scale {
 
     private PitchInterval[] intervals;
 
-    Scale(PitchInterval[] intervals) {
+    ScaleName(PitchInterval[] intervals) {
         this.intervals = intervals;
     }
 
-    public PitchInterval[] intervals() {
+    public PitchInterval[] getIntervals() {
         return intervals;
     }
 }

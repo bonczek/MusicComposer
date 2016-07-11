@@ -1,7 +1,7 @@
 package music.analysis.feature.processor.factory;
 
 import music.Harmony;
-import music.Scale;
+import music.ScaleName;
 import music.analysis.feature.name.StatisticName;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StatisticProcessorFactoryTest {
 
-    private static final Harmony C_MAJOR_SCALE = new Harmony(Scale.MAJOR_SCALE.intervals(), NoteName.C);
+    private static final Harmony C_MAJOR_SCALE = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
 
     @Test
     public void testCreateStatistic_givenAllStatisticNames() throws Exception {

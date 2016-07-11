@@ -11,13 +11,12 @@ import java.util.List;
 
 public class Harmony {
 
-
     private final List<NoteName> components;
 
-    public Harmony(PitchInterval[] intervals, NoteName baseNoteName) {
+    public Harmony(HarmonyRelation harmonyRelation, NoteName baseNoteName) {
         Pitch base = Pitch.createWithNames(baseNoteName, Octave.SUBSUBCONTRA);
         this.components = new ArrayList<>();
-        for (PitchInterval interval : Arrays.asList(intervals)) {
+        for (PitchInterval interval : Arrays.asList(harmonyRelation.getIntervals())) {
             NoteName noteNameComponent = Pitch.createWithUpInterval(base, interval).getNoteName();
             components.add(noteNameComponent);
         }
@@ -28,10 +27,6 @@ public class Harmony {
     }
 
     public boolean fit(Pitch pitch) {
-        if (components.contains(pitch.getNoteName())) {
-            return true;
-        } else {
-            return false;
-        }
+        return components.contains(pitch.getNoteName());
     }
 }
