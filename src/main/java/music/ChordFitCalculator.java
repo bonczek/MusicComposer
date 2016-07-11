@@ -2,20 +2,25 @@ package music;
 
 import music.notes.Note;
 import music.notes.Sound;
+import music.notes.pitch.Pitch;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Queue;
 
 public class ChordFitCalculator {
-    private final List<Chord> chordList;
-    private final double endTime;
-    private int currentChordIndex;
+
+    private final double melodyEndTime;
+    private final Queue<Chord> chordProgression;
     private Chord currentChord;
     private double time = 0.0;
+    private double chordFittingTime = 0.0;
 
     public ChordFitCalculator(List<Chord> chordList) {
-        this.chordList = chordList;
-        this.currentChord = chordList.get(0);
-        this.endTime = chordList.get(chordList.size() - 1).getEndTime();
+        this.chordProgression = new LinkedList<>(chordList);
+        this.melodyEndTime = chordList.get(chordList.size() - 1).getEndTime();
+        this.currentChord = chordProgression.poll();
     }
 
     public double getTime() {
@@ -23,36 +28,12 @@ public class ChordFitCalculator {
     }
 
     public double calculateTimeFittingHarmony(List<Note> melodyLine) {
-        double chordFittingTime = 0.0;
         for (Note note : melodyLine) {
-            if (Double.compare(time, currentChord.getEndTime()) >= 0) {
+            if (currentChord.finishedEarlierThan(time)) {
                 nextChord();
             }
             if (note instanceof Sound) {
-                Sound sound = (Sound) note;
-                double timeStep = note.getRhythmValue();
-                //@todo double compare
-                double noteEnd = time + timeStep;
-
-                if (noteEnd > currentChord.getEndTime()) {
-                    double noteDuration = sound.getRhythmValue();
-                    while (noteDuration > 0.0) {
-                        double diff = currentChord.getEndTime() - time;
-                        noteDuration -= diff;
-                        if (currentChord.fitHarmony(sound.getPitch())) {
-                            chordFittingTime += diff;
-                        }
-                        if (Double.compare(currentChord.getEndTime(), endTime) != 0) {
-                            nextChord();
-                        }
-                        time += diff;
-                    }
-                } else {
-                    if (currentChord.fitHarmony(sound.getPitch())) {
-                        chordFittingTime += sound.getRhythmValue();
-                    }
-                    time += sound.getRhythmValue();
-                }
+                analyzeSoundInChordProgression((Sound) note);
             } else {
                 time += note.getRhythmValue();
             }
@@ -60,8 +41,39 @@ public class ChordFitCalculator {
         return chordFittingTime;
     }
 
-    public void nextChord() throws IndexOutOfBoundsException {
-        currentChordIndex++;
-        currentChord = chordList.get(currentChordIndex);
+    private void analyzeSoundInChordProgression(Sound sound) {
+        double noteEnd = time + sound.getRhythmValue();
+
+        if (currentChord.finishedEarlierThan(noteEnd)) {
+            calculateWithChangeChords(sound);
+        } else {
+            updateTimesResults(sound.getPitch(), sound.getRhythmValue());
+        }
     }
+
+    private void calculateWithChangeChords(Sound sound) {
+        double noteDuration = sound.getRhythmValue();
+        while (Double.compare(noteDuration, 0.0) > 0) {
+            double timeOnCurrentChord = currentChord.getEndTime() - time;
+            noteDuration -= timeOnCurrentChord;
+            updateTimesResults(sound.getPitch(), timeOnCurrentChord);
+            if (Double.compare(currentChord.getEndTime(), melodyEndTime) != 0) {
+                nextChord();
+            }
+        }
+    }
+
+    private void nextChord() throws NoSuchElementException {
+        currentChord = chordProgression.remove();
+    }
+
+    private void updateTimesResults(Pitch pitch, double rhythmValue) {
+        if (currentChord.fitHarmony(pitch)) {
+            chordFittingTime += rhythmValue;
+        }
+        time += rhythmValue;
+    }
+
+
+
 }

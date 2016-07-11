@@ -31,4 +31,8 @@ public class Chord {
     public boolean fitHarmony(Pitch pitch) {
         return chordHarmony.fit(pitch);
     }
+
+    public boolean finishedEarlierThan(double time) {
+        return (Double.compare(endTime, time) <= 0);
+    }
 }
