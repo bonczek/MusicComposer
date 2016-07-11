@@ -11,6 +11,8 @@ import java.util.Queue;
 
 public class ChordFitCalculator {
 
+    //@todo empty list, exception handling
+
     private final double melodyEndTime;
     private final Queue<Chord> chordProgression;
     private Chord currentChord;
