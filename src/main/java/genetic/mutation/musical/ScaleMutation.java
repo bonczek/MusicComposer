@@ -1,6 +1,6 @@
 package genetic.mutation.musical;
 
-import music.Harmony;
+import music.harmony.Harmony;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.NoteName;

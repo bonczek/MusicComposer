@@ -2,8 +2,8 @@ package genetic.mutation.musical;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import jm.constants.Durations;
-import music.Harmony;
-import music.ScaleName;
+import music.harmony.Harmony;
+import music.harmony.ScaleName;
 import music.notes.Note;
 import music.notes.Rest;
 import music.notes.Sound;

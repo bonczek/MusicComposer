@@ -1,4 +1,4 @@
-package music;
+package music.harmony;
 
 import music.notes.Note;
 import music.notes.Sound;

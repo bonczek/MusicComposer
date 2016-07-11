@@ -11,11 +11,11 @@ import genetic.mutation.MutationCoordinator;
 import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
-import music.Harmony;
-import music.ScaleName;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
+import music.harmony.Harmony;
+import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 

@@ -1,8 +1,8 @@
 package music.analysis.feature.type;
 
-import music.Harmony;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.processor.factory.StatisticProcessorFactory;
+import music.harmony.Harmony;
 
 public class StatisticalFeature extends MelodicFeature<Double> {
 

@@ -1,4 +1,4 @@
-package music;
+package music.harmony;
 
 import music.analysis.util.ChordProgressionData;
 import music.analysis.util.MelodyData;

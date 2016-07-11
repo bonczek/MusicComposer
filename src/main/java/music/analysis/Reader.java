@@ -3,11 +3,11 @@ package music.analysis;
 import genetic.fitness.function.MusicalFitnessFunction;
 import genetic.fitness.type.Fitness;
 import genetic.util.Converter;
-import music.Harmony;
-import music.ScaleName;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
+import music.harmony.Harmony;
+import music.harmony.ScaleName;
 import music.notes.Note;
 import music.notes.pitch.NoteName;
 

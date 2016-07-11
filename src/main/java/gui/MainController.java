@@ -20,14 +20,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import music.Harmony;
-import music.ScaleName;
 import music.analysis.feature.container.RuleContainer;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
+import music.harmony.Harmony;
+import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
 
 import java.net.URL;

@@ -1,8 +1,8 @@
 package music.analysis.feature.processor.statistics.density;
 
-import music.Harmony;
-import music.ScaleName;
 import music.analysis.feature.processor.statistics.StatisticCounterTest;
+import music.harmony.Harmony;
+import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
 
 import static org.hamcrest.CoreMatchers.is;

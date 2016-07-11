@@ -6,7 +6,7 @@ import genetic.mutation.musical.OctaveMutation;
 import genetic.mutation.musical.RestDensityMutation;
 import genetic.mutation.musical.ScaleMutation;
 import genetic.representation.Chromosome;
-import music.Harmony;
+import music.harmony.Harmony;
 
 import java.util.ArrayList;
 import java.util.List;

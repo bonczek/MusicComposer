@@ -1,8 +1,8 @@
 package music.analysis.feature.processor.factory;
 
-import music.Harmony;
-import music.ScaleName;
 import music.analysis.feature.name.StatisticName;
+import music.harmony.Harmony;
+import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 

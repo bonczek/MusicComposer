@@ -1,4 +1,4 @@
-package music;
+package music.harmony;
 
 import java.util.ArrayList;
 import java.util.List;

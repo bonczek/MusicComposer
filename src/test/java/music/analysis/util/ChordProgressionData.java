@@ -1,10 +1,10 @@
 package music.analysis.util;
 
 import jm.constants.Durations;
-import music.Chord;
-import music.ChordName;
-import music.ChordProgressionBuilder;
-import music.Harmony;
+import music.harmony.Chord;
+import music.harmony.ChordName;
+import music.harmony.ChordProgressionBuilder;
+import music.harmony.Harmony;
 import music.notes.pitch.NoteName;
 
 import java.util.List;
