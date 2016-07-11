@@ -3,91 +3,50 @@ package music.analysis.util;
 import jm.constants.Durations;
 import music.Chord;
 import music.ChordName;
+import music.ChordProgressionBuilder;
 import music.Harmony;
 import music.notes.pitch.NoteName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChordProgressionData {
 
     public static List<Chord> prepareTwoMeasuresChordProgressionWithLongDuration() {
-        List<Chord> chordList = new ArrayList<>();
-        double time = 0.0;
-        Chord firstChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.C), time, Durations.WHOLE_NOTE);
-        time += Durations.WHOLE_NOTE;
-        chordList.add(firstChord);
-        Chord secondChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.F), time, Durations.WHOLE_NOTE);
-        chordList.add(secondChord);
-        return chordList;
+        ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.F), Durations.WHOLE_NOTE);
+
+        return progressionBuilder.getChordList();
     }
 
     public static List<Chord> prepareThreeMeasuresOfChordProgression() {
-        List<Chord> chordList = new ArrayList<>();
-        double time = 0.0;
-        Chord firstChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.G), time, Durations.WHOLE_NOTE);
-        time += Durations.WHOLE_NOTE;
-        chordList.add(firstChord);
-        Chord secondChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.C), time, Durations.HALF_NOTE);
-        time += Durations.HALF_NOTE;
-        chordList.add(secondChord);
-        Chord thirdChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.D), time, Durations.HALF_NOTE);
-        time += Durations.HALF_NOTE;
-        chordList.add(thirdChord);
-        Chord fourthChord = new Chord(new Harmony(ChordName.MINOR, NoteName.E), time, Durations.QUARTER_NOTE);
-        time += Durations.QUARTER_NOTE;
-        chordList.add(fourthChord);
-        Chord fifthChord = new Chord(new Harmony(ChordName.MINOR, NoteName.A), time, Durations.QUARTER_NOTE);
-        time += Durations.QUARTER_NOTE;
-        chordList.add(fifthChord);
-        Chord sixthChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.C), time, Durations.QUARTER_NOTE);
-        time += Durations.QUARTER_NOTE;
-        chordList.add(sixthChord);
-        Chord seventhChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.D), time, Durations.QUARTER_NOTE);
-        chordList.add(seventhChord);
-        return chordList;
+        ChordProgressionBuilder builder = new ChordProgressionBuilder();
+        builder.appendChord(new Harmony(ChordName.MAJOR, NoteName.G), Durations.WHOLE_NOTE);
+        builder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.HALF_NOTE);
+        builder.appendChord(new Harmony(ChordName.MAJOR, NoteName.D), Durations.HALF_NOTE);
+        builder.appendChord(new Harmony(ChordName.MINOR, NoteName.E), Durations.QUARTER_NOTE);
+        builder.appendChord(new Harmony(ChordName.MINOR, NoteName.A), Durations.QUARTER_NOTE);
+        builder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.QUARTER_NOTE);
+        builder.appendChord(new Harmony(ChordName.MAJOR, NoteName.D), Durations.QUARTER_NOTE);
+        return builder.getChordList();
     }
 
     public static List<Chord> prepareTwoMeasuresOfChordProgressionWithShortDurations() {
-        List<Chord> chordList = new ArrayList<>();
-        double time = 0.0;
-        Chord firstChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.G), time, Durations.SIXTEENTH_NOTE);
-        time += Durations.SIXTEENTH_NOTE;
-        chordList.add(firstChord);
-        Chord secondChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.C), time, Durations.SIXTEENTH_NOTE);
-        time += Durations.SIXTEENTH_NOTE;
-        chordList.add(secondChord);
-        Chord thirdChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.D), time, Durations.EIGHTH_NOTE);
-        time += Durations.EIGHTH_NOTE;
-        chordList.add(thirdChord);
-        Chord fourthChord = new Chord(new Harmony(ChordName.MINOR, NoteName.E), time, Durations.QUARTER_NOTE);
-        time += Durations.QUARTER_NOTE;
-        chordList.add(fourthChord);
-        Chord fifthChord = new Chord(new Harmony(ChordName.MINOR, NoteName.A), time, Durations.QUARTER_NOTE);
-        time += Durations.QUARTER_NOTE;
-        chordList.add(fifthChord);
-        Chord sixthChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.C), time, Durations.QUARTER_NOTE);
-        time += Durations.QUARTER_NOTE;
-        chordList.add(sixthChord);
+        ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.G), Durations.SIXTEENTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.SIXTEENTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.D), Durations.EIGHTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MINOR, NoteName.E), Durations.QUARTER_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MINOR, NoteName.A), Durations.QUARTER_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.QUARTER_NOTE);
 
-        Chord seventhChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.D), time, Durations.SIXTEENTH_NOTE);
-        time += Durations.SIXTEENTH_NOTE;
-        chordList.add(seventhChord);
-        Chord eightChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.D_SHARP), time, Durations.SIXTEENTH_NOTE);
-        time += Durations.SIXTEENTH_NOTE;
-        chordList.add(eightChord);
-        Chord ninthChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.E), time, Durations.SIXTEENTH_NOTE);
-        chordList.add(ninthChord);
-        time += Durations.SIXTEENTH_NOTE;
-        Chord tenthChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.F), time, Durations.SIXTEENTH_NOTE);
-        chordList.add(tenthChord);
-        time += Durations.SIXTEENTH_NOTE;
-        Chord eleventhChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.F_SHARP), time, Durations.QUARTER_NOTE);
-        chordList.add(eleventhChord);
-        time += Durations.QUARTER_NOTE;
-        Chord twelfthChord = new Chord(new Harmony(ChordName.MAJOR, NoteName.G), time, Durations.HALF_NOTE);
-        chordList.add(twelfthChord);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.D), Durations.SIXTEENTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.D_SHARP), Durations.SIXTEENTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.E), Durations.SIXTEENTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.F), Durations.SIXTEENTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.F_SHARP), Durations.QUARTER_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.G), Durations.HALF_NOTE);
 
-        return chordList;
+        return progressionBuilder.getChordList();
     }
 }
