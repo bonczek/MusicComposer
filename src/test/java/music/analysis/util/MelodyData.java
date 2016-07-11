@@ -42,4 +42,46 @@ public class MelodyData {
         };
         return Arrays.asList(notes);
     }
+
+    public static List<Note> prepareTwoMeasuresWithShortNotes() {
+        Note[] notes = {
+                new Sound(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED), Durations.SIXTEENTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.C_SHARP, Octave.THREE_LINED), Durations.SIXTEENTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.D_SHARP, Octave.THREE_LINED), Durations.EIGHTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.D, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+                new Rest(Durations.HALF_NOTE),
+
+                new Sound(Pitch.createWithNames(NoteName.G, Octave.THREE_LINED), Durations.EIGHTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.A, Octave.THREE_LINED), Durations.EIGHTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED), Durations.SIXTEENTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.A_SHARP, Octave.THREE_LINED), Durations.SIXTEENTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.B, Octave.THREE_LINED), Durations.SIXTEENTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.C_SHARP, Octave.THREE_LINED), Durations.SIXTEENTH_NOTE),
+                new Rest(Durations.HALF_NOTE)
+        };
+        return Arrays.asList(notes);
+    }
+
+    public static List<Note> prepareTwoMeasuresWithLongNotes() {
+        Note[] notes = {
+                new Sound(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED), Durations.WHOLE_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.C_SHARP, Octave.THREE_LINED), Durations.WHOLE_NOTE)
+        };
+        return Arrays.asList(notes);
+    }
+
+
+    public static List<Note> prepareThreeMeasuresOfMelody() {
+        Note[] notes = {
+                new Sound(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED), Durations.HALF_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.D, Octave.THREE_LINED), Durations.HALF_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.G, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.B, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+                new Rest(Durations.HALF_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.G, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.A, Octave.THREE_LINED), Durations.HALF_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.B, Octave.THREE_LINED), Durations.QUARTER_NOTE),
+        };
+        return Arrays.asList(notes);
+    }
 }
