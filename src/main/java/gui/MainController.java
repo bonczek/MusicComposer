@@ -14,18 +14,20 @@ import genetic.mutation.MutationCoordinator;
 import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
+import gui.model.StatisticFeatureModel;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import music.Harmony;
@@ -60,7 +62,6 @@ public class MainController implements Initializable {
     private ChoiceBox<NoteName> baseScaleNote;
     @FXML
     private ChoiceBox<String> fitnessFunctionType;
-
 
     @FXML
     private TextField mutationRateTextField;
@@ -137,23 +138,37 @@ public class MainController implements Initializable {
         //Parent root = FXMLLoader.load(getClass().getResource("../statisticalFitness.fxml"));
         ScrollPane mainView = new ScrollPane();
 
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-
-        gridPane.addRow(0, new Label("Feature name"), new Label("Active"), new Label("Expected value"), new Label
-                ("Feature weight"));
-
-
+        ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
+        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
         for (StatisticName stat : StatisticName.values()) {
-            Label statLabel = new Label(stat.name());
-            CheckBox checkBox = new CheckBox();
-            TextField expectedValueTextField = new TextField();
-            TextField statisticWeightTextField = new TextField();
-
-            gridPane.addRow(stat.ordinal() + 1, statLabel, checkBox, expectedValueTextField, statisticWeightTextField);
+            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 10.0, scale)));
         }
 
-        mainView.contentProperty().setValue(gridPane);
+        TableView<StatisticFeatureModel> tableView = new TableView<>();
+        tableView.setEditable(true);
+        tableView.setPrefWidth(800.0);
+        TableColumn<StatisticFeatureModel, StatisticName> firstColumn = new TableColumn<>("Feature name");
+        TableColumn<StatisticFeatureModel, Boolean> secondColumn = new TableColumn<>("Active");
+        TableColumn<StatisticFeatureModel, String> thirdColumn = new TableColumn<>("Expected value");
+        TableColumn<StatisticFeatureModel, String> fourthColumn = new TableColumn<>("Weight");
+
+        secondColumn.setEditable(true);
+
+        firstColumn.setCellValueFactory(s -> s.getValue().statisticNameProperty());
+        secondColumn.setCellValueFactory(s -> s.getValue().isActiveProperty());
+        thirdColumn.setCellValueFactory(s -> s.getValue().expectedValueProperty());
+        fourthColumn.setCellValueFactory(s -> s.getValue().weightProperty());
+
+        secondColumn.setCellFactory(CheckBoxTableCell.forTableColumn(secondColumn));
+//        secondColumn.setOnEditCommit(e -> e.getRowValue().setIsActive(e.getNewValue()));
+        thirdColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        fourthColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+
+        tableView.getColumns().addAll(firstColumn, secondColumn, thirdColumn, fourthColumn);
+        tableView.setItems(statData);
+
+        mainView.contentProperty().setValue(tableView);
 //        listView.setItems(hBoxes);
         Scene scene = new Scene(mainView, 800, 400);
         newStage.setScene(scene);

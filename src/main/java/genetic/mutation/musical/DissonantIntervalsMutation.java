@@ -20,6 +20,15 @@ public class DissonantIntervalsMutation extends MusicalMutation {
         super(randomGenerator);
     }
 
+    /**
+     * Replace second of randomly selected adjacent sound, so they can form new random interval.
+     * 1. Looking for adjacent two sounds in melody line.
+     * 2. Randomly select new interval
+     * 3. Create new pitch, so it will be differ from first sound by selected interval (up or down)
+     * 4. Set new pitch for second sound.
+     *
+     * @param noteList melody line to mutate
+     */
     @Override
     protected void mutateNotes(List<Note> noteList) {
         List<Sound> soundList = collectSounds(noteList);
@@ -39,6 +48,7 @@ public class DissonantIntervalsMutation extends MusicalMutation {
         }
     }
 
+    //@todo move to util
     private List<Sound> collectSounds(List<Note> noteList) {
         List<Sound> soundList = new ArrayList<>();
         noteList.stream().filter(note -> note instanceof Sound).forEach(note -> {
@@ -48,6 +58,17 @@ public class DissonantIntervalsMutation extends MusicalMutation {
         return soundList;
     }
 
+    /**
+     * Generate new pitch using given base pitch and interval.
+     * Generally interval direction is randomly selected, but for safety,
+     * in case of values near MIDI limits direction is chosen.
+     * This simplification is used, because sounds in highest and lowest octaves are hard to listen.
+     *
+     * @param basePitch   previous pitch since interval will be counted
+     * @param newInterval new relation between base pitch and resulting pitch
+     * @return pitch with specified interval/relation to base pitch
+     * @throws IllegalArgumentException in case of exceed MIDI limit for note value
+     */
     private Pitch preparePitchWithNewInterval(Pitch basePitch, PitchInterval newInterval) throws
             IllegalArgumentException {
         if (basePitch.getMidiValue() >= MAX_SAFE_MIDI_VALUE) {
