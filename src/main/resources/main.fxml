@@ -37,6 +37,6 @@
             </children>
         </VBox>
         <Button layoutY="214.0" mnemonicParsing="false" text="Dobierz wagi funkcji oceny"
-                onAction="#openStatisticalFitnessConfiguration"/>
+                onAction="#openFitnessConfiguration"/>
     </children>
 </AnchorPane>

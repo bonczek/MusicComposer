@@ -15,6 +15,7 @@ import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import gui.model.ConfigurationViewBuilder;
+import gui.model.RuleFeatureModel;
 import gui.model.StatisticFeatureModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,7 +53,10 @@ public class MainController implements Initializable {
 
     private static final String STATISTICAL = "Statystyczna";
     private static final String RULE_BASED = "Regułowa";
+
     ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
+    ObservableList<RuleFeatureModel> ruleData = FXCollections.observableArrayList();
+
     @FXML
     private ChoiceBox<String> mutations;
     @FXML
@@ -81,6 +85,7 @@ public class MainController implements Initializable {
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();
         initStatData();
+        initRuleData();
     }
 
     @FXML
@@ -112,11 +117,7 @@ public class MainController implements Initializable {
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
             fitnessFunction = new MusicalFitnessFunction<>(prepareStatisticalFitnessFunction());
         } else {
-            List<RuleFeature> features = new ArrayList<>();
-            for (RuleName rule : RuleName.values()) {
-                features.add(new RuleFeature(rule, 10));
-            }
-            fitnessFunction = new MusicalFitnessFunction<>(new RuleContainer(features));
+            fitnessFunction = new MusicalFitnessFunction<>(prepareRuleFitnessFunction());
         }
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
@@ -124,16 +125,25 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void openStatisticalFitnessConfiguration() {
+    private void openFitnessConfiguration() {
         Stage newStage = new Stage();
-        newStage.setTitle("Statistical Fitness Function Configuration");
         newStage.initModality(Modality.APPLICATION_MODAL);
+        ScrollPane mainView;
+        if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
+            newStage.setTitle("Statistical Fitness Function Configuration");
 
-        TableView<StatisticFeatureModel> tableView = ConfigurationViewBuilder
-                .createStatisticalFeaturesConfigurationTable();
-        tableView.setItems(statData);
+            TableView<StatisticFeatureModel> tableView = ConfigurationViewBuilder
+                    .createStatisticalFeaturesConfigurationTable();
+            tableView.setItems(statData);
+            mainView = new ScrollPane(tableView);
+        } else {
+            newStage.setTitle("Rule Fitness Function Configuration");
 
-        ScrollPane mainView = new ScrollPane(tableView);
+            TableView<RuleFeatureModel> tableView = ConfigurationViewBuilder
+                    .createRuleFeaturesConfigurationTable();
+            tableView.setItems(ruleData);
+            mainView = new ScrollPane(tableView);
+        }
 
         Scene scene = new Scene(mainView, 800, 400);
 
@@ -148,6 +158,12 @@ public class MainController implements Initializable {
         }
     }
 
+    private void initRuleData() {
+        for (RuleName ruleName : RuleName.values()) {
+            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10)));
+        }
+    }
+
     private StatisticContainer prepareStatisticalFitnessFunction() {
         List<StatisticalFeature> features = new ArrayList<>();
         Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
@@ -157,6 +173,14 @@ public class MainController implements Initializable {
                         Double.parseDouble(featureModel.getWeight()), scale)).collect(Collectors.toList()));
 
         return new StatisticContainer(features);
+    }
+
+    private RuleContainer prepareRuleFitnessFunction() {
+        List<RuleFeature> features = new ArrayList<>();
+        features.addAll(ruleData.stream().filter(RuleFeatureModel::getIsActive)
+                .map(featureModel -> new RuleFeature(featureModel.getRuleName(),
+                        Integer.parseInt(featureModel.getWeight()))).collect(Collectors.toList()));
+        return new RuleContainer(features);
     }
 
 }
