@@ -8,12 +8,15 @@ public class Chord {
     private final double startTime;
     private final double endTime;
     private final double durationTime;
-
     public Chord(Harmony chordHarmony, double startTime, double durationTime) {
         this.chordHarmony = chordHarmony;
         this.startTime = startTime;
         this.durationTime = durationTime;
         this.endTime = startTime + durationTime;
+    }
+
+    public Harmony getChordHarmony() {
+        return chordHarmony;
     }
 
     public double getStartTime() {
