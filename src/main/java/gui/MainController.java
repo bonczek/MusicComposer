@@ -14,6 +14,7 @@ import genetic.mutation.MutationCoordinator;
 import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
+import gui.model.ConfigurationViewBuilder;
 import gui.model.StatisticFeatureModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,11 +24,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import music.Harmony;
@@ -45,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MainController implements Initializable {
 
@@ -53,7 +52,7 @@ public class MainController implements Initializable {
 
     private static final String STATISTICAL = "Statystyczna";
     private static final String RULE_BASED = "Regułowa";
-
+    ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
     @FXML
     private ChoiceBox<String> mutations;
     @FXML
@@ -62,7 +61,6 @@ public class MainController implements Initializable {
     private ChoiceBox<NoteName> baseScaleNote;
     @FXML
     private ChoiceBox<String> fitnessFunctionType;
-
     @FXML
     private TextField mutationRateTextField;
     @FXML
@@ -82,6 +80,7 @@ public class MainController implements Initializable {
         scaleType.getSelectionModel().selectFirst();
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();
+        initStatData();
     }
 
     @FXML
@@ -111,11 +110,7 @@ public class MainController implements Initializable {
 
         FitnessFunction fitnessFunction;
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
-            List<StatisticalFeature> features = new ArrayList<>();
-            for (StatisticName stat : StatisticName.values()) {
-                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale));
-            }
-            fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
+            fitnessFunction = new MusicalFitnessFunction<>(prepareStatisticalFitnessFunction());
         } else {
             List<RuleFeature> features = new ArrayList<>();
             for (RuleName rule : RuleName.values()) {
@@ -134,47 +129,34 @@ public class MainController implements Initializable {
         newStage.setTitle("Statistical Fitness Function Configuration");
         newStage.initModality(Modality.APPLICATION_MODAL);
 
-//        @todo does fxml file should be removed?
-        //Parent root = FXMLLoader.load(getClass().getResource("../statisticalFitness.fxml"));
-        ScrollPane mainView = new ScrollPane();
+        TableView<StatisticFeatureModel> tableView = ConfigurationViewBuilder
+                .createStatisticalFeaturesConfigurationTable();
+        tableView.setItems(statData);
 
-        ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
+        ScrollPane mainView = new ScrollPane(tableView);
+
+        Scene scene = new Scene(mainView, 800, 400);
+
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+    private void initStatData() {
         Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
         for (StatisticName stat : StatisticName.values()) {
             statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 10.0, scale)));
         }
+    }
 
-        TableView<StatisticFeatureModel> tableView = new TableView<>();
-        tableView.setEditable(true);
-        tableView.setPrefWidth(800.0);
-        TableColumn<StatisticFeatureModel, StatisticName> firstColumn = new TableColumn<>("Feature name");
-        TableColumn<StatisticFeatureModel, Boolean> secondColumn = new TableColumn<>("Active");
-        TableColumn<StatisticFeatureModel, String> thirdColumn = new TableColumn<>("Expected value");
-        TableColumn<StatisticFeatureModel, String> fourthColumn = new TableColumn<>("Weight");
+    private StatisticContainer prepareStatisticalFitnessFunction() {
+        List<StatisticalFeature> features = new ArrayList<>();
+        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
+        features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
+                .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
+                        Double.parseDouble(featureModel.getExpectedValue()),
+                        Double.parseDouble(featureModel.getWeight()), scale)).collect(Collectors.toList()));
 
-        secondColumn.setEditable(true);
-
-        firstColumn.setCellValueFactory(s -> s.getValue().statisticNameProperty());
-        secondColumn.setCellValueFactory(s -> s.getValue().isActiveProperty());
-        thirdColumn.setCellValueFactory(s -> s.getValue().expectedValueProperty());
-        fourthColumn.setCellValueFactory(s -> s.getValue().weightProperty());
-
-        secondColumn.setCellFactory(CheckBoxTableCell.forTableColumn(secondColumn));
-//        secondColumn.setOnEditCommit(e -> e.getRowValue().setIsActive(e.getNewValue()));
-        thirdColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        fourthColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-
-        tableView.getColumns().addAll(firstColumn, secondColumn, thirdColumn, fourthColumn);
-        tableView.setItems(statData);
-
-        mainView.contentProperty().setValue(tableView);
-//        listView.setItems(hBoxes);
-        Scene scene = new Scene(mainView, 800, 400);
-        newStage.setScene(scene);
-        newStage.show();
-
-
+        return new StatisticContainer(features);
     }
 
 }

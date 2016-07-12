@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import music.analysis.feature.name.MelodicFeatureName;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
 
@@ -28,7 +27,7 @@ public class StatisticFeatureModel {
         this.isActive = new SimpleBooleanProperty(true);
     }
 
-    public MelodicFeatureName getStatisticName() {
+    public StatisticName getStatisticName() {
         return statisticName.get();
     }
 
