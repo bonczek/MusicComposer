@@ -1,4 +1,4 @@
-package genetic.mutation.musical;
+package genetic.mutation.musical.sound;
 
 import jm.constants.Durations;
 import music.notes.Note;

@@ -6,11 +6,16 @@ public class Interval {
     private final Pitch nextNote;
     private PitchInterval pitchInterval;
     private int octaveDifference;
+    private int semitonesDifference;
     private IntervalDirection direction;
     public Interval(Pitch firstNote, Pitch nextNote) {
         this.firstNote = firstNote;
         this.nextNote = nextNote;
         calculateIntervalValues();
+    }
+
+    public int getSemitonesDifference() {
+        return semitonesDifference;
     }
 
     public Pitch getFirstNote() {
@@ -62,7 +67,7 @@ public class Interval {
     }
 
     private void calculateIntervalValues() {
-        int semitonesDifference = nextNote.getMidiValue() - firstNote.getMidiValue();
+        this.semitonesDifference = nextNote.getMidiValue() - firstNote.getMidiValue();
         int pitchSemitonesInterval = semitonesDifference % Pitch.NOTES_IN_OCTAVE;
         this.octaveDifference = semitonesDifference / Pitch.NOTES_IN_OCTAVE;
         for (PitchInterval pitchInterval : PitchInterval.values()) {

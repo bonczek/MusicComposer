@@ -1,24 +1,21 @@
-package genetic.mutation.musical;
+package genetic.mutation.musical.sound;
 
-import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.NoteName;
 import music.notes.pitch.Octave;
 import music.notes.pitch.Pitch;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class OctaveMutation extends MusicalMutation {
+public class OctaveMutation extends SoundMutation {
 
     public OctaveMutation(Random randomGenerator) {
         super(randomGenerator);
     }
 
     @Override
-    protected void mutateNotes(List<Note> noteList) {
-        List<Sound> soundList = collectSounds(noteList);
+    protected void mutateSounds(List<Sound> soundList) {
         int randomIndex = randomGenerator.nextInt(soundList.size());
 
         Sound sound = soundList.get(randomIndex);
@@ -34,16 +31,6 @@ public class OctaveMutation extends MusicalMutation {
         }
         Pitch newPitch = Pitch.createWithNames(sound.getPitch().getNoteName(), newOctave);
         sound.setPitch(newPitch);
-    }
-
-    //@todo same method as in DissonantIntervalsMutation
-    private List<Sound> collectSounds(List<Note> noteList) {
-        List<Sound> soundList = new ArrayList<>();
-        noteList.stream().filter(note -> note instanceof Sound).forEach(note -> {
-            Sound sound = (Sound) note;
-            soundList.add(sound);
-        });
-        return soundList;
     }
 
     private Octave chooseAdjacentOctave(Octave actualOctave) {

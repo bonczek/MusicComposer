@@ -5,7 +5,6 @@ import genetic.initial.InitialPopulationGenerator;
 import genetic.representation.Chromosome;
 import genetic.util.Converter;
 import jm.music.data.Score;
-import jm.util.Play;
 import jm.util.View;
 
 import java.util.List;
@@ -49,7 +48,7 @@ public class GeneticAlgorithm {
                     .getReport()));
             Score score = Converter.convertToJMusicScore(bestChromosome);
             View.notate(score);
-            Play.midi(score);
+//            Play.midi(score);
         }
     }
 
