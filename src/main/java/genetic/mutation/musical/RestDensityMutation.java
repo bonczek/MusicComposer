@@ -7,12 +7,13 @@ import music.notes.pitch.Pitch;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * Mutation to change rest/note density.
  */
 public class RestDensityMutation extends MusicalMutation {
+
+    private static final int NUMBER_OF_MIDI_VALUES = 128;
 
     public RestDensityMutation(Random randomGenerator) {
         super(randomGenerator);
@@ -31,15 +32,13 @@ public class RestDensityMutation extends MusicalMutation {
         if (randomNote instanceof Sound) {
             noteList.set(randomIndex, new Rest(randomNote.getRhythmValue()));
         } else if (randomNote instanceof Rest) {
-            Sound newSound = new Sound(getPitchUsedInMelody(noteList), randomNote.getRhythmValue());
+            Sound newSound = new Sound(getRandomMidiPitch(), randomNote.getRhythmValue());
             noteList.set(randomIndex, newSound);
         }
     }
 
-    private Pitch getPitchUsedInMelody(List<Note> noteList) {
-        List<Sound> soundList = noteList.stream().filter(n -> n instanceof Sound).map(n -> (Sound) n)
-                .collect(Collectors.toList());
-        int soundIndex = randomGenerator.nextInt(soundList.size());
-        return soundList.get(soundIndex).getPitch();
+    private Pitch getRandomMidiPitch() {
+        int midiValue = randomGenerator.nextInt(NUMBER_OF_MIDI_VALUES);
+        return Pitch.createWithMidi(midiValue);
     }
 }
