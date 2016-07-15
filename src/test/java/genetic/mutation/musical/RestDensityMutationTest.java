@@ -42,8 +42,9 @@ public class RestDensityMutationTest {
     @Test
     public void testMutateNotes_givenRestIsChosen() throws Exception {
         int mutatedNoteIndex = 1;
-        int soundSize = 3;
-        int soundIndex = 2;
+        Pitch randomPitch = Pitch.createWithMidi(35);
+        int numberOfMidiValues = 128;
+
         Note[] testData = {new Sound(Pitch.createWithNames(NoteName.C, Octave.CONTRA), Durations.QUARTER_NOTE),
                 new Rest(Durations.HALF_NOTE),
                 new Sound(Pitch.createWithNames(NoteName.G_SHARP, Octave.FOUR_LINED), Durations.EIGHTH_NOTE),
@@ -52,12 +53,12 @@ public class RestDensityMutationTest {
 
         RestDensityMutation mutation = new RestDensityMutation(randomMock);
         when(randomMock.nextInt(noteList.size())).thenReturn(mutatedNoteIndex);
-        when(randomMock.nextInt(soundSize)).thenReturn(soundIndex);
+        when(randomMock.nextInt(numberOfMidiValues)).thenReturn(randomPitch.getMidiValue());
         mutation.mutateNotes(noteList);
 
         assertThat(noteList.get(mutatedNoteIndex) instanceof Sound, is(true));
         assertThat(noteList.get(mutatedNoteIndex).getRhythmValue(), is(Durations.HALF_NOTE));
         Sound mutatedSound = (Sound) noteList.get(mutatedNoteIndex);
-        assertThat(mutatedSound.getPitch().equals(((Sound) testData[3]).getPitch()), is(true));
+        assertThat(mutatedSound.getPitch().equals(randomPitch), is(true));
     }
 }

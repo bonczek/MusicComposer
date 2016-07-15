@@ -1,4 +1,4 @@
-package genetic.mutation.musical;
+package genetic.mutation.musical.sound;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import jm.constants.Durations;

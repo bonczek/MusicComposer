@@ -27,7 +27,7 @@ public class RepeatedIntervalStatisticTest extends IntervalStatisticTest<Repeate
         List<Note> noteList = Arrays.asList(notes);
 
         noteList.forEach(statistic::processNote);
-        assertThat(statistic.getResult(), is(0.5));
+        assertThat(statistic.getResult(), is(0.75));
     }
 
     @Override

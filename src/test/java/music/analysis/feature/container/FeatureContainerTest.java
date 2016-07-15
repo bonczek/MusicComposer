@@ -51,7 +51,7 @@ public class FeatureContainerTest {
                 new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, cMajorScale),
                 new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, cMajorScale),
                 new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, cMajorScale),
-                new StatisticalFeature(StatisticName.REPEATED_INTERVALS, 0.0, weight, cMajorScale)
+                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, cMajorScale)
         };
         List<StatisticalFeature> statFeatures = Arrays.asList(features);
         StatisticContainer statisticContainer = new StatisticContainer(statFeatures);

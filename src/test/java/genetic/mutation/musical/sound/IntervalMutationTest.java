@@ -1,4 +1,4 @@
-package genetic.mutation.musical;
+package genetic.mutation.musical.sound;
 
 import jm.constants.Durations;
 import music.notes.Note;
@@ -20,7 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
-public class DissonantIntervalsMutationTest {
+public class IntervalMutationTest {
 
     private final List<PitchInterval> pitchIntervals = new ArrayList<>(Arrays.asList(PitchInterval.values()));
     private Random randomMock = Mockito.mock(Random.class);
@@ -33,7 +33,7 @@ public class DissonantIntervalsMutationTest {
                 new Sound(Pitch.createWithNames(NoteName.A_SHARP, Octave.FOUR_LINED), Durations.SIXTEENTH_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
-        DissonantIntervalsMutation mutation = new DissonantIntervalsMutation(randomMock);
+        IntervalMutation mutation = new IntervalMutation(randomMock);
         when(randomMock.nextInt(3 - 1)).thenReturn(1);
         when(randomMock.nextInt(pitchIntervals.size())).thenReturn(PitchInterval.PERFECT_FIFTH.semitones());
         when(randomMock.nextBoolean()).thenReturn(true);
@@ -51,7 +51,7 @@ public class DissonantIntervalsMutationTest {
                 new Sound(Pitch.createWithNames(NoteName.D, Octave.CONTRA), Durations.SIXTEENTH_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
-        DissonantIntervalsMutation mutation = new DissonantIntervalsMutation(randomMock);
+        IntervalMutation mutation = new IntervalMutation(randomMock);
         when(randomMock.nextInt(2 - 1)).thenReturn(0);
         when(randomMock.nextInt(pitchIntervals.size())).thenReturn(PitchInterval.MAJOR_THIRD.semitones());
         when(randomMock.nextBoolean()).thenReturn(false);
@@ -69,7 +69,7 @@ public class DissonantIntervalsMutationTest {
                 new Sound(Pitch.createWithNames(NoteName.D, Octave.CONTRA), Durations.SIXTEENTH_NOTE)};
         List<Note> noteList = Arrays.asList(notes);
 
-        DissonantIntervalsMutation mutation = new DissonantIntervalsMutation(randomMock);
+        IntervalMutation mutation = new IntervalMutation(randomMock);
         when(randomMock.nextInt(2 - 1)).thenReturn(0);
         when(randomMock.nextInt(pitchIntervals.size())).thenReturn(PitchInterval.MAJOR_THIRD.semitones());
         when(randomMock.nextBoolean()).thenReturn(true);

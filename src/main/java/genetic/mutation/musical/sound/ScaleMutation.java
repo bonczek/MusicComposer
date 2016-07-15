@@ -1,7 +1,6 @@
-package genetic.mutation.musical;
+package genetic.mutation.musical.sound;
 
-import music.harmony.Harmony;
-import music.notes.Note;
+import music.Harmony;
 import music.notes.Sound;
 import music.notes.pitch.NoteName;
 import music.notes.pitch.Octave;
@@ -9,9 +8,8 @@ import music.notes.pitch.Pitch;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
-public class ScaleMutation extends MusicalMutation {
+public class ScaleMutation extends SoundMutation {
 
     private Harmony scale;
 
@@ -21,9 +19,7 @@ public class ScaleMutation extends MusicalMutation {
     }
 
     @Override
-    protected void mutateNotes(List<Note> noteList) {
-        List<Sound> soundList = noteList.stream().filter(n -> n instanceof Sound).map(n -> (Sound) n)
-                .collect(Collectors.toList());
+    protected void mutateSounds(List<Sound> soundList) {
         int soundIndex = randomGenerator.nextInt(soundList.size());
         Sound sound = soundList.get(soundIndex);
 

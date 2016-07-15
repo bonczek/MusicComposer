@@ -14,12 +14,23 @@ import genetic.mutation.MutationCoordinator;
 import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
+import gui.model.ConfigurationViewBuilder;
+import gui.model.RuleFeatureModel;
+import gui.model.StatisticFeatureModel;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import music.Harmony;
+import music.Scale;
 import music.analysis.feature.container.RuleContainer;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.RuleName;
@@ -35,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MainController implements Initializable {
 
@@ -44,6 +56,9 @@ public class MainController implements Initializable {
     private static final String STATISTICAL = "Statystyczna";
     private static final String RULE_BASED = "Regułowa";
 
+    ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
+    ObservableList<RuleFeatureModel> ruleData = FXCollections.observableArrayList();
+
     @FXML
     private ChoiceBox<String> mutations;
     @FXML
@@ -52,8 +67,6 @@ public class MainController implements Initializable {
     private ChoiceBox<NoteName> baseScaleNote;
     @FXML
     private ChoiceBox<String> fitnessFunctionType;
-
-
     @FXML
     private TextField mutationRateTextField;
     @FXML
@@ -73,6 +86,8 @@ public class MainController implements Initializable {
         scaleType.getSelectionModel().selectFirst();
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();
+        initStatData();
+        initRuleData();
     }
 
     @FXML
@@ -102,21 +117,72 @@ public class MainController implements Initializable {
 
         FitnessFunction fitnessFunction;
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
-            List<StatisticalFeature> features = new ArrayList<>();
-            for (StatisticName stat : StatisticName.values()) {
-                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale));
-            }
-            fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
+            fitnessFunction = new MusicalFitnessFunction<>(prepareStatisticalFitnessFunction());
         } else {
-            List<RuleFeature> features = new ArrayList<>();
-            for (RuleName rule : RuleName.values()) {
-                features.add(new RuleFeature(rule, 10));
-            }
-            fitnessFunction = new MusicalFitnessFunction<>(new RuleContainer(features));
+            fitnessFunction = new MusicalFitnessFunction<>(prepareRuleFitnessFunction());
         }
 
         GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
         algorithm.run();
+    }
+
+    @FXML
+    private void openFitnessConfiguration() {
+        Stage newStage = new Stage();
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        ScrollPane mainView;
+        if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
+            newStage.setTitle("Statistical Fitness Function Configuration");
+
+            TableView<StatisticFeatureModel> tableView = ConfigurationViewBuilder
+                    .createStatisticalFeaturesConfigurationTable();
+            tableView.setItems(statData);
+            mainView = new ScrollPane(tableView);
+        } else {
+            newStage.setTitle("Rule Fitness Function Configuration");
+
+            TableView<RuleFeatureModel> tableView = ConfigurationViewBuilder
+                    .createRuleFeaturesConfigurationTable();
+            tableView.setItems(ruleData);
+            mainView = new ScrollPane(tableView);
+        }
+
+        Scene scene = new Scene(mainView, 800, 400);
+
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+    private void initStatData() {
+        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
+        for (StatisticName stat : StatisticName.values()) {
+            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 10.0, scale)));
+        }
+    }
+
+    private void initRuleData() {
+        for (RuleName ruleName : RuleName.values()) {
+            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10)));
+        }
+    }
+
+    private StatisticContainer prepareStatisticalFitnessFunction() {
+        List<StatisticalFeature> features = new ArrayList<>();
+        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
+        features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
+                .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
+                        Double.parseDouble(featureModel.getExpectedValue()),
+                        Double.parseDouble(featureModel.getWeight()), scale)).collect(Collectors.toList()));
+
+        return new StatisticContainer(features);
+    }
+
+    private RuleContainer prepareRuleFitnessFunction() {
+        List<RuleFeature> features = new ArrayList<>();
+        features.addAll(ruleData.stream().filter(RuleFeatureModel::getIsActive)
+                .map(featureModel -> new RuleFeature(featureModel.getRuleName(),
+                        Integer.parseInt(featureModel.getWeight()))).collect(Collectors.toList()));
+        return new RuleContainer(features);
     }
 
 }

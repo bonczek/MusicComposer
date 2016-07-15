@@ -7,14 +7,15 @@ import java.util.Set;
 
 public class RepeatedIntervalStatistic extends IntervalStatistic {
 
-    private Set<Interval> intervalSet = new HashSet<>();
+    private Set<Integer> semitoneDifferencesSet = new HashSet<>();
 
     @Override
     protected void processInterval(Interval interval) {
-        if (intervalSet.contains(interval)) {
+        int semitonesDifference = Math.abs(interval.getSemitonesDifference());
+        if (semitoneDifferencesSet.contains(semitonesDifference)) {
             numerator++;
         } else {
-            intervalSet.add(interval);
+            semitoneDifferencesSet.add(semitonesDifference);
         }
         denominator++;
     }
@@ -22,10 +23,10 @@ public class RepeatedIntervalStatistic extends IntervalStatistic {
     @Override
     public void clear() {
         super.clear();
-        intervalSet.clear();
+        semitoneDifferencesSet.clear();
     }
 
     public int getIntervalSetSize() {
-        return intervalSet.size();
+        return semitoneDifferencesSet.size();
     }
 }
