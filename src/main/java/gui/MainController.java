@@ -15,7 +15,9 @@ import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import gui.model.ConfigurationViewBuilder;
+import gui.model.GeneticAlgorithmConfigurationModel;
 import gui.model.RuleFeatureModel;
+import gui.model.SpinnerAutoCommit;
 import gui.model.StatisticFeatureModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +30,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import music.analysis.feature.container.RuleContainer;
@@ -58,8 +59,10 @@ public class MainController implements Initializable {
     private static final String STATISTICAL = "Statystyczna";
     private static final String RULE_BASED = "Regułowa";
 
-    ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
-    ObservableList<RuleFeatureModel> ruleData = FXCollections.observableArrayList();
+    private ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
+    private ObservableList<RuleFeatureModel> ruleData = FXCollections.observableArrayList();
+
+    private GeneticAlgorithmConfigurationModel configurationModel = new GeneticAlgorithmConfigurationModel();
 
     @FXML
     private ChoiceBox<String> mutations;
@@ -70,18 +73,28 @@ public class MainController implements Initializable {
     @FXML
     private ChoiceBox<String> fitnessFunctionType;
     @FXML
-    private TextField mutationRateTextField;
+    private SpinnerAutoCommit<Double> mutationRateField;
     @FXML
-    private TextField crossoverRateTextField;
+    private SpinnerAutoCommit<Double> crossoverRateField;
     @FXML
-    private TextField populationSizeTextField;
+    private SpinnerAutoCommit<Integer> populationSizeField;
     @FXML
-    private TextField numbersOfMeasuresTextField;
+    private SpinnerAutoCommit<Integer> numbersOfMeasuresField;
     @FXML
     private TextArea chordProgressionField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        mutationRateField.setValueFactory(configurationModel.getMutationRateModel());
+        crossoverRateField.setValueFactory(configurationModel.getCrossoverRateModel());
+        populationSizeField.setValueFactory(configurationModel.getPopulationSizeModel());
+        numbersOfMeasuresField.setValueFactory(configurationModel.getNumberOfMeasuresModel());
+
+        mutationRateField.setEditable(true);
+        crossoverRateField.setEditable(true);
+        populationSizeField.setEditable(true);
+        numbersOfMeasuresField.setEditable(true);
+
         mutations.setItems(FXCollections.observableArrayList(MUSICAL_MUTATION, RANDOM_MUTATION));
         mutations.getSelectionModel().selectFirst();
         fitnessFunctionType.setItems(FXCollections.observableArrayList(STATISTICAL, RULE_BASED));
@@ -106,17 +119,12 @@ public class MainController implements Initializable {
     }
 
     private GeneticAlgorithm prepareAlgorithmConfiguration() throws Exception {
-        double mutationRate = Double.parseDouble(mutationRateTextField.getText());
-        int populationSize = Integer.parseInt(populationSizeTextField.getText());
-        int numbersOfMeasures = Integer.parseInt(numbersOfMeasuresTextField.getText());
-        double crossoverRate = Double.parseDouble(crossoverRateTextField.getText());
-
         ChordProgressionParser progressionParser = new ChordProgressionParser();
         List<Chord> progression = progressionParser.parseProgressionText(chordProgressionField.getText(),
-                numbersOfMeasures);
+                configurationModel.getNumberOfMeasures());
 
-        InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
-                Random());
+        InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(
+                configurationModel.getPopulationSize(), configurationModel.getNumberOfMeasures(), new Random());
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         GeneticMutation mutation;
         if (mutations.getValue().equals(MUSICAL_MUTATION)) {
@@ -124,9 +132,10 @@ public class MainController implements Initializable {
         } else {
             mutation = new SimpleMutation(new Random());
         }
-        MutationCoordinator mutationCoordinator = new MutationCoordinator(new GeneticGuard(mutationRate), mutation);
-        CrossoverCoordinator crossoverCoordinator = new CrossoverCoordinator(new GeneticGuard(crossoverRate), new
-                SimpleCrossover(new Random()));
+        MutationCoordinator mutationCoordinator = new MutationCoordinator(
+                new GeneticGuard(configurationModel.getMutationRate()), mutation);
+        CrossoverCoordinator crossoverCoordinator = new CrossoverCoordinator(
+                new GeneticGuard(configurationModel.getCrossoverRate()), new SimpleCrossover(new Random()));
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 mutationCoordinator, crossoverCoordinator);
 
