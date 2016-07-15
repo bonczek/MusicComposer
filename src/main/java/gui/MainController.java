@@ -23,9 +23,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,6 +37,8 @@ import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
+import music.harmony.Chord;
+import music.harmony.ChordProgressionParser;
 import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
@@ -73,6 +77,8 @@ public class MainController implements Initializable {
     private TextField populationSizeTextField;
     @FXML
     private TextField numbersOfMeasuresTextField;
+    @FXML
+    private TextArea chordProgressionField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -84,18 +90,30 @@ public class MainController implements Initializable {
         scaleType.getSelectionModel().selectFirst();
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();
+        chordProgressionField.setText("G|C|D|C");
         initStatData();
         initRuleData();
     }
 
     @FXML
     private void runAlgorithm(ActionEvent event) {
-        //@todo error handling
+        try {
+            GeneticAlgorithm algorithm = prepareAlgorithmConfiguration();
+            algorithm.run();
+        } catch (Exception e) {
+            showErrorWindow(e);
+        }
+    }
+
+    private GeneticAlgorithm prepareAlgorithmConfiguration() throws Exception {
         double mutationRate = Double.parseDouble(mutationRateTextField.getText());
         int populationSize = Integer.parseInt(populationSizeTextField.getText());
         int numbersOfMeasures = Integer.parseInt(numbersOfMeasuresTextField.getText());
         double crossoverRate = Double.parseDouble(crossoverRateTextField.getText());
 
+        ChordProgressionParser progressionParser = new ChordProgressionParser();
+        List<Chord> progression = progressionParser.parseProgressionText(chordProgressionField.getText(),
+                numbersOfMeasures);
 
         InitialPopulationGenerator initialPopulationGenerator = new RandomPopulationGenerator(populationSize, numbersOfMeasures, new
                 Random());
@@ -112,7 +130,6 @@ public class MainController implements Initializable {
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 mutationCoordinator, crossoverCoordinator);
 
-
         FitnessFunction fitnessFunction;
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
             fitnessFunction = new MusicalFitnessFunction<>(prepareStatisticalFitnessFunction());
@@ -120,8 +137,17 @@ public class MainController implements Initializable {
             fitnessFunction = new MusicalFitnessFunction<>(prepareRuleFitnessFunction());
         }
 
-        GeneticAlgorithm algorithm = new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
-        algorithm.run();
+        return new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
+    }
+
+    private void showErrorWindow(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText(e.getMessage());
+        if (e.getCause() != null) {
+            alert.setContentText(e.getCause().getMessage());
+        }
+        alert.showAndWait();
     }
 
     @FXML

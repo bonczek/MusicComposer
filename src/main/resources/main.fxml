@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -10,7 +11,7 @@
             xmlns="http://javafx.com/javafx/8" fx:controller="gui.MainController">
 
     <children>
-        <Button layoutX="258.0" layoutY="188.0" mnemonicParsing="false" onAction="#runAlgorithm" prefWidth="85.0"
+        <Button layoutX="256.0" layoutY="240.0" mnemonicParsing="false" onAction="#runAlgorithm" prefWidth="85.0"
                 text="Uruchom"/>
         <VBox layoutX="0.0" prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -36,7 +37,8 @@
                 <ChoiceBox fx:id="fitnessFunctionType" prefWidth="150.0"/>
             </children>
         </VBox>
-        <Button layoutY="214.0" mnemonicParsing="false" text="Dobierz wagi funkcji oceny"
-                onAction="#openFitnessConfiguration"/>
+        <Button layoutY="214.0" mnemonicParsing="false" onAction="#openFitnessConfiguration"
+                text="Dobierz wagi funkcji oceny"/>
+        <TextArea fx:id="chordProgressionField" layoutX="400.0" layoutY="193.0" prefHeight="118.0" prefWidth="200.0"/>
     </children>
 </AnchorPane>

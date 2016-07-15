@@ -7,7 +7,7 @@ import java.util.List;
 public class ChordProgressionParser {
 
 
-    public List<Chord> parseChordProgressionString(String progressionText, int numberOfMeasures) throws
+    public List<Chord> parseProgressionText(String progressionText, int numberOfMeasures) throws
             IllegalArgumentException {
         //@todo allow more chords in one measure
         ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();

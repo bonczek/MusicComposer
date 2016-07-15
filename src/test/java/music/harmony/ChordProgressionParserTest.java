@@ -15,7 +15,7 @@ public class ChordProgressionParserTest {
         String exampleString = "G|C|D|C";
         int numberOfMeasures = 4;
 
-        List<Chord> chordList = parser.parseChordProgressionString(exampleString, numberOfMeasures);
+        List<Chord> chordList = parser.parseProgressionText(exampleString, numberOfMeasures);
 
         assertThat(chordList.size(), is(numberOfMeasures));
         assertThat(chordList.get(0).getChordHarmony(), is(ChordText.G.getChordHarmony()));
@@ -30,7 +30,7 @@ public class ChordProgressionParserTest {
         String exampleString = "G|C|D|C";
         int numberOfMeasures = 10;
 
-        List<Chord> chordList = parser.parseChordProgressionString(exampleString, numberOfMeasures);
+        List<Chord> chordList = parser.parseProgressionText(exampleString, numberOfMeasures);
 
         assertThat(chordList.size(), is(numberOfMeasures));
         assertThat(chordList.get(0).getChordHarmony(), is(ChordText.G.getChordHarmony()));
@@ -46,6 +46,6 @@ public class ChordProgressionParserTest {
         ChordProgressionParser parser = new ChordProgressionParser();
         String exampleString = "G#|C#|Db|C#";
         int numberOfMeasures = 4;
-        parser.parseChordProgressionString(exampleString, numberOfMeasures);
+        parser.parseProgressionText(exampleString, numberOfMeasures);
     }
 }
