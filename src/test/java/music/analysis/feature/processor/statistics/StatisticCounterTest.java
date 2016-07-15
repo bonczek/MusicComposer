@@ -25,6 +25,17 @@ public abstract class StatisticCounterTest<T extends MusicalStatistic> {
         afterClearAsserts();
     }
 
+    @Test
+    public void testStatisticComputation_givenSameMelodyFourTimes() throws Exception {
+        List<Note> melody = MelodyData.prepareFourMeasureSample();
+        for (int i = 0; i < 4; i++) {
+            melody.forEach(statistic::processNote);
+            assertEquals(statistic.getResult(), getExpectedResult(), PRECISION);
+            statistic.clear();
+            afterClearAsserts();
+        }
+    }
+
     protected abstract double getExpectedResult();
 
     protected abstract void afterClearAsserts() throws Exception;

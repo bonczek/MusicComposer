@@ -32,6 +32,16 @@ public class ChordProgressionData {
         return progressionBuilder.getChordList();
     }
 
+    public static List<Chord> prepareTwoMeasuresChordProgressionWithLongDurationBreakingSchema() {
+        ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
+        progressionBuilder.appendChord(new Harmony(ChordName.MINOR, NoteName.A), Durations.SIXTEENTH_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.F), Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MINOR, NoteName.D), Durations.HALF_NOTE);
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.E), Durations.DOUBLE_DOTTED_QUARTER_NOTE);
+
+        return progressionBuilder.getChordList();
+    }
+
     public static List<Chord> prepareThreeMeasuresOfChordProgression() {
         ChordProgressionBuilder builder = new ChordProgressionBuilder();
         builder.appendChord(new Harmony(ChordName.MAJOR, NoteName.G), Durations.WHOLE_NOTE);

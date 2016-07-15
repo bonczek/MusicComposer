@@ -70,6 +70,16 @@ public class MelodyData {
         return Arrays.asList(notes);
     }
 
+    public static List<Note> prepareTwoMeasuresWithLongNotesWithoutMeasureSchema() {
+        Note[] notes = {
+                new Sound(Pitch.createWithNames(NoteName.D, Octave.CONTRA), Durations.EIGHTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED), Durations.WHOLE_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.C_SHARP, Octave.THREE_LINED), Durations
+                        .DOUBLE_DOTTED_HALF_NOTE)
+        };
+        return Arrays.asList(notes);
+    }
+
 
     public static List<Note> prepareThreeMeasuresOfMelody() {
         Note[] notes = {

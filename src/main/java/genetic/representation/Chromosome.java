@@ -1,6 +1,7 @@
 package genetic.representation;
 
 import genetic.fitness.type.Fitness;
+import genetic.fitness.type.SimpleReward;
 import genetic.mutation.Mutation;
 
 import java.util.ArrayList;
@@ -119,6 +120,7 @@ public class Chromosome {
     }
 
     public Chromosome mutate(Mutation mutation) {
+        this.fitness = new SimpleReward();
         return mutation.mutate(this);
     }
 }

@@ -6,25 +6,26 @@ import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Queue;
 
 public class ChordNotesDensityStatistic extends RhythmDensityStatistic {
 
     private final double melodyEndTime;
-    private final Queue<Chord> chordProgression;
+    private final List<Chord> chordProgression;
+    private int currentChordIndex;
     private Chord currentChord;
 
     public ChordNotesDensityStatistic(List<Chord> chordList) {
-        this.chordProgression = new LinkedList<>(chordList);
+        this.chordProgression = new ArrayList<>(chordList);
         this.melodyEndTime = chordList.isEmpty() ? 0.0 : chordList.get(chordList.size() - 1).getEndTime();
-        this.currentChord = chordProgression.poll();
+        this.currentChordIndex = 0;
+        this.currentChord = chordProgression.get(currentChordIndex);
     }
 
     @Override
-    public void processNote(Note note) {
+    public void processNote(Note note) throws IndexOutOfBoundsException {
+        //@todo very complicated statistic - it should be refactored in future
         try {
             if (currentChord.finishedEarlierThan(denominator)) {
                 nextChord();
@@ -34,8 +35,8 @@ public class ChordNotesDensityStatistic extends RhythmDensityStatistic {
             } else {
                 denominator += note.getRhythmValue();
             }
-        } catch (NoSuchElementException e) {
-            System.out.println(String.format("Error during analyzing of chord notes statistic. Sequence of chords " +
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException(String.format("Error during analyzing of chord notes statistic. Sequence of chords " +
                             "might be shorter than melody line. Numerator: %f, denominator: %f, melody end time: %f. %s",
                     numerator, denominator, melodyEndTime, e.getMessage()));
         }
@@ -54,17 +55,24 @@ public class ChordNotesDensityStatistic extends RhythmDensityStatistic {
     private void calculateWithChangeChords(Sound sound) {
         double noteDuration = sound.getRhythmValue();
         while (Double.compare(noteDuration, 0.0) > 0) {
-            double timeOnCurrentChord = currentChord.getEndTime() - denominator;
-            noteDuration -= timeOnCurrentChord;
-            updateTimesResults(sound.getPitch(), timeOnCurrentChord);
-            if (Double.compare(currentChord.getEndTime(), melodyEndTime) != 0) {
+            double availableTimeOnCurrentChord = currentChord.getEndTime() - denominator;
+            if (Double.compare(availableTimeOnCurrentChord, noteDuration) < noteDuration) {
+                noteDuration -= availableTimeOnCurrentChord;
+                updateTimesResults(sound.getPitch(), availableTimeOnCurrentChord);
+            } else {
+                updateTimesResults(sound.getPitch(), noteDuration);
+                noteDuration = 0.0;
+            }
+            if ((Double.compare(denominator, currentChord.getEndTime()) >= 0) && Double.compare(currentChord
+                    .getEndTime(), melodyEndTime) != 0) {
                 nextChord();
             }
         }
     }
 
-    private void nextChord() throws NoSuchElementException {
-        currentChord = chordProgression.remove();
+    private void nextChord() throws IndexOutOfBoundsException {
+        currentChordIndex++;
+        currentChord = chordProgression.get(currentChordIndex);
     }
 
     private void updateTimesResults(Pitch pitch, double rhythmValue) {
@@ -72,5 +80,12 @@ public class ChordNotesDensityStatistic extends RhythmDensityStatistic {
             numerator += rhythmValue;
         }
         denominator += rhythmValue;
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        currentChordIndex = 0;
+        currentChord = chordProgression.get(currentChordIndex);
     }
 }

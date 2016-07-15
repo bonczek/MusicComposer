@@ -190,7 +190,7 @@ public class MainController implements Initializable {
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         List<Chord> chords = parseProgression();
         for (StatisticName stat : StatisticName.values()) {
-            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 10.0, scale, chords)));
+            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 100.0, scale, chords)));
         }
     }
 

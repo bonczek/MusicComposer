@@ -34,6 +34,7 @@ public class ChordNotesDensityStatisticTest extends StatisticCounterTest<ChordNo
 
         assertThat(chordNotesStatistic.getDenominator(), is(12.0));
         assertThat(chordNotesStatistic.getNumerator(), is(5.0));
+
     }
 
     @Test
@@ -55,6 +56,17 @@ public class ChordNotesDensityStatisticTest extends StatisticCounterTest<ChordNo
 
         assertThat(chordNotesStatistic.getDenominator(), is(8.0));
         assertThat(chordNotesStatistic.getNumerator(), is(3.25));
+    }
+
+    @Test
+    public void testProcessNote_givenIrregularNoteAndChordEndings() throws Exception {
+        ChordNotesDensityStatistic chordNotesStatistic =
+                new ChordNotesDensityStatistic(ChordProgressionData
+                        .prepareTwoMeasuresChordProgressionWithLongDurationBreakingSchema());
+        MelodyData.prepareTwoMeasuresWithLongNotesWithoutMeasureSchema().forEach(chordNotesStatistic::processNote);
+
+        assertThat(chordNotesStatistic.getDenominator(), is(8.0));
+        assertThat(chordNotesStatistic.getNumerator(), is(3.75));
     }
 
 }

@@ -24,7 +24,7 @@ public class StatisticFeatureModel {
         this.statisticName = new SimpleObjectProperty<>(statisticName);
         this.expectedValue = new SimpleStringProperty(Double.toString(statisticalFeature.getExpectedValue()));
         this.weight = new SimpleStringProperty(Double.toString(statisticalFeature.getFeatureWeight()));
-        this.isActive = new SimpleBooleanProperty(true);
+        this.isActive = new SimpleBooleanProperty(false);
     }
 
     public StatisticName getStatisticName() {

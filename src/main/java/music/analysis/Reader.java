@@ -24,7 +24,9 @@ public class Reader {
 
         Harmony scale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
         ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
-        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.WHOLE_NOTE);
+        for (int i = 0; i < 7; i++) {
+            progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.WHOLE_NOTE);
+        }
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
             features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList()));

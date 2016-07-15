@@ -40,7 +40,15 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
     public void applyFeatureProcessors(List<Note> melodyLine) {
         featureList.forEach(f -> f.getNoteProcessor().clear());
         for (Note note : melodyLine) {
-            featureList.stream().forEach(f -> f.getNoteProcessor().processNote(note));
+            for (T feature : featureList) {
+                try {
+                    feature.getNoteProcessor().processNote(note);
+                } catch (Exception e) {
+                    System.out.println(String.format(
+                            "Failed to calculate feature %s, because: %s", feature.getName(), e.getMessage()));
+                }
+            }
+
         }
     }
 
