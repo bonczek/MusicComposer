@@ -29,8 +29,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import music.Harmony;
-import music.Scale;
 import music.analysis.feature.container.RuleContainer;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.RuleName;
@@ -154,7 +152,7 @@ public class MainController implements Initializable {
     }
 
     private void initStatData() {
-        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
+        Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         for (StatisticName stat : StatisticName.values()) {
             statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 10.0, scale)));
         }
@@ -168,7 +166,7 @@ public class MainController implements Initializable {
 
     private StatisticContainer prepareStatisticalFitnessFunction() {
         List<StatisticalFeature> features = new ArrayList<>();
-        Harmony scale = new Harmony(scaleType.getValue().intervals(), baseScaleNote.getValue());
+        Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
                 .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
                         Double.parseDouble(featureModel.getExpectedValue()),

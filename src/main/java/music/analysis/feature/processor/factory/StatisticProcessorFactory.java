@@ -1,6 +1,5 @@
 package music.analysis.feature.processor.factory;
 
-import music.Harmony;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.processor.statistics.MusicalStatistic;
 import music.analysis.feature.processor.statistics.PitchRangeStatistic;
@@ -17,6 +16,7 @@ import music.analysis.feature.processor.statistics.intervals.DissonanceStatistic
 import music.analysis.feature.processor.statistics.intervals.OctaveDifferenceStatistic;
 import music.analysis.feature.processor.statistics.intervals.RepeatedIntervalStatistic;
 import music.analysis.feature.processor.statistics.intervals.SemitonesDifferenceStatistic;
+import music.harmony.Harmony;
 
 public class StatisticProcessorFactory {
 
