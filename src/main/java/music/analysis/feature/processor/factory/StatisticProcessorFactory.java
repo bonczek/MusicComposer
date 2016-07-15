@@ -7,6 +7,7 @@ import music.analysis.feature.processor.statistics.PitchVarietyStatistic;
 import music.analysis.feature.processor.statistics.RepeatedSoundRhythmPairStatistic;
 import music.analysis.feature.processor.statistics.RhythmVarietyStatistic;
 import music.analysis.feature.processor.statistics.RhythmicRangeStatistic;
+import music.analysis.feature.processor.statistics.density.ChordNotesDensityStatistic;
 import music.analysis.feature.processor.statistics.density.NonScaleDensityStatistic;
 import music.analysis.feature.processor.statistics.density.RestDensityStatistic;
 import music.analysis.feature.processor.statistics.intervals.ContourDirectionStatistic;
@@ -16,13 +17,16 @@ import music.analysis.feature.processor.statistics.intervals.DissonanceStatistic
 import music.analysis.feature.processor.statistics.intervals.OctaveDifferenceStatistic;
 import music.analysis.feature.processor.statistics.intervals.RepeatedIntervalStatistic;
 import music.analysis.feature.processor.statistics.intervals.SemitonesDifferenceStatistic;
+import music.harmony.Chord;
 import music.harmony.Harmony;
+
+import java.util.List;
 
 public class StatisticProcessorFactory {
 
     private static final int POSSIBLE_RHYTHM_VALUES = 16;
 
-    public static MusicalStatistic createStatistic(StatisticName statisticName, Harmony scale) {
+    public static MusicalStatistic createStatistic(StatisticName statisticName, Harmony scale, List<Chord> chordList) {
         switch (statisticName) {
             case CONTOUR_DIRECTION:
                 return new ContourDirectionStatistic();
@@ -52,6 +56,8 @@ public class StatisticProcessorFactory {
                 return new RhythmVarietyStatistic(POSSIBLE_RHYTHM_VALUES);
             case SEMITONES_DIFFERENCE:
                 return new SemitonesDifferenceStatistic();
+            case CHORD_NOTES:
+                return new ChordNotesDensityStatistic(chordList);
             default:
                 return null;
         }

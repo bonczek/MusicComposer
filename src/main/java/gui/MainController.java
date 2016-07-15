@@ -188,8 +188,9 @@ public class MainController implements Initializable {
 
     private void initStatData() {
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
+        List<Chord> chords = parseProgression();
         for (StatisticName stat : StatisticName.values()) {
-            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 10.0, scale)));
+            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 10.0, scale, chords)));
         }
     }
 
@@ -201,11 +202,13 @@ public class MainController implements Initializable {
 
     private StatisticContainer prepareStatisticalFitnessFunction() {
         List<StatisticalFeature> features = new ArrayList<>();
+        List<Chord> chords = parseProgression();
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
                 .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
                         Double.parseDouble(featureModel.getExpectedValue()),
-                        Double.parseDouble(featureModel.getWeight()), scale)).collect(Collectors.toList()));
+                        Double.parseDouble(featureModel.getWeight()), scale, chords))
+                .collect(Collectors.toList()));
 
         return new StatisticContainer(features);
     }
@@ -216,6 +219,12 @@ public class MainController implements Initializable {
                 .map(featureModel -> new RuleFeature(featureModel.getRuleName(),
                         Integer.parseInt(featureModel.getWeight()))).collect(Collectors.toList()));
         return new RuleContainer(features);
+    }
+
+    private List<Chord> parseProgression() {
+        ChordProgressionParser progressionParser = new ChordProgressionParser();
+        return progressionParser.parseProgressionText(chordProgressionField.getText(),
+                configurationModel.getNumberOfMeasures());
     }
 
 }

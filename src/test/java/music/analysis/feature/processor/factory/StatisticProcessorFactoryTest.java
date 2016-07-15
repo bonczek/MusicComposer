@@ -1,6 +1,7 @@
 package music.analysis.feature.processor.factory;
 
 import music.analysis.feature.name.StatisticName;
+import music.analysis.util.ChordProgressionData;
 import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
@@ -17,7 +18,8 @@ public class StatisticProcessorFactoryTest {
     @Test
     public void testCreateStatistic_givenAllStatisticNames() throws Exception {
         for (StatisticName statisticName : StatisticName.values()) {
-            assertThat(StatisticProcessorFactory.createStatistic(statisticName, C_MAJOR_SCALE), is(notNullValue()));
+            assertThat(StatisticProcessorFactory.createStatistic(statisticName, C_MAJOR_SCALE,
+                    ChordProgressionData.prepareFourMeasuresGAndCMajor()), is(notNullValue()));
         }
     }
 }

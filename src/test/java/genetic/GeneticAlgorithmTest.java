@@ -14,6 +14,8 @@ import genetic.selection.BinaryTournamentSelection;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
+import music.analysis.util.ChordProgressionData;
+import music.harmony.Chord;
 import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
@@ -36,8 +38,9 @@ public class GeneticAlgorithmTest {
         int numbersOfMeasures = 4;
         Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
         List<StatisticalFeature> features = new ArrayList<>();
+        List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         for (StatisticName stat : StatisticName.values()) {
-            features.add(new StatisticalFeature(stat, 0.5, 10.0, cMajorScale));
+            features.add(new StatisticalFeature(stat, 0.5, 10.0, cMajorScale, chords));
         }
         FitnessFunction fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
 

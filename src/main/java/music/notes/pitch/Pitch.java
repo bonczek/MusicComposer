@@ -8,20 +8,14 @@ import java.util.function.IntFunction;
 public class Pitch implements Comparable<Pitch> {
 
     public static final int NOTES_IN_OCTAVE = 12;
-
     public static final int MIN_MIDI_VALUE = 0;
-
     public static final int MAX_MIDI_VALUE = 127;
-
     public static final PitchRange MIDI_RANGE = new PitchRange(MIN_MIDI_VALUE, MAX_MIDI_VALUE);
-
     private static final IntFunction<String> ERROR_FORMAT = (midiValue) -> String.format("Failed to create pitch with " +
             "value: %d. Midi value should be in range <0,127>.", midiValue);
-
     private final NoteName noteName;
     private final Octave octave;
     private final Integer midiValue;
-
     private Pitch(NoteName noteName, Octave octave, Integer midiValue) {
         this.noteName = noteName;
         this.octave = octave;
@@ -59,6 +53,15 @@ public class Pitch implements Comparable<Pitch> {
 
     public static int midiFromNotes(NoteName noteName, Octave octave) {
         return noteName.value() + (NOTES_IN_OCTAVE * octave.number());
+    }
+
+    @Override
+    public String toString() {
+        return "Pitch{" +
+                "noteName=" + noteName +
+                ", octave=" + octave +
+                ", midiValue=" + midiValue +
+                '}';
     }
 
     @Override

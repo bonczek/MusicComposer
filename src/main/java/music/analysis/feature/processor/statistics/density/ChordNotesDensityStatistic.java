@@ -1,5 +1,7 @@
-package music.harmony;
+package music.analysis.feature.processor.statistics.density;
 
+
+import music.harmony.Chord;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
@@ -9,42 +11,38 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-public class ChordFitCalculator {
-
-    //@todo empty list, exception handling
+public class ChordNotesDensityStatistic extends RhythmDensityStatistic {
 
     private final double melodyEndTime;
     private final Queue<Chord> chordProgression;
     private Chord currentChord;
-    private double time = 0.0;
-    private double chordFittingTime = 0.0;
 
-    public ChordFitCalculator(List<Chord> chordList) {
+    public ChordNotesDensityStatistic(List<Chord> chordList) {
         this.chordProgression = new LinkedList<>(chordList);
-        this.melodyEndTime = chordList.get(chordList.size() - 1).getEndTime();
+        this.melodyEndTime = chordList.isEmpty() ? 0.0 : chordList.get(chordList.size() - 1).getEndTime();
         this.currentChord = chordProgression.poll();
     }
 
-    public double getTime() {
-        return time;
-    }
-
-    public double calculateTimeFittingHarmony(List<Note> melodyLine) {
-        for (Note note : melodyLine) {
-            if (currentChord.finishedEarlierThan(time)) {
+    @Override
+    public void processNote(Note note) {
+        try {
+            if (currentChord.finishedEarlierThan(denominator)) {
                 nextChord();
             }
             if (note instanceof Sound) {
                 analyzeSoundInChordProgression((Sound) note);
             } else {
-                time += note.getRhythmValue();
+                denominator += note.getRhythmValue();
             }
+        } catch (NoSuchElementException e) {
+            System.out.println(String.format("Error during analyzing of chord notes statistic. Sequence of chords " +
+                            "might be shorter than melody line. Numerator: %f, denominator: %f, melody end time: %f. %s",
+                    numerator, denominator, melodyEndTime, e.getMessage()));
         }
-        return chordFittingTime;
     }
 
     private void analyzeSoundInChordProgression(Sound sound) {
-        double noteEnd = time + sound.getRhythmValue();
+        double noteEnd = denominator + sound.getRhythmValue();
 
         if (currentChord.finishedEarlierThan(noteEnd)) {
             calculateWithChangeChords(sound);
@@ -56,7 +54,7 @@ public class ChordFitCalculator {
     private void calculateWithChangeChords(Sound sound) {
         double noteDuration = sound.getRhythmValue();
         while (Double.compare(noteDuration, 0.0) > 0) {
-            double timeOnCurrentChord = currentChord.getEndTime() - time;
+            double timeOnCurrentChord = currentChord.getEndTime() - denominator;
             noteDuration -= timeOnCurrentChord;
             updateTimesResults(sound.getPitch(), timeOnCurrentChord);
             if (Double.compare(currentChord.getEndTime(), melodyEndTime) != 0) {
@@ -71,11 +69,8 @@ public class ChordFitCalculator {
 
     private void updateTimesResults(Pitch pitch, double rhythmValue) {
         if (currentChord.fitHarmony(pitch)) {
-            chordFittingTime += rhythmValue;
+            numerator += rhythmValue;
         }
-        time += rhythmValue;
+        denominator += rhythmValue;
     }
-
-
-
 }

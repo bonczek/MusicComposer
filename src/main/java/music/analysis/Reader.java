@@ -3,9 +3,12 @@ package music.analysis;
 import genetic.fitness.function.MusicalFitnessFunction;
 import genetic.fitness.type.Fitness;
 import genetic.util.Converter;
+import jm.constants.Durations;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
+import music.harmony.ChordName;
+import music.harmony.ChordProgressionBuilder;
 import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.Note;
@@ -20,9 +23,11 @@ public class Reader {
     public Fitness analyseMidiFile(String midiFilePath) {
 
         Harmony scale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+        ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
+        progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.WHOLE_NOTE);
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
-            features.add(new StatisticalFeature(stat, 0.5, 10.0, scale));
+            features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList()));
         }
         StatisticContainer statisticContainer = new StatisticContainer(features);
         MusicalFitnessFunction<StatisticContainer> fitnessFunction = new MusicalFitnessFunction<>(statisticContainer);

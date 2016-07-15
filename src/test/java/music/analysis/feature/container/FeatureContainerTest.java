@@ -7,7 +7,9 @@ import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
+import music.analysis.util.ChordProgressionData;
 import music.analysis.util.MelodyData;
+import music.harmony.Chord;
 import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.Note;
@@ -46,12 +48,13 @@ public class FeatureContainerTest {
     public void testApplyFeatureProcessors_givenStatisticalFeatures() throws Exception {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
         Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+        List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         double weight = 10.0;
         StatisticalFeature[] features = {
-                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, cMajorScale),
-                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, cMajorScale),
-                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, cMajorScale),
-                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, cMajorScale)
+                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, cMajorScale, chords),
+                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, cMajorScale, chords),
+                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, cMajorScale, chords),
+                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, cMajorScale, chords)
         };
         List<StatisticalFeature> statFeatures = Arrays.asList(features);
         StatisticContainer statisticContainer = new StatisticContainer(statFeatures);

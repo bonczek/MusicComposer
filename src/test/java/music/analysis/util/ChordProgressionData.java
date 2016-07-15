@@ -11,6 +11,19 @@ import java.util.List;
 
 public class ChordProgressionData {
 
+    private static final Harmony G_MAJOR_CHORD = new Harmony(ChordName.MAJOR, NoteName.G);
+
+    private static final Harmony C_MAJOR_CHORD = new Harmony(ChordName.MAJOR, NoteName.C);
+
+    public static List<Chord> prepareFourMeasuresGAndCMajor() {
+        ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
+        progressionBuilder.appendChord(G_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(C_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(G_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(C_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        return progressionBuilder.getChordList();
+    }
+
     public static List<Chord> prepareTwoMeasuresChordProgressionWithLongDuration() {
         ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
         progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.WHOLE_NOTE);
