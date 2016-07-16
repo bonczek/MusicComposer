@@ -26,12 +26,6 @@ public class Chromosome {
         this.size = genes.size();
     }
 
-    //@todo can be moved to other place - it is used only in tests
-    public static Chromosome createWithIntegerValues(List<Integer> values) {
-        List<Gene> genes = values.stream().map(value -> new Gene(value.shortValue())).collect(Collectors.toList());
-        return new Chromosome(genes);
-    }
-
     public static Chromosome createCopy(Chromosome chromosome) {
         return new Chromosome(chromosome.getPart(0, chromosome.getSize()));
     }

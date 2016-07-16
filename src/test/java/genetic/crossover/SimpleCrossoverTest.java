@@ -2,6 +2,7 @@ package genetic.crossover;
 
 import genetic.representation.Chromosome;
 import genetic.representation.ChromosomePair;
+import genetic.util.ChromosomeData;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
@@ -29,8 +30,8 @@ public class SimpleCrossoverTest {
     }
 
     private ChromosomePair prepareData() {
-        Chromosome first = Chromosome.createWithIntegerValues(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
-        Chromosome second = Chromosome.createWithIntegerValues(Arrays.asList(9, 10, 11, 12, 13, 14, 15, 16));
+        Chromosome first = ChromosomeData.createWithIntegerValues(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+        Chromosome second = ChromosomeData.createWithIntegerValues(Arrays.asList(9, 10, 11, 12, 13, 14, 15, 16));
         return new ChromosomePair(first, second);
     }
 }

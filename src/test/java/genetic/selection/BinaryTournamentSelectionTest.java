@@ -3,6 +3,7 @@ package genetic.selection;
 import genetic.fitness.type.SimpleReward;
 import genetic.representation.Chromosome;
 import genetic.representation.ChromosomePair;
+import genetic.util.ChromosomeData;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
@@ -34,17 +35,17 @@ public class BinaryTournamentSelectionTest {
 
     private List<Chromosome> prepareChromosomes() {
         List<Chromosome> population = new ArrayList<>();
-        Chromosome first = Chromosome.createWithIntegerValues(Arrays.asList(1, 2, 3));
+        Chromosome first = ChromosomeData.createWithIntegerValues(Arrays.asList(1, 2, 3));
         SimpleReward firstFitness = new SimpleReward();
         firstFitness.addReward(30);
         first.setFitness(firstFitness);
         population.add(first);
-        Chromosome second = Chromosome.createWithIntegerValues(Arrays.asList(4, 5, 6));
+        Chromosome second = ChromosomeData.createWithIntegerValues(Arrays.asList(4, 5, 6));
         SimpleReward secondFitness = new SimpleReward();
         secondFitness.addReward(20);
         second.setFitness(secondFitness);
         population.add(second);
-        Chromosome third = Chromosome.createWithIntegerValues(Arrays.asList(7, 8, 9));
+        Chromosome third = ChromosomeData.createWithIntegerValues(Arrays.asList(7, 8, 9));
         SimpleReward thirdFitness = new SimpleReward();
         thirdFitness.addReward(50);
         third.setFitness(thirdFitness);

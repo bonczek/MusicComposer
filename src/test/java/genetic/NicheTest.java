@@ -1,6 +1,7 @@
 package genetic;
 
 import genetic.representation.Chromosome;
+import genetic.util.ChromosomeData;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class NicheTest {
     }
 
     private List<Chromosome> prepareData() {
-        Chromosome firstChromosome = Chromosome.createWithIntegerValues(Arrays.asList(4, 4, 0, 2, 6, 1, 3, 5));
-        Chromosome secondChromosome = Chromosome.createWithIntegerValues(Arrays.asList(9, 8, 8, 10, 6, 7, 8, 6));
+        Chromosome firstChromosome = ChromosomeData.createWithIntegerValues(Arrays.asList(4, 4, 0, 2, 6, 1, 3, 5));
+        Chromosome secondChromosome = ChromosomeData.createWithIntegerValues(Arrays.asList(9, 8, 8, 10, 6, 7, 8, 6));
         List<Chromosome> chromosomes = new ArrayList<>();
         chromosomes.add(firstChromosome);
         chromosomes.add(secondChromosome);

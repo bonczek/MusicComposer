@@ -27,7 +27,7 @@ public class ConverterTest {
     @Test
     public void testFromChromosome() throws Exception {
         Integer[] testValues = {0, 30, 2, -2, -2, -2, -1, -2, 83, 127, -1};
-        Chromosome chromosome = Chromosome.createWithIntegerValues(Arrays.asList(testValues));
+        Chromosome chromosome = ChromosomeData.createWithIntegerValues(Arrays.asList(testValues));
 
         List<Note> noteList = Converter.fromChromosome(chromosome);
 
@@ -86,7 +86,7 @@ public class ConverterTest {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testFromChromosome_givenNotSupportedValues() throws Exception {
         Integer[] testValues = {0, 30, 2, -2, -2, -20, -1, -2, 83, 127, -1};
-        Chromosome chromosome = Chromosome.createWithIntegerValues(Arrays.asList(testValues));
+        Chromosome chromosome = ChromosomeData.createWithIntegerValues(Arrays.asList(testValues));
 
         Converter.fromChromosome(chromosome);
     }
