@@ -11,4 +11,6 @@ public class DiatonicStatisticTest extends IntervalStatisticTest<DiatonicStatist
     protected double getExpectedResult() {
         return 0.125;
     }
+
+    //@todo test with diatonic intervals between octaves
 }

@@ -2,6 +2,11 @@ package music.analysis.feature.processor.statistics;
 
 import music.notes.Note;
 
+/**
+ * Statistic analyze rhythmic range.
+ * Numerator: maximum rhythm value / minimum rhythm value
+ * Denominator: given max range
+ */
 public class RhythmicRangeStatistic extends StatisticCounter<Integer> {
 
     private double minRhythmValue = Double.MAX_VALUE;

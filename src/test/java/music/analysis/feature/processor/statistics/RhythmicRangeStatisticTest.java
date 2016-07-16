@@ -1,5 +1,11 @@
 package music.analysis.feature.processor.statistics;
 
+import music.analysis.util.MelodyData;
+import music.notes.Note;
+import org.testng.annotations.Test;
+
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -23,5 +29,14 @@ public class RhythmicRangeStatisticTest extends StatisticCounterTest<RhythmicRan
         assertThat(statistic.getDenominator(), is(RHYTHM_DENOMINATOR));
         assertThat(statistic.getMaxRhythmValue(), is(Double.MIN_VALUE));
         assertThat(statistic.getMinRhythmValue(), is(Double.MAX_VALUE));
+    }
+
+    @Test
+    public void testProcessNote_givenSameRhythmicValues() throws Exception {
+        RhythmicRangeStatistic statistic = new RhythmicRangeStatistic(RHYTHM_DENOMINATOR);
+        List<Note> melodyLine = MelodyData.prepareOneMeasureCMaj7Chord();
+        melodyLine.forEach(statistic::processNote);
+
+        assertThat(statistic.getResult(), is(0.0625));
     }
 }

@@ -56,7 +56,7 @@ public class ChordNotesDensityStatistic extends RhythmDensityStatistic {
         double noteDuration = sound.getRhythmValue();
         while (Double.compare(noteDuration, 0.0) > 0) {
             double availableTimeOnCurrentChord = currentChord.getEndTime() - denominator;
-            if (Double.compare(availableTimeOnCurrentChord, noteDuration) < noteDuration) {
+            if (Double.compare(availableTimeOnCurrentChord, noteDuration) < 0) {
                 noteDuration -= availableTimeOnCurrentChord;
                 updateTimesResults(sound.getPitch(), availableTimeOnCurrentChord);
             } else {

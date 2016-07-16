@@ -3,6 +3,8 @@ package music.analysis.feature.container;
 import genetic.fitness.calculator.FitnessCalculator;
 import genetic.fitness.type.FeatureFitness;
 import genetic.fitness.type.Fitness;
+import genetic.representation.Chromosome;
+import genetic.util.Converter;
 import music.analysis.feature.type.MelodicFeature;
 import music.notes.Note;
 
@@ -46,6 +48,8 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
                 } catch (Exception e) {
                     System.out.println(String.format(
                             "Failed to calculate feature %s, because: %s", feature.getName(), e.getMessage()));
+                    Chromosome chromosome = Converter.fromNotes(melodyLine, 4 * 16);
+                    System.out.println(chromosome.toString());
                 }
             }
 

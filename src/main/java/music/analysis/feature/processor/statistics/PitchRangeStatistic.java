@@ -4,6 +4,18 @@ import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
 
+/**
+ * Analyze range of pitches used in melody.
+ * <ul>
+ * <li>Numerator: highest pitch - lowest pitch</li>
+ * <li>Denominator: max midi value (127)</li>
+ * </ul>
+ * Assumptions:
+ * <ul>
+ * <li>0.0 - melody has only one pitch value for each note</li>
+ * <li>1.0 - melody has lowest pitch value 0 and highest pitch value 127</li>
+ * </ul>
+ */
 public class PitchRangeStatistic extends StatisticCounter<Integer> {
 
     private int lowestPitch = Integer.MAX_VALUE;

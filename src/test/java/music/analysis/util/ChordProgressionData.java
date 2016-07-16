@@ -15,11 +15,22 @@ public class ChordProgressionData {
 
     private static final Harmony C_MAJOR_CHORD = new Harmony(ChordName.MAJOR, NoteName.C);
 
+    private static final Harmony D_MAJOR_CHORD = new Harmony(ChordName.MAJOR, NoteName.D);
+
     public static List<Chord> prepareFourMeasuresGAndCMajor() {
         ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
         progressionBuilder.appendChord(G_MAJOR_CHORD, Durations.WHOLE_NOTE);
         progressionBuilder.appendChord(C_MAJOR_CHORD, Durations.WHOLE_NOTE);
         progressionBuilder.appendChord(G_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(C_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        return progressionBuilder.getChordList();
+    }
+
+    public static List<Chord> prepareFourMeasuresGCDC() {
+        ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
+        progressionBuilder.appendChord(G_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(C_MAJOR_CHORD, Durations.WHOLE_NOTE);
+        progressionBuilder.appendChord(D_MAJOR_CHORD, Durations.WHOLE_NOTE);
         progressionBuilder.appendChord(C_MAJOR_CHORD, Durations.WHOLE_NOTE);
         return progressionBuilder.getChordList();
     }
