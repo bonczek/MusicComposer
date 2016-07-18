@@ -1,6 +1,7 @@
 package music.analysis.feature.processor.factory;
 
 import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.statistics.AveragePitchStatistic;
 import music.analysis.feature.processor.statistics.MusicalStatistic;
 import music.analysis.feature.processor.statistics.PitchRangeStatistic;
 import music.analysis.feature.processor.statistics.PitchVarietyStatistic;
@@ -53,11 +54,13 @@ public class StatisticProcessorFactory {
             case RHYTHM_RANGE:
                 return new RhythmicRangeStatistic(POSSIBLE_RHYTHM_VALUES);
             case RHYTHM_VARIETY:
-                return new RhythmVarietyStatistic(POSSIBLE_RHYTHM_VALUES);
+                return new RhythmVarietyStatistic();
             case SEMITONES_DIFFERENCE:
                 return new SemitonesDifferenceStatistic();
             case CHORD_NOTES:
                 return new ChordNotesDensityStatistic(chordList);
+            case AVERAGE_PITCH:
+                return new AveragePitchStatistic();
             default:
                 return null;
         }

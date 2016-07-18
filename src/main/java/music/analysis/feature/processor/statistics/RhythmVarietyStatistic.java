@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Statistic that analyze variety of rhythm values used in melody. <br/>
  * Numerator: number of distinct rhythm values <br/>
- * Denominator: given possible number of rhythm values <br/><br/>
+ * Denominator: number of notes <br/><br/>
  * <p>
  * Assumptions: <br/>
  * 0.0  - rhythm values are often repeated in further fragments. <br/>
@@ -20,8 +20,8 @@ public class RhythmVarietyStatistic extends StatisticCounter<Integer> {
 
     private Set<Double> rhythmValuesSet = new HashSet<>();
 
-    public RhythmVarietyStatistic(int denominator) {
-        super(0, denominator);
+    public RhythmVarietyStatistic() {
+        super(0, 0);
     }
 
     @Override
@@ -30,11 +30,13 @@ public class RhythmVarietyStatistic extends StatisticCounter<Integer> {
             numerator++;
             rhythmValuesSet.add(note.getRhythmValue());
         }
+        denominator++;
     }
 
     @Override
     public void clear() {
         numerator = 0;
+        denominator = 0;
         rhythmValuesSet.clear();
     }
 

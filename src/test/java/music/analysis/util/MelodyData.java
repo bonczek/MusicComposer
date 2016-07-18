@@ -43,6 +43,16 @@ public class MelodyData {
         return Arrays.asList(notes);
     }
 
+    public static List<Note> prepareOneMeasureRests() {
+        Note[] notes = {
+                new Rest(Durations.QUARTER_NOTE),
+                new Rest(Durations.QUARTER_NOTE),
+                new Rest(Durations.QUARTER_NOTE),
+                new Rest(Durations.QUARTER_NOTE)
+        };
+        return Arrays.asList(notes);
+    }
+
     public static List<Note> prepareTwoMeasuresWithShortNotes() {
         Note[] notes = {
                 new Sound(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED), Durations.SIXTEENTH_NOTE),

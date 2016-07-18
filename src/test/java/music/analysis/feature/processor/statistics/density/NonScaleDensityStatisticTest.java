@@ -19,7 +19,7 @@ public class NonScaleDensityStatisticTest extends StatisticCounterTest<NonScaleD
 
     @Override
     protected double getExpectedResult() {
-        return 0.25;
+        return 4.00 / 13.0;
     }
 
     @Override
