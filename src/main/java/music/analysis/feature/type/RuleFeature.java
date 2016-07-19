@@ -3,9 +3,9 @@ package music.analysis.feature.type;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.processor.factory.RuleProcessorFactory;
 
-public class RuleFeature extends MelodicFeature<Integer> {
+public class RuleFeature extends MelodicFeature<Double> {
 
-    public RuleFeature(RuleName ruleName, int weight) {
+    public RuleFeature(RuleName ruleName, double weight) {
         this.name = ruleName;
         this.featureWeight = weight;
         this.noteProcessor = RuleProcessorFactory.createRule(ruleName);
@@ -13,6 +13,6 @@ public class RuleFeature extends MelodicFeature<Integer> {
 
     @Override
     public String getReport() {
-        return String.format("%s - count: %d; weight: %d;", name, getFeatureResult(), getFeatureWeight());
+        return String.format("%s - count: %f; weight: %f;", name, getFeatureResult(), getFeatureWeight());
     }
 }

@@ -16,9 +16,9 @@ public class FeatureFitnessTest {
 
     private static final String TEST_REPORT = "TEST";
 
-    private static final int FEATURE_WEIGHT = 10;
+    private static final double FEATURE_WEIGHT = 10.0;
 
-    private static final int FEATURE_COUNT = 50;
+    private static final double FEATURE_COUNT = 50.0;
 
     private static final FitnessCalculator<RuleFeature> RULE_FITNESS_CALCULATOR = new RuleFitnessCalculator();
 
@@ -37,7 +37,7 @@ public class FeatureFitnessTest {
         FeatureFitness<RuleFeature> fitness = new FeatureFitness<>(RULE_FITNESS_CALCULATOR);
         fitness.addFeatureReward(ruleFeature);
 
-        int fitnessReward = FEATURE_WEIGHT * FEATURE_COUNT;
+        int fitnessReward = (int) (FEATURE_WEIGHT * FEATURE_COUNT);
         assertThat(fitness.getFitnessValue(), is(fitnessReward));
         assertThat(fitness.getReport(), is(String.format("%s reward: %d\n", TEST_REPORT, fitnessReward)));
     }
@@ -63,7 +63,7 @@ public class FeatureFitnessTest {
         for (int i = 0; i < numberOfRules; i++) {
             fitness.addFeatureReward(ruleFeature);
         }
-        int fitnessReward = numberOfRules * FEATURE_WEIGHT * FEATURE_COUNT;
+        int fitnessReward = (int) (numberOfRules * FEATURE_WEIGHT * FEATURE_COUNT);
         assertThat(fitness.getFitnessValue(), is(fitnessReward));
         String[] reportLines = fitness.getReport().split("\n");
         assertThat(reportLines.length, is(numberOfRules));

@@ -5,7 +5,7 @@ import music.notes.Note;
 import java.util.List;
 import java.util.function.Function;
 
-public class RepeatingRhythm extends NoteRule {
+public class RepeatingRhythm {
 
     private static Function<List<Note>, Boolean> FUNCTION = notes -> {
         long differentRhythms = notes.stream().mapToDouble(Note::getRhythmValue).distinct().count();
@@ -16,9 +16,9 @@ public class RepeatingRhythm extends NoteRule {
         }
     };
 
-    protected RepeatingRhythm(int patternSize) {
-        super(patternSize, FUNCTION);
-    }
+//    protected RepeatingRhythm(int patternSize) {
+//        super(patternSize, FUNCTION);
+//    }
 
 
 }

@@ -2,15 +2,15 @@ package music.analysis.feature.processor.rules;
 
 public abstract class RuleCounter implements MusicalRule {
 
-    protected Integer ruleCounter = 0;
+    protected Double ruleCounter = 0.0;
 
     @Override
-    public Integer getResult() {
+    public Double getResult() {
         return ruleCounter;
     }
 
     @Override
     public void clear() {
-        ruleCounter = 0;
+        ruleCounter = 0.0;
     }
 }

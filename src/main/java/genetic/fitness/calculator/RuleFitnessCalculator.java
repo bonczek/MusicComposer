@@ -6,6 +6,6 @@ public class RuleFitnessCalculator implements FitnessCalculator<RuleFeature> {
 
     @Override
     public int calculateReward(RuleFeature melodicFeature) {
-        return melodicFeature.getFeatureResult() * melodicFeature.getFeatureWeight();
+        return (int) (melodicFeature.getFeatureResult() * melodicFeature.getFeatureWeight());
     }
 }

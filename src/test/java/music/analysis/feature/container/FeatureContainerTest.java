@@ -28,10 +28,8 @@ public class FeatureContainerTest {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
         int weight = 10;
         RuleFeature[] features = {
-                new RuleFeature(RuleName.PERFECT_CONSONANCE, weight),
-                new RuleFeature(RuleName.DISSONANCE, weight),
-                new RuleFeature(RuleName.LESS_THAN_OCTAVE, weight),
-                new RuleFeature(RuleName.IMPERFECT_CONSONANCE, weight)
+                new RuleFeature(RuleName.CONSONANCES, weight),
+                new RuleFeature(RuleName.LONG_NOTES, weight)
         };
         List<RuleFeature> ruleFeatures = Arrays.asList(features);
         RuleContainer ruleContainer = new RuleContainer(ruleFeatures);

@@ -2,28 +2,20 @@ package music.analysis.feature.processor.rules;
 
 import music.notes.Note;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
 
-public abstract class NoteRule extends RuleCounter {
+public class NoteRule extends RuleCounter {
 
-    final int patternSize;
-    private Function<List<Note>, Boolean> function;
-    private List<Note> patternGroup = new ArrayList<>();
+    private Function<Note, Boolean> function;
 
-    protected NoteRule(int patternSize, Function<List<Note>, Boolean> function) {
-        this.patternSize = patternSize;
+    public NoteRule(Function<Note, Boolean> function) {
         this.function = function;
     }
 
     @Override
     public void processNote(Note note) {
-        if (patternGroup.size() < patternSize) {
-            patternGroup.add(note);
-        } else {
-            function.apply(patternGroup);
-            patternGroup.clear();
+        if (function.apply(note)) {
+            ruleCounter++;
         }
     }
 }

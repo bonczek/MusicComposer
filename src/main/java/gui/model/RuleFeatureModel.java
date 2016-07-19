@@ -20,8 +20,8 @@ public class RuleFeatureModel {
     public RuleFeatureModel(RuleFeature ruleFeature) {
         RuleName ruleName = (RuleName) ruleFeature.getName();
         this.ruleName = new SimpleObjectProperty<>(ruleName);
-        this.weight = new SimpleStringProperty(ruleFeature.getFeatureWeight().toString());
-        this.isActive = new SimpleBooleanProperty(true);
+        this.weight = new SimpleStringProperty(Double.toString(ruleFeature.getFeatureWeight()));
+        this.isActive = new SimpleBooleanProperty(false);
     }
 
     public RuleName getRuleName() {

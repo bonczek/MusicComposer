@@ -196,7 +196,7 @@ public class MainController implements Initializable {
 
     private void initRuleData() {
         for (RuleName ruleName : RuleName.values()) {
-            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10)));
+            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10.0)));
         }
     }
 
@@ -217,7 +217,7 @@ public class MainController implements Initializable {
         List<RuleFeature> features = new ArrayList<>();
         features.addAll(ruleData.stream().filter(RuleFeatureModel::getIsActive)
                 .map(featureModel -> new RuleFeature(featureModel.getRuleName(),
-                        Integer.parseInt(featureModel.getWeight()))).collect(Collectors.toList()));
+                        Double.parseDouble(featureModel.getWeight()))).collect(Collectors.toList()));
         return new RuleContainer(features);
     }
 
