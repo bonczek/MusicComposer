@@ -4,6 +4,7 @@ import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.processor.statistics.AveragePitchStatistic;
 import music.analysis.feature.processor.statistics.MusicalStatistic;
 import music.analysis.feature.processor.statistics.PitchRangeStatistic;
+import music.analysis.feature.processor.statistics.PitchStandardDeviationStatistic;
 import music.analysis.feature.processor.statistics.PitchVarietyStatistic;
 import music.analysis.feature.processor.statistics.RepeatedSoundRhythmPairStatistic;
 import music.analysis.feature.processor.statistics.RhythmVarietyStatistic;
@@ -61,6 +62,8 @@ public class StatisticProcessorFactory {
                 return new ChordNotesDensityStatistic(chordList);
             case AVERAGE_PITCH:
                 return new AveragePitchStatistic();
+            case PITCH_STANDARD_DEVIATION:
+                return new PitchStandardDeviationStatistic();
             default:
                 return null;
         }

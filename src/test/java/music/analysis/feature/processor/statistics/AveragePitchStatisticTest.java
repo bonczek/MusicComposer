@@ -21,6 +21,6 @@ public class AveragePitchStatisticTest extends StatisticCounterTest<AveragePitch
     protected void afterClearAsserts() throws Exception {
         assertThat(statistic.getNumerator(), is(0.0));
         assertThat(statistic.getDenominator(), is((double) Pitch.MAX_MIDI_VALUE));
-        assertThat(statistic.getMidiValueListSize(), is(0));
+        assertThat(statistic.getMidiValueListSize(), is(0L));
     }
 }
