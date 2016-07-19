@@ -1,26 +1,24 @@
 package music.analysis.feature.processor.statistics;
 
+import jm.constants.Durations;
 import music.notes.Note;
-import music.notes.Sound;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 
-public class PitchStandardDeviationStatistic extends StatisticCounter<Double> {
+public class AverageRhythmValueStatistic extends StatisticCounter<Double> {
 
-    public static double MAX_STANDARD_DEVIATION = 48.0;
+    //@todo add test
 
     private SummaryStatistics summaryStatistics = new SummaryStatistics();
 
-    public PitchStandardDeviationStatistic() {
-        super(0.0, MAX_STANDARD_DEVIATION);
+    public AverageRhythmValueStatistic() {
+        super(0.0, Math.log(Durations.WHOLE_NOTE + 1));
     }
 
     @Override
     public void processNote(Note note) {
-        if (note instanceof Sound) {
-            Sound sound = (Sound) note;
-            summaryStatistics.addValue((double) sound.getPitch().getMidiValue());
-            numerator = summaryStatistics.getStandardDeviation();
-        }
+        double logRhythm = Math.log(note.getRhythmValue() + 1);
+        summaryStatistics.addValue(logRhythm);
+        numerator = summaryStatistics.getMean();
     }
 
     @Override

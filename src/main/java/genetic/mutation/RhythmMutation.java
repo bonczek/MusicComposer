@@ -13,9 +13,10 @@ public class RhythmMutation extends GeneticMutation {
 
     private final int wholeNoteGenesLength;
 
+    //@todo finish description and naming
     public RhythmMutation(Random randomGenerator, int wholeNoteGenesLength) {
         super(randomGenerator);
-        this.wholeNoteGenesLength = wholeNoteGenesLength;
+        this.wholeNoteGenesLength = wholeNoteGenesLength / 4;
     }
 
     @Override

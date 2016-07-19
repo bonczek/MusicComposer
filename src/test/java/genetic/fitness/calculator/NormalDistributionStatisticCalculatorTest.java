@@ -67,4 +67,18 @@ public class NormalDistributionStatisticCalculatorTest {
         assertThat(reward, is(expectedReward));
     }
 
+    @Test
+    public void testCalculateReward_givenGreaterThanOneResult() throws Exception {
+        int expectedReward = 4;
+        StatisticalFeature featureMock = Mockito.mock(StatisticalFeature.class);
+
+        when(featureMock.getFeatureWeight()).thenReturn(100.0);
+        when(featureMock.getExpectedValue()).thenReturn(1.0);
+        when(featureMock.getFeatureResult()).thenReturn(2.0);
+
+        int reward = fitnessCalculator.calculateReward(featureMock);
+
+        assertThat(reward, is(expectedReward));
+    }
+
 }
