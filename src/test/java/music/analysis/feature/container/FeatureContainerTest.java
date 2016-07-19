@@ -39,7 +39,7 @@ public class FeatureContainerTest {
         FeatureFitness<RuleFeature> ruleFitness = (FeatureFitness<RuleFeature>) result;
         System.out.println(ruleFitness.getReport());
 
-        assertThat(ruleFitness.getFitnessValue(), is(60));
+        assertThat(ruleFitness.getFitnessValue(), is(27));
     }
 
     @Test
