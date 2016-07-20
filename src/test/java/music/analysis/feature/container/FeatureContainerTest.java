@@ -29,7 +29,7 @@ public class FeatureContainerTest {
         int weight = 10;
         RuleFeature[] features = {
                 new RuleFeature(RuleName.CONSONANCES, weight),
-                new RuleFeature(RuleName.LONG_NOTES, weight)
+                new RuleFeature(RuleName.HALF_NOTES, weight)
         };
         List<RuleFeature> ruleFeatures = Arrays.asList(features);
         RuleContainer ruleContainer = new RuleContainer(ruleFeatures);

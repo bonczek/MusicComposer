@@ -23,6 +23,7 @@ public class TowseyMutation extends GeneticMutation {
         mutationList.add(new RestDensityMutation(randomGenerator));
         mutationList.add(new TransposeMutation(randomGenerator));
         mutationList.add(new RhythmMutation(randomGenerator, InitialPopulationGenerator.NOTES_IN_MEASURE / 2));
+        mutationList.add(new LongShortNotesMutation(randomGenerator));
 //        mutationList.add(new ScaleMutation(randomGenerator, scale));
 //        mutationList.add(new OctaveMutation(randomGenerator));
     }

@@ -18,6 +18,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 
 public class Converter {
@@ -49,6 +51,32 @@ public class Converter {
             }
         }
         return noteList;
+    }
+
+    public static Map<Integer, Note> fromChromosomeWithIndexes(Chromosome chromosome) throws IllegalArgumentException {
+        Map<Integer, Note> noteIndexMap = new TreeMap<>();
+        int lastNoteIndex = 0;
+        for (int i = 0; i < chromosome.getSize(); i++) {
+            int value = (int) chromosome.getGene(i).getValue();
+            if (MIDI_VALUE.test(value)) {
+                noteIndexMap.put(i, new Sound(Pitch.createWithMidi(value), DEFAULT_RHYTHMIC_VALUE));
+                lastNoteIndex = i;
+            } else if (REST_VALUE.test(value)) {
+                noteIndexMap.put(i, new Rest(DEFAULT_RHYTHMIC_VALUE));
+                lastNoteIndex = i;
+            } else if (TENUTO_VALUE.test(value)) {
+                if (!noteIndexMap.isEmpty()) {
+                    noteIndexMap.get(lastNoteIndex).addRhythmValue(DEFAULT_RHYTHMIC_VALUE);
+                } else {
+                    noteIndexMap.put(i, new Rest(DEFAULT_RHYTHMIC_VALUE));
+                    lastNoteIndex = i;
+                }
+            } else {
+                throw new IllegalArgumentException(
+                        String.format("Failed to parse gene value. Value: %d is not supported by this parser.", value));
+            }
+        }
+        return noteIndexMap;
     }
 
     public static Chromosome fromNotes(List<Note> noteList, int chromosomeLength) throws IllegalArgumentException {

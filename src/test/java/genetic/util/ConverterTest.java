@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -43,6 +44,27 @@ public class ConverterTest {
         assertThat(noteList.get(3).getRhythmValue(), is(Durations.EIGHTH_NOTE));
         assertThat(noteList.get(6), instanceOf(Rest.class));
         assertThat(noteList.get(6).getRhythmValue(), is(Durations.SIXTEENTH_NOTE));
+    }
+
+    @Test
+    public void testFromChromosomeWithIndexes() throws Exception {
+        Integer[] testValues = {0, 30, 2, -2, -2, -2, -1, -2, 83, 127, -1};
+        Chromosome chromosome = ChromosomeData.createWithIntegerValues(Arrays.asList(testValues));
+
+        Map<Integer, Note> noteMap = Converter.fromChromosomeWithIndexes(chromosome);
+
+        assertThat(noteMap.size(), is(7));
+        assertThat(noteMap.get(0).getRhythmValue(), is(Converter.DEFAULT_RHYTHMIC_VALUE));
+        assertThat(noteMap.get(1), instanceOf(Sound.class));
+
+        Sound longNote = (Sound) noteMap.get(2);
+        assertThat(longNote.getRhythmValue(), is(Durations.QUARTER_NOTE));
+        assertThat(longNote.getPitch().getOctave(), is(Octave.SUBSUBCONTRA));
+        assertThat(longNote.getPitch().getNoteName(), is(NoteName.D));
+        assertThat(noteMap.get(6), instanceOf(Rest.class));
+        assertThat(noteMap.get(6).getRhythmValue(), is(Durations.EIGHTH_NOTE));
+        assertThat(noteMap.get(10), instanceOf(Rest.class));
+        assertThat(noteMap.get(10).getRhythmValue(), is(Durations.SIXTEENTH_NOTE));
     }
 
     @Test
