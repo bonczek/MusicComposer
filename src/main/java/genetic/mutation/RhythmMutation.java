@@ -9,14 +9,11 @@ public class RhythmMutation extends GeneticMutation {
 
     static final int NUMBER_OF_MIDI_VALUES = 128;
 
-    static final int MAX_NEW_SOUNDS = 8;
+    private final int maxExtensionValues;
 
-    private final int wholeNoteGenesLength;
-
-    //@todo finish description and naming
-    public RhythmMutation(Random randomGenerator, int wholeNoteGenesLength) {
+    public RhythmMutation(Random randomGenerator, int maxExtensionValues) {
         super(randomGenerator);
-        this.wholeNoteGenesLength = wholeNoteGenesLength / 4;
+        this.maxExtensionValues = maxExtensionValues;
     }
 
     @Override
@@ -24,24 +21,21 @@ public class RhythmMutation extends GeneticMutation {
         if (randomGenerator.nextBoolean()) {
             increaseLargerRhythmicValuesAppearances(chromosome);
         } else {
-            putRandomNewSounds(chromosome);
+            putRandomNewSound(chromosome);
         }
         return chromosome;
     }
 
     private void increaseLargerRhythmicValuesAppearances(Chromosome chromosome) {
-        int numberOfExtensionValues = randomGenerator.nextInt(wholeNoteGenesLength);
+        int numberOfExtensionValues = randomGenerator.nextInt(maxExtensionValues);
         int mutationIndex = randomGenerator.nextInt(chromosome.getSize() - numberOfExtensionValues);
         for (int i = mutationIndex; i < mutationIndex + numberOfExtensionValues; i++) {
             chromosome.getGene(i).setValue(Constants.TENUTO.value());
         }
     }
 
-    private void putRandomNewSounds(Chromosome chromosome) {
-        int numberOfSounds = randomGenerator.nextInt(MAX_NEW_SOUNDS);
-        for (int i = 0; i < numberOfSounds; i++) {
-            int mutationIndex = randomGenerator.nextInt(chromosome.getSize());
-            chromosome.getGene(mutationIndex).setValue(randomGenerator.nextInt(NUMBER_OF_MIDI_VALUES));
-        }
+    private void putRandomNewSound(Chromosome chromosome) {
+        int mutationIndex = randomGenerator.nextInt(chromosome.getSize());
+        chromosome.getGene(mutationIndex).setValue(randomGenerator.nextInt(NUMBER_OF_MIDI_VALUES));
     }
 }
