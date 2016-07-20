@@ -6,9 +6,9 @@ public class ConsonancesRule extends IntervalRule {
 
     @Override
     protected void processInterval(Interval interval) {
-        if (interval.perfectConsonance()) {
+        if (!interval.moreThanOctave() && interval.perfectConsonance()) {
             ruleCounter += 1.0;
-        } else if (interval.imperfectConsonance()) {
+        } else if (!interval.moreThanOctave() && interval.imperfectConsonance()) {
             ruleCounter += 0.5;
         }
     }

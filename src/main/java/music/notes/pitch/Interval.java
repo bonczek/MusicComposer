@@ -41,11 +41,8 @@ public class Interval {
     public boolean moreThanOctave() {
         if (octaveDifference == 0) {
             return false;
-        } else if ((octaveDifference == 1 || octaveDifference == -1) && pitchInterval.equals(PitchInterval.PERFECT_UNISON)) {
-            return false;
-        } else {
-            return true;
-        }
+        } else
+            return !((octaveDifference == 1 || octaveDifference == -1) && pitchInterval.equals(PitchInterval.PERFECT_UNISON));
     }
 
     public boolean perfectConsonance() {
