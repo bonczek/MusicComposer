@@ -7,8 +7,6 @@ import genetic.util.ChromosomeData;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -63,27 +61,21 @@ public class RhythmMutationTest {
     }
 
     @Test
-    public void testMutate_givenNewNotesIsChosen() throws Exception {
-        int numberOfNewValues = 4;
-        Map<Integer, Integer> mutations = new HashMap<>();
-        int[] indexes = {1, 2, 4, 8};
-        int[] midi = {10, 30, 50, 80};
-        for (int i = 0; i < 4; i++) {
-            mutations.put(indexes[i], midi[i]);
-        }
+    public void testMutate_givenNewNoteIsChosen() throws Exception {
+        int mutationIndex = 4;
+        int midi = 50;
 
         Chromosome chromosome = ChromosomeData.prepareFourMeasuresChromosome();
 
         when(randomMock.nextBoolean()).thenReturn(false);
-        when(randomMock.nextInt(RhythmMutation.MAX_NEW_SOUNDS)).thenReturn(numberOfNewValues);
-        when(randomMock.nextInt(chromosome.getSize())).thenReturn(indexes[0], indexes[1], indexes[2], indexes[3]);
-        when(randomMock.nextInt(RhythmMutation.NUMBER_OF_MIDI_VALUES)).thenReturn(midi[0], midi[1], midi[2], midi[3]);
+        when(randomMock.nextInt(chromosome.getSize())).thenReturn(mutationIndex);
+        when(randomMock.nextInt(RhythmMutation.NUMBER_OF_MIDI_VALUES)).thenReturn(midi);
 
         Chromosome mutated = rhythmMutation.mutate(chromosome);
         Chromosome beforeMutation = ChromosomeData.prepareFourMeasuresChromosome();
         for (int i = 0; i < mutated.getSize(); i++) {
-            if (mutations.containsKey(i)) {
-                assertThat(mutated.getGene(i).getValue(), is(mutations.get(i).shortValue()));
+            if (i == mutationIndex) {
+                assertThat(mutated.getGene(i).getValue(), is((short) midi));
             } else {
                 assertThat(mutated.getGene(i).equals(beforeMutation.getGene(i)), is(true));
             }
