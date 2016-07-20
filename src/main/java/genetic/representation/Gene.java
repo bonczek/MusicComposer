@@ -41,4 +41,11 @@ public class Gene {
     public int hashCode() {
         return value.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Gene{" +
+                "value=" + value +
+                '}';
+    }
 }
