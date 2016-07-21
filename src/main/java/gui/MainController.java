@@ -82,6 +82,8 @@ public class MainController implements Initializable {
     private SpinnerAutoCommit<Integer> numbersOfMeasuresField;
     @FXML
     private TextArea chordProgressionField;
+    @FXML
+    private SpinnerAutoCommit<Integer> numberOfIterationsField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,11 +91,13 @@ public class MainController implements Initializable {
         crossoverRateField.setValueFactory(configurationModel.getCrossoverRateModel());
         populationSizeField.setValueFactory(configurationModel.getPopulationSizeModel());
         numbersOfMeasuresField.setValueFactory(configurationModel.getNumberOfMeasuresModel());
+        numberOfIterationsField.setValueFactory(configurationModel.getNumberOfIterationsModel());
 
         mutationRateField.setEditable(true);
         crossoverRateField.setEditable(true);
         populationSizeField.setEditable(true);
         numbersOfMeasuresField.setEditable(true);
+        numberOfIterationsField.setEditable(true);
 
         mutations.setItems(FXCollections.observableArrayList(MUSICAL_MUTATION, RANDOM_MUTATION));
         mutations.getSelectionModel().selectFirst();
@@ -146,7 +150,8 @@ public class MainController implements Initializable {
             fitnessFunction = new MusicalFitnessFunction<>(prepareRuleFitnessFunction());
         }
 
-        return new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction);
+        return new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction,
+                configurationModel.getNumberOfIterations());
     }
 
     private void showErrorWindow(Exception e) {

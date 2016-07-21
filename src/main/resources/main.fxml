@@ -23,6 +23,8 @@
                 <ChoiceBox fx:id="scaleType" prefWidth="150.0"/>
                 <Label text="Wybierz dźwięk bazowy skali"/>
                 <ChoiceBox fx:id="baseScaleNote" prefWidth="150.0"/>
+                <Label text="Liczba iteracji"/>
+                <SpinnerAutoCommit fx:id="numberOfIterationsField"/>
             </children>
         </VBox>
         <VBox alignment="TOP_RIGHT" layoutX="400.0" prefHeight="200.0" prefWidth="200.0">

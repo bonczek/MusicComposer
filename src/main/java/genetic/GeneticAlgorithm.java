@@ -12,18 +12,18 @@ import java.util.Optional;
 
 public class GeneticAlgorithm {
 
+    private final int numberOfIterations;
     private InitialPopulationGenerator initialGenerator;
-
     private NewPopulationGenerator populationGenerator;
-
     private FitnessFunction fitnessFunction;
-
     private Niche niche = new Niche();
 
-    public GeneticAlgorithm(InitialPopulationGenerator initialGenerator, NewPopulationGenerator populationGenerator, FitnessFunction fitnessFunction) {
+    public GeneticAlgorithm(InitialPopulationGenerator initialGenerator, NewPopulationGenerator populationGenerator,
+                            FitnessFunction fitnessFunction, int numberOfIterations) {
         this.initialGenerator = initialGenerator;
         this.populationGenerator = populationGenerator;
         this.fitnessFunction = fitnessFunction;
+        this.numberOfIterations = numberOfIterations;
     }
 
     public void run() {
@@ -53,7 +53,7 @@ public class GeneticAlgorithm {
     }
 
     private boolean nextPopulation(int iteration) {
-        return iteration <= 100;
+        return iteration <= numberOfIterations;
     }
 
     private void humanReadable(List<Chromosome> population) {
