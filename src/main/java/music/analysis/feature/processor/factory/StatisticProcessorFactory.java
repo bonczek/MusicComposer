@@ -16,7 +16,7 @@ import music.analysis.feature.processor.statistics.intervals.ContourDirectionSta
 import music.analysis.feature.processor.statistics.intervals.ContourStabilityStatistic;
 import music.analysis.feature.processor.statistics.intervals.DiatonicStatistic;
 import music.analysis.feature.processor.statistics.intervals.DissonanceStatistic;
-import music.analysis.feature.processor.statistics.intervals.OctaveDifferenceStatistic;
+import music.analysis.feature.processor.statistics.intervals.IllegalJumpStatistic;
 import music.analysis.feature.processor.statistics.intervals.RepeatedIntervalStatistic;
 import music.analysis.feature.processor.statistics.intervals.SemitonesDifferenceStatistic;
 import music.harmony.Chord;
@@ -40,8 +40,8 @@ public class StatisticProcessorFactory {
                 return new DissonanceStatistic();
             case NON_SCALE_RATING:
                 return new NonScaleDensityStatistic(scale);
-            case OCTAVE_DIFFERENCE:
-                return new OctaveDifferenceStatistic();
+            case ILLEGAL_JUMP:
+                return new IllegalJumpStatistic();
             case PITCH_RANGE:
                 return new PitchRangeStatistic();
             case PITCH_VARIETY:

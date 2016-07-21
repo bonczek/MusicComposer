@@ -59,8 +59,8 @@ public class Interval {
 
     public boolean dissonance() {
         return
-                pitchInterval.equals(PitchInterval.MAJOR_SECOND) ||
-                        pitchInterval.equals(PitchInterval.MINOR_SECOND) ||
+//                pitchInterval.equals(PitchInterval.MAJOR_SECOND) ||
+//                        pitchInterval.equals(PitchInterval.MINOR_SECOND) ||
                         pitchInterval.equals(PitchInterval.MINOR_SEVENTH) ||
                         pitchInterval.equals(PitchInterval.MAJOR_SEVENTH) ||
                         pitchInterval.equals(PitchInterval.TRITONE);
