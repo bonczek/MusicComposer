@@ -18,7 +18,7 @@ public class NotesRhythmRuleTest {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
         MusicalRule rule = new NotesRhythmRule(Durations.HALF_NOTE);
         melody.forEach(rule::processNote);
-        assertEquals(rule.getResult(), 2.9714, PRECISION);
+        assertEquals(rule.getResult(), 1.0003, PRECISION);
     }
 
     @Test
@@ -26,6 +26,6 @@ public class NotesRhythmRuleTest {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
         MusicalRule rule = new NotesRhythmRule(Durations.QUARTER_NOTE);
         melody.forEach(rule::processNote);
-        assertEquals(rule.getResult(), 5.82509, PRECISION);
+        assertEquals(rule.getResult(), 5.050963, PRECISION);
     }
 }

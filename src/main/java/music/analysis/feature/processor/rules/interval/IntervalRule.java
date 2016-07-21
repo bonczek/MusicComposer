@@ -1,5 +1,6 @@
-package music.analysis.feature.processor.rules;
+package music.analysis.feature.processor.rules.interval;
 
+import music.analysis.feature.processor.rules.RuleCounter;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Interval;

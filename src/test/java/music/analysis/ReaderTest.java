@@ -9,7 +9,8 @@ public class ReaderTest {
 
     @Test
     public void testAnalyseMidiFile() throws Exception {
-        String midiTestFile = "simple_melody.mid";
+//        String midiTestFile = "simple_melody.mid";
+        String midiTestFile = "yesterday.mid";
         URL filePath = getClass().getClassLoader().getResource(midiTestFile);
 
         Reader reader = new Reader();

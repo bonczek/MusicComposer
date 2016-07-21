@@ -22,14 +22,16 @@ public class Reader {
 
     public Fitness analyseMidiFile(String midiFilePath) {
 
-        Harmony scale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+        Harmony scale = new Harmony(ScaleName.MINOR_PENTATONIC_SCALE, NoteName.A);
         ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
         for (int i = 0; i < 7; i++) {
             progressionBuilder.appendChord(new Harmony(ChordName.MAJOR, NoteName.C), Durations.WHOLE_NOTE);
         }
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
-            features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList()));
+            if (!stat.equals(StatisticName.CHORD_NOTES)) {
+                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList()));
+            }
         }
         StatisticContainer statisticContainer = new StatisticContainer(features);
         MusicalFitnessFunction<StatisticContainer> fitnessFunction = new MusicalFitnessFunction<>(statisticContainer);

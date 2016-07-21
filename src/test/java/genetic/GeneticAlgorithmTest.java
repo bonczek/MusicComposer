@@ -36,6 +36,7 @@ public class GeneticAlgorithmTest {
     @Test(enabled = false)
     public void testMutation() throws Exception {
         int numbersOfMeasures = 4;
+        int numberOfIterations = 100;
         Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
         List<StatisticalFeature> features = new ArrayList<>();
         List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
@@ -52,7 +53,7 @@ public class GeneticAlgorithmTest {
                 mutationCoordinator, new CrossoverCoordinator(new GeneticGuard(0.9), new SimpleCrossover(new Random()
         )));
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(initGenerator, populationGenerator,
-                fitnessFunction);
+                fitnessFunction, numberOfIterations);
         geneticAlgorithm.run();
     }
 }

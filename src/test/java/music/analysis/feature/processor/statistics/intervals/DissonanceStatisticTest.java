@@ -9,7 +9,7 @@ public class DissonanceStatisticTest extends IntervalStatisticTest<DissonanceSta
 
     @Override
     protected double getExpectedResult() {
-        return 0.25;
+        return 5.0 / 8.0;
     }
 
 }

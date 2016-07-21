@@ -1,5 +1,6 @@
-package music.analysis.feature.processor.rules;
+package music.analysis.feature.processor.rules.interval;
 
+import music.analysis.feature.processor.rules.MusicalRule;
 import music.analysis.util.MelodyData;
 import music.notes.Note;
 import org.testng.annotations.Test;
@@ -16,6 +17,6 @@ public class ConsonancesRuleTest {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
         MusicalRule rule = new ConsonancesRule();
         melody.forEach(rule::processNote);
-        assertThat(rule.getResult(), is(3.5));
+        assertThat(rule.getResult(), is(1.5));
     }
 }
