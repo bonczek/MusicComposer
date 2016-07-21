@@ -1,4 +1,4 @@
-package music.analysis.feature.processor.rules;
+package music.analysis.feature.processor.rules.interval;
 
 import music.notes.pitch.Interval;
 import music.notes.pitch.PitchInterval;

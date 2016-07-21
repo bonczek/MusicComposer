@@ -1,5 +1,6 @@
-package music.analysis.feature.processor.rules;
+package music.analysis.feature.processor.rules.interval;
 
+import music.analysis.feature.processor.rules.MusicalRule;
 import music.analysis.util.MelodyData;
 import music.notes.Note;
 import org.testng.annotations.Test;

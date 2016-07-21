@@ -2,11 +2,11 @@ package music.analysis.feature.processor.factory;
 
 import jm.constants.Durations;
 import music.analysis.feature.name.RuleName;
-import music.analysis.feature.processor.rules.ConsonancesRule;
-import music.analysis.feature.processor.rules.LessThanOctaveIntervalRule;
 import music.analysis.feature.processor.rules.MiddleCGravityRule;
 import music.analysis.feature.processor.rules.MusicalRule;
 import music.analysis.feature.processor.rules.NotesRhythmRule;
+import music.analysis.feature.processor.rules.interval.ConsonancesRule;
+import music.analysis.feature.processor.rules.interval.LessThanOctaveIntervalRule;
 
 public class RuleProcessorFactory {
 
