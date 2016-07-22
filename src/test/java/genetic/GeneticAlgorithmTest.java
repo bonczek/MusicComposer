@@ -41,7 +41,7 @@ public class GeneticAlgorithmTest {
         List<StatisticalFeature> features = new ArrayList<>();
         List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         for (StatisticName stat : StatisticName.values()) {
-            features.add(new StatisticalFeature(stat, 0.5, 10.0, cMajorScale, chords));
+            features.add(new StatisticalFeature(stat, 0.5, 10.0, cMajorScale, chords, numbersOfMeasures));
         }
         FitnessFunction fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
 

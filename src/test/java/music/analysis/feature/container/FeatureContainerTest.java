@@ -49,11 +49,12 @@ public class FeatureContainerTest {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
         List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         double weight = 10.0;
+        int numberOfMeasures = 4;
         StatisticalFeature[] features = {
-                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, C_MAJOR_SCALE, chords),
-                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, C_MAJOR_SCALE, chords),
-                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, C_MAJOR_SCALE, chords),
-                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, C_MAJOR_SCALE, chords)
+                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
+                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
+                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
+                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures)
         };
         List<StatisticalFeature> statFeatures = Arrays.asList(features);
         StatisticContainer statisticContainer = new StatisticContainer(statFeatures);

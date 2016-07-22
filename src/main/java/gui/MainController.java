@@ -195,7 +195,8 @@ public class MainController implements Initializable {
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         List<Chord> chords = parseProgression();
         for (StatisticName stat : StatisticName.values()) {
-            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 100.0, scale, chords)));
+            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 100.0, scale, chords,
+                    configurationModel.getNumberOfMeasures())));
         }
     }
 
@@ -213,7 +214,7 @@ public class MainController implements Initializable {
         features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
                 .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
                         Double.parseDouble(featureModel.getExpectedValue()),
-                        Double.parseDouble(featureModel.getWeight()), scale, chords))
+                        Double.parseDouble(featureModel.getWeight()), scale, chords, configurationModel.getNumberOfMeasures()))
                 .collect(Collectors.toList()));
 
         return new StatisticContainer(features);

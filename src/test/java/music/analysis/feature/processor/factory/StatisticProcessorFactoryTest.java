@@ -19,7 +19,7 @@ public class StatisticProcessorFactoryTest {
     public void testCreateStatistic_givenAllStatisticNames() throws Exception {
         for (StatisticName statisticName : StatisticName.values()) {
             assertThat(StatisticProcessorFactory.createStatistic(statisticName, C_MAJOR_SCALE,
-                    ChordProgressionData.prepareFourMeasuresGAndCMajor()), is(notNullValue()));
+                    ChordProgressionData.prepareFourMeasuresGAndCMajor(), 4), is(notNullValue()));
         }
     }
 }
