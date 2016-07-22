@@ -11,6 +11,7 @@ import music.analysis.feature.processor.statistics.RepeatedSoundRhythmPairStatis
 import music.analysis.feature.processor.statistics.RhythmStandardDeviationStatistic;
 import music.analysis.feature.processor.statistics.RhythmVarietyStatistic;
 import music.analysis.feature.processor.statistics.RhythmicRangeStatistic;
+import music.analysis.feature.processor.statistics.StrongBeatStatistic;
 import music.analysis.feature.processor.statistics.density.ChordNotesDensityStatistic;
 import music.analysis.feature.processor.statistics.density.NonScaleDensityStatistic;
 import music.analysis.feature.processor.statistics.density.RestDensityStatistic;
@@ -30,7 +31,8 @@ public class StatisticProcessorFactory {
 
     private static final int POSSIBLE_RHYTHM_VALUES = 16;
 
-    public static MusicalStatistic createStatistic(StatisticName statisticName, Harmony scale, List<Chord> chordList) {
+    public static MusicalStatistic createStatistic(StatisticName statisticName, Harmony scale, List<Chord> chordList,
+                                                   int numberOfMeasures) {
         switch (statisticName) {
             case CONTOUR_DIRECTION:
                 return new ContourDirectionStatistic();
@@ -70,6 +72,8 @@ public class StatisticProcessorFactory {
                 return new AverageRhythmValueStatistic();
             case RHYTHM_STANDARD_DEVIATION:
                 return new RhythmStandardDeviationStatistic();
+            case STRONG_BEAT:
+                return new StrongBeatStatistic(numberOfMeasures);
             default:
                 return null;
         }

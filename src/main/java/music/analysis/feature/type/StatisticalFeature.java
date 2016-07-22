@@ -12,11 +12,11 @@ public class StatisticalFeature extends MelodicFeature<Double> {
     private final double expectedValue;
 
     public StatisticalFeature(StatisticName statisticName, double expectedValue, double statisticWeight, Harmony
-            scale, List<Chord> chordList) {
+            scale, List<Chord> chordList, int numberOfMeasures) {
         this.name = statisticName;
         this.expectedValue = expectedValue;
         this.featureWeight = statisticWeight;
-        this.noteProcessor = StatisticProcessorFactory.createStatistic(statisticName, scale, chordList);
+        this.noteProcessor = StatisticProcessorFactory.createStatistic(statisticName, scale, chordList, numberOfMeasures);
     }
 
     public double getExpectedValue() {

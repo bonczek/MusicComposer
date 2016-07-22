@@ -23,13 +23,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FeatureContainerTest {
 
+    private static final Harmony C_MAJOR_SCALE = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+
     @Test
     public void testApplyFeatureProcessors_givenRuleFeatures() throws Exception {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
         int weight = 10;
         RuleFeature[] features = {
-                new RuleFeature(RuleName.CONSONANCES, weight),
-                new RuleFeature(RuleName.HALF_NOTES, weight)
+                new RuleFeature(RuleName.CONSONANCES, weight, C_MAJOR_SCALE),
+                new RuleFeature(RuleName.HALF_NOTES, weight, C_MAJOR_SCALE)
         };
         List<RuleFeature> ruleFeatures = Arrays.asList(features);
         RuleContainer ruleContainer = new RuleContainer(ruleFeatures);
@@ -45,14 +47,14 @@ public class FeatureContainerTest {
     @Test
     public void testApplyFeatureProcessors_givenStatisticalFeatures() throws Exception {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
-        Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
         List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         double weight = 10.0;
+        int numberOfMeasures = 4;
         StatisticalFeature[] features = {
-                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, cMajorScale, chords),
-                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, cMajorScale, chords),
-                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, cMajorScale, chords),
-                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, cMajorScale, chords)
+                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
+                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
+                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
+                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures)
         };
         List<StatisticalFeature> statFeatures = Arrays.asList(features);
         StatisticContainer statisticContainer = new StatisticContainer(statFeatures);

@@ -195,13 +195,15 @@ public class MainController implements Initializable {
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         List<Chord> chords = parseProgression();
         for (StatisticName stat : StatisticName.values()) {
-            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 100.0, scale, chords)));
+            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 100.0, scale, chords,
+                    configurationModel.getNumberOfMeasures())));
         }
     }
 
     private void initRuleData() {
+        Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         for (RuleName ruleName : RuleName.values()) {
-            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10.0)));
+            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10.0, scale)));
         }
     }
 
@@ -212,7 +214,7 @@ public class MainController implements Initializable {
         features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
                 .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
                         Double.parseDouble(featureModel.getExpectedValue()),
-                        Double.parseDouble(featureModel.getWeight()), scale, chords))
+                        Double.parseDouble(featureModel.getWeight()), scale, chords, configurationModel.getNumberOfMeasures()))
                 .collect(Collectors.toList()));
 
         return new StatisticContainer(features);
@@ -220,9 +222,10 @@ public class MainController implements Initializable {
 
     private RuleContainer prepareRuleFitnessFunction() {
         List<RuleFeature> features = new ArrayList<>();
+        Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         features.addAll(ruleData.stream().filter(RuleFeatureModel::getIsActive)
                 .map(featureModel -> new RuleFeature(featureModel.getRuleName(),
-                        Double.parseDouble(featureModel.getWeight()))).collect(Collectors.toList()));
+                        Double.parseDouble(featureModel.getWeight()), scale)).collect(Collectors.toList()));
         return new RuleContainer(features);
     }
 
