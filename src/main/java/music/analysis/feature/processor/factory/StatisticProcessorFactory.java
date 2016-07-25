@@ -19,7 +19,6 @@ import music.analysis.feature.processor.statistics.intervals.DiatonicStatistic;
 import music.analysis.feature.processor.statistics.intervals.DissonanceStatistic;
 import music.analysis.feature.processor.statistics.intervals.IllegalJumpStatistic;
 import music.analysis.feature.processor.statistics.intervals.RepeatedIntervalStatistic;
-import music.analysis.feature.processor.statistics.intervals.SemitonesDifferenceStatistic;
 import music.harmony.Chord;
 import music.harmony.Harmony;
 
@@ -58,8 +57,6 @@ public class StatisticProcessorFactory {
                 return new RhythmicRangeStatistic(POSSIBLE_RHYTHM_VALUES);
             case RHYTHM_VARIETY:
                 return new RhythmVarietyStatistic();
-            case SEMITONES_DIFFERENCE:
-                return new SemitonesDifferenceStatistic();
             case CHORD_NOTES:
                 return new ChordNotesDensityStatistic(chordList);
             case AVERAGE_PITCH:

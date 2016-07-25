@@ -3,6 +3,7 @@ package music.analysis.feature.processor.statistics.intervals;
 import music.notes.pitch.Interval;
 import music.notes.pitch.Pitch;
 
+//@todo not used statistic
 public class SemitonesDifferenceStatistic extends IntervalStatistic {
 
     @Override
