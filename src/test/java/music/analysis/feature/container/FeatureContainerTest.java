@@ -28,10 +28,11 @@ public class FeatureContainerTest {
     @Test
     public void testApplyFeatureProcessors_givenRuleFeatures() throws Exception {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
+        List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         int weight = 10;
         RuleFeature[] features = {
-                new RuleFeature(RuleName.CONSONANCES, weight, C_MAJOR_SCALE),
-                new RuleFeature(RuleName.HALF_NOTES, weight, C_MAJOR_SCALE)
+                new RuleFeature(RuleName.CONSONANCES, weight, C_MAJOR_SCALE, chords),
+                new RuleFeature(RuleName.HALF_NOTES, weight, C_MAJOR_SCALE, chords)
         };
         List<RuleFeature> ruleFeatures = Arrays.asList(features);
         RuleContainer ruleContainer = new RuleContainer(ruleFeatures);

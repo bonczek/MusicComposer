@@ -1,5 +1,6 @@
 package music.analysis.feature.processor.rules;
 
+import jm.constants.Durations;
 import music.notes.Sound;
 import music.notes.pitch.Octave;
 import org.apache.commons.math3.distribution.NormalDistribution;
@@ -16,7 +17,7 @@ public class OneLinedOctaveGravityRule extends SoundRule {
     protected void processSound(Sound sound) {
         double difference = Math.abs(sound.getPitch().getOctave().number() - DISTRIBUTION_MEAN);
         double accuracyFactor = ACCURACY_MULTIPLIER * rewardDistribution.cumulativeProbability(DISTRIBUTION_MEAN - difference);
-        ruleCounter += accuracyFactor;
+        ruleCounter += (accuracyFactor * sound.getRhythmValue() / Durations.SIXTEENTH_NOTE);
     }
 
     //@todo add test

@@ -6,6 +6,8 @@ import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,7 +19,7 @@ public class RuleProcessorFactoryTest {
     @Test
     public void testCreateRule() throws Exception {
         for (RuleName ruleName : RuleName.values()) {
-            assertThat(RuleProcessorFactory.createRule(ruleName, C_MAJOR_SCALE), is(notNullValue()));
+            assertThat(RuleProcessorFactory.createRule(ruleName, C_MAJOR_SCALE, new ArrayList<>()), is(notNullValue()));
         }
     }
 }

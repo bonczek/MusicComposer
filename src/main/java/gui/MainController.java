@@ -202,9 +202,11 @@ public class MainController implements Initializable {
 
     private void initRuleData() {
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
+        List<Chord> chords = parseProgression();
         for (RuleName ruleName : RuleName.values()) {
-            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10.0, scale)));
+            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10.0, scale, chords)));
         }
+//        ruleData.addAll(FitnessFunctionConfiguration.initWeightTestingConfiguration(scale, chords));
     }
 
     private StatisticContainer prepareStatisticalFitnessFunction() {
@@ -223,9 +225,10 @@ public class MainController implements Initializable {
     private RuleContainer prepareRuleFitnessFunction() {
         List<RuleFeature> features = new ArrayList<>();
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
+        List<Chord> chords = parseProgression();
         features.addAll(ruleData.stream().filter(RuleFeatureModel::getIsActive)
                 .map(featureModel -> new RuleFeature(featureModel.getRuleName(),
-                        Double.parseDouble(featureModel.getWeight()), scale)).collect(Collectors.toList()));
+                        Double.parseDouble(featureModel.getWeight()), scale, chords)).collect(Collectors.toList()));
         return new RuleContainer(features);
     }
 

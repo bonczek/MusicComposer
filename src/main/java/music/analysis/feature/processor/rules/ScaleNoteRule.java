@@ -1,5 +1,6 @@
 package music.analysis.feature.processor.rules;
 
+import jm.constants.Durations;
 import music.harmony.Harmony;
 import music.notes.Sound;
 
@@ -14,7 +15,7 @@ public class ScaleNoteRule extends SoundRule {
     @Override
     protected void processSound(Sound sound) {
         if (scale.fit(sound.getPitch())) {
-            ruleCounter += 1.0;
+            ruleCounter += sound.getRhythmValue() / Durations.SIXTEENTH_NOTE;
         }
     }
 }

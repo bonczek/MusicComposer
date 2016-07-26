@@ -46,8 +46,9 @@ public class Interval {
     }
 
     public boolean perfectConsonance() {
-        return pitchInterval.equals(PitchInterval.PERFECT_UNISON) || pitchInterval.equals
-                (PitchInterval.PERFECT_FIFTH) || pitchInterval.equals(PitchInterval.PERFECT_FOURTH);
+        return
+//                pitchInterval.equals(PitchInterval.PERFECT_UNISON) ||
+                pitchInterval.equals(PitchInterval.PERFECT_FIFTH) || pitchInterval.equals(PitchInterval.PERFECT_FOURTH);
     }
 
     public boolean imperfectConsonance() {
