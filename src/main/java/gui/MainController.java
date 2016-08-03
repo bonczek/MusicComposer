@@ -44,9 +44,12 @@ import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -58,6 +61,10 @@ public class MainController implements Initializable {
 
     private static final String STATISTICAL = "Statystyczna";
     private static final String RULE_BASED = "Regułowa";
+
+    private static final String SINGLE_FEATURE_GA_CONFIGURATION_FILE = "configuration/feature-test-config.properties";
+    private static final String MULTIPLE_FEATURES_GA_CONFIGURATION_FILE = "configuration/feature-weight-test-config" +
+            ".properties";
 
     private ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
     private ObservableList<RuleFeatureModel> ruleData = FXCollections.observableArrayList();
@@ -110,6 +117,11 @@ public class MainController implements Initializable {
         chordProgressionField.setText("G|C|D|C");
         initStatData();
         initRuleData();
+        try {
+            loadConfigurationFromPropertiesFile(MULTIPLE_FEATURES_GA_CONFIGURATION_FILE);
+        } catch (Exception e) {
+            showErrorWindow(e);
+        }
     }
 
     @FXML
@@ -236,6 +248,22 @@ public class MainController implements Initializable {
         ChordProgressionParser progressionParser = new ChordProgressionParser();
         return progressionParser.parseProgressionText(chordProgressionField.getText(),
                 configurationModel.getNumberOfMeasures());
+    }
+
+    private void loadConfigurationFromPropertiesFile(String filename) {
+        Properties properties = new Properties();
+        try (InputStream inputStream = MainController.class.getClassLoader().getResourceAsStream(filename)) {
+            if (inputStream == null) {
+                throw new IllegalArgumentException(
+                        String.format("Error during configuration loading. Unable to find file: %s", filename));
+            }
+            properties.load(inputStream);
+            configurationModel.setConfiguration(properties);
+
+        } catch (IOException | IllegalArgumentException e) {
+            throw new IllegalArgumentException(String.format("Failed to read and set configuration from: %s file. " +
+                    "%s", filename, e.getMessage()));
+        }
     }
 
 }
