@@ -208,7 +208,7 @@ public class MainController implements Initializable {
         List<Chord> chords = parseProgression();
         for (StatisticName stat : StatisticName.values()) {
             statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 100.0, scale, chords,
-                    configurationModel.getNumberOfMeasures())));
+                    configurationModel.getNumberOfMeasures(), 0.5)));
         }
     }
 
@@ -228,7 +228,8 @@ public class MainController implements Initializable {
         features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
                 .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
                         Double.parseDouble(featureModel.getExpectedValue()),
-                        Double.parseDouble(featureModel.getWeight()), scale, chords, configurationModel.getNumberOfMeasures()))
+                        Double.parseDouble(featureModel.getWeight()), scale, chords, configurationModel.getNumberOfMeasures(),
+                        Double.parseDouble(featureModel.getStandardDeviation())))
                 .collect(Collectors.toList()));
 
         return new StatisticContainer(features);

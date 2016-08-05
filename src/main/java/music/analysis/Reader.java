@@ -30,7 +30,8 @@ public class Reader {
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
             if (!stat.equals(StatisticName.CHORD_NOTES)) {
-                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList(), 16));
+                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList(), 16,
+                        0.5));
             }
         }
         StatisticContainer statisticContainer = new StatisticContainer(features);

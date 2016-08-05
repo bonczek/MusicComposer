@@ -14,6 +14,7 @@ public class StatisticFeatureModel {
     private ObjectProperty<StatisticName> statisticName;
     private BooleanProperty isActive;
     private StringProperty expectedValue;
+    private StringProperty standardDeviation;
     private StringProperty weight;
 
     public StatisticFeatureModel() {
@@ -24,7 +25,20 @@ public class StatisticFeatureModel {
         this.statisticName = new SimpleObjectProperty<>(statisticName);
         this.expectedValue = new SimpleStringProperty(Double.toString(statisticalFeature.getExpectedValue()));
         this.weight = new SimpleStringProperty(Double.toString(statisticalFeature.getFeatureWeight()));
+        this.standardDeviation = new SimpleStringProperty(Double.toString(statisticalFeature.getStandardDeviation()));
         this.isActive = new SimpleBooleanProperty(false);
+    }
+
+    public String getStandardDeviation() {
+        return standardDeviation.get();
+    }
+
+    public void setStandardDeviation(String standardDeviation) {
+        this.standardDeviation.set(standardDeviation);
+    }
+
+    public StringProperty standardDeviationProperty() {
+        return standardDeviation;
     }
 
     public StatisticName getStatisticName() {

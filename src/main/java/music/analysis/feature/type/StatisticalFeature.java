@@ -10,13 +10,19 @@ import java.util.List;
 public class StatisticalFeature extends MelodicFeature<Double> {
 
     private final double expectedValue;
+    private final double standardDeviation;
 
     public StatisticalFeature(StatisticName statisticName, double expectedValue, double statisticWeight, Harmony
-            scale, List<Chord> chordList, int numberOfMeasures) {
+            scale, List<Chord> chordList, int numberOfMeasures, double standardDeviation) {
+        this.standardDeviation = standardDeviation;
         this.name = statisticName;
         this.expectedValue = expectedValue;
         this.featureWeight = statisticWeight;
         this.noteProcessor = StatisticProcessorFactory.createStatistic(statisticName, scale, chordList, numberOfMeasures);
+    }
+
+    public double getStandardDeviation() {
+        return standardDeviation;
     }
 
     public double getExpectedValue() {
