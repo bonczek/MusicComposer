@@ -3,7 +3,7 @@ package genetic.fitness.calculator;
 import music.analysis.feature.type.StatisticalFeature;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
-public class NormalDistributionStatisticCalculator implements FitnessCalculator<StatisticalFeature> {
+public class CumulativeDistributionCalculator implements FitnessCalculator<StatisticalFeature> {
 
     private static final double DISTRIBUTION_MEAN = 1.0;
 

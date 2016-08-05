@@ -8,9 +8,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
-public class NormalDistributionStatisticCalculatorTest {
+public class CumulativeDistributionCalculatorTest {
 
-    private NormalDistributionStatisticCalculator fitnessCalculator = new NormalDistributionStatisticCalculator();
+    private CumulativeDistributionCalculator fitnessCalculator = new CumulativeDistributionCalculator();
 
     @Test
     public void testCalculateReward() throws Exception {

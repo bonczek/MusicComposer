@@ -1,7 +1,7 @@
 package genetic.fitness.type;
 
+import genetic.fitness.calculator.CumulativeDistributionCalculator;
 import genetic.fitness.calculator.FitnessCalculator;
-import genetic.fitness.calculator.NormalDistributionStatisticCalculator;
 import genetic.fitness.calculator.RuleFitnessCalculator;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
@@ -23,7 +23,7 @@ public class FeatureFitnessTest {
     private static final FitnessCalculator<RuleFeature> RULE_FITNESS_CALCULATOR = new RuleFitnessCalculator();
 
     private static final FitnessCalculator<StatisticalFeature> STATISTIC_FITNESS_CALCULATOR =
-            Mockito.mock(NormalDistributionStatisticCalculator.class);
+            Mockito.mock(CumulativeDistributionCalculator.class);
 
     private static final StatisticalFeature STATISTIC_MOCK = Mockito.mock(StatisticalFeature.class);
 
