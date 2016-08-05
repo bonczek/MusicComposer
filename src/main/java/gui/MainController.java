@@ -18,7 +18,7 @@ import gui.model.ConfigurationViewBuilder;
 import gui.model.GeneticAlgorithmConfigurationModel;
 import gui.model.RuleFeatureModel;
 import gui.model.SpinnerAutoCommit;
-import gui.model.StatisticFeatureModel;
+import gui.model.StatisticalFeatureModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,8 +34,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import music.analysis.feature.container.RuleContainer;
 import music.analysis.feature.container.StatisticContainer;
-import music.analysis.feature.name.RuleName;
-import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.DoubleFeatureCounter;
+import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
 import music.harmony.Chord;
@@ -52,7 +52,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class MainController implements Initializable {
 
@@ -66,7 +65,7 @@ public class MainController implements Initializable {
     private static final String MULTIPLE_FEATURES_GA_CONFIGURATION_FILE = "configuration/feature-weight-test-config" +
             ".properties";
 
-    private ObservableList<StatisticFeatureModel> statData = FXCollections.observableArrayList();
+    private ObservableList<StatisticalFeatureModel> statData = FXCollections.observableArrayList();
     private ObservableList<RuleFeatureModel> ruleData = FXCollections.observableArrayList();
 
     private GeneticAlgorithmConfigurationModel configurationModel = new GeneticAlgorithmConfigurationModel();
@@ -115,8 +114,9 @@ public class MainController implements Initializable {
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();
         chordProgressionField.setText("G|C|D|C");
-        initStatData();
-        initRuleData();
+
+        statData.addAll(FitnessFunctionConfiguration.initStatisticConfiguration());
+        ruleData.addAll(FitnessFunctionConfiguration.initRuleConfiguration());
         try {
             loadConfigurationFromPropertiesFile(MULTIPLE_FEATURES_GA_CONFIGURATION_FILE);
         } catch (Exception e) {
@@ -184,7 +184,7 @@ public class MainController implements Initializable {
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
             newStage.setTitle("Statistical Fitness Function Configuration");
 
-            TableView<StatisticFeatureModel> tableView = ConfigurationViewBuilder
+            TableView<StatisticalFeatureModel> tableView = ConfigurationViewBuilder
                     .createStatisticalFeaturesConfigurationTable();
             tableView.setItems(statData);
             mainView = new ScrollPane(tableView);
@@ -203,34 +203,18 @@ public class MainController implements Initializable {
         newStage.show();
     }
 
-    private void initStatData() {
-        Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
-        List<Chord> chords = parseProgression();
-        for (StatisticName stat : StatisticName.values()) {
-            statData.add(new StatisticFeatureModel(new StatisticalFeature(stat, 0.5, 100.0, scale, chords,
-                    configurationModel.getNumberOfMeasures())));
-        }
-    }
-
-    private void initRuleData() {
-        Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
-        List<Chord> chords = parseProgression();
-        for (RuleName ruleName : RuleName.values()) {
-            ruleData.add(new RuleFeatureModel(new RuleFeature(ruleName, 10.0, scale, chords)));
-        }
-//        ruleData.addAll(FitnessFunctionConfiguration.initWeightTestingConfiguration(scale, chords));
-    }
-
     private StatisticContainer prepareStatisticalFitnessFunction() {
         List<StatisticalFeature> features = new ArrayList<>();
         List<Chord> chords = parseProgression();
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
-        features.addAll(statData.stream().filter(StatisticFeatureModel::getIsActive)
-                .map(featureModel -> new StatisticalFeature(featureModel.getStatisticName(),
-                        Double.parseDouble(featureModel.getExpectedValue()),
-                        Double.parseDouble(featureModel.getWeight()), scale, chords, configurationModel.getNumberOfMeasures()))
-                .collect(Collectors.toList()));
 
+        statData.stream().filter(StatisticalFeatureModel::getIsActive).forEach(statistic -> {
+            DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createStatistic(
+                    statistic.getStatisticName(), scale, chords, configurationModel.getNumberOfMeasures());
+            features.add(new StatisticalFeature(statistic.getStatisticName(),
+                    Double.parseDouble(statistic.getExpectedValue()), Double.parseDouble(statistic.getWeight()),
+                    featureCounter));
+        });
         return new StatisticContainer(features);
     }
 
@@ -238,9 +222,11 @@ public class MainController implements Initializable {
         List<RuleFeature> features = new ArrayList<>();
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         List<Chord> chords = parseProgression();
-        features.addAll(ruleData.stream().filter(RuleFeatureModel::getIsActive)
-                .map(featureModel -> new RuleFeature(featureModel.getRuleName(),
-                        Double.parseDouble(featureModel.getWeight()), scale, chords)).collect(Collectors.toList()));
+
+        ruleData.stream().filter(RuleFeatureModel::getIsActive).forEach(rule -> {
+            DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createRule(rule.getRuleName(), scale, chords);
+            features.add(new RuleFeature(rule.getRuleName(), Double.parseDouble(rule.getWeight()), featureCounter));
+        });
         return new RuleContainer(features);
     }
 

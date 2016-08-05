@@ -10,14 +10,14 @@ import music.analysis.feature.name.StatisticName;
 
 public class ConfigurationViewBuilder {
 
-    public static TableView<StatisticFeatureModel> createStatisticalFeaturesConfigurationTable() {
-        TableView<StatisticFeatureModel> tableView = new javafx.scene.control.TableView<>();
+    public static TableView<StatisticalFeatureModel> createStatisticalFeaturesConfigurationTable() {
+        TableView<StatisticalFeatureModel> tableView = new javafx.scene.control.TableView<>();
         tableView.setEditable(true);
         tableView.setPrefWidth(600.0);
-        TableColumn<StatisticFeatureModel, StatisticName> firstColumn = new TableColumn<>("Feature name");
-        TableColumn<StatisticFeatureModel, Boolean> secondColumn = new TableColumn<>("Active");
-        TableColumn<StatisticFeatureModel, String> thirdColumn = new TableColumn<>("Expected value");
-        TableColumn<StatisticFeatureModel, String> fourthColumn = new TableColumn<>("Weight");
+        TableColumn<StatisticalFeatureModel, StatisticName> firstColumn = new TableColumn<>("Feature name");
+        TableColumn<StatisticalFeatureModel, Boolean> secondColumn = new TableColumn<>("Active");
+        TableColumn<StatisticalFeatureModel, String> thirdColumn = new TableColumn<>("Expected value");
+        TableColumn<StatisticalFeatureModel, String> fourthColumn = new TableColumn<>("Weight");
 
         firstColumn.setCellValueFactory(s -> s.getValue().statisticNameProperty());
         secondColumn.setCellValueFactory(s -> s.getValue().isActiveProperty());

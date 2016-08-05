@@ -3,8 +3,15 @@ package music.analysis.feature.container;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.fitness.type.FeatureFitness;
 import genetic.fitness.type.Fitness;
+import jm.constants.Durations;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.rules.NotesRhythmRule;
+import music.analysis.feature.processor.rules.interval.ConsonancesRule;
+import music.analysis.feature.processor.statistics.PitchVarietyStatistic;
+import music.analysis.feature.processor.statistics.RepeatedSoundRhythmPairStatistic;
+import music.analysis.feature.processor.statistics.density.NonScaleDensityStatistic;
+import music.analysis.feature.processor.statistics.intervals.ContourDirectionStatistic;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
 import music.analysis.util.ChordProgressionData;
@@ -31,8 +38,8 @@ public class FeatureContainerTest {
         List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         int weight = 10;
         RuleFeature[] features = {
-                new RuleFeature(RuleName.CONSONANCES, weight, C_MAJOR_SCALE, chords),
-                new RuleFeature(RuleName.HALF_NOTES, weight, C_MAJOR_SCALE, chords)
+                new RuleFeature(RuleName.CONSONANCES, weight, new ConsonancesRule()),
+                new RuleFeature(RuleName.HALF_NOTES, weight, new NotesRhythmRule(Durations.HALF_NOTE))
         };
         List<RuleFeature> ruleFeatures = Arrays.asList(features);
         RuleContainer ruleContainer = new RuleContainer(ruleFeatures);
@@ -48,14 +55,12 @@ public class FeatureContainerTest {
     @Test
     public void testApplyFeatureProcessors_givenStatisticalFeatures() throws Exception {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
-        List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         double weight = 10.0;
-        int numberOfMeasures = 4;
         StatisticalFeature[] features = {
-                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
-                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
-                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures),
-                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, C_MAJOR_SCALE, chords, numberOfMeasures)
+                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, new PitchVarietyStatistic()),
+                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, new ContourDirectionStatistic()),
+                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, new NonScaleDensityStatistic(C_MAJOR_SCALE)),
+                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, new RepeatedSoundRhythmPairStatistic())
         };
         List<StatisticalFeature> statFeatures = Arrays.asList(features);
         StatisticContainer statisticContainer = new StatisticContainer(statFeatures);

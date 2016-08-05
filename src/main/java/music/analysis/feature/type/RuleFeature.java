@@ -1,18 +1,12 @@
 package music.analysis.feature.type;
 
 import music.analysis.feature.name.RuleName;
-import music.analysis.feature.processor.factory.FeatureProcessorFactory;
-import music.harmony.Chord;
-import music.harmony.Harmony;
-
-import java.util.List;
+import music.analysis.feature.processor.DoubleFeatureCounter;
 
 public class RuleFeature extends MelodicFeature<Double> {
 
-    public RuleFeature(RuleName ruleName, double weight, Harmony scale, List<Chord> chordList) {
-        this.name = ruleName;
-        this.featureWeight = weight;
-        this.noteProcessor = FeatureProcessorFactory.createRule(ruleName, scale, chordList);
+    public RuleFeature(RuleName ruleName, double weight, DoubleFeatureCounter noteProcessor) {
+        super(ruleName, weight, noteProcessor);
     }
 
     @Override

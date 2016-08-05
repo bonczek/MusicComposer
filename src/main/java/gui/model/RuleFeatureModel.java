@@ -24,6 +24,12 @@ public class RuleFeatureModel {
         this.isActive = new SimpleBooleanProperty(false);
     }
 
+    public RuleFeatureModel(RuleName ruleName, double weight, boolean isActive) {
+        this.ruleName = new SimpleObjectProperty<>(ruleName);
+        this.weight = new SimpleStringProperty(Double.toString(weight));
+        this.isActive = new SimpleBooleanProperty(isActive);
+    }
+
     public RuleName getRuleName() {
         return ruleName.get();
     }

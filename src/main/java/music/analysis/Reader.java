@@ -6,6 +6,8 @@ import genetic.util.Converter;
 import jm.constants.Durations;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.DoubleFeatureCounter;
+import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.analysis.feature.type.StatisticalFeature;
 import music.harmony.ChordName;
 import music.harmony.ChordProgressionBuilder;
@@ -30,7 +32,9 @@ public class Reader {
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
             if (!stat.equals(StatisticName.CHORD_NOTES)) {
-                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList(), 16));
+                DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createStatistic(stat, scale,
+                        progressionBuilder.getChordList(), 16);
+                features.add(new StatisticalFeature(stat, 0.5, 10.0, featureCounter));
             }
         }
         StatisticContainer statisticContainer = new StatisticContainer(features);

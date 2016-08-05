@@ -9,22 +9,29 @@ import javafx.beans.property.StringProperty;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.type.StatisticalFeature;
 
-public class StatisticFeatureModel {
+public class StatisticalFeatureModel {
 
     private ObjectProperty<StatisticName> statisticName;
     private BooleanProperty isActive;
     private StringProperty expectedValue;
     private StringProperty weight;
 
-    public StatisticFeatureModel() {
+    public StatisticalFeatureModel() {
     }
 
-    public StatisticFeatureModel(StatisticalFeature statisticalFeature) {
+    public StatisticalFeatureModel(StatisticalFeature statisticalFeature) {
         StatisticName statisticName = (StatisticName) statisticalFeature.getName();
         this.statisticName = new SimpleObjectProperty<>(statisticName);
         this.expectedValue = new SimpleStringProperty(Double.toString(statisticalFeature.getExpectedValue()));
         this.weight = new SimpleStringProperty(Double.toString(statisticalFeature.getFeatureWeight()));
         this.isActive = new SimpleBooleanProperty(false);
+    }
+
+    public StatisticalFeatureModel(StatisticName statisticName, double expectedValue, double weight, boolean isActive) {
+        this.statisticName = new SimpleObjectProperty<>(statisticName);
+        this.expectedValue = new SimpleStringProperty(Double.toString(expectedValue));
+        this.weight = new SimpleStringProperty(Double.toString(weight));
+        this.isActive = new SimpleBooleanProperty(isActive);
     }
 
     public StatisticName getStatisticName() {
