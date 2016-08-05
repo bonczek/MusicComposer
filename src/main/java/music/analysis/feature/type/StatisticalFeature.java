@@ -1,7 +1,7 @@
 package music.analysis.feature.type;
 
 import music.analysis.feature.name.StatisticName;
-import music.analysis.feature.processor.factory.StatisticProcessorFactory;
+import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.harmony.Chord;
 import music.harmony.Harmony;
 
@@ -16,7 +16,7 @@ public class StatisticalFeature extends MelodicFeature<Double> {
         this.name = statisticName;
         this.expectedValue = expectedValue;
         this.featureWeight = statisticWeight;
-        this.noteProcessor = StatisticProcessorFactory.createStatistic(statisticName, scale, chordList, numberOfMeasures);
+        this.noteProcessor = FeatureProcessorFactory.createStatistic(statisticName, scale, chordList, numberOfMeasures);
     }
 
     public double getExpectedValue() {

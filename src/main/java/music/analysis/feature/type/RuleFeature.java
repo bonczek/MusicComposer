@@ -1,7 +1,7 @@
 package music.analysis.feature.type;
 
 import music.analysis.feature.name.RuleName;
-import music.analysis.feature.processor.factory.RuleProcessorFactory;
+import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.harmony.Chord;
 import music.harmony.Harmony;
 
@@ -12,7 +12,7 @@ public class RuleFeature extends MelodicFeature<Double> {
     public RuleFeature(RuleName ruleName, double weight, Harmony scale, List<Chord> chordList) {
         this.name = ruleName;
         this.featureWeight = weight;
-        this.noteProcessor = RuleProcessorFactory.createRule(ruleName, scale, chordList);
+        this.noteProcessor = FeatureProcessorFactory.createRule(ruleName, scale, chordList);
     }
 
     @Override
