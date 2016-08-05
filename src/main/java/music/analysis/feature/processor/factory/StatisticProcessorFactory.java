@@ -1,9 +1,9 @@
 package music.analysis.feature.processor.factory;
 
 import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.feature.processor.statistics.AveragePitchStatistic;
 import music.analysis.feature.processor.statistics.AverageRhythmValueStatistic;
-import music.analysis.feature.processor.statistics.MusicalStatistic;
 import music.analysis.feature.processor.statistics.PitchRangeStatistic;
 import music.analysis.feature.processor.statistics.PitchStandardDeviationStatistic;
 import music.analysis.feature.processor.statistics.PitchVarietyStatistic;
@@ -30,8 +30,8 @@ public class StatisticProcessorFactory {
 
     private static final int POSSIBLE_RHYTHM_VALUES = 16;
 
-    public static MusicalStatistic createStatistic(StatisticName statisticName, Harmony scale, List<Chord> chordList,
-                                                   int numberOfMeasures) {
+    public static DoubleFeatureCounter createStatistic(StatisticName statisticName, Harmony scale, List<Chord> chordList,
+                                                       int numberOfMeasures) {
         switch (statisticName) {
             case CONTOUR_DIRECTION:
                 return new ContourDirectionStatistic();

@@ -2,8 +2,8 @@ package music.analysis.feature.processor.factory;
 
 import jm.constants.Durations;
 import music.analysis.feature.name.RuleName;
+import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.feature.processor.rules.ChordNoteRule;
-import music.analysis.feature.processor.rules.MusicalRule;
 import music.analysis.feature.processor.rules.NotesRhythmRule;
 import music.analysis.feature.processor.rules.OneLinedOctaveGravityRule;
 import music.analysis.feature.processor.rules.RestRule;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class RuleProcessorFactory {
 
-    public static MusicalRule createRule(RuleName ruleName, Harmony scale, List<Chord> chordList) {
+    public static DoubleFeatureCounter createRule(RuleName ruleName, Harmony scale, List<Chord> chordList) {
         switch (ruleName) {
             case CONSONANCES:
                 return new ConsonancesRule();

@@ -1,6 +1,6 @@
 package music.analysis.feature.processor.rules.interval;
 
-import music.analysis.feature.processor.rules.MusicalRule;
+import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.util.MelodyData;
 import music.notes.Note;
 import org.testng.annotations.Test;
@@ -15,7 +15,7 @@ public class ConsonancesRuleTest {
     @Test
     public void testProcessInterval_givenPerfectConsonanceCondition() throws Exception {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
-        MusicalRule rule = new ConsonancesRule();
+        DoubleFeatureCounter rule = new ConsonancesRule();
         melody.forEach(rule::processNote);
         assertThat(rule.getResult(), is(1.5));
     }

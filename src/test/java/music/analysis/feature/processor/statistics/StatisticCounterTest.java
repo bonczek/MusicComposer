@@ -1,5 +1,6 @@
 package music.analysis.feature.processor.statistics;
 
+import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.util.MelodyData;
 import music.notes.Note;
 import org.testng.annotations.Test;
@@ -8,7 +9,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public abstract class StatisticCounterTest<T extends MusicalStatistic> {
+public abstract class StatisticCounterTest<T extends DoubleFeatureCounter> {
 
     private static final double PRECISION = 0.0001;
 

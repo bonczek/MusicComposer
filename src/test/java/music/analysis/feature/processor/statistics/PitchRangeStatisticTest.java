@@ -1,6 +1,7 @@
 package music.analysis.feature.processor.statistics;
 
 import jm.constants.Durations;
+import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
@@ -31,7 +32,7 @@ public class PitchRangeStatisticTest extends StatisticCounterTest<PitchRangeStat
 
     @Test
     public void testProcessNote_givenRangeGreaterThanTwoOctaves() throws Exception {
-        MusicalStatistic statistic = new PitchRangeStatistic();
+        DoubleFeatureCounter statistic = new PitchRangeStatistic();
         Note[] notes = {new Sound(Pitch.createWithMidi(127), Durations.QUARTER_NOTE),
                 new Sound(Pitch.createWithMidi(19), Durations.WHOLE_NOTE)};
         for (Note note : notes) {

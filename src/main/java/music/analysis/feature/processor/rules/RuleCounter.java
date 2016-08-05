@@ -1,6 +1,8 @@
 package music.analysis.feature.processor.rules;
 
-public abstract class RuleCounter implements MusicalRule {
+import music.analysis.feature.processor.DoubleFeatureCounter;
+
+public abstract class RuleCounter implements DoubleFeatureCounter {
 
     protected Double ruleCounter = 0.0;
 
