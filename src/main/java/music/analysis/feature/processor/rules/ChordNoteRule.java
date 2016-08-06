@@ -15,6 +15,10 @@ public class ChordNoteRule extends RuleCounter {
         this.chordNoteDensityStatistic = new ChordNotesDensityStatistic(chordList);
     }
 
+    public ChordNotesDensityStatistic getChordNoteDensityStatistic() {
+        return chordNoteDensityStatistic;
+    }
+
     @Override
     public void processNote(Note note) throws IndexOutOfBoundsException {
         chordNoteDensityStatistic.processNote(note);

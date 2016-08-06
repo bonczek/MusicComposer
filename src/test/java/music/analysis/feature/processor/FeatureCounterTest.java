@@ -17,7 +17,7 @@ public abstract class FeatureCounterTest<T extends DoubleFeatureCounter> {
     protected abstract T initFeatureCounter();
 
     @Test
-    public void testStatisticComputation() throws Exception {
+    public void testFeatureComputation() throws Exception {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
         melody.forEach(featureCounter::processNote);
         assertEquals(featureCounter.getResult(), getExpectedResult(), PRECISION);
@@ -26,7 +26,7 @@ public abstract class FeatureCounterTest<T extends DoubleFeatureCounter> {
     }
 
     @Test
-    public void testStatisticComputation_givenSameMelodyFourTimes() throws Exception {
+    public void testFeatureComputation_givenSameMelodyFourTimes() throws Exception {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
         for (int i = 0; i < 4; i++) {
             melody.forEach(featureCounter::processNote);
