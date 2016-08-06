@@ -1,14 +1,15 @@
 package music.analysis.feature.processor.statistics;
 
+import music.analysis.feature.processor.FeatureCounterTest;
 import music.notes.pitch.Pitch;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class AveragePitchStatisticTest extends StatisticCounterTest<AveragePitchStatistic> {
+public class AveragePitchFeatureTest extends FeatureCounterTest<AveragePitchStatistic> {
 
     @Override
-    protected AveragePitchStatistic initStatistic() {
+    protected AveragePitchStatistic initFeatureCounter() {
         return new AveragePitchStatistic();
     }
 
@@ -19,8 +20,8 @@ public class AveragePitchStatisticTest extends StatisticCounterTest<AveragePitch
 
     @Override
     protected void afterClearAsserts() throws Exception {
-        assertThat(statistic.getNumerator(), is(0.0));
-        assertThat(statistic.getDenominator(), is((double) Pitch.MAX_MIDI_VALUE));
-        assertThat(statistic.getMidiValueListSize(), is(0L));
+        assertThat(featureCounter.getNumerator(), is(0.0));
+        assertThat(featureCounter.getDenominator(), is((double) Pitch.MAX_MIDI_VALUE));
+        assertThat(featureCounter.getMidiValueListSize(), is(0L));
     }
 }

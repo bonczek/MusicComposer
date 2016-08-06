@@ -1,9 +1,9 @@
 package music.analysis.feature.processor.statistics.intervals;
 
-public class ContourDirectionStatisticTest extends IntervalStatisticTest<ContourDirectionStatistic> {
+public class ContourDirectionFeatureTest extends IntervalFeatureTest<ContourDirectionStatistic> {
 
     @Override
-    protected ContourDirectionStatistic initStatistic() {
+    protected ContourDirectionStatistic initFeatureCounter() {
         return new ContourDirectionStatistic();
     }
 

@@ -1,6 +1,5 @@
-package music.analysis.feature.processor.statistics;
+package music.analysis.feature.processor;
 
-import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.util.MelodyData;
 import music.notes.Note;
 import org.testng.annotations.Test;
@@ -9,20 +8,20 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public abstract class StatisticCounterTest<T extends DoubleFeatureCounter> {
+public abstract class FeatureCounterTest<T extends DoubleFeatureCounter> {
 
     private static final double PRECISION = 0.0001;
 
-    protected T statistic = initStatistic();
+    protected T featureCounter = initFeatureCounter();
 
-    protected abstract T initStatistic();
+    protected abstract T initFeatureCounter();
 
     @Test
     public void testStatisticComputation() throws Exception {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
-        melody.forEach(statistic::processNote);
-        assertEquals(statistic.getResult(), getExpectedResult(), PRECISION);
-        statistic.clear();
+        melody.forEach(featureCounter::processNote);
+        assertEquals(featureCounter.getResult(), getExpectedResult(), PRECISION);
+        featureCounter.clear();
         afterClearAsserts();
     }
 
@@ -30,9 +29,9 @@ public abstract class StatisticCounterTest<T extends DoubleFeatureCounter> {
     public void testStatisticComputation_givenSameMelodyFourTimes() throws Exception {
         List<Note> melody = MelodyData.prepareFourMeasureSample();
         for (int i = 0; i < 4; i++) {
-            melody.forEach(statistic::processNote);
-            assertEquals(statistic.getResult(), getExpectedResult(), PRECISION);
-            statistic.clear();
+            melody.forEach(featureCounter::processNote);
+            assertEquals(featureCounter.getResult(), getExpectedResult(), PRECISION);
+            featureCounter.clear();
             afterClearAsserts();
         }
     }

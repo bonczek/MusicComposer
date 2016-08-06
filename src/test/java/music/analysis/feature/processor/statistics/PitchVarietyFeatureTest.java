@@ -1,12 +1,14 @@
 package music.analysis.feature.processor.statistics;
 
+import music.analysis.feature.processor.FeatureCounterTest;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PitchVarietyStatisticTest extends StatisticCounterTest<PitchVarietyStatistic> {
+public class PitchVarietyFeatureTest extends FeatureCounterTest<PitchVarietyStatistic> {
 
     @Override
-    protected PitchVarietyStatistic initStatistic() {
+    protected PitchVarietyStatistic initFeatureCounter() {
         return new PitchVarietyStatistic();
     }
 
@@ -17,9 +19,9 @@ public class PitchVarietyStatisticTest extends StatisticCounterTest<PitchVariety
 
     @Override
     protected void afterClearAsserts() throws Exception {
-        assertThat(statistic.getPitchSetSize(), is(0));
-        assertThat(statistic.getDenominator(), is(0));
-        assertThat(statistic.getNumerator(), is(0));
+        assertThat(featureCounter.getPitchSetSize(), is(0));
+        assertThat(featureCounter.getDenominator(), is(0));
+        assertThat(featureCounter.getNumerator(), is(0));
     }
 
 

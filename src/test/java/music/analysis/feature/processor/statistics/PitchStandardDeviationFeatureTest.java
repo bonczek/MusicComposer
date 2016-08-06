@@ -2,6 +2,7 @@ package music.analysis.feature.processor.statistics;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import jm.constants.Durations;
+import music.analysis.feature.processor.FeatureCounterTest;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
@@ -12,10 +13,10 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PitchStandardDeviationStatisticTest extends StatisticCounterTest<PitchStandardDeviationStatistic> {
+public class PitchStandardDeviationFeatureTest extends FeatureCounterTest<PitchStandardDeviationStatistic> {
 
     @Override
-    protected PitchStandardDeviationStatistic initStatistic() {
+    protected PitchStandardDeviationStatistic initFeatureCounter() {
         return new PitchStandardDeviationStatistic();
     }
 
@@ -26,9 +27,9 @@ public class PitchStandardDeviationStatisticTest extends StatisticCounterTest<Pi
 
     @Override
     protected void afterClearAsserts() throws Exception {
-        assertThat(statistic.getNumerator(), is(0.0));
-        assertThat(statistic.getDenominator(), is(PitchStandardDeviationStatistic.MAX_STANDARD_DEVIATION));
-        assertThat(statistic.getMidiValueListSize(), is(0L));
+        assertThat(featureCounter.getNumerator(), is(0.0));
+        assertThat(featureCounter.getDenominator(), is(PitchStandardDeviationStatistic.MAX_STANDARD_DEVIATION));
+        assertThat(featureCounter.getMidiValueListSize(), is(0L));
     }
 
     @Test

@@ -1,9 +1,9 @@
 package music.analysis.feature.processor.statistics.intervals;
 
-public class IllegalJumpStatisticTest extends IntervalStatisticTest<IllegalJumpStatistic> {
+public class IllegalJumpFeatureTest extends IntervalFeatureTest<IllegalJumpStatistic> {
 
     @Override
-    protected IllegalJumpStatistic initStatistic() {
+    protected IllegalJumpStatistic initFeatureCounter() {
         return new IllegalJumpStatistic();
     }
 

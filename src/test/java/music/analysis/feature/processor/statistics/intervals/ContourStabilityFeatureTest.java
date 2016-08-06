@@ -4,10 +4,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContourStabilityStatisticTest extends IntervalStatisticTest<ContourStabilityStatistic> {
+public class ContourStabilityFeatureTest extends IntervalFeatureTest<ContourStabilityStatistic> {
 
     @Override
-    protected ContourStabilityStatistic initStatistic() {
+    protected ContourStabilityStatistic initFeatureCounter() {
         return new ContourStabilityStatistic();
     }
 
@@ -19,6 +19,6 @@ public class ContourStabilityStatisticTest extends IntervalStatisticTest<Contour
     @Override
     protected void afterClearAsserts() throws Exception {
         super.afterClearAsserts();
-        assertThat(statistic.getPreviousInterval(), is(nullValue()));
+        assertThat(featureCounter.getPreviousInterval(), is(nullValue()));
     }
 }

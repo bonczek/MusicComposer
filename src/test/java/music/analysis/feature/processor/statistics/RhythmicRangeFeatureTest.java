@@ -1,5 +1,6 @@
 package music.analysis.feature.processor.statistics;
 
+import music.analysis.feature.processor.FeatureCounterTest;
 import music.analysis.util.MelodyData;
 import music.notes.Note;
 import org.testng.annotations.Test;
@@ -9,12 +10,12 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class RhythmicRangeStatisticTest extends StatisticCounterTest<RhythmicRangeStatistic> {
+public class RhythmicRangeFeatureTest extends FeatureCounterTest<RhythmicRangeStatistic> {
 
     private static final int RHYTHM_DENOMINATOR = 16;
 
     @Override
-    protected RhythmicRangeStatistic initStatistic() {
+    protected RhythmicRangeStatistic initFeatureCounter() {
         return new RhythmicRangeStatistic(RHYTHM_DENOMINATOR);
     }
 
@@ -25,10 +26,10 @@ public class RhythmicRangeStatisticTest extends StatisticCounterTest<RhythmicRan
 
     @Override
     protected void afterClearAsserts() throws Exception {
-        assertThat(statistic.getNumerator(), is(0));
-        assertThat(statistic.getDenominator(), is(RHYTHM_DENOMINATOR));
-        assertThat(statistic.getMaxRhythmValue(), is(Double.MIN_VALUE));
-        assertThat(statistic.getMinRhythmValue(), is(Double.MAX_VALUE));
+        assertThat(featureCounter.getNumerator(), is(0));
+        assertThat(featureCounter.getDenominator(), is(RHYTHM_DENOMINATOR));
+        assertThat(featureCounter.getMaxRhythmValue(), is(Double.MIN_VALUE));
+        assertThat(featureCounter.getMinRhythmValue(), is(Double.MAX_VALUE));
     }
 
     @Test

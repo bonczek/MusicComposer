@@ -1,9 +1,9 @@
 package music.analysis.feature.processor.statistics.intervals;
 
-public class DiatonicStatisticTest extends IntervalStatisticTest<DiatonicStatistic> {
+public class DiatonicFeatureTest extends IntervalFeatureTest<DiatonicStatistic> {
 
     @Override
-    protected DiatonicStatistic initStatistic() {
+    protected DiatonicStatistic initFeatureCounter() {
         return new DiatonicStatistic();
     }
 

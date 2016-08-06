@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SemitonesDifferenceStatisticTest extends IntervalStatisticTest<SemitonesDifferenceStatistic> {
+public class SemitonesDifferenceFeatureTest extends IntervalFeatureTest<SemitonesDifferenceStatistic> {
 
     @Override
-    protected SemitonesDifferenceStatistic initStatistic() {
+    protected SemitonesDifferenceStatistic initFeatureCounter() {
         return new SemitonesDifferenceStatistic();
     }
 

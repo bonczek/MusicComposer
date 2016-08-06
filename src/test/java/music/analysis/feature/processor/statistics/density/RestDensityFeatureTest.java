@@ -1,14 +1,14 @@
 package music.analysis.feature.processor.statistics.density;
 
-import music.analysis.feature.processor.statistics.StatisticCounterTest;
+import music.analysis.feature.processor.FeatureCounterTest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class RestDensityStatisticTest extends StatisticCounterTest<RestDensityStatistic> {
+public class RestDensityFeatureTest extends FeatureCounterTest<RestDensityStatistic> {
 
     @Override
-    protected RestDensityStatistic initStatistic() {
+    protected RestDensityStatistic initFeatureCounter() {
         return new RestDensityStatistic();
     }
 
@@ -19,7 +19,7 @@ public class RestDensityStatisticTest extends StatisticCounterTest<RestDensitySt
 
     @Override
     protected void afterClearAsserts() throws Exception {
-        assertThat(statistic.getDenominator(), is(0.0));
-        assertThat(statistic.getNumerator(), is(0.0));
+        assertThat(featureCounter.getDenominator(), is(0.0));
+        assertThat(featureCounter.getNumerator(), is(0.0));
     }
 }

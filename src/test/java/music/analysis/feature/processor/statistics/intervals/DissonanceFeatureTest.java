@@ -1,9 +1,9 @@
 package music.analysis.feature.processor.statistics.intervals;
 
-public class DissonanceStatisticTest extends IntervalStatisticTest<DissonanceStatistic> {
+public class DissonanceFeatureTest extends IntervalFeatureTest<DissonanceStatistic> {
 
     @Override
-    protected DissonanceStatistic initStatistic() {
+    protected DissonanceStatistic initFeatureCounter() {
         return new DissonanceStatistic();
     }
 

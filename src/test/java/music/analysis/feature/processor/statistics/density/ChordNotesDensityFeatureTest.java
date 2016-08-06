@@ -3,7 +3,7 @@ package music.analysis.feature.processor.statistics.density;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.util.ChromosomeData;
 import genetic.util.Converter;
-import music.analysis.feature.processor.statistics.StatisticCounterTest;
+import music.analysis.feature.processor.FeatureCounterTest;
 import music.analysis.util.ChordProgressionData;
 import music.analysis.util.MelodyData;
 import music.notes.Note;
@@ -14,10 +14,10 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ChordNotesDensityStatisticTest extends StatisticCounterTest<ChordNotesDensityStatistic> {
+public class ChordNotesDensityFeatureTest extends FeatureCounterTest<ChordNotesDensityStatistic> {
 
     @Override
-    protected ChordNotesDensityStatistic initStatistic() {
+    protected ChordNotesDensityStatistic initFeatureCounter() {
         return new ChordNotesDensityStatistic(ChordProgressionData.prepareFourMeasuresGAndCMajor());
     }
 
@@ -28,8 +28,8 @@ public class ChordNotesDensityStatisticTest extends StatisticCounterTest<ChordNo
 
     @Override
     protected void afterClearAsserts() throws Exception {
-        assertThat(statistic.getNumerator(), is(0.0));
-        assertThat(statistic.getDenominator(), is(0.0));
+        assertThat(featureCounter.getNumerator(), is(0.0));
+        assertThat(featureCounter.getDenominator(), is(0.0));
     }
 
     @Test

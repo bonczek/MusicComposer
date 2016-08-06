@@ -2,6 +2,7 @@ package music.analysis.feature.processor.statistics;
 
 import jm.constants.Durations;
 import music.analysis.feature.processor.DoubleFeatureCounter;
+import music.analysis.feature.processor.FeatureCounterTest;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;
@@ -10,10 +11,10 @@ import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PitchRangeStatisticTest extends StatisticCounterTest<PitchRangeStatistic> {
+public class PitchRangeFeatureTest extends FeatureCounterTest<PitchRangeStatistic> {
 
     @Override
-    protected PitchRangeStatistic initStatistic() {
+    protected PitchRangeStatistic initFeatureCounter() {
         return new PitchRangeStatistic();
     }
 
@@ -24,10 +25,10 @@ public class PitchRangeStatisticTest extends StatisticCounterTest<PitchRangeStat
 
     @Override
     protected void afterClearAsserts() throws Exception {
-        assertThat(statistic.getNumerator(), is(0));
-        assertThat(statistic.getDenominator(), is(Pitch.MAX_MIDI_VALUE));
-        assertThat(statistic.getHighestPitch(), is(Integer.MIN_VALUE));
-        assertThat(statistic.getLowestPitch(), is(Integer.MAX_VALUE));
+        assertThat(featureCounter.getNumerator(), is(0));
+        assertThat(featureCounter.getDenominator(), is(Pitch.MAX_MIDI_VALUE));
+        assertThat(featureCounter.getHighestPitch(), is(Integer.MIN_VALUE));
+        assertThat(featureCounter.getLowestPitch(), is(Integer.MAX_VALUE));
     }
 
     @Test

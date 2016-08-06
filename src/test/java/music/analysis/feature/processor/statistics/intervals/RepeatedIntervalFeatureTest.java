@@ -13,7 +13,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class RepeatedIntervalStatisticTest extends IntervalStatisticTest<RepeatedIntervalStatistic> {
+public class RepeatedIntervalFeatureTest extends IntervalFeatureTest<RepeatedIntervalStatistic> {
 
     @Test
     public void testProcessInterval() throws Exception {
@@ -31,7 +31,7 @@ public class RepeatedIntervalStatisticTest extends IntervalStatisticTest<Repeate
     }
 
     @Override
-    protected RepeatedIntervalStatistic initStatistic() {
+    protected RepeatedIntervalStatistic initFeatureCounter() {
         return new RepeatedIntervalStatistic();
     }
 
@@ -43,6 +43,6 @@ public class RepeatedIntervalStatisticTest extends IntervalStatisticTest<Repeate
     @Override
     protected void afterClearAsserts() throws Exception {
         super.afterClearAsserts();
-        assertThat(statistic.getIntervalSetSize(), is(0));
+        assertThat(featureCounter.getIntervalSetSize(), is(0));
     }
 }
