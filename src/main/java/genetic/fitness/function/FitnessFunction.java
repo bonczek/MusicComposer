@@ -1,6 +1,6 @@
 package genetic.fitness.function;
 
-import genetic.fitness.type.Fitness;
+import genetic.fitness.Fitness;
 import genetic.representation.Chromosome;
 
 import java.util.List;
@@ -16,5 +16,7 @@ public abstract class FitnessFunction {
         population.stream().forEach(c -> c.setFitness(rateChromosome(c)));
     }
 
-    protected abstract Fitness rateChromosome(Chromosome chromosome);
+    public abstract Fitness rateChromosome(Chromosome chromosome);
+
+    public abstract String createFitnessReport(Chromosome chromosome);
 }

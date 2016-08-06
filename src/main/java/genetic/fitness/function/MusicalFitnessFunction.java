@@ -1,6 +1,6 @@
 package genetic.fitness.function;
 
-import genetic.fitness.type.Fitness;
+import genetic.fitness.Fitness;
 import genetic.representation.Chromosome;
 import genetic.util.Converter;
 import music.analysis.feature.container.FeatureContainer;
@@ -17,12 +17,21 @@ public class MusicalFitnessFunction<T extends FeatureContainer> extends FitnessF
     }
 
     @Override
-    protected Fitness rateChromosome(Chromosome chromosome) {
+    public Fitness rateChromosome(Chromosome chromosome) {
         return rateMelody(Converter.fromChromosome(chromosome));
     }
 
     public Fitness rateMelody(List<Note> noteList) {
-        featureContainer.applyFeatureProcessors(noteList);
-        return featureContainer.getRewardSum();
+        return featureContainer.calculateReward(noteList);
     }
+
+    @Override
+    public String createFitnessReport(Chromosome chromosome) {
+        return createMelodyReport(Converter.fromChromosome(chromosome));
+    }
+
+    public String createMelodyReport(List<Note> noteList) {
+        return featureContainer.createFitnessReport(noteList);
+    }
+
 }

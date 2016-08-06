@@ -1,7 +1,6 @@
 package music.analysis;
 
 import genetic.fitness.function.MusicalFitnessFunction;
-import genetic.fitness.type.Fitness;
 import genetic.util.Converter;
 import jm.constants.Durations;
 import music.analysis.feature.container.StatisticContainer;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class Reader {
 
-    public Fitness analyseMidiFile(String midiFilePath) {
+    public String analyseMidiFile(String midiFilePath) {
 
         Harmony scale = new Harmony(ScaleName.MINOR_PENTATONIC_SCALE, NoteName.A);
         ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
@@ -42,7 +41,7 @@ public class Reader {
 
         try {
             List<Note> melody = Converter.convertMidiToMelodyLine(midiFilePath);
-            return fitnessFunction.rateMelody(melody);
+            return fitnessFunction.createMelodyReport(melody);
         } catch (IOException | IllegalArgumentException e) {
             throw new IllegalArgumentException("Failed to analyse given midi file!");
         }

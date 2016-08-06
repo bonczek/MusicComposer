@@ -1,10 +1,7 @@
 package music.analysis.feature.container;
 
+import genetic.fitness.Fitness;
 import genetic.fitness.calculator.FitnessCalculator;
-import genetic.fitness.type.FeatureFitness;
-import genetic.fitness.type.Fitness;
-import genetic.representation.Chromosome;
-import genetic.util.Converter;
 import music.analysis.feature.type.MelodicFeature;
 import music.notes.Note;
 
@@ -32,6 +29,19 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
         this.fitnessCalculator = fitnessCalculator;
     }
 
+    public Fitness calculateReward(List<Note> melody) {
+        applyFeatureProcessors(melody);
+        return getRewardSum();
+    }
+
+    public String createFitnessReport(List<Note> melody) {
+        StringBuilder reportBuilder = new StringBuilder();
+        applyFeatureProcessors(melody);
+        featureList.forEach(feature -> reportBuilder.append(String.format("%s reward: %d\n", feature.getReport(),
+                fitnessCalculator.calculateReward(feature))));
+        return reportBuilder.toString();
+    }
+
     /**
      * Apply searching for features in a given melody line.
      * At the beginning reset state of each feature counter/processor.
@@ -39,31 +49,31 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
      *
      * @param melodyLine list of notes to analyze
      */
-    public void applyFeatureProcessors(List<Note> melodyLine) {
+    private void applyFeatureProcessors(List<Note> melodyLine) {
         featureList.forEach(f -> f.getNoteProcessor().clear());
-        for (Note note : melodyLine) {
-            for (T feature : featureList) {
-                try {
-                    feature.getNoteProcessor().processNote(note);
-                } catch (Exception e) {
-                    System.out.println(String.format(
-                            "Failed to calculate feature %s, because: %s", feature.getName(), e.getMessage()));
-                    Chromosome chromosome = Converter.fromNotes(melodyLine, 4 * 16);
-                    System.out.println(chromosome.toString());
-                }
-            }
+        melodyLine.forEach(this::applyFeaturesToSingleNote);
+    }
 
+    private void applyFeaturesToSingleNote(Note note) {
+        for (T feature : featureList) {
+            try {
+                feature.getNoteProcessor().processNote(note);
+            } catch (Exception e) {
+                System.out.println(String.format(
+                        "Failed to calculate feature %s, because: %s", feature.getName(), e.getMessage()));
+            }
         }
     }
 
     /**
-     * Transform feature counters results into reward using fitness calculator and then sum reward for all features.
+     * Calculate reward using fitness calculator and then sum reward for all features.
      *
      * @return final reward/fitness for analyzed melody line
      */
-    public Fitness getRewardSum() {
-        FeatureFitness<T> fitness = new FeatureFitness<>(fitnessCalculator);
-        featureList.forEach(fitness::addFeatureReward);
+    private Fitness getRewardSum() {
+        Fitness fitness = new Fitness();
+        //@todo maybe sum and set value?
+        featureList.stream().map(fitnessCalculator::calculateReward).forEach(fitness::addReward);
         return fitness;
     }
 }
