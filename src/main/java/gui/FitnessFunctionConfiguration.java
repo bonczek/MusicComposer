@@ -30,26 +30,26 @@ public class FitnessFunctionConfiguration {
 
     public static List<StatisticalFeatureModel> initStatisticConfiguration() {
         List<StatisticalFeatureModel> features = new ArrayList<>();
-        features.add(new StatisticalFeatureModel(StatisticName.AVERAGE_PITCH, 0.5, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.PITCH_STANDARD_DEVIATION, 0.1, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.NON_SCALE_RATING, 0.0, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.CHORD_NOTES, 0.5, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.DISSONANCE_RATING, 0.1, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.DIATONIC_RATING, 0.5, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.ILLEGAL_JUMP, 0.0, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.AVERAGE_RHYTHM, 0.4, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.RHYTHM_STANDARD_DEVIATION, 0.2, 100.0, true));
-        features.add(new StatisticalFeatureModel(StatisticName.STRONG_BEAT, 0.9, 100.0, true));
+        features.add(new StatisticalFeatureModel(StatisticName.AVERAGE_PITCH, 0.5, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.PITCH_STANDARD_DEVIATION, 0.1, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.NON_SCALE_RATING, 0.0, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.CHORD_NOTES, 0.5, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.DISSONANCE_RATING, 0.1, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.DIATONIC_RATING, 0.5, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.ILLEGAL_JUMP, 0.0, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.AVERAGE_RHYTHM, 0.4, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.RHYTHM_STANDARD_DEVIATION, 0.2, 100.0, 0.1, true));
+        features.add(new StatisticalFeatureModel(StatisticName.STRONG_BEAT, 0.9, 100.0, 0.1, true));
 
-        features.add(new StatisticalFeatureModel(StatisticName.CONTOUR_DIRECTION, 0.5, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.CONTOUR_STABILITY, 0.5, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.PITCH_RANGE, 0.5, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.PITCH_VARIETY, 0.5, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.REPEATED_INTERVALS, 0.5, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.REPEATED_RHYTHM_INTERVALS, 0.5, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.REST_DENSITY, 0.3, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.RHYTHM_RANGE, 0.4, 100.0, false));
-        features.add(new StatisticalFeatureModel(StatisticName.RHYTHM_VARIETY, 0.3, 100.0, false));
+        features.add(new StatisticalFeatureModel(StatisticName.CONTOUR_DIRECTION, 0.5, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.CONTOUR_STABILITY, 0.5, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.PITCH_RANGE, 0.5, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.PITCH_VARIETY, 0.5, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.REPEATED_INTERVALS, 0.5, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.REPEATED_RHYTHM_INTERVALS, 0.5, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.REST_DENSITY, 0.3, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.RHYTHM_RANGE, 0.4, 100.0, 0.1, false));
+        features.add(new StatisticalFeatureModel(StatisticName.RHYTHM_VARIETY, 0.3, 100.0, 0.1, false));
 
         return features;
     }

@@ -58,7 +58,7 @@ public class FeatureContainerTest {
 
         Fitness result = statisticContainer.calculateReward(testMelody);
 
-        assertThat(result.getFitnessValue(), is(40));
+        assertThat(result.getFitnessValue(), is(4 * 39));
     }
 
     @Test
@@ -69,10 +69,11 @@ public class FeatureContainerTest {
         String report = statisticContainer.createFitnessReport(testMelody);
 
         assertThat(report, is(
-                "PITCH_VARIETY - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; reward: 10\n" +
-                        "CONTOUR_DIRECTION - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; reward: 10\n" +
-                        "NON_SCALE_RATING - Result: 0,000000; expected: 0,000000; Diff: 0,000000; weight: 10,000000; reward: 10\n" +
-                        "REPEATED_RHYTHM_INTERVALS - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; reward: 10\n"));
+                "PITCH_VARIETY - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; stdev: 0,100000; reward: 39\n" +
+                        "CONTOUR_DIRECTION - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; stdev: 0,100000; reward: 39\n" +
+                        "NON_SCALE_RATING - Result: 0,000000; expected: 0,000000; Diff: 0,000000; weight: 10,000000; stdev: 0,100000; reward: 39\n" +
+                        "REPEATED_RHYTHM_INTERVALS - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10," +
+                        "000000; stdev: 0,100000; reward: 39\n"));
     }
 
     @Test
@@ -96,10 +97,13 @@ public class FeatureContainerTest {
     private List<StatisticalFeature> prepareStatFeatures() {
         double weight = 10.0;
         StatisticalFeature[] features = {
-                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, new PitchVarietyStatistic()),
-                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, new ContourDirectionStatistic()),
-                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, new NonScaleDensityStatistic(C_MAJOR_SCALE)),
-                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, new RepeatedSoundRhythmPairStatistic())
+                new StatisticalFeature(StatisticName.PITCH_VARIETY, 1.0, weight, 0.1, new PitchVarietyStatistic()),
+                new StatisticalFeature(StatisticName.CONTOUR_DIRECTION, 1.0, weight, 0.1, new ContourDirectionStatistic
+                        ()),
+                new StatisticalFeature(StatisticName.NON_SCALE_RATING, 0.0, weight, 0.1, new NonScaleDensityStatistic
+                        (C_MAJOR_SCALE)),
+                new StatisticalFeature(StatisticName.REPEATED_RHYTHM_INTERVALS, 1.0, weight, 0.1, new
+                        RepeatedSoundRhythmPairStatistic())
         };
         return Arrays.asList(features);
     }

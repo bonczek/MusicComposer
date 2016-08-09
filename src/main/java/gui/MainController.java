@@ -213,7 +213,7 @@ public class MainController implements Initializable {
                     statistic.getStatisticName(), scale, chords, configurationModel.getNumberOfMeasures());
             features.add(new StatisticalFeature(statistic.getStatisticName(),
                     Double.parseDouble(statistic.getExpectedValue()), Double.parseDouble(statistic.getWeight()),
-                    featureCounter));
+                    Double.parseDouble(statistic.getStandardDeviation()), featureCounter));
         });
         return new StatisticContainer(features);
     }

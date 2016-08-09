@@ -26,7 +26,7 @@ public class StatisticalFeature extends MelodicFeature<Double> {
     @Override
     public String getReport() {
         double difference = Math.abs(noteProcessor.getResult() - expectedValue);
-        return String.format("%s - Result: %f; expected: %f; Diff: %f; weight: %f;", name, noteProcessor.getResult(),
-                expectedValue, difference, featureWeight);
+        return String.format("%s - Result: %f; expected: %f; Diff: %f; weight: %f; stdev: %f;", name, noteProcessor
+                .getResult(), expectedValue, difference, featureWeight, standardDeviation);
     }
 }

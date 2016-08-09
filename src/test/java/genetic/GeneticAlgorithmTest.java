@@ -45,7 +45,7 @@ public class GeneticAlgorithmTest {
         for (StatisticName stat : StatisticName.values()) {
             DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createStatistic(stat, cMajorScale, chords,
                     numbersOfMeasures);
-            features.add(new StatisticalFeature(stat, 0.5, 10.0, featureCounter));
+            features.add(new StatisticalFeature(stat, 0.5, 10.0, 0.1, featureCounter));
         }
         FitnessFunction fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
 

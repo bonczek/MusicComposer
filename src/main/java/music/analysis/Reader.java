@@ -33,7 +33,7 @@ public class Reader {
             if (!stat.equals(StatisticName.CHORD_NOTES)) {
                 DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createStatistic(stat, scale,
                         progressionBuilder.getChordList(), 16);
-                features.add(new StatisticalFeature(stat, 0.5, 10.0, featureCounter));
+                features.add(new StatisticalFeature(stat, 0.5, 10.0, 0.1, featureCounter));
             }
         }
         StatisticContainer statisticContainer = new StatisticContainer(features);
