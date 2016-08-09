@@ -8,6 +8,10 @@ public class StrongBeatRule extends RuleCounter {
 
     private double melodyTime = 0.0;
 
+    public double getMelodyTime() {
+        return melodyTime;
+    }
+
     @Override
     public void processNote(Note note) {
         if ((note instanceof Sound) && Double.compare(melodyTime % Durations.WHOLE_NOTE, 0.0) == 0) {

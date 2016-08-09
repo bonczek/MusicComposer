@@ -1,11 +1,12 @@
 package music.analysis;
 
 import genetic.fitness.function.MusicalFitnessFunction;
-import genetic.fitness.type.Fitness;
 import genetic.util.Converter;
 import jm.constants.Durations;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.DoubleFeatureCounter;
+import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.analysis.feature.type.StatisticalFeature;
 import music.harmony.ChordName;
 import music.harmony.ChordProgressionBuilder;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class Reader {
 
-    public Fitness analyseMidiFile(String midiFilePath) {
+    public String analyseMidiFile(String midiFilePath) {
 
         Harmony scale = new Harmony(ScaleName.MINOR_PENTATONIC_SCALE, NoteName.A);
         ChordProgressionBuilder progressionBuilder = new ChordProgressionBuilder();
@@ -30,8 +31,9 @@ public class Reader {
         List<StatisticalFeature> features = new ArrayList<>();
         for (StatisticName stat : StatisticName.values()) {
             if (!stat.equals(StatisticName.CHORD_NOTES)) {
-                features.add(new StatisticalFeature(stat, 0.5, 10.0, scale, progressionBuilder.getChordList(), 16,
-                        0.5));
+                DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createStatistic(stat, scale,
+                        progressionBuilder.getChordList(), 16);
+                features.add(new StatisticalFeature(stat, 0.5, 10.0, featureCounter));
             }
         }
         StatisticContainer statisticContainer = new StatisticContainer(features);
@@ -39,7 +41,7 @@ public class Reader {
 
         try {
             List<Note> melody = Converter.convertMidiToMelodyLine(midiFilePath);
-            return fitnessFunction.rateMelody(melody);
+            return fitnessFunction.createMelodyReport(melody);
         } catch (IOException | IllegalArgumentException e) {
             throw new IllegalArgumentException("Failed to analyse given midi file!");
         }

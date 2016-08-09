@@ -16,6 +16,12 @@ public abstract class MelodicFeature<T extends Number> {
 
     protected MelodicFeatureCounter<T> noteProcessor;
 
+    public MelodicFeature(MelodicFeatureName name, T featureWeight, MelodicFeatureCounter<T> noteProcessor) {
+        this.name = name;
+        this.featureWeight = featureWeight;
+        this.noteProcessor = noteProcessor;
+    }
+
     public MelodicFeatureCounter<T> getNoteProcessor() {
         return noteProcessor;
     }

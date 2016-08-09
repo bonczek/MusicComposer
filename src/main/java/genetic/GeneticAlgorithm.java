@@ -44,8 +44,8 @@ public class GeneticAlgorithm {
                 .getFitness().getFitnessValue()));
         if (theBestChromosome.isPresent()) {
             Chromosome bestChromosome = theBestChromosome.get();
-            System.out.println(String.format("*****THE BEST CHROMOSOME*****\n%s", bestChromosome.getFitness()
-                    .getReport()));
+            System.out.println(String.format("*****THE BEST CHROMOSOME*****\n%s", fitnessFunction.createFitnessReport
+                    (bestChromosome)));
             Score score = Converter.convertToJMusicScore(bestChromosome);
             View.notate(score);
 //            Play.midi(score);

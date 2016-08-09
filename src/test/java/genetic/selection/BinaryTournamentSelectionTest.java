@@ -1,6 +1,6 @@
 package genetic.selection;
 
-import genetic.fitness.type.SimpleReward;
+import genetic.fitness.Fitness;
 import genetic.representation.Chromosome;
 import genetic.representation.ChromosomePair;
 import genetic.util.ChromosomeData;
@@ -36,17 +36,17 @@ public class BinaryTournamentSelectionTest {
     private List<Chromosome> prepareChromosomes() {
         List<Chromosome> population = new ArrayList<>();
         Chromosome first = ChromosomeData.createWithIntegerValues(Arrays.asList(1, 2, 3));
-        SimpleReward firstFitness = new SimpleReward();
+        Fitness firstFitness = new Fitness();
         firstFitness.addReward(30);
         first.setFitness(firstFitness);
         population.add(first);
         Chromosome second = ChromosomeData.createWithIntegerValues(Arrays.asList(4, 5, 6));
-        SimpleReward secondFitness = new SimpleReward();
+        Fitness secondFitness = new Fitness();
         secondFitness.addReward(20);
         second.setFitness(secondFitness);
         population.add(second);
         Chromosome third = ChromosomeData.createWithIntegerValues(Arrays.asList(7, 8, 9));
-        SimpleReward thirdFitness = new SimpleReward();
+        Fitness thirdFitness = new Fitness();
         thirdFitness.addReward(50);
         third.setFitness(thirdFitness);
         population.add(third);

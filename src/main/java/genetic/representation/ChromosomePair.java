@@ -1,7 +1,6 @@
 package genetic.representation;
 
 import genetic.crossover.Crossover;
-import genetic.fitness.type.SimpleReward;
 
 public class ChromosomePair {
 
@@ -22,8 +21,8 @@ public class ChromosomePair {
     }
 
     public ChromosomePair crossover(Crossover crossoverFunction) {
-        first.setFitness(new SimpleReward());
-        second.setFitness(new SimpleReward());
+        first.getFitness().clearFitnessValue();
+        second.getFitness().clearFitnessValue();
         return crossoverFunction.crossover(this);
     }
 }

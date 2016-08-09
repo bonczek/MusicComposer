@@ -1,24 +1,18 @@
 package music.analysis.feature.type;
 
 import music.analysis.feature.name.StatisticName;
-import music.analysis.feature.processor.factory.StatisticProcessorFactory;
-import music.harmony.Chord;
-import music.harmony.Harmony;
-
-import java.util.List;
+import music.analysis.feature.processor.MelodicFeatureCounter;
 
 public class StatisticalFeature extends MelodicFeature<Double> {
 
     private final double expectedValue;
     private final double standardDeviation;
 
-    public StatisticalFeature(StatisticName statisticName, double expectedValue, double statisticWeight, Harmony
-            scale, List<Chord> chordList, int numberOfMeasures, double standardDeviation) {
-        this.standardDeviation = standardDeviation;
-        this.name = statisticName;
+    public StatisticalFeature(StatisticName statisticName, double expectedValue, double statisticWeight, double
+            standardDeviation, MelodicFeatureCounter<Double> noteProcessor) {
+        super(statisticName, statisticWeight, noteProcessor);
         this.expectedValue = expectedValue;
-        this.featureWeight = statisticWeight;
-        this.noteProcessor = StatisticProcessorFactory.createStatistic(statisticName, scale, chordList, numberOfMeasures);
+        this.standardDeviation = standardDeviation;
     }
 
     public double getStandardDeviation() {

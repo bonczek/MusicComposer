@@ -13,6 +13,8 @@ import genetic.mutation.TowseyMutation;
 import genetic.selection.BinaryTournamentSelection;
 import music.analysis.feature.container.StatisticContainer;
 import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.DoubleFeatureCounter;
+import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.analysis.feature.type.StatisticalFeature;
 import music.analysis.util.ChordProgressionData;
 import music.harmony.Chord;
@@ -41,7 +43,9 @@ public class GeneticAlgorithmTest {
         List<StatisticalFeature> features = new ArrayList<>();
         List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         for (StatisticName stat : StatisticName.values()) {
-            features.add(new StatisticalFeature(stat, 0.5, 10.0, cMajorScale, chords, numbersOfMeasures, 0.5));
+            DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createStatistic(stat, cMajorScale, chords,
+                    numbersOfMeasures);
+            features.add(new StatisticalFeature(stat, 0.5, 10.0, featureCounter));
         }
         FitnessFunction fitnessFunction = new MusicalFitnessFunction<>(new StatisticContainer(features));
 

@@ -1,6 +1,8 @@
 package music.analysis.feature.processor.statistics;
 
-public abstract class StatisticCounter<T extends Number> implements MusicalStatistic {
+import music.analysis.feature.processor.DoubleFeatureCounter;
+
+public abstract class StatisticCounter<T extends Number> implements DoubleFeatureCounter {
 
     protected T numerator;
     protected T denominator;
