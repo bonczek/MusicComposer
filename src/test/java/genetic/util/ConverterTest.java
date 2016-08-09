@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -149,5 +150,59 @@ public class ConverterTest {
         assertThat(((Sound) melodyLine.get(0)).getPitch(), is(Pitch.createWithNames(NoteName.C, Octave.TWO_LINED)));
         assertThat(((Sound) melodyLine.get(8)).getPitch(), is(Pitch.createWithNames(NoteName.C, Octave.THREE_LINED)));
         assertThat(melodyLine.get(12), instanceOf(Rest.class));
+    }
+
+    @Test
+    public void printThesisExamples() throws Exception {
+        int measureLength = 16;
+        Note[] original = {
+                new Sound(Pitch.createWithNames(NoteName.A, Octave.ONE_LINED), Durations.SIXTEENTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.D, Octave.TWO_LINED), Durations.SIXTEENTH_NOTE),
+                new Rest(Durations.EIGHTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.D, Octave.ONE_LINED), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.G, Octave.TWO_LINED), Durations.QUARTER_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.F, Octave.ONE_LINED), Durations.EIGHTH_NOTE),
+                new Sound(Pitch.createWithNames(NoteName.G, Octave.ONE_LINED), Durations.EIGHTH_NOTE)
+        };
+        List<Note> originalList = Arrays.asList(original);
+        Chromosome chromosome = Converter.fromNotes(originalList, measureLength);
+        System.out.println(chromosome.toString());
+
+        List<Note> intervals = new ArrayList<>(originalList);
+        intervals.set(4, new Sound(Pitch.createWithNames(NoteName.A, Octave.ONE_LINED), Durations.QUARTER_NOTE));
+        chromosome = Converter.fromNotes(intervals, measureLength);
+        System.out.println(chromosome.toString());
+
+        List<Note> transpose = new ArrayList<>(originalList);
+        transpose.set(0, new Sound(Pitch.createWithNames(NoteName.F_SHARP, Octave.TWO_LINED), Durations
+                .SIXTEENTH_NOTE));
+        chromosome = Converter.fromNotes(transpose, measureLength);
+        System.out.println(chromosome.toString());
+
+        List<Note> length = new ArrayList<>(originalList);
+        length.set(1, new Sound(Pitch.createWithNames(NoteName.D, Octave.TWO_LINED), Durations.EIGHTH_NOTE));
+        length.set(2, new Rest(Durations.SIXTEENTH_NOTE));
+        chromosome = Converter.fromNotes(length, measureLength);
+        System.out.println(chromosome.toString());
+
+        List<Note> rests = new ArrayList<>(originalList);
+        rests.set(4, new Rest(Durations.QUARTER_NOTE));
+        chromosome = Converter.fromNotes(rests, measureLength);
+        System.out.println(chromosome.toString());
+
+        List<Note> rhythmical = new ArrayList<>(originalList);
+        rhythmical.remove(6);
+        rhythmical.remove(5);
+        rhythmical.remove(4);
+        rhythmical.set(3, new Sound(Pitch.createWithNames(NoteName.D, Octave.ONE_LINED), Durations.DOTTED_HALF_NOTE));
+        chromosome = Converter.fromNotes(rhythmical, measureLength);
+        System.out.println(chromosome.toString());
+
+        List<Note> shortLong = new ArrayList<>(originalList);
+        shortLong.remove(2);
+        shortLong.remove(1);
+        shortLong.set(0, new Sound(Pitch.createWithNames(NoteName.A, Octave.ONE_LINED), Durations.QUARTER_NOTE));
+        chromosome = Converter.fromNotes(shortLong, measureLength);
+        System.out.println(chromosome.toString());
     }
 }
