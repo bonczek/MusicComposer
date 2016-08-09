@@ -39,4 +39,18 @@ public class ProbabilityDensityCalculatorTest {
         //then
         assertThat(reward, is(39));
     }
+
+    @Test
+    public void testCalculateReward_givenWorstValue() throws Exception {
+        StatisticalFeature featureMock = Mockito.mock(StatisticalFeature.class);
+
+        when(featureMock.getFeatureWeight()).thenReturn(100.0);
+        when(featureMock.getExpectedValue()).thenReturn(0.0);
+        when(featureMock.getFeatureResult()).thenReturn(1.0);
+        when(featureMock.getStandardDeviation()).thenReturn(0.35);
+        //when
+        int reward = fitnessCalculator.calculateReward(featureMock);
+        //then
+        assertThat(reward, is(1));
+    }
 }
