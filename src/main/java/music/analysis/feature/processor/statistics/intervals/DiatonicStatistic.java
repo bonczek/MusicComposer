@@ -1,7 +1,6 @@
 package music.analysis.feature.processor.statistics.intervals;
 
 import music.notes.pitch.Interval;
-import music.notes.pitch.PitchInterval;
 
 /**
  * Analyze diatonic intervals in melody.
@@ -20,9 +19,7 @@ public class DiatonicStatistic extends IntervalStatistic {
 
     @Override
     protected void processInterval(Interval interval) {
-        int semitonesDifference = Math.abs(interval.getSemitonesDifference());
-        if ((Integer.compare(semitonesDifference, PitchInterval.MINOR_SECOND.semitones()) == 0) ||
-                (Integer.compare(semitonesDifference, PitchInterval.MAJOR_SECOND.semitones()) == 0)) {
+        if (interval.diatonic()) {
             numerator++;
         }
         denominator++;

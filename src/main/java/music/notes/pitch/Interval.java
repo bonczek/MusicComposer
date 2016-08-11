@@ -46,31 +46,38 @@ public class Interval {
     }
 
     public boolean perfectConsonance() {
-        return
-//                pitchInterval.equals(PitchInterval.PERFECT_UNISON) ||
-                pitchInterval.equals(PitchInterval.PERFECT_FIFTH) || pitchInterval.equals(PitchInterval.PERFECT_FOURTH);
+        return !this.moreThanOctave() && (pitchInterval.equals(PitchInterval.PERFECT_FIFTH) || pitchInterval.equals(PitchInterval.PERFECT_FOURTH));
+
     }
 
     public boolean imperfectConsonance() {
-        return pitchInterval.equals(PitchInterval.MAJOR_THIRD) || pitchInterval.equals
-                (PitchInterval.MINOR_THIRD) || pitchInterval.equals(PitchInterval.MAJOR_SIXTH) || pitchInterval
-                .equals(PitchInterval.MINOR_SIXTH);
+        return !this.moreThanOctave() && (
+                pitchInterval.equals(PitchInterval.MAJOR_THIRD) ||
+                        pitchInterval.equals(PitchInterval.MINOR_THIRD) ||
+                        pitchInterval.equals(PitchInterval.MAJOR_SIXTH) ||
+                        pitchInterval.equals(PitchInterval.MINOR_SIXTH));
 
     }
 
     public boolean dissonance() {
-        return
+        return !this.moreThanOctave() && (
 //                pitchInterval.equals(PitchInterval.MAJOR_SECOND) ||
 //                        pitchInterval.equals(PitchInterval.MINOR_SECOND) ||
                         pitchInterval.equals(PitchInterval.MINOR_SEVENTH) ||
                         pitchInterval.equals(PitchInterval.MAJOR_SEVENTH) ||
-                        pitchInterval.equals(PitchInterval.TRITONE);
+                                pitchInterval.equals(PitchInterval.TRITONE));
+    }
+
+    public boolean diatonic() {
+        return !this.moreThanOctave() && (pitchInterval.equals(PitchInterval.MAJOR_SECOND) ||
+                pitchInterval.equals(PitchInterval.MINOR_SECOND));
     }
 
     private void calculateIntervalValues() {
         this.semitonesDifference = nextNote.getMidiValue() - firstNote.getMidiValue();
         int pitchSemitonesInterval = semitonesDifference % Pitch.NOTES_IN_OCTAVE;
         this.octaveDifference = semitonesDifference / Pitch.NOTES_IN_OCTAVE;
+        //@todo pitch interval should be dependent on semitones difference not only modulo
         for (PitchInterval pitchInterval : PitchInterval.values()) {
             if (pitchInterval.semitones() == Math.abs(pitchSemitonesInterval)) {
                 this.pitchInterval = pitchInterval;
