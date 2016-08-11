@@ -20,7 +20,9 @@ public class FitnessFunctionConfiguration {
         features.add(new RuleFeatureModel(RuleName.ONE_LINED_GRAVITY, 30.0, true));
         features.add(new RuleFeatureModel(RuleName.SCALE_NOTE, 10.0, true));
         features.add(new RuleFeatureModel(RuleName.DIATONIC_NOTE, 10.0, true));
+        features.add(new RuleFeatureModel(RuleName.DISSONANCE, 10.0, true));
         features.add(new RuleFeatureModel(RuleName.CHORD_NOTE, 10.0, true));
+        features.add(new RuleFeatureModel(RuleName.IMPERFECT_CONSONANCE, 10.0, true));
         features.add(new RuleFeatureModel(RuleName.PERFECT_CONSONANCE, 10.0, true));
         features.add(new RuleFeatureModel(RuleName.REST_NOTE, 10.0, true));
         features.add(new RuleFeatureModel(RuleName.STRONG_BEAT, 10.0, true));

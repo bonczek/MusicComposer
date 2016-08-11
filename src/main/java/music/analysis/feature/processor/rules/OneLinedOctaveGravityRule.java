@@ -3,24 +3,17 @@ package music.analysis.feature.processor.rules;
 import jm.constants.Durations;
 import music.notes.Sound;
 import music.notes.pitch.Octave;
-import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class OneLinedOctaveGravityRule extends SoundRule {
 
-    private static final int ACCURACY_MULTIPLIER = 2;
-    private static final double OCTAVE_STANDARD_DEVIATION = 1.0;
-    private static final double DISTRIBUTION_MEAN = Octave.ONE_LINED.number();
-    private static final NormalDistribution rewardDistribution = new NormalDistribution(DISTRIBUTION_MEAN,
-            OCTAVE_STANDARD_DEVIATION);
-
     @Override
     protected void processSound(Sound sound) {
-        double difference = Math.abs(sound.getPitch().getOctave().number() - DISTRIBUTION_MEAN);
-        double accuracyFactor = ACCURACY_MULTIPLIER * rewardDistribution.cumulativeProbability(DISTRIBUTION_MEAN - difference);
-        ruleCounter += (accuracyFactor * sound.getRhythmValue() / Durations.SIXTEENTH_NOTE);
+        Octave octave = sound.getPitch().getOctave();
+        if (octave.equals(Octave.ONE_LINED)) {
+            ruleCounter += sound.getRhythmValue() / Durations.SIXTEENTH_NOTE;
+        } else if (octave.equals(Octave.TWO_LINED) || octave.equals(Octave.SMALL)) {
+            ruleCounter += 0.5 * (sound.getRhythmValue() / Durations.SIXTEENTH_NOTE);
+        }
     }
-
-    //@todo add test
-
 
 }
