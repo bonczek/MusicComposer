@@ -37,7 +37,7 @@ public class ProbabilityDensityCalculatorTest {
         //when
         int reward = fitnessCalculator.calculateReward(featureMock);
         //then
-        assertThat(reward, is(39));
+        assertThat(reward, is(265));
     }
 
     @Test
