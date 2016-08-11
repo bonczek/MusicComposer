@@ -30,10 +30,10 @@ public class ProbabilityDensityCalculatorTest {
     public void testCalculateReward_givenPerfectValue() throws Exception {
         StatisticalFeature featureMock = Mockito.mock(StatisticalFeature.class);
 
-        when(featureMock.getFeatureWeight()).thenReturn(100.0);
+        when(featureMock.getFeatureWeight()).thenReturn(200.0);
         when(featureMock.getExpectedValue()).thenReturn(0.0);
         when(featureMock.getFeatureResult()).thenReturn(0.0);
-        when(featureMock.getStandardDeviation()).thenReturn(1.0);
+        when(featureMock.getStandardDeviation()).thenReturn(0.3);
         //when
         int reward = fitnessCalculator.calculateReward(featureMock);
         //then
@@ -44,10 +44,10 @@ public class ProbabilityDensityCalculatorTest {
     public void testCalculateReward_givenWorstValue() throws Exception {
         StatisticalFeature featureMock = Mockito.mock(StatisticalFeature.class);
 
-        when(featureMock.getFeatureWeight()).thenReturn(100.0);
+        when(featureMock.getFeatureWeight()).thenReturn(200.0);
         when(featureMock.getExpectedValue()).thenReturn(0.0);
         when(featureMock.getFeatureResult()).thenReturn(1.0);
-        when(featureMock.getStandardDeviation()).thenReturn(0.35);
+        when(featureMock.getStandardDeviation()).thenReturn(0.3);
         //when
         int reward = fitnessCalculator.calculateReward(featureMock);
         //then
