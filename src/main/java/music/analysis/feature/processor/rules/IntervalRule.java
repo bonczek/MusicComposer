@@ -1,14 +1,20 @@
-package music.analysis.feature.processor.rules.interval;
+package music.analysis.feature.processor.rules;
 
-import music.analysis.feature.processor.rules.RuleCounter;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Interval;
 import music.notes.pitch.Pitch;
 
-public abstract class IntervalRule extends RuleCounter {
+import java.util.function.Function;
 
+public class IntervalRule extends RuleCounter {
+
+    private final Function<Interval, Boolean> condition;
     private Pitch previousPitch = null;
+
+    public IntervalRule(Function<Interval, Boolean> condition) {
+        this.condition = condition;
+    }
 
     public Pitch getPreviousPitch() {
         return previousPitch;
@@ -34,5 +40,9 @@ public abstract class IntervalRule extends RuleCounter {
         previousPitch = null;
     }
 
-    protected abstract void processInterval(Interval interval);
+    private void processInterval(Interval interval) {
+        if (condition.apply(interval)) {
+            ruleCounter += 1.0;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package music.analysis.feature.processor.rules.interval;
 
+import music.analysis.feature.processor.rules.IntervalRule;
 import music.analysis.feature.processor.rules.RuleCounterTest;
 
 import static org.hamcrest.CoreMatchers.is;

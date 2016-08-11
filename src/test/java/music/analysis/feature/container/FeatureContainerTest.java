@@ -5,8 +5,8 @@ import genetic.fitness.Fitness;
 import jm.constants.Durations;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
+import music.analysis.feature.processor.rules.IntervalRule;
 import music.analysis.feature.processor.rules.NotesRhythmRule;
-import music.analysis.feature.processor.rules.interval.ConsonancesRule;
 import music.analysis.feature.processor.statistics.PitchVarietyStatistic;
 import music.analysis.feature.processor.statistics.RepeatedSoundRhythmPairStatistic;
 import music.analysis.feature.processor.statistics.density.NonScaleDensityStatistic;
@@ -17,6 +17,7 @@ import music.analysis.util.MelodyData;
 import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.Note;
+import music.notes.pitch.Interval;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
@@ -37,7 +38,7 @@ public class FeatureContainerTest {
 
         Fitness result = ruleContainer.calculateReward(testMelody);
 
-        assertThat(result.getFitnessValue(), is(15));
+        assertThat(result.getFitnessValue(), is(30));
     }
 
     @Test
@@ -47,8 +48,8 @@ public class FeatureContainerTest {
 
         String report = ruleContainer.createFitnessReport(testMelody);
 
-        assertThat(report, is("CONSONANCES - count: 1,500000; weight: 10,000000; reward: 15\n" +
-                "HALF_NOTES - count: 0,000201; weight: 10,000000; reward: 0\n"));
+        assertThat(report, is("IMPERFECT_CONSONANCE - count: 3,000000; weight: 10,000000; reward: 30\n" +
+                "HALF_NOTE - count: 0,000201; weight: 10,000000; reward: 0\n"));
     }
 
     @Test
@@ -88,8 +89,8 @@ public class FeatureContainerTest {
     private List<RuleFeature> prepareRuleFeatures() {
         double weight = 10.0;
         RuleFeature[] features = {
-                new RuleFeature(RuleName.CONSONANCES, weight, new ConsonancesRule()),
-                new RuleFeature(RuleName.HALF_NOTES, weight, new NotesRhythmRule(Durations.HALF_NOTE))
+                new RuleFeature(RuleName.IMPERFECT_CONSONANCE, weight, new IntervalRule(Interval::imperfectConsonance)),
+                new RuleFeature(RuleName.HALF_NOTE, weight, new NotesRhythmRule(Durations.HALF_NOTE))
         };
         return Arrays.asList(features);
     }

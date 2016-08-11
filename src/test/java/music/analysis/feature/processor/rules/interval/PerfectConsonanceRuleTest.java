@@ -3,11 +3,11 @@ package music.analysis.feature.processor.rules.interval;
 import music.analysis.feature.processor.rules.IntervalRule;
 import music.notes.pitch.Interval;
 
-public class DiatonicIntervalRuleTest extends IntervalCounterTest<IntervalRule> {
+public class PerfectConsonanceRuleTest extends IntervalCounterTest<IntervalRule> {
 
     @Override
     protected IntervalRule initFeatureCounter() {
-        return new IntervalRule(Interval::diatonic);
+        return new IntervalRule(Interval::perfectConsonance);
     }
 
     @Override

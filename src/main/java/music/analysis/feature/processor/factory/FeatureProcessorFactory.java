@@ -5,14 +5,12 @@ import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.feature.processor.rules.ChordNoteRule;
+import music.analysis.feature.processor.rules.IntervalRule;
 import music.analysis.feature.processor.rules.NotesRhythmRule;
 import music.analysis.feature.processor.rules.OneLinedOctaveGravityRule;
 import music.analysis.feature.processor.rules.RestRule;
 import music.analysis.feature.processor.rules.ScaleNoteRule;
 import music.analysis.feature.processor.rules.StrongBeatRule;
-import music.analysis.feature.processor.rules.interval.ConsonancesRule;
-import music.analysis.feature.processor.rules.interval.DiatonicIntervalRule;
-import music.analysis.feature.processor.rules.interval.LessThanOctaveIntervalRule;
 import music.analysis.feature.processor.statistics.AveragePitchStatistic;
 import music.analysis.feature.processor.statistics.AverageRhythmValueStatistic;
 import music.analysis.feature.processor.statistics.PitchRangeStatistic;
@@ -34,6 +32,7 @@ import music.analysis.feature.processor.statistics.intervals.IllegalJumpStatisti
 import music.analysis.feature.processor.statistics.intervals.RepeatedIntervalStatistic;
 import music.harmony.Chord;
 import music.harmony.Harmony;
+import music.notes.pitch.Interval;
 
 import java.util.List;
 
@@ -89,27 +88,29 @@ public class FeatureProcessorFactory {
 
     public static DoubleFeatureCounter createRule(RuleName ruleName, Harmony scale, List<Chord> chordList) {
         switch (ruleName) {
-            case CONSONANCES:
-                return new ConsonancesRule();
-            case HALF_NOTES:
+            case PERFECT_CONSONANCE:
+                return new IntervalRule(Interval::perfectConsonance);
+            case IMPERFECT_CONSONANCE:
+                return new IntervalRule(Interval::imperfectConsonance);
+            case HALF_NOTE:
                 return new NotesRhythmRule(Durations.HALF_NOTE);
-            case EIGHT_NOTES:
+            case EIGHT_NOTE:
                 return new NotesRhythmRule(Durations.EIGHTH_NOTE);
-            case QUARTER_NOTES:
+            case QUARTER_NOTE:
                 return new NotesRhythmRule(Durations.QUARTER_NOTE);
-            case SIXTEENTH_NOTES:
+            case SIXTEENTH_NOTE:
                 return new NotesRhythmRule(Durations.SIXTEENTH_NOTE);
             case LESS_THAN_OCTAVE:
-                return new LessThanOctaveIntervalRule();
+                return new IntervalRule(i -> !i.moreThanOctave());
             case ONE_LINED_GRAVITY:
                 return new OneLinedOctaveGravityRule();
             case SCALE_NOTE:
                 return new ScaleNoteRule(scale);
-            case DIATONIC_NOTES:
-                return new DiatonicIntervalRule();
-            case CHORD_NOTES:
+            case DIATONIC_NOTE:
+                return new IntervalRule(Interval::diatonic);
+            case CHORD_NOTE:
                 return new ChordNoteRule(chordList);
-            case REST_NOTES:
+            case REST_NOTE:
                 return new RestRule();
             case STRONG_BEAT:
                 return new StrongBeatRule();

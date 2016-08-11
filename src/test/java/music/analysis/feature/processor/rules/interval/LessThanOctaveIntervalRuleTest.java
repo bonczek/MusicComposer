@@ -1,10 +1,12 @@
 package music.analysis.feature.processor.rules.interval;
 
-public class LessThanOctaveIntervalRuleTest extends IntervalCounterTest<LessThanOctaveIntervalRule> {
+import music.analysis.feature.processor.rules.IntervalRule;
+
+public class LessThanOctaveIntervalRuleTest extends IntervalCounterTest<IntervalRule> {
 
     @Override
-    protected LessThanOctaveIntervalRule initFeatureCounter() {
-        return new LessThanOctaveIntervalRule();
+    protected IntervalRule initFeatureCounter() {
+        return new IntervalRule(i -> !i.moreThanOctave());
     }
 
     @Override

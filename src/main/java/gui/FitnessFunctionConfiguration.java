@@ -12,17 +12,17 @@ public class FitnessFunctionConfiguration {
 
     public static List<RuleFeatureModel> initRuleConfiguration() {
         List<RuleFeatureModel> features = new ArrayList<>();
-        features.add(new RuleFeatureModel(RuleName.HALF_NOTES, 250.0, true));
-        features.add(new RuleFeatureModel(RuleName.QUARTER_NOTES, 120.0, true));
-        features.add(new RuleFeatureModel(RuleName.EIGHT_NOTES, 50.0, true));
-        features.add(new RuleFeatureModel(RuleName.SIXTEENTH_NOTES, 0.0, true));
+        features.add(new RuleFeatureModel(RuleName.HALF_NOTE, 250.0, true));
+        features.add(new RuleFeatureModel(RuleName.QUARTER_NOTE, 120.0, true));
+        features.add(new RuleFeatureModel(RuleName.EIGHT_NOTE, 50.0, true));
+        features.add(new RuleFeatureModel(RuleName.SIXTEENTH_NOTE, 0.0, true));
         features.add(new RuleFeatureModel(RuleName.LESS_THAN_OCTAVE, 20.0, true));
         features.add(new RuleFeatureModel(RuleName.ONE_LINED_GRAVITY, 30.0, true));
         features.add(new RuleFeatureModel(RuleName.SCALE_NOTE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.DIATONIC_NOTES, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.CHORD_NOTES, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.CONSONANCES, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.REST_NOTES, 10.0, true));
+        features.add(new RuleFeatureModel(RuleName.DIATONIC_NOTE, 10.0, true));
+        features.add(new RuleFeatureModel(RuleName.CHORD_NOTE, 10.0, true));
+        features.add(new RuleFeatureModel(RuleName.PERFECT_CONSONANCE, 10.0, true));
+        features.add(new RuleFeatureModel(RuleName.REST_NOTE, 10.0, true));
         features.add(new RuleFeatureModel(RuleName.STRONG_BEAT, 10.0, true));
 
         return features;
