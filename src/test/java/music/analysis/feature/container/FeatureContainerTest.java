@@ -49,7 +49,7 @@ public class FeatureContainerTest {
         String report = ruleContainer.createFitnessReport(testMelody);
 
         assertThat(report, is("IMPERFECT_CONSONANCE - count: 3,000000; weight: 10,000000; reward: 30\n" +
-                "HALF_NOTE - count: 0,001077; weight: 10,000000; reward: 0\n"));
+                "HALF_NOTE - count: 0,000000; weight: 10,000000; reward: 0\n"));
     }
 
     @Test
