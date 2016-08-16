@@ -118,7 +118,7 @@ public class MainController implements Initializable {
         statData.addAll(FitnessFunctionConfiguration.initStatisticConfiguration());
         ruleData.addAll(FitnessFunctionConfiguration.initRuleConfiguration());
         try {
-            loadConfigurationFromPropertiesFile(SINGLE_FEATURE_GA_CONFIGURATION_FILE);
+            loadConfigurationFromPropertiesFile(MULTIPLE_FEATURES_GA_CONFIGURATION_FILE);
         } catch (Exception e) {
             showErrorWindow(e);
         }

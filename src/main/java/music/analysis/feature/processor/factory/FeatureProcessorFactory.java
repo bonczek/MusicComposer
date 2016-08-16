@@ -94,6 +94,8 @@ public class FeatureProcessorFactory {
                 return new IntervalRule(Interval::imperfectConsonance);
             case DISSONANCE:
                 return new IntervalRule(Interval::dissonance);
+            case WHOLE_NOTE:
+                return new NotesRhythmRule(Durations.WHOLE_NOTE);
             case HALF_NOTE:
                 return new NotesRhythmRule(Durations.HALF_NOTE);
             case EIGHT_NOTE:

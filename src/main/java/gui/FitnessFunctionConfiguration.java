@@ -12,20 +12,21 @@ public class FitnessFunctionConfiguration {
 
     public static List<RuleFeatureModel> initRuleConfiguration() {
         List<RuleFeatureModel> features = new ArrayList<>();
-        features.add(new RuleFeatureModel(RuleName.HALF_NOTE, 250.0, true));
-        features.add(new RuleFeatureModel(RuleName.QUARTER_NOTE, 120.0, true));
-        features.add(new RuleFeatureModel(RuleName.EIGHT_NOTE, 50.0, true));
+        features.add(new RuleFeatureModel(RuleName.WHOLE_NOTE, 80.0, true));
+        features.add(new RuleFeatureModel(RuleName.HALF_NOTE, 40.0, true));
+        features.add(new RuleFeatureModel(RuleName.QUARTER_NOTE, 20.0, true));
+        features.add(new RuleFeatureModel(RuleName.EIGHT_NOTE, 5.0, true));
         features.add(new RuleFeatureModel(RuleName.SIXTEENTH_NOTE, 0.0, true));
-        features.add(new RuleFeatureModel(RuleName.LESS_THAN_OCTAVE, 20.0, true));
-        features.add(new RuleFeatureModel(RuleName.ONE_LINED_GRAVITY, 30.0, true));
-        features.add(new RuleFeatureModel(RuleName.SCALE_NOTE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.DIATONIC_NOTE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.DISSONANCE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.CHORD_NOTE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.IMPERFECT_CONSONANCE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.PERFECT_CONSONANCE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.REST_NOTE, 10.0, true));
-        features.add(new RuleFeatureModel(RuleName.STRONG_BEAT, 10.0, true));
+        features.add(new RuleFeatureModel(RuleName.LESS_THAN_OCTAVE, 2.0, true));
+        features.add(new RuleFeatureModel(RuleName.ONE_LINED_GRAVITY, 3.0, true));
+        features.add(new RuleFeatureModel(RuleName.SCALE_NOTE, 1.0, true));
+        features.add(new RuleFeatureModel(RuleName.DIATONIC_NOTE, 2.0, true));
+        features.add(new RuleFeatureModel(RuleName.DISSONANCE, 1.0, true));
+        features.add(new RuleFeatureModel(RuleName.CHORD_NOTE, 1.0, true));
+        features.add(new RuleFeatureModel(RuleName.IMPERFECT_CONSONANCE, 1.5, true));
+        features.add(new RuleFeatureModel(RuleName.PERFECT_CONSONANCE, 1.0, true));
+        features.add(new RuleFeatureModel(RuleName.REST_NOTE, 1.0, true));
+        features.add(new RuleFeatureModel(RuleName.STRONG_BEAT, 1.0, true));
 
         return features;
     }

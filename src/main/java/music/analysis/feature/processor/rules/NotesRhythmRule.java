@@ -1,24 +1,33 @@
 package music.analysis.feature.processor.rules;
 
+import jm.constants.Durations;
 import music.notes.Note;
-import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class NotesRhythmRule extends RuleCounter {
 
-    private static final double DISTRIBUTION_STANDARD_DEVIATION = 0.1;
-    private final NormalDistribution ruleDistribution;
-    private final double maxDistributionValue;
+    private final double rhythmicValueMean;
+    private final double leftMargin;
+    private final double rightMargin;
 
-    public NotesRhythmRule(double distributionMean) {
-        double logRhythmMean = Math.log(distributionMean + 1.0);
-        ruleDistribution = new NormalDistribution(logRhythmMean, DISTRIBUTION_STANDARD_DEVIATION);
-        this.maxDistributionValue = ruleDistribution.density(logRhythmMean);
+    public NotesRhythmRule(double rhythmicValueMean) {
+        this.rhythmicValueMean = rhythmicValueMean;
+        this.leftMargin = rhythmicValueMean - (rhythmicValueMean / 4.0);
+        this.rightMargin = rhythmicValueMean + (rhythmicValueMean / 2.0);
     }
 
     @Override
     public void processNote(Note note) {
-        double logRhythm = Math.log(note.getRhythmValue() + 1.0);
-        ruleCounter += ruleDistribution.density(logRhythm) / maxDistributionValue;
+        double rhythmValue = note.getRhythmValue();
+        if (Double.compare(rhythmValue, rhythmicValueMean) == 0) {
+            ruleCounter += 1.0;
+            return;
+        }
+
+        if (Double.compare(rhythmValue, Durations.SIXTEENTH_NOTE) != 0) {
+            if ((Double.compare(rhythmValue, leftMargin) > 0) && (Double.compare(rhythmValue, rightMargin) <= 0)) {
+                ruleCounter += 0.5;
+            }
+        }
     }
 }
 
