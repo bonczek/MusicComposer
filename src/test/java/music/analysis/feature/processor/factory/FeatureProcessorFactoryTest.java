@@ -24,7 +24,7 @@ public class FeatureProcessorFactoryTest {
     public void testCreateStatistic_givenAllStatisticNames() throws Exception {
         for (StatisticName statisticName : StatisticName.values()) {
             assertThat(FeatureProcessorFactory.createStatistic(statisticName, C_MAJOR_SCALE,
-                    ChordProgressionData.prepareFourMeasuresGAndCMajor(), 4), is(notNullValue()));
+                    ChordProgressionData.prepareFourMeasuresGAndCMajor()), is(notNullValue()));
         }
     }
 

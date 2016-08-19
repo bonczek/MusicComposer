@@ -37,6 +37,7 @@
                 <SpinnerAutoCommit fx:id="crossoverRateField"/>
                 <Label text="Rodzaj funkcji oceny"/>
                 <ChoiceBox fx:id="fitnessFunctionType" prefWidth="150.0"/>
+                <Button text="Analizuj utwor" onAction="#chooseFileToAnalyse"/>
             </children>
         </VBox>
         <Button layoutY="214.0" mnemonicParsing="false" onAction="#openFitnessConfiguration"

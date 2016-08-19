@@ -30,12 +30,18 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import music.analysis.Reader;
+import music.analysis.feature.container.FeatureContainer;
 import music.analysis.feature.container.RuleContainer;
 import music.analysis.feature.container.StatisticContainer;
+import music.analysis.feature.name.RuleName;
+import music.analysis.feature.name.StatisticName;
 import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.feature.processor.factory.FeatureProcessorFactory;
+import music.analysis.feature.type.MelodicFeature;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
 import music.harmony.Chord;
@@ -44,6 +50,7 @@ import music.harmony.Harmony;
 import music.harmony.ScaleName;
 import music.notes.pitch.NoteName;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -52,6 +59,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MainController implements Initializable {
 
@@ -64,12 +72,10 @@ public class MainController implements Initializable {
     private static final String SINGLE_FEATURE_GA_CONFIGURATION_FILE = "configuration/feature-test-config.properties";
     private static final String MULTIPLE_FEATURES_GA_CONFIGURATION_FILE = "configuration/feature-weight-test-config" +
             ".properties";
-
+    final FileChooser fileChooser = new FileChooser();
     private ObservableList<StatisticalFeatureModel> statData = FXCollections.observableArrayList();
     private ObservableList<RuleFeatureModel> ruleData = FXCollections.observableArrayList();
-
     private GeneticAlgorithmConfigurationModel configurationModel = new GeneticAlgorithmConfigurationModel();
-
     @FXML
     private ChoiceBox<String> mutations;
     @FXML
@@ -155,13 +161,14 @@ public class MainController implements Initializable {
         NewPopulationGenerator populationGenerator = new NewPopulationGenerator(new BinaryTournamentSelection(new Random()),
                 mutationCoordinator, crossoverCoordinator);
 
-        FitnessFunction fitnessFunction;
+        FeatureContainer<? extends MelodicFeature> featureContainer;
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
-            fitnessFunction = new MusicalFitnessFunction<>(prepareStatisticalFitnessFunction());
+            featureContainer = new StatisticContainer(prepareStatisticalFitnessFunction());
         } else {
-            fitnessFunction = new MusicalFitnessFunction<>(prepareRuleFitnessFunction());
+            featureContainer = new RuleContainer(prepareRuleFitnessFunction());
         }
 
+        FitnessFunction fitnessFunction = new MusicalFitnessFunction<>(featureContainer);
         return new GeneticAlgorithm(initialPopulationGenerator, populationGenerator, fitnessFunction,
                 configurationModel.getNumberOfIterations());
     }
@@ -203,22 +210,56 @@ public class MainController implements Initializable {
         newStage.show();
     }
 
-    private StatisticContainer prepareStatisticalFitnessFunction() {
+    @FXML
+    private void chooseFileToAnalyse() {
+        Stage newStage = new Stage();
+        File file = fileChooser.showOpenDialog(newStage);
+        if (file != null) {
+            Reader reader = new Reader();
+            FeatureContainer<? extends MelodicFeature> featureContainer;
+
+            if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
+                List<StatisticalFeature> features = prepareStatisticalFitnessFunction().stream().filter(f -> !(f
+                        .getName().equals(StatisticName.CHORD_NOTES) || f.getName().equals(StatisticName
+                        .NON_SCALE_RATING))).collect(Collectors.toList());
+                featureContainer = new StatisticContainer(features);
+            } else {
+                List<RuleFeature> features = prepareRuleFitnessFunction().stream().filter(f -> !(f.getName().equals
+                        (RuleName.CHORD_NOTE) || f.getName().equals(RuleName.SCALE_NOTE))).collect(Collectors.toList());
+                featureContainer = new RuleContainer(features);
+            }
+            MusicalFitnessFunction<? extends FeatureContainer> fitnessFunction = new MusicalFitnessFunction<>
+                    (featureContainer);
+            try {
+                String report = reader.analyseMidiFile(file.getPath(), fitnessFunction);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Analysis Dialog");
+                alert.setHeaderText(report);
+                alert.showAndWait();
+            } catch (IllegalArgumentException e) {
+                showErrorWindow(e);
+            }
+
+        }
+    }
+
+    private List<StatisticalFeature> prepareStatisticalFitnessFunction() {
         List<StatisticalFeature> features = new ArrayList<>();
         List<Chord> chords = parseProgression();
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
 
         statData.stream().filter(StatisticalFeatureModel::getIsActive).forEach(statistic -> {
             DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createStatistic(
-                    statistic.getStatisticName(), scale, chords, configurationModel.getNumberOfMeasures());
+                    statistic.getStatisticName(), scale, chords);
             features.add(new StatisticalFeature(statistic.getStatisticName(),
                     Double.parseDouble(statistic.getExpectedValue()), Double.parseDouble(statistic.getWeight()),
                     Double.parseDouble(statistic.getStandardDeviation()), featureCounter));
         });
-        return new StatisticContainer(features);
+        return features;
     }
 
-    private RuleContainer prepareRuleFitnessFunction() {
+    private List<RuleFeature> prepareRuleFitnessFunction() {
         List<RuleFeature> features = new ArrayList<>();
         Harmony scale = new Harmony(scaleType.getValue(), baseScaleNote.getValue());
         List<Chord> chords = parseProgression();
@@ -227,7 +268,7 @@ public class MainController implements Initializable {
             DoubleFeatureCounter featureCounter = FeatureProcessorFactory.createRule(rule.getRuleName(), scale, chords);
             features.add(new RuleFeature(rule.getRuleName(), Double.parseDouble(rule.getWeight()), featureCounter));
         });
-        return new RuleContainer(features);
+        return features;
     }
 
     private List<Chord> parseProgression() {
@@ -251,5 +292,6 @@ public class MainController implements Initializable {
                     "%s", filename, e.getMessage()));
         }
     }
+
 
 }

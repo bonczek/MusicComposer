@@ -10,13 +10,11 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class StrongBeatFeatureTest extends FeatureCounterTest<StrongBeatStatistic> {
-
-    private static final int NUMBER_OF_MEASURES = 4;
+public class StrongBeatStatisticTest extends FeatureCounterTest<StrongBeatStatistic> {
 
     @Override
     protected StrongBeatStatistic initFeatureCounter() {
-        return new StrongBeatStatistic(NUMBER_OF_MEASURES);
+        return new StrongBeatStatistic();
     }
 
     @Override
@@ -27,15 +25,14 @@ public class StrongBeatFeatureTest extends FeatureCounterTest<StrongBeatStatisti
     @Override
     protected void afterClearAsserts() throws Exception {
         assertThat(featureCounter.getMelodyTime(), is(0.0));
-        assertThat(featureCounter.getNumerator(), is(0));
-        assertThat(featureCounter.getDenominator(), is(NUMBER_OF_MEASURES));
+        assertThat(featureCounter.getNumerator(), is(0.0));
+        assertThat(featureCounter.getDenominator(), is(0.0));
     }
 
     @Test
     public void testProcessNote_givenIrregularRhythm() throws Exception {
-        int numberOfMeasures = 2;
         List<Note> noteList = MelodyData.prepareTwoMeasuresWithLongNotesWithoutMeasureSchema();
-        StrongBeatStatistic statistic = new StrongBeatStatistic(numberOfMeasures);
+        StrongBeatStatistic statistic = new StrongBeatStatistic();
 
         noteList.forEach(statistic::processNote);
 

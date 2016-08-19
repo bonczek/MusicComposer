@@ -34,4 +34,8 @@ public class MusicalFitnessFunction<T extends FeatureContainer> extends FitnessF
         return featureContainer.createFitnessReport(noteList);
     }
 
+    public String createAnalysisReport(List<Note> noteList) {
+        return featureContainer.createAnalysisReport(noteList);
+    }
+
 }

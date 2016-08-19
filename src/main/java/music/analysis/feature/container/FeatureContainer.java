@@ -42,6 +42,14 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
         return reportBuilder.toString();
     }
 
+    public String createAnalysisReport(List<Note> melody) {
+        StringBuilder reportBuilder = new StringBuilder();
+        applyFeatureProcessors(melody);
+        featureList.stream().forEach(feature -> reportBuilder.append(String.format("%s: %s\n", feature.getName(),
+                feature.getFeatureResult())));
+        return reportBuilder.toString();
+    }
+
     /**
      * Apply searching for features in a given melody line.
      * At the beginning reset state of each feature counter/processor.

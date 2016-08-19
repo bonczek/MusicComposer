@@ -4,14 +4,12 @@ import jm.constants.Durations;
 import music.notes.Note;
 import music.notes.Sound;
 
-public class StrongBeatStatistic extends StatisticCounter<Integer> {
+public class StrongBeatStatistic extends StatisticCounter<Double> {
 
-    private final int numberOfMeasures;
     private double melodyTime = 0.0;
 
-    public StrongBeatStatistic(int numberOfMeasures) {
-        super(0, numberOfMeasures);
-        this.numberOfMeasures = numberOfMeasures;
+    public StrongBeatStatistic() {
+        super(0.0, 0.0);
     }
 
     public double getMelodyTime() {
@@ -24,12 +22,13 @@ public class StrongBeatStatistic extends StatisticCounter<Integer> {
             numerator++;
         }
         melodyTime += note.getRhythmValue();
+        denominator = melodyTime / Durations.WHOLE_NOTE;
     }
 
     @Override
     public void clear() {
-        numerator = 0;
-        denominator = numberOfMeasures;
+        numerator = 0.0;
+        denominator = 0.0;
         melodyTime = 0.0;
     }
 }

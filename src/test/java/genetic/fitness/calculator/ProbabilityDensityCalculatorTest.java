@@ -53,4 +53,34 @@ public class ProbabilityDensityCalculatorTest {
         //then
         assertThat(reward, is(1));
     }
+
+    @Test
+    public void testCalculateReward_givenNaNValue() throws Exception {
+        int expectedReward = 0;
+        StatisticalFeature featureMock = Mockito.mock(StatisticalFeature.class);
+
+        when(featureMock.getFeatureWeight()).thenReturn(100.0);
+        when(featureMock.getExpectedValue()).thenReturn(0.0);
+        when(featureMock.getFeatureResult()).thenReturn(Double.NaN);
+        when(featureMock.getStandardDeviation()).thenReturn(0.3);
+
+        int reward = fitnessCalculator.calculateReward(featureMock);
+
+        assertThat(reward, is(expectedReward));
+    }
+
+    @Test
+    public void testCalculateReward_givenGreaterThanOneResult() throws Exception {
+        int expectedReward = 24;
+        StatisticalFeature featureMock = Mockito.mock(StatisticalFeature.class);
+
+        when(featureMock.getFeatureWeight()).thenReturn(100.0);
+        when(featureMock.getExpectedValue()).thenReturn(1.0);
+        when(featureMock.getFeatureResult()).thenReturn(2.0);
+        when(featureMock.getStandardDeviation()).thenReturn(1.0);
+
+        int reward = fitnessCalculator.calculateReward(featureMock);
+
+        assertThat(reward, is(expectedReward));
+    }
 }

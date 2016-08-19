@@ -40,8 +40,7 @@ public class FeatureProcessorFactory {
 
     private static final int POSSIBLE_RHYTHM_VALUES = 16;
 
-    public static DoubleFeatureCounter createStatistic(StatisticName statisticName, Harmony scale, List<Chord> chordList,
-                                                       int numberOfMeasures) {
+    public static DoubleFeatureCounter createStatistic(StatisticName statisticName, Harmony scale, List<Chord> chordList) {
         switch (statisticName) {
             case CONTOUR_DIRECTION:
                 return new ContourDirectionStatistic();
@@ -80,7 +79,7 @@ public class FeatureProcessorFactory {
             case RHYTHM_STANDARD_DEVIATION:
                 return new RhythmStandardDeviationStatistic();
             case STRONG_BEAT:
-                return new StrongBeatStatistic(numberOfMeasures);
+                return new StrongBeatStatistic();
             default:
                 return null;
         }
