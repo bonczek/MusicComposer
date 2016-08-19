@@ -15,7 +15,7 @@ import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
 import music.analysis.util.MelodyData;
 import music.harmony.Harmony;
-import music.harmony.ScaleName;
+import music.harmony.ScaleType;
 import music.notes.Note;
 import music.notes.pitch.Interval;
 import music.notes.pitch.NoteName;
@@ -29,7 +29,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FeatureContainerTest {
 
-    private static final Harmony C_MAJOR_SCALE = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+    private static final Harmony C_MAJOR_SCALE = new Harmony(ScaleType.MAJOR_SCALE, NoteName.C);
 
     @Test
     public void testCalculateReward_givenRuleFeatures() throws Exception {

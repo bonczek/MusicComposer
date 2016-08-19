@@ -38,6 +38,7 @@ public class Interval {
         return octaveDifference;
     }
 
+    //@todo change boolean methods to enum
     public boolean moreThanOctave() {
         if (octaveDifference == 0) {
             return false;

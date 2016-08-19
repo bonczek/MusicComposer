@@ -3,7 +3,7 @@ package genetic.mutation.musical.sound;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import jm.constants.Durations;
 import music.harmony.Harmony;
-import music.harmony.ScaleName;
+import music.harmony.ScaleType;
 import music.notes.Note;
 import music.notes.Rest;
 import music.notes.Sound;
@@ -34,7 +34,7 @@ public class ScaleMutationTest {
                 new Sound(Pitch.createWithNames(NoteName.G_SHARP, Octave.FOUR_LINED), Durations.EIGHTH_NOTE),
                 new Sound(Pitch.createWithNames(NoteName.A_SHARP, Octave.GREAT), Durations.QUARTER_NOTE)};
         List<Note> noteList = Arrays.asList(testData);
-        Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+        Harmony cMajorScale = new Harmony(ScaleType.MAJOR_SCALE, NoteName.C);
         ScaleMutation scaleMutation = new ScaleMutation(randomMock, cMajorScale);
 
         when(randomMock.nextInt(soundNumbers)).thenReturn(soundMutationIndex);
@@ -59,7 +59,7 @@ public class ScaleMutationTest {
                 new Sound(Pitch.createWithNames(NoteName.G, Octave.SIX_LINED), Durations.EIGHTH_NOTE),
                 new Sound(Pitch.createWithNames(NoteName.A_SHARP, Octave.GREAT), Durations.QUARTER_NOTE)};
         List<Note> noteList = Arrays.asList(testData);
-        Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+        Harmony cMajorScale = new Harmony(ScaleType.MAJOR_SCALE, NoteName.C);
         ScaleMutation scaleMutation = new ScaleMutation(randomMock, cMajorScale);
 
         when(randomMock.nextInt(soundNumbers)).thenReturn(soundMutationIndex);

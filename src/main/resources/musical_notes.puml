@@ -1,0 +1,85 @@
+@startuml
+abstract class Note {
+    double rhythmValue
+}
+
+Note <|-- Rest
+Note <|-- Sound
+
+class Sound {
+    Pitch pitch
+}
+
+Sound o-- Pitch
+
+class Pitch {
+    NoteName noteName;
+    Octave octave;
+    int midiValue;
+    PitchRange midiRange
+    + Pitch createWithNames(NoteName, Octave)
+    + Pitch createWithMidi(int)
+    + Pitch createWithUpInterval(Pitch, PitchInterval)
+    + Pitch createWithDownInterval(Pitch, PitchInterval)
+    + int midiFromNotes(NoteName, Octave)
+    + int compareTo(Pitch)
+}
+
+Pitch o-- NoteName
+Pitch o-- Octave
+Pitch o-- PitchRange
+
+class Interval {
+    Pitch firstNote
+    Pitch nextNote
+    PitchInterval pitchInterval
+    int octaveDifference
+    int semitonesDifference
+    IntervalDirection direction
+    + boolean moreThanOctave()
+    + boolean perfectConsonance()
+    + boolean imperfectConsonance()
+    + boolean dissonance()
+    + boolean diatonic()
+}
+
+Interval o-- Pitch
+Interval o-- PitchInterval
+Interval o-- IntervalDirection
+
+enum NoteName {
+    C
+    C_SHARP
+    D
+    ...
+    + int value()
+}
+
+enum Octave {
+    SUB_CONTRA
+    CONTRA
+    ...
+    + int number()
+}
+
+enum PitchInterval {
+    PERFECT_UNISON
+    MINOR_SECOND
+    ...
+    + int semitones()
+}
+
+enum IntervalDirection {
+    UP
+    DOWN
+    STEADY
+}
+
+class PitchRange {
+    int lowestMidiValue
+    int highestMidiValue
+    + boolean outOfRange(int)
+}
+
+
+@enduml

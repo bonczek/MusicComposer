@@ -8,7 +8,7 @@ import music.analysis.util.ChordProgressionData;
 import music.harmony.Chord;
 import music.harmony.ChordName;
 import music.harmony.Harmony;
-import music.harmony.ScaleName;
+import music.harmony.ScaleType;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FeatureProcessorFactoryTest {
 
-    private static final Harmony C_MAJOR_SCALE = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+    private static final Harmony C_MAJOR_SCALE = new Harmony(ScaleType.MAJOR_SCALE, NoteName.C);
 
     @Test
     public void testCreateStatistic_givenAllStatisticNames() throws Exception {

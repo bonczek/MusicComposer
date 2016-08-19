@@ -19,7 +19,7 @@ import music.analysis.feature.type.StatisticalFeature;
 import music.analysis.util.ChordProgressionData;
 import music.harmony.Chord;
 import music.harmony.Harmony;
-import music.harmony.ScaleName;
+import music.harmony.ScaleType;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
@@ -39,7 +39,7 @@ public class GeneticAlgorithmTest {
     public void testMutation() throws Exception {
         int numbersOfMeasures = 4;
         int numberOfIterations = 100;
-        Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.C);
+        Harmony cMajorScale = new Harmony(ScaleType.MAJOR_SCALE, NoteName.C);
         List<StatisticalFeature> features = new ArrayList<>();
         List<Chord> chords = ChordProgressionData.prepareFourMeasuresGAndCMajor();
         for (StatisticName stat : StatisticName.values()) {

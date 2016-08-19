@@ -17,7 +17,7 @@ public class HarmonyTest {
 
     @Test
     public void testFit_givenDMajorScale() throws Exception {
-        Harmony cMajorScale = new Harmony(ScaleName.MAJOR_SCALE, NoteName.D);
+        Harmony cMajorScale = new Harmony(ScaleType.MAJOR_SCALE, NoteName.D);
 
         assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.C)), is(false));
         assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.C_SHARP)), is(true));
@@ -31,6 +31,24 @@ public class HarmonyTest {
         assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.A)), is(true));
         assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.A_SHARP)), is(false));
         assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.B)), is(true));
+    }
+
+    @Test
+    public void testFit_givenAMinorScale() throws Exception {
+        Harmony cMajorScale = new Harmony(ScaleType.MINOR_SCALE, NoteName.A);
+
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.A)), is(true));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.A_SHARP)), is(false));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.B)), is(true));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.C)), is(true));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.C_SHARP)), is(false));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.D)), is(true));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.D_SHARP)), is(false));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.E)), is(true));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.F)), is(true));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.F_SHARP)), is(false));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.G)), is(true));
+        assertThat(cMajorScale.fit(chromaticNotesMap.get(NoteName.G_SHARP)), is(false));
     }
 
     @Test

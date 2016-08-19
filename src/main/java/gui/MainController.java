@@ -47,7 +47,7 @@ import music.analysis.feature.type.StatisticalFeature;
 import music.harmony.Chord;
 import music.harmony.ChordProgressionParser;
 import music.harmony.Harmony;
-import music.harmony.ScaleName;
+import music.harmony.ScaleType;
 import music.notes.pitch.NoteName;
 
 import java.io.File;
@@ -79,7 +79,7 @@ public class MainController implements Initializable {
     @FXML
     private ChoiceBox<String> mutations;
     @FXML
-    private ChoiceBox<ScaleName> scaleType;
+    private ChoiceBox<ScaleType> scaleType;
     @FXML
     private ChoiceBox<NoteName> baseScaleNote;
     @FXML
@@ -115,7 +115,7 @@ public class MainController implements Initializable {
         mutations.getSelectionModel().selectFirst();
         fitnessFunctionType.setItems(FXCollections.observableArrayList(STATISTICAL, RULE_BASED));
         fitnessFunctionType.getSelectionModel().selectFirst();
-        scaleType.setItems(FXCollections.observableArrayList(ScaleName.values()));
+        scaleType.setItems(FXCollections.observableArrayList(ScaleType.values()));
         scaleType.getSelectionModel().selectFirst();
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
         baseScaleNote.getSelectionModel().selectFirst();

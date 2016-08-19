@@ -10,7 +10,7 @@ import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
 import music.harmony.Harmony;
-import music.harmony.ScaleName;
+import music.harmony.ScaleType;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class ReaderTest {
 
-    private static final Harmony G_MAJOR_SCALE = new Harmony(ScaleName.MAJOR_SCALE, NoteName.G);
+    private static final Harmony G_MAJOR_SCALE = new Harmony(ScaleType.MAJOR_SCALE, NoteName.G);
 
     @Test
     public void testAnalyseMidiFile_givenStatisticFeatures() throws Exception {
