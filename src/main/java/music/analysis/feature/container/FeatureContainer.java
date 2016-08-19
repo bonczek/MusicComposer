@@ -1,7 +1,7 @@
 package music.analysis.feature.container;
 
 import genetic.fitness.Fitness;
-import genetic.fitness.calculator.FitnessCalculator;
+import music.analysis.feature.calculator.RewardCalculator;
 import music.analysis.feature.type.MelodicFeature;
 import music.notes.Note;
 
@@ -17,16 +17,16 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
     /**
      * Calculator that transform feature result to fitness/reward.
      */
-    private final FitnessCalculator<T> fitnessCalculator;
+    private final RewardCalculator<T> rewardCalculator;
 
     /**
      * List of features to analyze in melody line.
      */
     private List<T> featureList;
 
-    public FeatureContainer(List<T> rulesList, FitnessCalculator<T> fitnessCalculator) {
+    public FeatureContainer(List<T> rulesList, RewardCalculator<T> rewardCalculator) {
         this.featureList = rulesList;
-        this.fitnessCalculator = fitnessCalculator;
+        this.rewardCalculator = rewardCalculator;
     }
 
     public Fitness calculateReward(List<Note> melody) {
@@ -38,7 +38,7 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
         StringBuilder reportBuilder = new StringBuilder();
         applyFeatureProcessors(melody);
         featureList.forEach(feature -> reportBuilder.append(String.format("%s reward: %d\n", feature.getReport(),
-                fitnessCalculator.calculateReward(feature))));
+                rewardCalculator.calculateReward(feature))));
         return reportBuilder.toString();
     }
 
@@ -81,7 +81,7 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
     private Fitness getRewardSum() {
         Fitness fitness = new Fitness();
         //@todo maybe sum and set value?
-        featureList.stream().map(fitnessCalculator::calculateReward).forEach(fitness::addReward);
+        featureList.stream().map(rewardCalculator::calculateReward).forEach(fitness::addReward);
         return fitness;
     }
 }

@@ -1,8 +1,8 @@
-package genetic.fitness.calculator;
+package music.analysis.feature.calculator;
 
 import music.analysis.feature.type.RuleFeature;
 
-public class RuleFitnessCalculator implements FitnessCalculator<RuleFeature> {
+public class RuleFitnessCalculator implements RewardCalculator<RuleFeature> {
 
     @Override
     public int calculateReward(RuleFeature melodicFeature) {

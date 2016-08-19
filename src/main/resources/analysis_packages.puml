@@ -1,0 +1,36 @@
+@startuml
+
+interface MelodicFeatureName
+
+interface MelodicFeatureCounter<T extends Number> {
+    + void processNote(Note)
+    + void clear()
+    T getResult()
+}
+
+abstract class MelodicFeature<T extends Number> {
+    MelodicFeatureName name
+    T featureWeight
+    MelodicFeatureCounter<T> noteProcessor
+    + abstract String getReport()
+}
+
+MelodicFeature o-- MelodicFeatureName
+MelodicFeature o-- MelodicFeatureCounter
+
+interface RewardCalculator<T extends MelodicFeature> {
+    + int calculateReward(T)
+}
+
+abstract class FeatureContainer<T extends MelodicFeature> {
+    RewardCalculator<T> rewardCalculator
+    List<T> featureList
+    + Fitness calculateReward(List<Note>)
+    + String createFitnessReport(List<Note>)
+    + String createAnalysisReport(List<Note>)
+}
+
+FeatureContainer o-- MelodicFeature
+FeatureContainer o-- RewardCalculator
+
+@enduml

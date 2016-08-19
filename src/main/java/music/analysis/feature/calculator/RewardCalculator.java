@@ -1,8 +1,8 @@
-package genetic.fitness.calculator;
+package music.analysis.feature.calculator;
 
 import music.analysis.feature.type.MelodicFeature;
 
-public interface FitnessCalculator<T extends MelodicFeature> {
+public interface RewardCalculator<T extends MelodicFeature> {
 
     /**
      * Transform result from melodic feature to reward used in GA.
