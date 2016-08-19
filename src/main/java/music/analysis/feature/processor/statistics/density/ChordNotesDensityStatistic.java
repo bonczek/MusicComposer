@@ -1,7 +1,7 @@
 package music.analysis.feature.processor.statistics.density;
 
 
-import music.harmony.Chord;
+import music.harmony.chords.Chord;
 import music.notes.Note;
 import music.notes.Sound;
 import music.notes.pitch.Pitch;

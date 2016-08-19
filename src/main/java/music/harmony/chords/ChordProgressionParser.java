@@ -1,4 +1,4 @@
-package music.harmony;
+package music.harmony.chords;
 
 import jm.constants.Durations;
 

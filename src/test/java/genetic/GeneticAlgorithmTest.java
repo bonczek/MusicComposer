@@ -17,9 +17,9 @@ import music.analysis.feature.processor.DoubleFeatureCounter;
 import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.analysis.feature.type.StatisticalFeature;
 import music.analysis.util.ChordProgressionData;
-import music.harmony.Chord;
 import music.harmony.Harmony;
 import music.harmony.ScaleType;
+import music.harmony.chords.Chord;
 import music.notes.pitch.NoteName;
 import org.testng.annotations.Test;
 

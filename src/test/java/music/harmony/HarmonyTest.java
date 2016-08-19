@@ -1,5 +1,6 @@
 package music.harmony;
 
+import music.harmony.chords.ChordType;
 import music.notes.pitch.NoteName;
 import music.notes.pitch.Octave;
 import music.notes.pitch.Pitch;
@@ -53,7 +54,7 @@ public class HarmonyTest {
 
     @Test
     public void testFit_givenEMinorChord() throws Exception {
-        Harmony eMinorChord = new Harmony(ChordName.MINOR, NoteName.E);
+        Harmony eMinorChord = new Harmony(ChordType.MINOR, NoteName.E);
 
         assertThat(eMinorChord.fit(chromaticNotesMap.get(NoteName.C)), is(false));
         assertThat(eMinorChord.fit(chromaticNotesMap.get(NoteName.C_SHARP)), is(false));

@@ -1,5 +1,8 @@
 package music.harmony;
 
+import music.harmony.chords.Chord;
+import music.harmony.chords.ChordProgressionParser;
+import music.harmony.chords.ChordText;
 import org.testng.annotations.Test;
 
 import java.util.List;

@@ -1,37 +1,76 @@
 @startuml
 
 class Harmony {
-    Set<NoteName> components
+    List<NoteName> components
+    HarmonyRelation harmonyRelation
+    NoteName baseNoteName
     + boolean fit(Pitch)
 }
 
-enum Scale {
+interface HarmonyRelation {
+    + PitchInterval[] getIntervals()
+}
+
+enum NoteName {
+    C
+    C_SHARP
+    D
+    ...
+    + int value()
+}
+
+Harmony o-- HarmonyRelation
+Harmony o-- NoteName
+
+enum ScaleType {
     MAJOR_SCALE
+    MINOR_SCALE
     MINOR_PENTATONIC_SCALE
-    + PitchInterval[] intervals()
+    PitchInterval[] intervals
 }
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+enum ChordType {
+    MAJOR
+    MINOR
+    PitchInterval[] intervals
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+HarmonyRelation <--- ScaleType
+HarmonyRelation <--- ChordType
+
+class Chord {
+    Harmony chordHarmony
+    double startTime
+    double endTime
+    double durationTime
+    + fitHarmony(Pitch)
+    + finishedEarlierThan(double)
 }
+
+Chord o-- Harmony
+
+enum ChordText {
+    C
+    Cis
+    D
+    ...
+    ChordType chordType
+    NoteName baseNoteName
+    + Harmony getChordHarmony()
+}
+
+class ChordProgressionBuilder {
+    List<Chord> chordList
+    + void appendChord(Harmony, double)
+}
+
+ChordProgressionBuilder o-- Chord
+
+class ChordProgressionParser {
+    + List<Chord> parseProgressionText(String, int)
+}
+
+ChordProgressionParser <--- ChordText
+ChordProgressionParser <--- ChordProgressionBuilder
 
 @enduml

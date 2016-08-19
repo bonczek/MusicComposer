@@ -44,10 +44,10 @@ import music.analysis.feature.processor.factory.FeatureProcessorFactory;
 import music.analysis.feature.type.MelodicFeature;
 import music.analysis.feature.type.RuleFeature;
 import music.analysis.feature.type.StatisticalFeature;
-import music.harmony.Chord;
-import music.harmony.ChordProgressionParser;
 import music.harmony.Harmony;
 import music.harmony.ScaleType;
+import music.harmony.chords.Chord;
+import music.harmony.chords.ChordProgressionParser;
 import music.notes.pitch.NoteName;
 
 import java.io.File;

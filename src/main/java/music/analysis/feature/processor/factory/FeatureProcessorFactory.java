@@ -30,8 +30,8 @@ import music.analysis.feature.processor.statistics.intervals.DiatonicStatistic;
 import music.analysis.feature.processor.statistics.intervals.DissonanceStatistic;
 import music.analysis.feature.processor.statistics.intervals.IllegalJumpStatistic;
 import music.analysis.feature.processor.statistics.intervals.RepeatedIntervalStatistic;
-import music.harmony.Chord;
 import music.harmony.Harmony;
+import music.harmony.chords.Chord;
 import music.notes.pitch.Interval;
 
 import java.util.List;

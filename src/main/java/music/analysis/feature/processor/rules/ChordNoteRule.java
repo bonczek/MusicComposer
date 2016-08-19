@@ -2,7 +2,7 @@ package music.analysis.feature.processor.rules;
 
 import jm.constants.Durations;
 import music.analysis.feature.processor.statistics.density.ChordNotesDensityStatistic;
-import music.harmony.Chord;
+import music.harmony.chords.Chord;
 import music.notes.Note;
 
 import java.util.List;

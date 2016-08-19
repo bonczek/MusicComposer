@@ -1,5 +1,6 @@
-package music.harmony;
+package music.harmony.chords;
 
+import music.harmony.Harmony;
 import music.notes.pitch.Pitch;
 
 public class Chord {

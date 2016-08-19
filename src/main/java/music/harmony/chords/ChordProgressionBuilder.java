@@ -1,4 +1,6 @@
-package music.harmony;
+package music.harmony.chords;
+
+import music.harmony.Harmony;
 
 import java.util.ArrayList;
 import java.util.List;
