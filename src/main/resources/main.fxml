@@ -25,6 +25,10 @@
                 <ChoiceBox fx:id="baseScaleNote" prefWidth="150.0"/>
                 <Label text="Liczba iteracji"/>
                 <SpinnerAutoCommit fx:id="numberOfIterationsField"/>
+                <Label text="Tempo"/>
+                <SpinnerAutoCommit fx:id="tempoField"/>
+                <Button layoutY="214.0" mnemonicParsing="false" onAction="#openFitnessConfiguration"
+                        text="Dobierz wagi funkcji oceny"/>
             </children>
         </VBox>
         <VBox alignment="TOP_RIGHT" layoutX="400.0" prefHeight="200.0" prefWidth="200.0">
@@ -40,8 +44,6 @@
                 <Button text="Analizuj utwor" onAction="#chooseFileToAnalyse"/>
             </children>
         </VBox>
-        <Button layoutY="214.0" mnemonicParsing="false" onAction="#openFitnessConfiguration"
-                text="Dobierz wagi funkcji oceny"/>
         <TextArea fx:id="chordProgressionField" layoutX="400.0" layoutY="193.0" prefHeight="118.0" prefWidth="200.0"/>
     </children>
 </AnchorPane>

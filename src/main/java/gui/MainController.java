@@ -13,7 +13,9 @@ import genetic.mutation.GeneticMutation;
 import genetic.mutation.MutationCoordinator;
 import genetic.mutation.SimpleMutation;
 import genetic.mutation.TowseyMutation;
+import genetic.representation.Chromosome;
 import genetic.selection.BinaryTournamentSelection;
+import genetic.util.Converter;
 import gui.model.ConfigurationViewBuilder;
 import gui.model.GeneticAlgorithmConfigurationModel;
 import gui.model.RuleFeatureModel;
@@ -33,6 +35,9 @@ import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jm.music.data.Score;
+import jm.util.Play;
+import jm.util.View;
 import music.analysis.Reader;
 import music.analysis.feature.container.FeatureContainer;
 import music.analysis.feature.container.RuleContainer;
@@ -96,6 +101,8 @@ public class MainController implements Initializable {
     private TextArea chordProgressionField;
     @FXML
     private SpinnerAutoCommit<Integer> numberOfIterationsField;
+    @FXML
+    private SpinnerAutoCommit<Integer> tempoField;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,12 +111,14 @@ public class MainController implements Initializable {
         populationSizeField.setValueFactory(configurationModel.getPopulationSizeModel());
         numbersOfMeasuresField.setValueFactory(configurationModel.getNumberOfMeasuresModel());
         numberOfIterationsField.setValueFactory(configurationModel.getNumberOfIterationsModel());
+        tempoField.setValueFactory(configurationModel.getTempoModel());
 
         mutationRateField.setEditable(true);
         crossoverRateField.setEditable(true);
         populationSizeField.setEditable(true);
         numbersOfMeasuresField.setEditable(true);
         numberOfIterationsField.setEditable(true);
+        tempoField.setEditable(true);
 
         mutations.setItems(FXCollections.observableArrayList(MUSICAL_MUTATION, RANDOM_MUTATION));
         mutations.getSelectionModel().selectFirst();
@@ -134,7 +143,11 @@ public class MainController implements Initializable {
     private void runAlgorithm(ActionEvent event) {
         try {
             GeneticAlgorithm algorithm = prepareAlgorithmConfiguration();
-            algorithm.run();
+            Chromosome result = algorithm.run();
+            Score score = Converter.convertToJMusicScore(result);
+            score.setTempo(configurationModel.getTempo());
+            View.notate(score);
+            Play.midi(score);
         } catch (Exception e) {
             showErrorWindow(e);
         }

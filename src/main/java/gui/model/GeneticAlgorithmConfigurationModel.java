@@ -11,6 +11,7 @@ public class GeneticAlgorithmConfigurationModel {
     private SpinnerValueFactory<Double> crossoverRateModel;
     private SpinnerValueFactory<Integer> populationSizeModel;
     private SpinnerValueFactory<Integer> numberOfIterationsModel;
+    private SpinnerValueFactory<Integer> tempoModel;
 
     public GeneticAlgorithmConfigurationModel() {
         this.mutationRateModel = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.2, 0.1);
@@ -18,6 +19,7 @@ public class GeneticAlgorithmConfigurationModel {
         this.crossoverRateModel = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, 1.0, 0.8, 0.1);
         this.populationSizeModel = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 65356, 512, 2);
         this.numberOfIterationsModel = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10000, 500, 1);
+        this.tempoModel = new SpinnerValueFactory.IntegerSpinnerValueFactory(24, 220, 80, 1);
     }
 
     public void setConfiguration(Properties configuration) throws IllegalArgumentException {
@@ -31,6 +33,14 @@ public class GeneticAlgorithmConfigurationModel {
             throw new IllegalArgumentException(String.format(
                     "Failed to set GA configuration from given properties file. %s", e.getMessage()));
         }
+    }
+
+    public SpinnerValueFactory<Integer> getTempoModel() {
+        return tempoModel;
+    }
+
+    public int getTempo() {
+        return tempoModel.getValue();
     }
 
     public SpinnerValueFactory<Integer> getNumberOfIterationsModel() {
