@@ -22,7 +22,9 @@ public class MusicalFitnessFunction<T extends FeatureContainer> extends FitnessF
     }
 
     public Fitness rateMelody(List<Note> noteList) {
-        return featureContainer.calculateReward(noteList);
+        Fitness fitness = new Fitness();
+        fitness.setFitnessValue(featureContainer.calculateReward(noteList));
+        return fitness;
     }
 
     @Override

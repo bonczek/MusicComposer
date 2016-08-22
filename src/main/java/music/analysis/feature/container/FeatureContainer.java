@@ -1,6 +1,5 @@
 package music.analysis.feature.container;
 
-import genetic.fitness.Fitness;
 import music.analysis.feature.calculator.RewardCalculator;
 import music.analysis.feature.type.MelodicFeature;
 import music.notes.Note;
@@ -29,7 +28,7 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
         this.rewardCalculator = rewardCalculator;
     }
 
-    public Fitness calculateReward(List<Note> melody) {
+    public int calculateReward(List<Note> melody) {
         applyFeatureProcessors(melody);
         return getRewardSum();
     }
@@ -78,10 +77,7 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
      *
      * @return final reward/fitness for analyzed melody line
      */
-    private Fitness getRewardSum() {
-        Fitness fitness = new Fitness();
-        //@todo maybe sum and set value?
-        featureList.stream().map(rewardCalculator::calculateReward).forEach(fitness::addReward);
-        return fitness;
+    private int getRewardSum() {
+        return featureList.stream().mapToInt(rewardCalculator::calculateReward).sum();
     }
 }

@@ -1,0 +1,48 @@
+@startuml
+
+package genetic <<Folder>> {
+    package crossover <<Folder>> {
+    }
+
+    package fitness <<Folder>> {
+    }
+
+    package initial <<Folder>> {
+    }
+
+    package mutation <<Folder>> {
+    }
+
+    package representation <<Folder>> {
+    }
+
+    package selection <<Folder>> {
+    }
+
+    package util <<Folder>> {
+    }
+}
+
+package gui <<Folder>> {
+    package model <<Folder>> {
+    }
+}
+
+package music <<Folder>> {
+
+    package analysis <<Folder>> {
+
+    }
+
+    package harmony <<Folder>> {
+    }
+
+    package notes <<Folder>> {
+    }
+}
+
+music -- genetic
+gui ---> genetic
+gui ---> music
+
+@enduml

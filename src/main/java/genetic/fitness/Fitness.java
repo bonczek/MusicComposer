@@ -8,6 +8,10 @@ public class Fitness {
         return fitnessValue;
     }
 
+    public void setFitnessValue(int fitnessValue) {
+        this.fitnessValue = fitnessValue;
+    }
+
     public void clearFitnessValue() {
         fitnessValue = 0;
     }

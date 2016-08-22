@@ -1,0 +1,10 @@
+@startuml
+MainController -> GeneticAlgorithm: run()
+GeneticAlgorithm -> InitialPopulationGenerator: generatePopulation()
+loop iterations times
+    GeneticAlgorithm -> NewPopulationGenerator: generateNewPopulation(population)
+    loop size < populationSize
+
+    end
+end
+@enduml

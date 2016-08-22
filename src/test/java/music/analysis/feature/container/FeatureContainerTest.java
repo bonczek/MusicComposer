@@ -1,7 +1,6 @@
 package music.analysis.feature.container;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
-import genetic.fitness.Fitness;
 import jm.constants.Durations;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
@@ -36,9 +35,9 @@ public class FeatureContainerTest {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
         RuleContainer ruleContainer = new RuleContainer(prepareRuleFeatures());
 
-        Fitness result = ruleContainer.calculateReward(testMelody);
+        int result = ruleContainer.calculateReward(testMelody);
 
-        assertThat(result.getFitnessValue(), is(30));
+        assertThat(result, is(30));
     }
 
     @Test
@@ -57,9 +56,9 @@ public class FeatureContainerTest {
         List<Note> testMelody = MelodyData.prepareOneMeasureCMaj7Chord();
         StatisticContainer statisticContainer = new StatisticContainer(prepareStatFeatures());
 
-        Fitness result = statisticContainer.calculateReward(testMelody);
+        int result = statisticContainer.calculateReward(testMelody);
 
-        assertThat(result.getFitnessValue(), is(4 * 39));
+        assertThat(result, is(4 * 39));
     }
 
     @Test
@@ -82,7 +81,7 @@ public class FeatureContainerTest {
         List<Note> melody = MelodyData.prepareThreeMeasuresOfMelody();
         StatisticContainer container = new StatisticContainer(new ArrayList<>());
 
-        assertThat(container.calculateReward(melody).getFitnessValue(), is(0));
+        assertThat(container.calculateReward(melody), is(0));
         assertThat(container.createFitnessReport(melody), is(""));
     }
 
