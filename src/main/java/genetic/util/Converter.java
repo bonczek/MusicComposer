@@ -171,13 +171,41 @@ public class Converter {
         List<Note> noteList = new ArrayList<>();
 
         Phrase phrase = readMidiMelodyLine(filePath);
+        double timeToAdd = phrase.getStartTime();
+        double time = 0.0;
+        if (Double.compare(timeToAdd, 0.0) != 0) {
+            System.out.println(String.format("Rest at the beginning: %f", timeToAdd));
+            while (Double.compare(timeToAdd, Durations.WHOLE_NOTE) > 0) {
+                noteList.add(new Rest(Durations.WHOLE_NOTE));
+                time += Durations.WHOLE_NOTE;
+                timeToAdd -= Durations.WHOLE_NOTE;
+            }
+            noteList.add(new Rest(timeToAdd));
+            time += timeToAdd;
+        }
         for (jm.music.data.Note note : phrase.getNoteArray()) {
             if (note.isRest()) {
                 noteList.add(new Rest(note.getRhythmValue()));
             } else {
                 noteList.add(new Sound(Pitch.createWithMidi(note.getPitch()), note.getRhythmValue()));
             }
+            time += note.getRhythmValue();
         }
+
+        double alignment = time % 4.0;
+        timeToAdd = 4.0 - alignment;
+        if (Double.compare(alignment, 0.0) > 0 && Double.compare(timeToAdd, Durations.THIRTYSECOND_NOTE) > 0) {
+            System.out.println(String.format("Rest at the end: %f", timeToAdd));
+            while (Double.compare(timeToAdd, Durations.WHOLE_NOTE) > 0) {
+                noteList.add(new Rest(Durations.WHOLE_NOTE));
+                time += Durations.WHOLE_NOTE;
+                timeToAdd -= Durations.WHOLE_NOTE;
+            }
+            noteList.add(new Rest(timeToAdd));
+            time += timeToAdd;
+        }
+        System.out.println(String.format("Melody time: %f that means %f measures", time,
+                time / Durations.WHOLE_NOTE));
 
         return noteList;
     }

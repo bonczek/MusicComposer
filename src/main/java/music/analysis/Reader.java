@@ -13,6 +13,7 @@ public class Reader {
             IllegalArgumentException {
         try {
             List<Note> melody = Converter.convertMidiToMelodyLine(midiFilePath);
+            System.out.println(String.format("Melody has %d notes", melody.size()));
             String report = fitnessFunction.createAnalysisReport(melody);
             System.out.println(report);
             return report;

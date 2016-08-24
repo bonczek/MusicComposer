@@ -153,6 +153,26 @@ public class ConverterTest {
     }
 
     @Test
+    public void testConvertToMelodyLine_givenRestAtBeginning() throws Exception {
+        String midiTestFile = "yesterday.mid";
+        URL filePath = getClass().getClassLoader().getResource(midiTestFile);
+
+        List<Note> melodyLine = Converter.convertMidiToMelodyLine(filePath.getPath());
+        assertThat(melodyLine.get(0).getRhythmValue(), is(Durations.WHOLE_NOTE));
+        assertThat(melodyLine.get(0), is(instanceOf(Rest.class)));
+    }
+
+    @Test
+    public void testConvertToMelodyLine_givenRestAtTheEnd() throws Exception {
+        String midiTestFile = "swan_lake.mid";
+        URL filePath = getClass().getClassLoader().getResource(midiTestFile);
+
+        List<Note> melodyLine = Converter.convertMidiToMelodyLine(filePath.getPath());
+        assertThat(melodyLine.get(82).getRhythmValue(), is(Durations.DOTTED_HALF_NOTE));
+        assertThat(melodyLine.get(82), is(instanceOf(Rest.class)));
+    }
+
+    @Test
     public void printThesisExamples() throws Exception {
         int measureLength = 16;
         Note[] original = {
