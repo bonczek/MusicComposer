@@ -41,6 +41,7 @@ public class GeneticAlgorithm {
         Optional<Chromosome> theBestChromosome = population.stream().max((a, b) -> a.getFitness().getFitnessValue().compareTo(b
                 .getFitness().getFitnessValue()));
         if (theBestChromosome.isPresent()) {
+            System.out.println(fitnessFunction.createFitnessReport(theBestChromosome.get()));
             return theBestChromosome.get();
         } else {
             throw new RuntimeException("Failed to find composition with max value");

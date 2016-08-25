@@ -36,7 +36,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jm.music.data.Score;
-import jm.util.Play;
 import jm.util.View;
 import music.analysis.Reader;
 import music.analysis.feature.container.FeatureContainer;
@@ -147,7 +146,8 @@ public class MainController implements Initializable {
             Score score = Converter.convertToJMusicScore(result);
             score.setTempo(configurationModel.getTempo());
             View.notate(score);
-            Play.midi(score);
+
+//            Play.midi(score);
         } catch (Exception e) {
             showErrorWindow(e);
         }
