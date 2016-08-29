@@ -129,7 +129,7 @@ public class MainController implements Initializable {
         baseScaleNote.getSelectionModel().selectFirst();
         chordProgressionField.setText("G|C|D|C");
 
-        statData.addAll(FitnessFunctionConfiguration.initStatisticConfiguration());
+        statData.addAll(FitnessFunctionConfiguration.initConfigurationWithNormalisedClassicalCompositionsValues());
         ruleData.addAll(FitnessFunctionConfiguration.initRuleConfiguration());
         try {
             loadConfigurationFromPropertiesFile(MULTIPLE_FEATURES_GA_CONFIGURATION_FILE);

@@ -58,7 +58,7 @@ public class FeatureContainerTest {
 
         int result = statisticContainer.calculateReward(testMelody);
 
-        assertThat(result, is(4 * 39));
+        assertThat(result, is(4 * 10));
     }
 
     @Test
@@ -69,11 +69,14 @@ public class FeatureContainerTest {
         String report = statisticContainer.createFitnessReport(testMelody);
 
         assertThat(report, is(
-                "PITCH_VARIETY - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; stdev: 0,100000; reward: 39\n" +
-                        "CONTOUR_DIRECTION - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; stdev: 0,100000; reward: 39\n" +
-                        "NON_SCALE_RATING - Result: 0,000000; expected: 0,000000; Diff: 0,000000; weight: 10,000000; stdev: 0,100000; reward: 39\n" +
+                "PITCH_VARIETY - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000; stdev: 0," +
+                        "100000; reward: 10\n" +
+                        "CONTOUR_DIRECTION - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10,000000;" +
+                        " stdev: 0,100000; reward: 10\n" +
+                        "NON_SCALE_RATING - Result: 0,000000; expected: 0,000000; Diff: 0,000000; weight: 10,000000; " +
+                        "stdev: 0,100000; reward: 10\n" +
                         "REPEATED_RHYTHM_INTERVALS - Result: 1,000000; expected: 1,000000; Diff: 0,000000; weight: 10," +
-                        "000000; stdev: 0,100000; reward: 39\n"));
+                        "000000; stdev: 0,100000; reward: 10\n"));
     }
 
     @Test
