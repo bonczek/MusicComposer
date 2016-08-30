@@ -41,7 +41,7 @@
                 <SpinnerAutoCommit fx:id="crossoverRateField"/>
                 <Label text="Rodzaj funkcji oceny"/>
                 <ChoiceBox fx:id="fitnessFunctionType" prefWidth="150.0"/>
-                <Button text="Analizuj utwor" onAction="#chooseFileToAnalyse"/>
+                <Button text="Analizuj utwor" onAction="#analyseFile"/>
             </children>
         </VBox>
         <TextArea fx:id="chordProgressionField" layoutX="400.0" layoutY="193.0" prefHeight="118.0" prefWidth="200.0"/>

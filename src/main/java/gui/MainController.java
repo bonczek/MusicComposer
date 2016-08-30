@@ -146,8 +146,6 @@ public class MainController implements Initializable {
             Score score = Converter.convertToJMusicScore(result);
             score.setTempo(configurationModel.getTempo());
             View.notate(score);
-
-//            Play.midi(score);
         } catch (Exception e) {
             showErrorWindow(e);
         }
@@ -224,7 +222,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void chooseFileToAnalyse() {
+    private void analyseFile() {
         Stage newStage = new Stage();
         File file = fileChooser.showOpenDialog(newStage);
         if (file != null) {

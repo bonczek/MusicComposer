@@ -1,43 +1,47 @@
 @startuml
 
 package genetic <<Folder>> {
-    package crossover <<Folder>> {
+    class GeneticAlgorithm {
+        int numberOfIterations
+        InitialPopulationGenerator initialGenerator
+        NewPopulationGenerator populationGenerator
+        FitnessFunction fitnessFunction
+        + Chromosome run()
     }
 
-    package fitness <<Folder>> {
+    class NewPopulationGenerator {
+        GeneticSelector geneticSelector
+        MutationCoordinator mutationCoordinator
+        CrossoverCoordinator crossoverCoordinator
+        + List<Chromosome> generateNewPopulation(List<Chromosome>)
     }
 
-    package initial <<Folder>> {
-    }
+    GeneticAlgorithm o--- NewPopulationGenerator
 
-    package mutation <<Folder>> {
-    }
-
-    package representation <<Folder>> {
-    }
-
-    package selection <<Folder>> {
-    }
-
-    package util <<Folder>> {
-    }
 }
 
 package gui <<Folder>> {
-    package model <<Folder>> {
+    class MainController {
+        List<StatisticalFeatureModel> statData
+        List<RuleFeatureModel> ruleData
+        GeneticAlgorithmConfigurationModel configurationModel
+        + void runAlgorithm()
+        + void analyseFile()
     }
 }
 
 package music <<Folder>> {
 
-    package analysis <<Folder>> {
-
+    class Reader {
+        + String analyseMidiFile(String, MusicalFitnessFunction)
     }
 
-    package harmony <<Folder>> {
-    }
-
-    package notes <<Folder>> {
+    class FeatureContainer <T extends MelodicFeature> {
+        List<T> featureList;
+        RewardCalculator<T> rewardCalculator;
+        + int calculateReward(List<Note>)
+        + String createFitnessReport(List<Note>)
+        + String createAnalysisReport(List<Note>)
     }
 }
 
