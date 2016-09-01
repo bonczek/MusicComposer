@@ -14,11 +14,11 @@ public class ConfigurationViewBuilder {
         TableView<StatisticalFeatureModel> tableView = new javafx.scene.control.TableView<>();
         tableView.setEditable(true);
         tableView.setPrefWidth(600.0);
-        TableColumn<StatisticalFeatureModel, StatisticName> firstColumn = new TableColumn<>("Feature name");
-        TableColumn<StatisticalFeatureModel, Boolean> secondColumn = new TableColumn<>("Active");
-        TableColumn<StatisticalFeatureModel, String> thirdColumn = new TableColumn<>("Expected value");
-        TableColumn<StatisticalFeatureModel, String> fourthColumn = new TableColumn<>("Weight");
-        TableColumn<StatisticalFeatureModel, String> fifthColumn = new TableColumn<>("Standard deviation");
+        TableColumn<StatisticalFeatureModel, StatisticName> firstColumn = new TableColumn<>("Cecha");
+        TableColumn<StatisticalFeatureModel, Boolean> secondColumn = new TableColumn<>("Aktywna");
+        TableColumn<StatisticalFeatureModel, String> thirdColumn = new TableColumn<>("Oczekiwana wartość");
+        TableColumn<StatisticalFeatureModel, String> fourthColumn = new TableColumn<>("Waga");
+        TableColumn<StatisticalFeatureModel, String> fifthColumn = new TableColumn<>("Odchylenie standardowe");
 
         firstColumn.setCellValueFactory(s -> s.getValue().statisticNameProperty());
         secondColumn.setCellValueFactory(s -> s.getValue().isActiveProperty());
@@ -39,9 +39,9 @@ public class ConfigurationViewBuilder {
         TableView<RuleFeatureModel> tableView = new javafx.scene.control.TableView<>();
         tableView.setEditable(true);
         tableView.setPrefWidth(600.0);
-        TableColumn<RuleFeatureModel, RuleName> firstColumn = new TableColumn<>("Rule name");
-        TableColumn<RuleFeatureModel, Boolean> secondColumn = new TableColumn<>("Active");
-        TableColumn<RuleFeatureModel, String> thirdColumn = new TableColumn<>("Weight");
+        TableColumn<RuleFeatureModel, RuleName> firstColumn = new TableColumn<>("Reguła");
+        TableColumn<RuleFeatureModel, Boolean> secondColumn = new TableColumn<>("Aktywna");
+        TableColumn<RuleFeatureModel, String> thirdColumn = new TableColumn<>("Waga");
 
         firstColumn.setCellValueFactory(s -> s.getValue().ruleNameProperty());
         secondColumn.setCellValueFactory(s -> s.getValue().isActiveProperty());

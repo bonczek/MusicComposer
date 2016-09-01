@@ -186,7 +186,7 @@ public class MainController implements Initializable {
 
     private void showErrorWindow(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Dialog");
+        alert.setTitle("Komunikat błędu");
         alert.setHeaderText(e.getMessage());
         if (e.getCause() != null) {
             alert.setContentText(e.getCause().getMessage());
@@ -199,23 +199,31 @@ public class MainController implements Initializable {
         Stage newStage = new Stage();
         newStage.initModality(Modality.APPLICATION_MODAL);
         ScrollPane mainView;
+        double width;
+        double height = 500.0;
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
-            newStage.setTitle("Statistical Fitness Function Configuration");
+            newStage.setTitle("Konfiguracja funkcji oceny statystycznej");
 
             TableView<StatisticalFeatureModel> tableView = ConfigurationViewBuilder
                     .createStatisticalFeaturesConfigurationTable();
             tableView.setItems(statData);
+            width = 700.0;
+            tableView.setPrefWidth(width);
+            tableView.setPrefHeight(height);
             mainView = new ScrollPane(tableView);
         } else {
-            newStage.setTitle("Rule Fitness Function Configuration");
+            newStage.setTitle("Konfiguracja funkcji oceny na podstawie reguł");
 
             TableView<RuleFeatureModel> tableView = ConfigurationViewBuilder
                     .createRuleFeaturesConfigurationTable();
             tableView.setItems(ruleData);
+            width = 400.0;
+            tableView.setPrefWidth(width);
+            tableView.setPrefHeight(height);
             mainView = new ScrollPane(tableView);
         }
 
-        Scene scene = new Scene(mainView, 800, 400);
+        Scene scene = new Scene(mainView, width, height);
 
         newStage.setScene(scene);
         newStage.show();
@@ -245,7 +253,7 @@ public class MainController implements Initializable {
                 String report = reader.analyseMidiFile(file.getPath(), fitnessFunction);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Analysis Dialog");
+                alert.setTitle("Wyniki analizy utworu");
                 alert.setHeaderText(report);
                 alert.showAndWait();
             } catch (IllegalArgumentException e) {
