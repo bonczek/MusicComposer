@@ -1,5 +1,5 @@
 #Project compilation, test and installation in local maven repository
-#(jar in target directory won't work without )
+#(produced jar won't work - lack of runtime dependencies)
 mvn clean install
 
 #Run through maven (after project build)
