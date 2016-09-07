@@ -8,25 +8,11 @@
     <artifactId>music-composer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <repositories>
-        <repository>
-            <id>Internal company repository</id>
-            <url>file://${project.basedir}/libs</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>javafx</artifactId>
-            <version>2.2</version>
-            <scope>system</scope>
-            <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>jmusic</groupId>
-            <artifactId>jmusic-fork</artifactId>
-            <version>1.0</version>
+            <groupId>com.explodingart</groupId>
+            <artifactId>jmusic</artifactId>
+            <version>1.6.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -49,6 +35,7 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
             <version>1.3</version>
         </dependency>
         <dependency>
@@ -71,6 +58,14 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>com.zenjava</groupId>
+                    <artifactId>javafx-maven-plugin</artifactId>
+                    <version>8.6.0</version>
+                    <configuration>
+                        <mainClass>App</mainClass>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
