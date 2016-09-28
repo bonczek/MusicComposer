@@ -128,7 +128,7 @@ public class MainController implements Initializable {
         scaleType.setItems(FXCollections.observableArrayList(ScaleType.values()));
         scaleType.getSelectionModel().selectFirst();
         baseScaleNote.setItems(FXCollections.observableArrayList(NoteName.values()));
-        baseScaleNote.getSelectionModel().selectFirst();
+        baseScaleNote.getSelectionModel().select(7);
         chordProgressionField.setText("G|C|D|C");
 
         statData.addAll(FitnessFunctionConfiguration.initConfigurationWithNormalisedClassicalCompositionsValues());
