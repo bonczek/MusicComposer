@@ -43,6 +43,7 @@
                         <ChoiceBox fx:id="scaleType" prefWidth="150.0"/>
                         <Label text="Wybierz dźwięk bazowy skali"/>
                         <ChoiceBox fx:id="baseScaleNote" prefWidth="150.0"/>
+                        <Label text="Podaj sekwencję akordów"/>
                         <TextArea fx:id="chordProgressionField" layoutX="400.0" layoutY="193.0" prefHeight="118.0"
                                   prefWidth="200.0"/>
                         <Button layoutY="214.0" mnemonicParsing="false" onAction="#openFitnessConfiguration"

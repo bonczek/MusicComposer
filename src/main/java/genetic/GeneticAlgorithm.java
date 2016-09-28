@@ -14,7 +14,7 @@ public class GeneticAlgorithm {
     private InitialPopulationGenerator initialGenerator;
     private NewPopulationGenerator populationGenerator;
     private FitnessFunction fitnessFunction;
-    private Niche niche = new Niche();
+    private String fitnessFunctionReport;
 
     public GeneticAlgorithm(InitialPopulationGenerator initialGenerator, NewPopulationGenerator populationGenerator,
                             FitnessFunction fitnessFunction, int numberOfIterations) {
@@ -24,13 +24,16 @@ public class GeneticAlgorithm {
         this.numberOfIterations = numberOfIterations;
     }
 
+    public String getFitnessFunctionReport() {
+        return fitnessFunctionReport;
+    }
+
     public Chromosome run() throws RuntimeException {
         List<Chromosome> population = initialGenerator.generatePopulation();
 
         int iteration = 0;
         while (nextPopulation(iteration)) {
             fitnessFunction.calculateFitness(population);
-            //niche.decreaseFitnessValueForSimilar(population);
             population = populationGenerator.generateNewPopulation(population);
             iteration++;
         }
@@ -41,7 +44,7 @@ public class GeneticAlgorithm {
         Optional<Chromosome> theBestChromosome = population.stream().max((a, b) -> a.getFitness().getFitnessValue().compareTo(b
                 .getFitness().getFitnessValue()));
         if (theBestChromosome.isPresent()) {
-            System.out.println(fitnessFunction.createFitnessReport(theBestChromosome.get()));
+            fitnessFunctionReport = fitnessFunction.createFitnessReport(theBestChromosome.get());
             return theBestChromosome.get();
         } else {
             throw new RuntimeException("Failed to find composition with max value");

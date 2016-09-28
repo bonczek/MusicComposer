@@ -143,6 +143,7 @@ public class MainController implements Initializable {
         try {
             GeneticAlgorithm algorithm = prepareAlgorithmConfiguration();
             Chromosome result = algorithm.run();
+            System.out.println(algorithm.getFitnessFunctionReport());
             Score score = Converter.convertToJMusicScore(result);
             score.setTempo(configurationModel.getTempo());
             View.notate(score);
