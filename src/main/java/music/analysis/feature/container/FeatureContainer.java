@@ -36,7 +36,10 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
     public String createFitnessReport(List<Note> melody) {
         StringBuilder reportBuilder = new StringBuilder();
         applyFeatureProcessors(melody);
-        featureList.forEach(feature -> reportBuilder.append(String.format("%s reward: %d\n", feature.getReport(),
+        if (!featureList.isEmpty()) {
+            reportBuilder.append(getReportHeadings());
+        }
+        featureList.forEach(feature -> reportBuilder.append(String.format("%s;%d\n", feature.getReport(),
                 rewardCalculator.calculateReward(feature))));
         return reportBuilder.toString();
     }
@@ -48,6 +51,8 @@ public abstract class FeatureContainer<T extends MelodicFeature> {
                 feature.getFeatureResult())));
         return reportBuilder.toString();
     }
+
+    protected abstract String getReportHeadings();
 
     /**
      * Apply searching for features in a given melody line.

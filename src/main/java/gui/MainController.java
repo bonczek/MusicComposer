@@ -16,11 +16,13 @@ import genetic.mutation.TowseyMutation;
 import genetic.representation.Chromosome;
 import genetic.selection.BinaryTournamentSelection;
 import genetic.util.Converter;
-import gui.model.ConfigurationViewBuilder;
 import gui.model.GeneticAlgorithmConfigurationModel;
 import gui.model.RuleFeatureModel;
+import gui.model.RuleResultModel;
 import gui.model.SpinnerAutoCommit;
 import gui.model.StatisticalFeatureModel;
+import gui.model.StatisticalResultModel;
+import gui.model.TableViewBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -143,7 +145,9 @@ public class MainController implements Initializable {
         try {
             GeneticAlgorithm algorithm = prepareAlgorithmConfiguration();
             Chromosome result = algorithm.run();
+            String report = algorithm.getFitnessFunctionReport();
             System.out.println(algorithm.getFitnessFunctionReport());
+            openResultWindow(report);
             Score score = Converter.convertToJMusicScore(result);
             score.setTempo(configurationModel.getTempo());
             View.notate(score);
@@ -195,6 +199,46 @@ public class MainController implements Initializable {
         alert.showAndWait();
     }
 
+    private void openResultWindow(String report) {
+        Stage newStage = new Stage();
+        newStage.setTitle("Wyniki najlepszej kompozycji");
+
+        if (report.isEmpty()) {
+            return;
+        }
+        String[] reportLines = report.split("\\n");
+        if (reportLines.length < 2) {
+            return;
+        }
+
+        ScrollPane mainView;
+        if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
+            TableView<StatisticalResultModel> tableView = TableViewBuilder.createStatisticalResultTable();
+            ObservableList<StatisticalResultModel> data = FXCollections.observableArrayList();
+
+            for (int i = 1; i < reportLines.length; i++) {
+                String[] columns = reportLines[i].split(";");
+                data.add(new StatisticalResultModel(columns[0], columns[1], columns[2], columns[3], columns[4],
+                        columns[5], columns[6]));
+            }
+            tableView.setItems(data);
+            mainView = new ScrollPane(tableView);
+        } else {
+            TableView<RuleResultModel> tableView = TableViewBuilder.createRuleResultTable();
+            ObservableList<RuleResultModel> data = FXCollections.observableArrayList();
+
+            for (int i = 1; i < reportLines.length; i++) {
+                String[] columns = reportLines[i].split(";");
+                data.add(new RuleResultModel(columns[0], columns[1], columns[2], columns[3]));
+            }
+            tableView.setItems(data);
+            mainView = new ScrollPane(tableView);
+        }
+        Scene scene = new Scene(mainView);
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
     @FXML
     private void openFitnessConfiguration() {
         Stage newStage = new Stage();
@@ -205,7 +249,7 @@ public class MainController implements Initializable {
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
             newStage.setTitle("Konfiguracja funkcji oceny statystycznej");
 
-            TableView<StatisticalFeatureModel> tableView = ConfigurationViewBuilder
+            TableView<StatisticalFeatureModel> tableView = TableViewBuilder
                     .createStatisticalFeaturesConfigurationTable();
             tableView.setItems(statData);
             width = 700.0;
@@ -215,7 +259,7 @@ public class MainController implements Initializable {
         } else {
             newStage.setTitle("Konfiguracja funkcji oceny na podstawie reguł");
 
-            TableView<RuleFeatureModel> tableView = ConfigurationViewBuilder
+            TableView<RuleFeatureModel> tableView = TableViewBuilder
                     .createRuleFeaturesConfigurationTable();
             tableView.setItems(ruleData);
             width = 400.0;

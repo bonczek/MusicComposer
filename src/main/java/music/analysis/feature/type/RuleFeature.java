@@ -11,6 +11,6 @@ public class RuleFeature extends MelodicFeature<Double> {
 
     @Override
     public String getReport() {
-        return String.format("%s - count: %f; weight: %f;", name, getFeatureResult(), getFeatureWeight());
+        return String.format("%s;%f;%f", name, getFeatureResult(), getFeatureWeight());
     }
 }
