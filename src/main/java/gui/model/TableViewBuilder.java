@@ -1,20 +1,13 @@
 package gui.model;
 
-import gui.model.report.RuleResult;
 import gui.model.report.RuleResultModel;
 import gui.model.report.StatisticalResultModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public final class TableViewBuilder {
@@ -116,14 +109,6 @@ public final class TableViewBuilder {
 
         tableView.getColumns().addAll(firstColumn, secondColumn, thirdColumn);
         return tableView;
-    }
-
-    public static TitledPane createRuleReportPane(List<RuleResult> ruleResults) {
-        TableView<RuleResultModel> tableView = TableViewBuilder.createRuleResultTable();
-        ObservableList<RuleResultModel> tableData = FXCollections.observableArrayList();
-        tableData.addAll(ruleResults.stream().map(RuleResultModel::new).collect(Collectors.toList()));
-        tableView.setItems(tableData);
-        return new TitledPane("Podsumowanie wyników reguł", tableView);
     }
 
 }

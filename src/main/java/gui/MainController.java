@@ -21,7 +21,7 @@ import gui.model.RuleFeatureModel;
 import gui.model.SpinnerAutoCommit;
 import gui.model.StatisticalFeatureModel;
 import gui.model.TableViewBuilder;
-import gui.model.report.Charts;
+import gui.model.report.RuleReportModel;
 import gui.model.report.RuleResult;
 import gui.model.report.StatisticalReportModel;
 import gui.model.report.StatisticalResult;
@@ -215,19 +215,15 @@ public class MainController implements Initializable {
         }
 
         ScrollPane mainView;
-        Accordion reportWindows = new Accordion();
+        Accordion reportWindows;
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
             List<StatisticalResult> statisticalResults = StatisticalResult.parseReportLines(reportLines);
             StatisticalReportModel reportModel = new StatisticalReportModel(statisticalResults);
             reportWindows = reportModel.getReportPanes();
         } else {
             List<RuleResult> ruleResults = RuleResult.parseReportLines(reportLines);
-
-            reportWindows.getPanes().add(TableViewBuilder.createRuleReportPane(ruleResults));
-            reportWindows.getPanes().add(Charts.createRuleRewardsChartPane(ruleResults));
-            reportWindows.getPanes().add(Charts.createIntervalRuleChartPane(ruleResults));
-            reportWindows.getPanes().add(Charts.createRhythmicalRuleChartPane(ruleResults));
-            reportWindows.getPanes().add(Charts.createTimeBasedRuleChartPane(ruleResults));
+            RuleReportModel reportModel = new RuleReportModel(ruleResults);
+            reportWindows = reportModel.getReportPanes();
         }
         reportWindows.setExpandedPane(reportWindows.getPanes().get(0));
         mainView = new ScrollPane(reportWindows);
