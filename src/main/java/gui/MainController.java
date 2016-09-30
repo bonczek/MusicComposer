@@ -23,6 +23,7 @@ import gui.model.StatisticalFeatureModel;
 import gui.model.TableViewBuilder;
 import gui.model.report.Charts;
 import gui.model.report.RuleResult;
+import gui.model.report.StatisticalReportModel;
 import gui.model.report.StatisticalResult;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -217,10 +218,8 @@ public class MainController implements Initializable {
         Accordion reportWindows = new Accordion();
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
             List<StatisticalResult> statisticalResults = StatisticalResult.parseReportLines(reportLines);
-
-            reportWindows.getPanes().add(TableViewBuilder.createStatisticalReportPane(statisticalResults));
-            reportWindows.getPanes().add(Charts.createStatisticalResultsChartPane(statisticalResults));
-            reportWindows.getPanes().add(Charts.createStatisticalRewardsChartPane(statisticalResults));
+            StatisticalReportModel reportModel = new StatisticalReportModel(statisticalResults);
+            reportWindows = reportModel.getReportPanes();
         } else {
             List<RuleResult> ruleResults = RuleResult.parseReportLines(reportLines);
 

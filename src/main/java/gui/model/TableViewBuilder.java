@@ -2,7 +2,6 @@ package gui.model;
 
 import gui.model.report.RuleResult;
 import gui.model.report.RuleResultModel;
-import gui.model.report.StatisticalResult;
 import gui.model.report.StatisticalResultModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,14 +116,6 @@ public final class TableViewBuilder {
 
         tableView.getColumns().addAll(firstColumn, secondColumn, thirdColumn);
         return tableView;
-    }
-
-    public static TitledPane createStatisticalReportPane(List<StatisticalResult> statisticalResults) {
-        TableView<StatisticalResultModel> tableView = TableViewBuilder.createStatisticalResultTable();
-        ObservableList<StatisticalResultModel> tableData = FXCollections.observableArrayList();
-        tableData.addAll(statisticalResults.stream().map(StatisticalResultModel::new).collect(Collectors.toList()));
-        tableView.setItems(tableData);
-        return new TitledPane("Podsumowanie wyników statystycznych", tableView);
     }
 
     public static TitledPane createRuleReportPane(List<RuleResult> ruleResults) {
