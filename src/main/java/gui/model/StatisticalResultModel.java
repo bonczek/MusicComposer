@@ -24,6 +24,16 @@ public class StatisticalResultModel {
         this.reward = new SimpleStringProperty(reward);
     }
 
+    public StatisticalResultModel(StatisticalResult statisticalResult) {
+        this.statisticName = new SimpleStringProperty(statisticalResult.getStatisticName());
+        this.result = new SimpleStringProperty(Double.toString(statisticalResult.getResult()));
+        this.expectedValue = new SimpleStringProperty(Double.toString(statisticalResult.getExpectedValue()));
+        this.difference = new SimpleStringProperty(Double.toString(statisticalResult.getDifference()));
+        this.weight = new SimpleStringProperty(Double.toString(statisticalResult.getWeight()));
+        this.standardDeviation = new SimpleStringProperty(Double.toString(statisticalResult.getStandardDeviation()));
+        this.reward = new SimpleStringProperty(Integer.toString(statisticalResult.getReward()));
+    }
+
     public String getDifference() {
         return difference.get();
     }

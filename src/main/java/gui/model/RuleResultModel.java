@@ -16,6 +16,13 @@ public class RuleResultModel {
         this.reward = new SimpleStringProperty(reward);
     }
 
+    public RuleResultModel(RuleResult ruleResult) {
+        this.statisticName = new SimpleStringProperty(ruleResult.getName());
+        this.count = new SimpleStringProperty(Double.toString(ruleResult.getCount()));
+        this.weight = new SimpleStringProperty(Double.toString(ruleResult.getWeight()));
+        this.reward = new SimpleStringProperty(Double.toString(ruleResult.getReward()));
+    }
+
     public String getReward() {
         return reward.get();
     }

@@ -20,7 +20,7 @@ public class FitnessFunctionConfiguration {
         features.add(new RuleFeatureModel(RuleName.LESS_THAN_OCTAVE, 2.0, true));
         features.add(new RuleFeatureModel(RuleName.ONE_LINED_GRAVITY, 3.0, true));
         features.add(new RuleFeatureModel(RuleName.SCALE_NOTE, 1.5, true));
-        features.add(new RuleFeatureModel(RuleName.DIATONIC_NOTE, 4.0, true));
+        features.add(new RuleFeatureModel(RuleName.MAJOR_OR_MINOR_SECOND, 4.0, true));
         features.add(new RuleFeatureModel(RuleName.DISSONANCE, 2.0, true));
         features.add(new RuleFeatureModel(RuleName.CHORD_NOTE, 1.0, true));
         features.add(new RuleFeatureModel(RuleName.IMPERFECT_CONSONANCE, 3.0, true));
@@ -38,7 +38,7 @@ public class FitnessFunctionConfiguration {
         features.add(new StatisticalFeatureModel(StatisticName.NON_SCALE_RATING, 0.0, 200.0, 0.3, true));
         features.add(new StatisticalFeatureModel(StatisticName.CHORD_NOTES, 0.5, 200.0, 0.3, true));
         features.add(new StatisticalFeatureModel(StatisticName.DISSONANCE_RATING, 0.1, 200.0, 0.3, true));
-        features.add(new StatisticalFeatureModel(StatisticName.DIATONIC_RATING, 0.5, 200.0, 0.3, true));
+        features.add(new StatisticalFeatureModel(StatisticName.MAJOR_OR_MINOR_SECOND_RATING, 0.5, 200.0, 0.3, true));
         features.add(new StatisticalFeatureModel(StatisticName.ILLEGAL_JUMP, 0.0, 200.0, 0.3, true));
         features.add(new StatisticalFeatureModel(StatisticName.AVERAGE_RHYTHM, 0.4, 200.0, 0.3, true));
         features.add(new StatisticalFeatureModel(StatisticName.RHYTHM_STANDARD_DEVIATION, 0.2, 200.0, 0.2, true));
@@ -68,7 +68,7 @@ public class FitnessFunctionConfiguration {
 
         features.add(new StatisticalFeatureModel(StatisticName.DISSONANCE_RATING, 0.0294587656, 200.0, 0.0450558408,
                 true));
-        features.add(new StatisticalFeatureModel(StatisticName.DIATONIC_RATING, 0.5528802377, 200.0, 0.077839158, true));
+        features.add(new StatisticalFeatureModel(StatisticName.MAJOR_OR_MINOR_SECOND_RATING, 0.5528802377, 200.0, 0.077839158, true));
         features.add(new StatisticalFeatureModel(StatisticName.ILLEGAL_JUMP, 0.0066779546, 200.0, 0.0100337208, true));
         features.add(new StatisticalFeatureModel(StatisticName.AVERAGE_RHYTHM, 0.2815038409, 200.0, 0.1203716376,
                 true));
@@ -100,7 +100,7 @@ public class FitnessFunctionConfiguration {
 
         features.add(new StatisticalFeatureModel(StatisticName.DISSONANCE_RATING, 0.0294587656, 200.0, 0.2758091186,
                 true));
-        features.add(new StatisticalFeatureModel(StatisticName.DIATONIC_RATING, 0.5528802377, 200.0, 0.2838456928, true));
+        features.add(new StatisticalFeatureModel(StatisticName.MAJOR_OR_MINOR_SECOND_RATING, 0.5528802377, 200.0, 0.2838456928, true));
         features.add(new StatisticalFeatureModel(StatisticName.ILLEGAL_JUMP, 0.0066779546, 200.0, 0.3478356536, true));
         features.add(new StatisticalFeatureModel(StatisticName.AVERAGE_RHYTHM, 0.2815038409, 200.0, 0.2740361229,
                 true));

@@ -16,12 +16,13 @@ import genetic.mutation.TowseyMutation;
 import genetic.representation.Chromosome;
 import genetic.selection.BinaryTournamentSelection;
 import genetic.util.Converter;
+import gui.model.Charts;
 import gui.model.GeneticAlgorithmConfigurationModel;
 import gui.model.RuleFeatureModel;
-import gui.model.RuleResultModel;
+import gui.model.RuleResult;
 import gui.model.SpinnerAutoCommit;
 import gui.model.StatisticalFeatureModel;
-import gui.model.StatisticalResultModel;
+import gui.model.StatisticalResult;
 import gui.model.TableViewBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
@@ -201,7 +203,7 @@ public class MainController implements Initializable {
 
     private void openResultWindow(String report) {
         Stage newStage = new Stage();
-        newStage.setTitle("Wyniki najlepszej kompozycji");
+        newStage.setTitle("Raport końcowy");
 
         if (report.isEmpty()) {
             return;
@@ -212,28 +214,24 @@ public class MainController implements Initializable {
         }
 
         ScrollPane mainView;
+        Accordion reportWindows = new Accordion();
         if (fitnessFunctionType.getValue().equals(STATISTICAL)) {
-            TableView<StatisticalResultModel> tableView = TableViewBuilder.createStatisticalResultTable();
-            ObservableList<StatisticalResultModel> data = FXCollections.observableArrayList();
+            List<StatisticalResult> statisticalResults = StatisticalResult.parseReportLines(reportLines);
 
-            for (int i = 1; i < reportLines.length; i++) {
-                String[] columns = reportLines[i].split(";");
-                data.add(new StatisticalResultModel(columns[0], columns[1], columns[2], columns[3], columns[4],
-                        columns[5], columns[6]));
-            }
-            tableView.setItems(data);
-            mainView = new ScrollPane(tableView);
+            reportWindows.getPanes().add(TableViewBuilder.createStatisticalReportPane(statisticalResults));
+            reportWindows.getPanes().add(Charts.createStatisticalResultsChartPane(statisticalResults));
+            reportWindows.getPanes().add(Charts.createStatisticalRewardsChartPane(statisticalResults));
         } else {
-            TableView<RuleResultModel> tableView = TableViewBuilder.createRuleResultTable();
-            ObservableList<RuleResultModel> data = FXCollections.observableArrayList();
+            List<RuleResult> ruleResults = RuleResult.parseReportLines(reportLines);
 
-            for (int i = 1; i < reportLines.length; i++) {
-                String[] columns = reportLines[i].split(";");
-                data.add(new RuleResultModel(columns[0], columns[1], columns[2], columns[3]));
-            }
-            tableView.setItems(data);
-            mainView = new ScrollPane(tableView);
+            reportWindows.getPanes().add(TableViewBuilder.createRuleReportPane(ruleResults));
+            reportWindows.getPanes().add(Charts.createRuleRewardsChartPane(ruleResults));
+            reportWindows.getPanes().add(Charts.createIntervalRuleChartPane(ruleResults));
+            reportWindows.getPanes().add(Charts.createRhythmicalRuleChartPane(ruleResults));
+            reportWindows.getPanes().add(Charts.createTimeBasedRuleChartPane(ruleResults));
         }
+        reportWindows.setExpandedPane(reportWindows.getPanes().get(0));
+        mainView = new ScrollPane(reportWindows);
         Scene scene = new Scene(mainView);
         newStage.setScene(scene);
         newStage.show();

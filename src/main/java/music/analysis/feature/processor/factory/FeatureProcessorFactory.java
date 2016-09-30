@@ -46,7 +46,7 @@ public class FeatureProcessorFactory {
                 return new ContourDirectionStatistic();
             case CONTOUR_STABILITY:
                 return new ContourStabilityStatistic();
-            case DIATONIC_RATING:
+            case MAJOR_OR_MINOR_SECOND_RATING:
                 return new DiatonicStatistic();
             case DISSONANCE_RATING:
                 return new DissonanceStatistic();
@@ -109,7 +109,7 @@ public class FeatureProcessorFactory {
                 return new OneLinedOctaveGravityRule();
             case SCALE_NOTE:
                 return new ScaleNoteRule(scale);
-            case DIATONIC_NOTE:
+            case MAJOR_OR_MINOR_SECOND:
                 return new IntervalRule(Interval::diatonic);
             case CHORD_NOTE:
                 return new ChordNoteRule(chordList);

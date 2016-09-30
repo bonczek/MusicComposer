@@ -1,14 +1,20 @@
 package gui.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import music.analysis.feature.name.RuleName;
 import music.analysis.feature.name.StatisticName;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class TableViewBuilder {
+
+public final class TableViewBuilder {
 
     public static TableView<StatisticalFeatureModel> createStatisticalFeaturesConfigurationTable() {
         TableView<StatisticalFeatureModel> tableView = new javafx.scene.control.TableView<>();
@@ -108,4 +114,21 @@ public class TableViewBuilder {
         tableView.getColumns().addAll(firstColumn, secondColumn, thirdColumn);
         return tableView;
     }
+
+    public static TitledPane createStatisticalReportPane(List<StatisticalResult> statisticalResults) {
+        TableView<StatisticalResultModel> tableView = TableViewBuilder.createStatisticalResultTable();
+        ObservableList<StatisticalResultModel> tableData = FXCollections.observableArrayList();
+        tableData.addAll(statisticalResults.stream().map(StatisticalResultModel::new).collect(Collectors.toList()));
+        tableView.setItems(tableData);
+        return new TitledPane("Podsumowanie wyników statystycznych", tableView);
+    }
+
+    public static TitledPane createRuleReportPane(List<RuleResult> ruleResults) {
+        TableView<RuleResultModel> tableView = TableViewBuilder.createRuleResultTable();
+        ObservableList<RuleResultModel> tableData = FXCollections.observableArrayList();
+        tableData.addAll(ruleResults.stream().map(RuleResultModel::new).collect(Collectors.toList()));
+        tableView.setItems(tableData);
+        return new TitledPane("Podsumowanie wyników reguł", tableView);
+    }
+
 }
