@@ -1,5 +1,9 @@
 package gui.model;
 
+import gui.model.report.RuleResult;
+import gui.model.report.RuleResultModel;
+import gui.model.report.StatisticalResult;
+import gui.model.report.StatisticalResultModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;

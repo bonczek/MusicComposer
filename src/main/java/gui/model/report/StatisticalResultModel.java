@@ -1,4 +1,4 @@
-package gui.model;
+package gui.model.report;
 
 import javafx.beans.property.SimpleStringProperty;
 

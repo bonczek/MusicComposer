@@ -1,4 +1,4 @@
-package gui.model;
+package gui.model.report;
 
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
