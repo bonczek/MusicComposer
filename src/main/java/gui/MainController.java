@@ -32,12 +32,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -66,6 +70,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -155,7 +160,7 @@ public class MainController implements Initializable {
                 Chromosome result = (Chromosome) e.getSource().getValue();
                 String report = algorithm.getFitnessFunctionReport();
                 System.out.println(algorithm.getFitnessFunctionReport());
-                openResultWindow(report);
+                openResultWindow(report, algorithm.getIterationsMaxResults());
                 Score score = Converter.convertToJMusicScore(result);
                 score.setTempo(configurationModel.getTempo());
                 View.notate(score);
@@ -213,7 +218,7 @@ public class MainController implements Initializable {
         alert.showAndWait();
     }
 
-    private void openResultWindow(String report) {
+    private void openResultWindow(String report, Map<Integer, Integer> iterationsResult) {
         Stage newStage = new Stage();
         newStage.setTitle("Raport końcowy");
 
@@ -236,11 +241,27 @@ public class MainController implements Initializable {
             RuleReportModel reportModel = new RuleReportModel(ruleResults);
             reportWindows = reportModel.getReportPanes();
         }
+        reportWindows.getPanes().add(addIterationsResultReport(iterationsResult));
         reportWindows.setExpandedPane(reportWindows.getPanes().get(0));
         mainView = new ScrollPane(reportWindows);
         Scene scene = new Scene(mainView);
         newStage.setScene(scene);
         newStage.show();
+    }
+
+    private TitledPane addIterationsResultReport(Map<Integer, Integer> iterationResults) {
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Iteration");
+        yAxis.setLabel("Maximum reward");
+        final LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
+        chart.setLegendVisible(false);
+        chart.createSymbolsProperty().setValue(false);
+        XYChart.Series series = new XYChart.Series();
+        series.getData().addAll(iterationResults.entrySet().stream().map(e -> new XYChart.Data<>(e.getKey(), e
+                .getValue())).collect(Collectors.toList()));
+        chart.getData().add(series);
+        return new TitledPane("Wykres najlepszego wyniku w poszczególnych iteracjach", chart);
     }
 
     @FXML

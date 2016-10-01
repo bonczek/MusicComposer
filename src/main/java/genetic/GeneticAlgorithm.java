@@ -6,8 +6,11 @@ import genetic.representation.Chromosome;
 import genetic.util.Converter;
 import javafx.concurrent.Task;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 public class GeneticAlgorithm extends Task<Chromosome> {
 
@@ -16,6 +19,7 @@ public class GeneticAlgorithm extends Task<Chromosome> {
     private NewPopulationGenerator populationGenerator;
     private FitnessFunction fitnessFunction;
     private String fitnessFunctionReport;
+    private Map<Integer, Integer> iterationsMaxResults = new HashMap<>();
 
     public GeneticAlgorithm(InitialPopulationGenerator initialGenerator, NewPopulationGenerator populationGenerator,
                             FitnessFunction fitnessFunction, int numberOfIterations) {
@@ -25,6 +29,10 @@ public class GeneticAlgorithm extends Task<Chromosome> {
         this.numberOfIterations = numberOfIterations;
     }
 
+    public Map<Integer, Integer> getIterationsMaxResults() {
+        return iterationsMaxResults;
+    }
+
     @Override
     protected Chromosome call() throws Exception {
         List<Chromosome> population = initialGenerator.generatePopulation();
@@ -32,6 +40,10 @@ public class GeneticAlgorithm extends Task<Chromosome> {
         int iteration = 0;
         while (nextPopulation(iteration)) {
             fitnessFunction.calculateFitness(population);
+            OptionalInt max = population.stream().mapToInt(c -> c.getFitness().getFitnessValue()).max();
+            if (max.isPresent()) {
+                iterationsMaxResults.put(iteration, max.getAsInt());
+            }
             population = populationGenerator.generateNewPopulation(population);
             iteration++;
             this.updateProgress(iteration, numberOfIterations);
