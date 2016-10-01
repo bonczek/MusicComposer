@@ -17,6 +17,7 @@ import genetic.representation.Chromosome;
 import genetic.selection.BinaryTournamentSelection;
 import genetic.util.Converter;
 import gui.model.GeneticAlgorithmConfigurationModel;
+import gui.model.ProgressForm;
 import gui.model.RuleFeatureModel;
 import gui.model.SpinnerAutoCommit;
 import gui.model.StatisticalFeatureModel;
@@ -147,13 +148,23 @@ public class MainController implements Initializable {
     private void runAlgorithm(ActionEvent event) {
         try {
             GeneticAlgorithm algorithm = prepareAlgorithmConfiguration();
-            Chromosome result = algorithm.run();
-            String report = algorithm.getFitnessFunctionReport();
-            System.out.println(algorithm.getFitnessFunctionReport());
-            openResultWindow(report);
-            Score score = Converter.convertToJMusicScore(result);
-            score.setTempo(configurationModel.getTempo());
-            View.notate(score);
+            ProgressForm progressForm = new ProgressForm();
+            progressForm.activateProgressBar(algorithm);
+            algorithm.setOnSucceeded(e -> {
+                progressForm.getDialogStage().close();
+                Chromosome result = (Chromosome) e.getSource().getValue();
+                String report = algorithm.getFitnessFunctionReport();
+                System.out.println(algorithm.getFitnessFunctionReport());
+                openResultWindow(report);
+                Score score = Converter.convertToJMusicScore(result);
+                score.setTempo(configurationModel.getTempo());
+                View.notate(score);
+            });
+
+            progressForm.getDialogStage().show();
+            Thread thread = new Thread(algorithm);
+            thread.setDaemon(false);
+            thread.start();
         } catch (Exception e) {
             showErrorWindow(e);
         }

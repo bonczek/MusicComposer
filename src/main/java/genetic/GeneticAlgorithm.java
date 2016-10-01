@@ -4,11 +4,12 @@ import genetic.fitness.function.FitnessFunction;
 import genetic.initial.InitialPopulationGenerator;
 import genetic.representation.Chromosome;
 import genetic.util.Converter;
+import javafx.concurrent.Task;
 
 import java.util.List;
 import java.util.Optional;
 
-public class GeneticAlgorithm {
+public class GeneticAlgorithm extends Task<Chromosome> {
 
     private final int numberOfIterations;
     private InitialPopulationGenerator initialGenerator;
@@ -24,11 +25,8 @@ public class GeneticAlgorithm {
         this.numberOfIterations = numberOfIterations;
     }
 
-    public String getFitnessFunctionReport() {
-        return fitnessFunctionReport;
-    }
-
-    public Chromosome run() throws RuntimeException {
+    @Override
+    protected Chromosome call() throws Exception {
         List<Chromosome> population = initialGenerator.generatePopulation();
 
         int iteration = 0;
@@ -36,6 +34,7 @@ public class GeneticAlgorithm {
             fitnessFunction.calculateFitness(population);
             population = populationGenerator.generateNewPopulation(population);
             iteration++;
+            this.updateProgress(iteration, numberOfIterations);
         }
 
         fitnessFunction.calculateFitness(population);
@@ -51,6 +50,10 @@ public class GeneticAlgorithm {
         }
     }
 
+    public String getFitnessFunctionReport() {
+        return fitnessFunctionReport;
+    }
+
     private boolean nextPopulation(int iteration) {
         return iteration <= numberOfIterations;
     }
@@ -61,4 +64,6 @@ public class GeneticAlgorithm {
             System.out.println(String.format("%s: %d", formatted, chromosome.getFitness().getFitnessValue()));
         }
     }
+
+
 }
