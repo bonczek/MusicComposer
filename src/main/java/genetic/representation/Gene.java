@@ -1,28 +1,30 @@
 package genetic.representation;
 
 /**
- * Gene is representation of single note/rest/tenuto coded as number.
- * There is no information about type of note inside.
- * It should be parsed to {@link Note} after GA ends.
+ * Gene is part of genotype, that it's coded in {@link Chromosome}.
+ * It is a single int value.
  */
 public class Gene {
 
-    private Short value;
+    private int value;
 
-    public Gene(Short value) {
+    public Gene(int value) {
         this.value = value;
     }
 
-    public Gene(Integer value) {
-        this.value = value.shortValue();
-    }
-
-    public Short getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
-        this.value = value.shortValue();
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Gene{" +
+                "value=" + value +
+                '}';
     }
 
     @Override
@@ -32,20 +34,11 @@ public class Gene {
 
         Gene gene = (Gene) o;
 
-        if (!value.equals(gene.value)) return false;
-
-        return true;
+        return value == gene.value;
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Gene{" +
-                "value=" + value +
-                '}';
+        return value;
     }
 }

@@ -11,23 +11,15 @@ import java.util.stream.Collectors;
  * Chromosome is main component of composition, it is a container for genes {@link Gene}.
  * GA applying crossover, mutation and selection operators on chromosomes and every chromosome can be measured by his
  * fitness.
- * There is no size limit for chromosome. It can be single measure of music or whole composition, but it should be
- * multiplication of NOTES_IN_MEASURE.
  */
 public class Chromosome {
 
-    protected final List<Gene> genes;
-    private final int size;
+    private final List<Gene> genes;
     private Fitness fitness;
 
     public Chromosome(List<Gene> genes) {
-        this.genes = genes;
-        this.size = genes.size();
+        this.genes = new ArrayList<>(genes);
         this.fitness = new Fitness();
-    }
-
-    public static Chromosome createCopy(Chromosome chromosome) {
-        return new Chromosome(chromosome.getPart(0, chromosome.getSize()));
     }
 
     public Fitness getFitness() {
@@ -39,78 +31,46 @@ public class Chromosome {
     }
 
     public List<Integer> getGenesValues() {
-        return genes.stream().map(gene -> gene.getValue().intValue()).collect(Collectors.toList());
+        return genes.stream().map(Gene::getValue).collect(Collectors.toList());
     }
 
     public int getSize() {
-        return size;
+        return genes.size();
     }
 
     public Gene getGene(int index) throws IndexOutOfBoundsException {
-        if (index < size) {
-            return genes.get(index);
+        Gene gene = genes.get(index);
+        if (gene != null) {
+            return new Gene(gene.getValue());
         } else {
-            throw new IndexOutOfBoundsException(String.format("Cannot find in chromosome gen with index: %d.", index));
+            return null;
         }
     }
 
-    public void setGene(int index, Gene value) throws IndexOutOfBoundsException {
-        if (index < size) {
-            genes.set(index, value);
-        } else {
-            throw new IndexOutOfBoundsException(String.format("Cannot find in chromosome gen with index: %d.", index));
-        }
+    public void setGene(int index, Gene gene) throws IndexOutOfBoundsException {
+        genes.set(index, gene);
     }
 
-    public List<Gene> getPart(int fromIndex, int toIndex) {
-        //@todo toIndex > fromIndex ...
-        if (toIndex < size + 1 && fromIndex >= 0) {
-            return new ArrayList<>(genes.subList(fromIndex, toIndex));
-        } else {
-            throw new IndexOutOfBoundsException(String.format("Cannot find in chromosome gen with index: %d.", toIndex));
-        }
+    public List<Gene> getPart(int fromIndex, int toIndex) throws IndexOutOfBoundsException {
+        return genes.subList(fromIndex, toIndex).stream().map(g -> new Gene(g.getValue())).collect(Collectors.toList());
     }
 
-    public void setPart(List<Gene> part, int fromIndex, int toIndex) {
-        //part.size < toIndex - fromIndex
-        if (toIndex < size + 1 && fromIndex >= 0) {
+    public void setPart(List<Gene> part, int fromIndex, int toIndex) throws IndexOutOfBoundsException {
+        if (toIndex < genes.size() + 1 && fromIndex >= 0 && toIndex > fromIndex) {
             int i = fromIndex;
             for (Gene gene : part) {
                 genes.set(i, gene);
                 i++;
             }
+        } else {
+            throw new IndexOutOfBoundsException(String.format("Failed to set new values for genes in chromosome. " +
+                    "Invalid indexes - start: %d, end: %d", fromIndex, toIndex));
         }
     }
 
     @Override
     public String toString() {
         return genes.stream().map(Gene::getValue).map(Object::toString).collect(Collectors.joining("|"));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        //@todo
-        Chromosome that = (Chromosome) o;
-
-        if (size != that.size) return false;
-        for (int i = 0; i < size; i++) {
-            if (!genes.get(i).getValue().equals(that.genes.get(i).getValue())) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        //@todo
-        int result = genes.hashCode();
-        result = 31 * result + size;
-        return result;
     }
 
     public Chromosome mutate(Mutation mutation) {

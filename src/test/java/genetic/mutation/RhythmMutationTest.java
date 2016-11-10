@@ -32,7 +32,7 @@ public class RhythmMutationTest {
         Chromosome beforeMutation = ChromosomeData.prepareFourMeasuresChromosome();
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i >= mutationIndex && i < mutationIndex + halfNoteLength) {
-                assertThat(mutated.getGene(i).getValue(), is(new Integer(Constants.TENUTO.value()).shortValue()));
+                assertThat(mutated.getGene(i).getValue(), is(Constants.TENUTO.value()));
             } else {
                 assertThat(mutated.getGene(i).equals(beforeMutation.getGene(i)), is(true));
             }
@@ -53,7 +53,7 @@ public class RhythmMutationTest {
         Chromosome beforeMutation = ChromosomeData.prepareFourMeasuresChromosome();
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i >= mutationIndex && i < mutationIndex + wholeNoteLength) {
-                assertThat(mutated.getGene(i).getValue(), is(new Integer(Constants.TENUTO.value()).shortValue()));
+                assertThat(mutated.getGene(i).getValue(), is(Constants.TENUTO.value()));
             } else {
                 assertThat(mutated.getGene(i).equals(beforeMutation.getGene(i)), is(true));
             }
@@ -75,7 +75,7 @@ public class RhythmMutationTest {
         Chromosome beforeMutation = ChromosomeData.prepareFourMeasuresChromosome();
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i == mutationIndex) {
-                assertThat(mutated.getGene(i).getValue(), is((short) midi));
+                assertThat(mutated.getGene(i).getValue(), is(midi));
             } else {
                 assertThat(mutated.getGene(i).equals(beforeMutation.getGene(i)), is(true));
             }

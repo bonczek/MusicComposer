@@ -24,7 +24,7 @@ public class ChromosomeData {
     }
 
     public static Chromosome createWithIntegerValues(List<Integer> values) {
-        List<Gene> genes = values.stream().map(value -> new Gene(value.shortValue())).collect(Collectors.toList());
+        List<Gene> genes = values.stream().map(Gene::new).collect(Collectors.toList());
         return new Chromosome(genes);
     }
 

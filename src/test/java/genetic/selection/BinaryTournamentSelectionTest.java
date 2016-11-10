@@ -29,8 +29,8 @@ public class BinaryTournamentSelectionTest {
         when(numberGenerator.nextInt(population.size())).thenReturn(0, 1, 2, 0);
         ChromosomePair selected = selection.selectChromosomes(population);
 
-        assertThat(selected.getFirst(), is(population.get(0)));
-        assertThat(selected.getSecond(), is(population.get(2)));
+        assertThat(selected.getFirst().getGenesValues(), is(population.get(0).getGenesValues()));
+        assertThat(selected.getSecond().getGenesValues(), is(population.get(2).getGenesValues()));
     }
 
     private List<Chromosome> prepareChromosomes() {

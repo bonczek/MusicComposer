@@ -2,6 +2,7 @@ package genetic.mutation;
 
 import genetic.representation.Chromosome;
 import genetic.representation.Constants;
+import genetic.representation.Gene;
 
 import java.util.Random;
 
@@ -30,12 +31,12 @@ public class RhythmMutation extends GeneticMutation {
         int numberOfExtensionValues = randomGenerator.nextInt(maxExtensionValues);
         int mutationIndex = randomGenerator.nextInt(chromosome.getSize() - numberOfExtensionValues);
         for (int i = mutationIndex; i < mutationIndex + numberOfExtensionValues; i++) {
-            chromosome.getGene(i).setValue(Constants.TENUTO.value());
+            chromosome.setGene(i, new Gene(Constants.TENUTO.value()));
         }
     }
 
     private void putRandomNewSound(Chromosome chromosome) {
         int mutationIndex = randomGenerator.nextInt(chromosome.getSize());
-        chromosome.getGene(mutationIndex).setValue(randomGenerator.nextInt(NUMBER_OF_MIDI_VALUES));
+        chromosome.setGene(mutationIndex, new Gene(randomGenerator.nextInt(NUMBER_OF_MIDI_VALUES)));
     }
 }

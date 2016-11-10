@@ -2,6 +2,7 @@ package genetic.mutation;
 
 import genetic.representation.Chromosome;
 import genetic.representation.Constants;
+import genetic.representation.Gene;
 import genetic.util.Converter;
 import jm.constants.Durations;
 import music.notes.Note;
@@ -47,7 +48,7 @@ public class LongShortNotesMutation extends GeneticMutation {
         } else {
             newGeneValue = Constants.REST.value();
         }
-        chromosome.getGene(newNoteIndex).setValue(newGeneValue);
+        chromosome.setGene(newNoteIndex, new Gene(newGeneValue));
     }
 
     private void extendShortNoteRhythmicValue(int noteStartIndex, Note shortNote, Chromosome chromosome) {
@@ -56,7 +57,7 @@ public class LongShortNotesMutation extends GeneticMutation {
         int extendedNumberOfGenes = numberOfNoteGenes + numberOfExtensionGenes;
         for (int i = noteStartIndex + numberOfNoteGenes; i < noteStartIndex + extendedNumberOfGenes; i++) {
             if (i < chromosome.getSize()) {
-                chromosome.getGene(i).setValue(Constants.TENUTO.value());
+                chromosome.setGene(i, new Gene(Constants.TENUTO.value()));
             }
         }
     }

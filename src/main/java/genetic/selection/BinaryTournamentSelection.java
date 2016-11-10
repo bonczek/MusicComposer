@@ -16,8 +16,8 @@ public class BinaryTournamentSelection implements GeneticSelector {
 
     @Override
     public ChromosomePair selectChromosomes(List<Chromosome> population) {
-        Chromosome first = Chromosome.createCopy(binaryTournamentSelection(population));
-        Chromosome second = Chromosome.createCopy(binaryTournamentSelection(population));
+        Chromosome first = binaryTournamentSelection(population);
+        Chromosome second = binaryTournamentSelection(population);
         return new ChromosomePair(first, second);
     }
 
@@ -28,9 +28,9 @@ public class BinaryTournamentSelection implements GeneticSelector {
         Chromosome secondParent = population.get(secondParentIndex);
 
         if (firstParent.getFitness().getFitnessValue() > secondParent.getFitness().getFitnessValue()) {
-            return firstParent;
+            return new Chromosome(firstParent.getPart(0, firstParent.getSize()));
         } else {
-            return secondParent;
+            return new Chromosome(secondParent.getPart(0, secondParent.getSize()));
         }
     }
 }

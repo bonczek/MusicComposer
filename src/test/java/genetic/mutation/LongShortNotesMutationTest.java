@@ -36,9 +36,9 @@ public class LongShortNotesMutationTest {
 
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i == indexOfNewNote) {
-                assertThat(mutated.getGene(i).getValue(), is(new Integer(2).shortValue()));
+                assertThat(mutated.getGene(i).getValue(), is(2));
             } else {
-                assertThat(mutated.getGene(i).getValue(), is(testValues[i].shortValue()));
+                assertThat(mutated.getGene(i).getValue(), is(testValues[i]));
             }
         }
     }
@@ -57,9 +57,9 @@ public class LongShortNotesMutationTest {
         Chromosome mutated = mutation.mutate(chromosome);
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i == indexOfNewTenuto) {
-                assertThat(mutated.getGene(i).getValue(), is((short) Constants.TENUTO.value()));
+                assertThat(mutated.getGene(i).getValue(), is(Constants.TENUTO.value()));
             } else {
-                assertThat(mutated.getGene(i).getValue(), is(testValues[i].shortValue()));
+                assertThat(mutated.getGene(i).getValue(), is(testValues[i]));
             }
         }
     }

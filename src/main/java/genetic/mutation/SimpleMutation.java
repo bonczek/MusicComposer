@@ -2,6 +2,7 @@ package genetic.mutation;
 
 import genetic.representation.Chromosome;
 import genetic.representation.Constants;
+import genetic.representation.Gene;
 
 import java.util.Random;
 
@@ -16,7 +17,7 @@ public class SimpleMutation extends GeneticMutation {
     public Chromosome mutate(Chromosome chromosome) {
         int geneIndex = randomGenerator.nextInt(chromosome.getSize());
         int geneValue = randomGenerator.nextInt(Constants.MAX_MIDI_VALUE.value() + 3) - 2;
-        chromosome.getGene(geneIndex).setValue(geneValue);
+        chromosome.setGene(geneIndex, new Gene(geneValue));
         return chromosome;
     }
 }
