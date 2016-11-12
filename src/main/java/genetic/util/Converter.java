@@ -1,8 +1,8 @@
 package genetic.util;
 
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
 import genetic.representation.Gene;
+import genetic.representation.GeneConstants;
 import jm.constants.Durations;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
@@ -90,11 +90,11 @@ public class Converter {
                 Sound sound = (Sound) note;
                 genes.add(new Gene(sound.getPitch().getMidiValue()));
             } else if (note instanceof Rest) {
-                genes.add(new Gene(Constants.REST.value()));
+                genes.add(new Gene(GeneConstants.REST.value()));
             }
             double tenutoRhytm = note.getRhythmValue() - DEFAULT_RHYTHMIC_VALUE;
             while (Double.compare(tenutoRhytm, 0.0) > 0) {
-                genes.add(new Gene(Constants.TENUTO.value()));
+                genes.add(new Gene(GeneConstants.TENUTO.value()));
                 tenutoRhytm = tenutoRhytm - DEFAULT_RHYTHMIC_VALUE;
             }
         }

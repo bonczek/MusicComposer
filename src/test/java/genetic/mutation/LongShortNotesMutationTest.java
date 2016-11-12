@@ -2,7 +2,7 @@ package genetic.mutation;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
+import genetic.representation.GeneConstants;
 import genetic.util.ChromosomeData;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
@@ -57,7 +57,7 @@ public class LongShortNotesMutationTest {
         Chromosome mutated = mutation.mutate(chromosome);
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i == indexOfNewTenuto) {
-                assertThat(mutated.getGene(i).getValue(), is(Constants.TENUTO.value()));
+                assertThat(mutated.getGene(i).getValue(), is(GeneConstants.TENUTO.value()));
             } else {
                 assertThat(mutated.getGene(i).getValue(), is(testValues[i]));
             }

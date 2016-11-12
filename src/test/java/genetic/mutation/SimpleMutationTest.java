@@ -1,7 +1,7 @@
 package genetic.mutation;
 
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
+import genetic.representation.GeneConstants;
 import genetic.util.ChromosomeData;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
@@ -24,7 +24,7 @@ public class SimpleMutationTest {
     public void testMutateChromosome() throws Exception {
         List<Chromosome> chromosomes = prepareData();
         when(randomMock.nextInt(chromosomes.get(0).getSize())).thenReturn(2, 3);
-        when(randomMock.nextInt(Constants.MAX_MIDI_VALUE.value() + 3)).thenReturn(9, 0);
+        when(randomMock.nextInt(GeneConstants.MAX_MIDI_VALUE.value() + 3)).thenReturn(9, 0);
         chromosomes.forEach(mutation::mutate);
 
         assertThat(chromosomes.get(0).getGenesValues(), contains(4, 4, 7, 2, 6, 1, 3, 5));

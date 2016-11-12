@@ -2,7 +2,7 @@ package genetic.util;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
+import genetic.representation.GeneConstants;
 import jm.constants.Durations;
 import jm.constants.Pitches;
 import jm.music.data.Phrase;
@@ -77,14 +77,14 @@ public class ConverterTest {
 
         Chromosome chromosome = Converter.fromNotes(noteList, 16);
         assertThat(chromosome.getGene(0).getValue(), is(33));
-        assertThat(chromosome.getGene(1).getValue(), is(Constants.REST.value()));
+        assertThat(chromosome.getGene(1).getValue(), is(GeneConstants.REST.value()));
         assertThat(chromosome.getGene(9).getValue(), is(98));
-        assertThat(chromosome.getGene(13).getValue(), is(Constants.REST.value()));
+        assertThat(chromosome.getGene(13).getValue(), is(GeneConstants.REST.value()));
         for (int i = 2; i < 16; i++) {
             if (i == 9 || i == 13) {
                 continue;
             }
-            assertThat(chromosome.getGene(i).getValue(), is(Constants.TENUTO.value()));
+            assertThat(chromosome.getGene(i).getValue(), is(GeneConstants.TENUTO.value()));
         }
     }
 

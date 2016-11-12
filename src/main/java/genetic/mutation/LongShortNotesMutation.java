@@ -1,8 +1,8 @@
 package genetic.mutation;
 
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
 import genetic.representation.Gene;
+import genetic.representation.GeneConstants;
 import genetic.util.Converter;
 import jm.constants.Durations;
 import music.notes.Note;
@@ -46,7 +46,7 @@ public class LongShortNotesMutation extends GeneticMutation {
             Sound sound = (Sound) longNote;
             newGeneValue = sound.getPitch().getMidiValue();
         } else {
-            newGeneValue = Constants.REST.value();
+            newGeneValue = GeneConstants.REST.value();
         }
         chromosome.setGene(newNoteIndex, new Gene(newGeneValue));
     }
@@ -57,7 +57,7 @@ public class LongShortNotesMutation extends GeneticMutation {
         int extendedNumberOfGenes = numberOfNoteGenes + numberOfExtensionGenes;
         for (int i = noteStartIndex + numberOfNoteGenes; i < noteStartIndex + extendedNumberOfGenes; i++) {
             if (i < chromosome.getSize()) {
-                chromosome.setGene(i, new Gene(Constants.TENUTO.value()));
+                chromosome.setGene(i, new Gene(GeneConstants.TENUTO.value()));
             }
         }
     }

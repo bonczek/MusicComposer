@@ -1,8 +1,8 @@
 package genetic.mutation;
 
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
 import genetic.representation.Gene;
+import genetic.representation.GeneConstants;
 
 import java.util.Random;
 
@@ -31,7 +31,7 @@ public class RhythmMutation extends GeneticMutation {
         int numberOfExtensionValues = randomGenerator.nextInt(maxExtensionValues);
         int mutationIndex = randomGenerator.nextInt(chromosome.getSize() - numberOfExtensionValues);
         for (int i = mutationIndex; i < mutationIndex + numberOfExtensionValues; i++) {
-            chromosome.setGene(i, new Gene(Constants.TENUTO.value()));
+            chromosome.setGene(i, new Gene(GeneConstants.TENUTO.value()));
         }
     }
 

@@ -2,7 +2,7 @@ package genetic.mutation;
 
 import genetic.initial.InitialPopulationGenerator;
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
+import genetic.representation.GeneConstants;
 import genetic.util.ChromosomeData;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
@@ -32,7 +32,7 @@ public class RhythmMutationTest {
         Chromosome beforeMutation = ChromosomeData.prepareFourMeasuresChromosome();
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i >= mutationIndex && i < mutationIndex + halfNoteLength) {
-                assertThat(mutated.getGene(i).getValue(), is(Constants.TENUTO.value()));
+                assertThat(mutated.getGene(i).getValue(), is(GeneConstants.TENUTO.value()));
             } else {
                 assertThat(mutated.getGene(i).equals(beforeMutation.getGene(i)), is(true));
             }
@@ -53,7 +53,7 @@ public class RhythmMutationTest {
         Chromosome beforeMutation = ChromosomeData.prepareFourMeasuresChromosome();
         for (int i = 0; i < mutated.getSize(); i++) {
             if (i >= mutationIndex && i < mutationIndex + wholeNoteLength) {
-                assertThat(mutated.getGene(i).getValue(), is(Constants.TENUTO.value()));
+                assertThat(mutated.getGene(i).getValue(), is(GeneConstants.TENUTO.value()));
             } else {
                 assertThat(mutated.getGene(i).equals(beforeMutation.getGene(i)), is(true));
             }

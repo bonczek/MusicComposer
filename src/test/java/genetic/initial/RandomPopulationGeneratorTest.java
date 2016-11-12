@@ -1,7 +1,7 @@
 package genetic.initial;
 
 import genetic.representation.Chromosome;
-import genetic.representation.Constants;
+import genetic.representation.GeneConstants;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
@@ -25,7 +25,7 @@ public class RandomPopulationGeneratorTest {
     @Test
     public void testGeneratePopulation() throws Exception {
 
-        when(randomMock.nextInt(Constants.MAX_MIDI_VALUE.value() + 3)).thenReturn(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
+        when(randomMock.nextInt(GeneConstants.MAX_MIDI_VALUE.value() + 3)).thenReturn(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
                 3, 4, 0);
         List<Chromosome> population = populationGenerator.generatePopulation();
 
